@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE C_BPARTNER">
+    <table name="C_BPARTNER" primaryKey="C_BPARTNER_KEY">
+      <column name="EM_SCPPR_APPROVER" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="AD_USER" name="EM_SCPPR_APPROVER_FK">
+        <reference local="EM_SCPPR_APPROVER" foreign="AD_USER_ID"/>
+      </foreign-key>
+    </table>
+  </database>

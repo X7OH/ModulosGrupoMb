@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SSCMB_VALIDATE_PRODUCT_EXIST">
+    <function name="SSCMB_VALIDATE_PRODUCT_EXIST" type="NULL">
+      <parameter name="p_ep_instance" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[v_ResultStr VARCHAR2(2000):='';
+p_record_id         VARCHAR2(60);      
+v_docbasetype	    VARCHAR2(60);      
+v_isreturn	    VARCHAR2(1);      
+v_issotrx	    VARCHAR2(1);      
+
+v_linecounter       NUMBER(32);       --OBTG:VARCHAR2--
+v_product_name	    VARCHAR2(60);      
+
+TYPE RECORD IS REF CURSOR;
+cur_params          RECORD;
+cur_lines           RECORD;
+
+BEGIN
+
+  FOR cur_params IN (
+    SELECT *
+    FROM ad_ep_instance_para
+    WHERE ad_ep_instance_id = p_ep_instance
+    ) LOOP
+    IF (cur_params.parametername LIKE 'Record_ID') THEN
+      p_record_id := cur_params.p_string;
+    END IF;
+  END LOOP;
+  
+
+  FOR cur_lines IN (
+    SELECT *
+    FROM m_inoutline
+    WHERE m_inout_id = p_record_id
+    ) LOOP	
+
+	IF((SELECT m_product_id FROM m_inoutline WHERE m_inoutline_id=cur_lines.m_inoutline_id)IS NULL) THEN
+			RAISE_APPLICATION_ERROR(-20000, 'La línea '||cur_lines.line||' no tiene un producto asignado');
+        END IF;
+	
+END LOOP;
+
+EXCEPTION
+WHEN OTHERS THEN
+  DBMS_OUTPUT.PUT_LINE( v_ResultStr);
+  RAISE;
+END SSCMB_VALIDATE_PRODUCT_EXIST
+]]></body>
+    </function>
+  </database>

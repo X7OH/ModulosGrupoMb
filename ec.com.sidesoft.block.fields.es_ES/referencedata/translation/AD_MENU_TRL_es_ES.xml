@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="3422F29F45394CB89F289B04AA95E662" trl="N">
+    <value column="Name" isTrl="Y" original="Block Fields by User">Bloqueo de Campos por Usuario</value>
+    <value column="Description" isTrl="Y" original="Block Fields by User">Bloqueo de Campos por Usuario</value>
+  </row>
+</compiereTrl>

@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SAQB_DELETEPAYMENTDETAIL">
+    <function name="SAQB_DELETEPAYMENTDETAIL" type="NULL">
+      <parameter name="p_ep_instance" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[p_message VARCHAR(2000);
+p_record_id VARCHAR(60);
+p_docAction VARCHAR(60);
+p_user VARCHAR(60);
+p_result NUMBER;
+
+v_docaction VARCHAR2(60);
+v_docstatus VARCHAR2(60);
+v_processed VARCHAR2(60);
+v_ResultStr VARCHAR2(2000);
+v_issotrx VARCHAR2(60);
+v_subtype VARCHAR2(60);
+
+TYPE RECORD IS REF CURSOR;
+Cur_Params RECORD;
+
+BEGIN
+
+  FOR Cur_Params IN (
+    SELECT *
+    FROM ad_ep_instance_para
+    WHERE ad_ep_instance_id = p_ep_instance
+    ) LOOP
+    IF (cur_params.parametername LIKE 'DocAction') THEN
+      p_docaction := Cur_Params.p_string;
+    ELSIF (cur_params.parametername LIKE 'Record_ID') THEN
+      p_record_id := cur_params.p_string;
+    ELSIF (cur_params.parametername LIKE 'User') THEN
+      p_user := cur_params.p_string;
+    ELSIF (cur_params.parametername LIKE 'Message') THEN
+      p_message := cur_params.p_text;
+    ELSIF (cur_params.parametername LIKE 'Result') THEN
+      p_result := cur_params.p_number;
+    END IF;
+  END LOOP;
+
+  SELECT docaction,docstatus, processed, co.issotrx,dt.DocSubTypeSO
+  INTO v_docaction,v_docstatus, v_processed, v_issotrx,v_subtype
+  FROM c_order co
+  LEFT JOIN c_doctype dt ON  co.c_doctype_id = dt.c_doctype_id
+  WHERE c_order_id=p_record_id;
+
+	IF (v_docaction='--' AND v_docstatus='CO' AND  v_processed='Y' AND v_issotrx='Y' AND v_subtype NOT LIKE 'OB' ) THEN
+	    UPDATE c_order SET em_saqb_paymentdetail=NULL WHERE c_order_id=p_record_id;
+	END IF;
+ 
+EXCEPTION
+WHEN OTHERS THEN
+v_ResultStr =SQLERRM;
+  DBMS_OUTPUT.PUT_LINE( v_ResultStr);
+  RAISE v_ResultStr;
+END SAQB_DELETEPAYMENTDETAIL
+]]></body>
+    </function>
+  </database>

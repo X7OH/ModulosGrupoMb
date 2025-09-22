@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MODULE" version="">
+  <row id="0D23EA2C0BC047F3B324F3063354C02B" trl="N">
+    <value column="Description" isTrl="Y" original="Sales">Sales Cost</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="License" isTrl="N" original=""/>
+    <value column="Updateinfo" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

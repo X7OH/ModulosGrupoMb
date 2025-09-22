@@ -1,0 +1,1040 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SCMF_STOCK_MRP">
+    <function name="SCMF_STOCK_MRP" type="NULL">
+      <parameter name="p_pinstance_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[/*************************************************************************
+  * The contents of this file are subject to the Compiere Public
+  * License 1.1 ("License"); You may not use this file except in
+  * compliance with the License. You may obtain a copy of the License in
+  * the legal folder of your Openbravo installation.
+  * Software distributed under the License is distributed on an
+  * "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
+  * implied. See the License for the specific language governing rights
+  * and limitations under the License.
+  * The Original Code is  Compiere  ERP &  Business Solution
+  * The Initial Developer of the Original Code is Jorg Janke and ComPiere, Inc.
+  * Portions created by Jorg Janke are Copyright (C) 1999-2001 Jorg Janke,
+  * parts created by ComPiere are Copyright (C) ComPiere, Inc.;
+  * All Rights Reserved.
+  * Contributor(s): Openbravo SLU
+  * Contributions are Copyright (C) 2001-2008 Openbravo, S.L.U.
+  *
+  * Specifically, this derivative work is based upon the following Compiere
+  * file and version.
+  *************************************************************************
+  * Cancel Invoices of order by reversing it
+  */
+  -- Logistice
+v_ResultStr VARCHAR2(2000):='';
+v_Message VARCHAR2(2000):='';
+v_Record_ID VARCHAR2(32);
+v_AD_Client_ID VARCHAR2(32);
+V_TypeSalesForecast	CHAR(10); 	--OBTG:VARCHAR2--
+V_Product_ID		VARCHAR(32); 	--OBTG:VARCHAR2--
+V_RecorTemp		VARCHAR(32); 	--OBTG:VARCHAR2--
+V_RecorTemp2		VARCHAR(32); 	--OBTG:VARCHAR2--
+V_RecorTemp3		VARCHAR(32); 	--OBTG:VARCHAR2--
+V_ForecastByMonthID	VARCHAR(32); 	--OBTG:VARCHAR2--
+v_Client_ID		VARCHAR(32); 	--OBTG:VARCHAR2--
+v_Org_ID		VARCHAR(32); 	--OBTG:VARCHAR2--
+v_User_ID		VARCHAR(32); 	--OBTG:VARCHAR2--
+V_StringDate 		VARCHAR(10); 	--OBTG:VARCHAR2--
+V_HistoryMonth		VARCHAR(10); 	--OBTG:VARCHAR2--
+
+
+V_Dateto	 DATE;
+V_DateFrom	 DATE;
+V_NewDateFrom	 DATE;
+V_NewDateto	 DATE;
+V_DateStart	 DATE;
+V_DateEnd	 DATE;
+
+V_NumberWeek	 NUMBER(30);	--OBTG:NUMBER--
+V_CountSales	 NUMBER(30,4);	--OBTG:NUMBER--
+V_Average	 NUMBER(30,4);	--OBTG:NUMBER--
+V_Percentage	 NUMBER(30,4);	--OBTG:NUMBER--
+v_WeekOrDay	 NUMBER(30,4);	--OBTG:NUMBER--
+
+V_Historydays	 NUMBER(30,4);	--OBTG:NUMBER--
+V_YearsNumber	 NUMBER(30,4);	--OBTG:NUMBER--
+V_DayForecast	 NUMBER(30,4);	--OBTG:NUMBER--
+V_AcumSquareDifference  NUMBER(30,4);	--OBTG:NUMBER--
+V_SalesWeek   	 NUMBER(30,4);	--OBTG:NUMBER--
+V_SalesAverage	 NUMBER(30,4);	--OBTG:NUMBER--
+V_SquareDifference  NUMBER(30,4);	--OBTG:NUMBER--
+V_NewLine 	 NUMBER(30,4);	--OBTG:NUMBER--
+V_Variance 	 NUMBER(30,4);	--OBTG:NUMBER--  
+V_DeviationStandar  NUMBER(30,4);	--OBTG:NUMBER-- 
+V_Qty_Media   	 NUMBER(30,4);	--OBTG:NUMBER--
+V_Media   	 NUMBER(30,4);	--OBTG:NUMBER--
+V_ResultMedia	 NUMBER(30,4);	--OBTG:NUMBER--
+V_StockMin1	 NUMBER(30,4);	--OBTG:NUMBER--
+V_StockMin2	 NUMBER(30,4);	--OBTG:NUMBER--
+V_YearsFrom 	 NUMBER(30,4);	--OBTG:NUMBER--
+V_YearsAux  	 NUMBER(30,4);	--OBTG:NUMBER--
+V_YearsEnd 	 NUMBER(30,4);	--OBTG:NUMBER--
+V_MonthDifference   NUMBER(30,4);	--OBTG:NUMBER--
+V_DaysByWeek   	 NUMBER(30,4);	--OBTG:NUMBER--
+V_CountWeek   	 NUMBER(30,4);	--OBTG:NUMBER--
+V_NumberDay   	 NUMBER(30,4);	--OBTG:NUMBER--
+V_Total   	 NUMBER(30,4);	--OBTG:NUMBER--
+V_TotalDay    	 NUMBER(30,4);	--OBTG:NUMBER--
+V_TOTALFORECAST	 NUMBER(30,4);	--OBTG:NUMBER--
+v_n_insertions	 NUMBER(30,4);	--OBTG:NUMBER--
+V_AuxNumberWeek	 NUMBER(30);	--OBTG:NUMBER--
+V_CountSales2	 NUMBER(30);	--OBTG:NUMBER--
+V_LineMin 	 NUMBER(30);	--OBTG:NUMBER--
+V_MediaLine	 NUMBER(30);	--OBTG:NUMBER--
+V_xi		 NUMBER(30);	--OBTG:NUMBER--
+V_yi		 NUMBER(30);	--OBTG:NUMBER--
+V_CountSales3	 NUMBER(30);	--OBTG:NUMBER--	
+V_xi_yi		 NUMBER(30);	--OBTG:NUMBER--
+V_xiSquare	 NUMBER(30);	--OBTG:NUMBER--	
+V_yiSquare	 NUMBER(30);	--OBTG:NUMBER--
+V_AuxHistoryDays NUMBER(30);	--OBTG:NUMBER--
+V_CountRegressionLine NUMBER(30);	--OBTG:NUMBER--
+V_Total_XDays 	 NUMBER(30);	--OBTG:NUMBER--
+V_Media_X	 NUMBER(30,4);	--OBTG:NUMBER--
+V_Media_Y	 NUMBER(30,4);	--OBTG:NUMBER--
+V_Covariance	 NUMBER(30,4);	--OBTG:NUMBER--
+V_Variance_X	 NUMBER(30,4);	--OBTG:NUMBER--
+V_Incline	 NUMBER(30,4);	--OBTG:NUMBER--
+V_DispersionValue NUMBER(30,4);	--OBTG:NUMBER--
+V_Increase	 NUMBER(30,4);	--OBTG:NUMBER--
+V_StockMinEnd	 NUMBER(30,4);	--OBTG:NUMBER--
+V_CountRecordTableDateForecast NUMBER ;	--OBTG:NUMBER--
+V_CoefficientVariation NUMBER(30,8);	--OBTG:NUMBER--
+
+  -- Parameter
+  TYPE RECORD IS REF CURSOR;
+    Cur_Parameter 	RECORD;
+    CUR_PRODUCT		RECORD;
+    CUR_CALCULATE	RECORD;
+    CUR_MEDIANA		RECORD;
+    CUR_ORGANIZATION	RECORD;
+    -- Parameter Variables
+
+  BEGIN
+
+--RAISE EXCEPTION '%' ,p_pinstance_id ;
+
+    --  Update AD_PInstance
+    DBMS_OUTPUT.PUT_LINE('Updating PInstance - Processing ' || p_PInstance_ID) ;
+    v_ResultStr:='PInstanceNotFound';
+    --PERFORM AD_UPDATE_PINSTANCE(p_PInstance_ID, NULL, 'Y', NULL, NULL) ;
+  BEGIN --BODY
+
+    -- Get Parameters
+    v_ResultStr := 'ReadingParameters';
+    v_n_insertions:=0;
+
+   FOR Cur_Parameter IN
+      (SELECT i.Record_ID,
+      p.ParameterName,
+        p.P_String,
+        p.P_Number,
+        p.P_Date,
+        p.AD_Client_ID,
+        p.AD_Org_ID,
+        p.CreatedBy   
+      FROM AD_PInstance i 
+      LEFT JOIN AD_PInstance_Para p
+           ON i.AD_PInstance_ID = p.AD_PInstance_ID
+      WHERE i.AD_PInstance_ID = p_PInstance_ID
+      ORDER BY p.SeqNo       
+      )
+    LOOP
+
+	    IF (Cur_Parameter.ParameterName = 'P_Increase') THEN
+		V_Increase := coalesce(Cur_Parameter.P_Number,0);      
+		v_Record_ID := Cur_Parameter.Record_ID;	
+		v_Client_ID := Cur_Parameter.AD_Client_ID;
+		v_User_ID := Cur_Parameter.CreatedBy;
+            ELSIF (Cur_Parameter.ParameterName = 'P_HistoricDays') THEN
+		V_Historydays := Cur_Parameter.P_Number;      
+		v_Record_ID := Cur_Parameter.Record_ID;	
+		v_Client_ID := Cur_Parameter.AD_Client_ID;
+		v_User_ID := Cur_Parameter.CreatedBy;
+
+	    ELSIF (Cur_Parameter.ParameterName = 'AD_ORG_ID') THEN
+		v_Org_ID := Cur_Parameter.P_String;      
+		v_Record_ID := Cur_Parameter.Record_ID;	
+		v_Client_ID := Cur_Parameter.AD_Client_ID;
+		v_User_ID := Cur_Parameter.CreatedBy;		
+            
+            ELSE  
+		DBMS_OUTPUT.PUT_LINE('*** Unknown Parameter=' || Cur_Parameter.ParameterName) ;
+	    END IF;       
+    END LOOP; -- End Get Parameter
+  
+    IF(v_Record_ID IS NULL) THEN
+      RETURN;
+    END IF;
+
+IF coalesce(to_number(V_Historydays),0)=0 THEN
+	RAISE_APPLICATION_ERROR(-20000, '@SCMF_DAYSNUMBER@');
+END IF;
+
+	select
+	coalesce((select count(*) from scmf_dateforecast),0)
+	INTO V_CountRecordTableDateForecast
+	from dual;
+	IF V_CountRecordTableDateForecast = 0 THEN
+		PERFORM SCMF_LOADFORECAST('CREATE FECHA');
+	END IF;
+
+	 --RAISE EXCEPTION '%' ,p_pinstance_id ;
+
+		--RAISE_APPLICATION_ERROR(-20000, '@Elmmmmmmro@');
+		--RAISE_APPLICATION_ERROR(-20000, '@ (V_TypeSalesForecast=BD) linea 137 @');
+	
+		V_DateFrom:= now() - V_Historydays;
+		V_Dateto:=now();
+		V_AuxNumberWeek:=TRUNC(to_number(((V_Dateto-V_DateFrom)/7)),0);
+		V_NumberWeek:=to_number(V_AuxNumberWeek);
+
+		IF(v_Record_ID IS NULL) THEN
+		   RETURN;
+		END IF;
+		
+		IF V_NumberWeek>=7 then
+		
+			V_NumberWeek:= V_AuxNumberWeek;
+			--RAISE_APPLICATION_ERROR(-20000,'pROMEDIO =' || TO_CHAR(V_NumberWeek));
+			 
+			v_WeekOrDay :=6;
+		ELSE 
+			V_NumberWeek:= 1;
+			v_WeekOrDay :=	1;
+			
+		END IF;
+		delete from scmf_regressionline_calc ;
+		delete from scmf_transaction;
+		delete from scmf_transactionbydate;
+
+IF v_Org_ID IS NOT NULL THEN 	
+/* 
+select count(*) from scmf_transactionbydate
+*/
+
+INSERT INTO scmf_transaction(scmf_transaction_id, AD_ORG_ID,AD_CLIENT_ID, ISACTIVE, CREATED, CREATEDBY,UPDATED, UPDATEDBY,M_PRODUCT_ID,QTY
+)
+
+SELECT 
+get_uuid(),
+AD_ORG_ID,
+v_Client_ID,
+'Y',
+now(),
+'100',
+now(),
+'100',
+M_PRODUCT_ID,
+abs(sum(movementqty)) as total
+FROM scmf_transaction_v 
+WHERE (MOVEMENTDATE between V_DateFrom AND V_Dateto)
+AND AD_ORG_ID = v_Org_ID
+--AND MOVEMENTTYPE = 'C-'
+group by AD_ORG_ID,
+--AD_CLIENT_ID,
+M_PRODUCT_ID  ;
+
+
+INSERT INTO scmf_transactionbydate(scmf_transactionbydate_id, AD_ORG_ID,AD_CLIENT_ID, ISACTIVE, CREATED, CREATEDBY,
+UPDATED, UPDATEDBY,M_PRODUCT_ID,QTY,movementdate
+)
+SELECT 
+get_uuid(),
+AD_ORG_ID,
+v_Client_ID,
+'Y',
+now(),
+'100',
+now(),
+'100',
+M_PRODUCT_ID,
+abs(sum(movementqty)) as total,
+movementdate as "date"
+FROM scmf_transbydate_v
+WHERE (MOVEMENTDATE between V_DateFrom AND V_Dateto)
+AND AD_ORG_ID = v_Org_ID
+group by movementdate,AD_ORG_ID,M_PRODUCT_ID;
+ 
+		FOR CUR_PRODUCT IN
+		(	
+
+			SELECT M_PRODUCT_ID
+			FROM scmf_transaction
+
+					
+		)
+		LOOP
+		delete from scmf_datalist;
+		delete from scmf_regressionline_calc ;
+
+		
+			V_Product_ID:=CUR_PRODUCT.M_PRODUCT_ID;
+
+			delete from scmf_datalist;
+			
+			
+			SELECT
+			(
+				SELECT QTY
+				FROM scmf_transaction 
+				WHERE M_PRODUCT_ID = V_Product_ID
+				AND AD_ORG_ID = v_Org_ID
+				
+			) 
+			INTO V_CountSales
+			FROM DUAL;
+
+			
+			
+			IF V_CountSales>0 THEN
+
+					--RAISE_APPLICATION_ERROR(-20000,'Total ventas  =' || coalesce(V_CountSales,0) || ' - ' || V_DateFrom || ' - ' || V_Dateto || ' - ' || v_Org_ID || ' - ' || V_Product_ID);
+				
+				V_Average:= TRUNC( TO_NUMBER(V_CountSales)/TO_NUMBER(V_NumberWeek),3); -- (Promedio total ventas) / (numero de dias)
+
+				
+				V_NewDateFrom:= V_Dateto-V_Historydays; --- Fecha actual - Numero de dias
+
+				V_AcumSquareDifference:=0;
+
+				V_RecorTemp:=(select get_uuid() from dual);
+
+				V_NewDateto:= V_NewDateFrom+6; 
+				--RAISE_APPLICATION_ERROR(-20000, 'linea ' || V_NewDateFrom);
+
+				V_AuxNumberWeek:=TRUNC(to_number(((V_Dateto-V_DateFrom)/7)),0);
+				V_NumberWeek:=to_number(V_AuxNumberWeek);
+				
+				--RAISE_APPLICATION_ERROR(-20000, 'linea ' || V_DateFrom ||  ' Ventas: ' ||  V_Dateto);
+				
+				FOR CUR_CALCULATE IN 1..V_NumberWeek LOOP-- Calculo por Semana 
+
+					--RAISE_APPLICATION_ERROR(-20000, 'linea ' || V_NewDateFrom ||  ' Ventas: ' ||  V_NewDateto);
+					IF TO_NUMBER(CUR_CALCULATE) = V_NumberWeek THEN
+
+						V_NewDateto:=now();
+					END IF;
+					V_CountSales2:=0;
+					SELECT
+					COALESCE((SELECT
+					abs(sum(qty))  as CountSales
+					FROM scmf_transactionbydate 
+					WHERE (MOVEMENTDATE between V_NewDateFrom AND V_NewDateto)
+					AND M_PRODUCT_ID = V_Product_ID 
+					AND AD_ORG_ID = v_Org_ID),0)
+					INTO V_CountSales2
+					FROM DUAL;
+
+					if to_number(CUR_CALCULATE)  = 3 then
+
+						--RAISE_APPLICATION_ERROR(-20000, 'linea ' || V_NewDateFrom ||  ' Ventas: ' ||  V_NewDateto || ' - ' || V_CountSales2  || ' - ' || V_NumberWeek);
+
+					end if;
+					
+					V_NewDateFrom:=V_NewDateto+1;
+					V_NewDateto:=(V_NewDateFrom)+v_WeekOrDay;
+					
+					
+			
+					V_SalesWeek:= coalesce(V_CountSales2,0);
+
+					V_SalesAverage:= V_SalesWeek - V_Average;  -- (total semana ) - (promedio de ventas)
+					V_SquareDifference:= V_SalesAverage*V_SalesAverage; -- Cuadrado 
+					V_AcumSquareDifference:= V_AcumSquareDifference+V_SquareDifference;  -- total cuadrado
+
+				
+					select
+					coalesce((select coalesce(max(line),0)+1 from scmf_datalist where record_id=V_RecorTemp),0)
+					into V_NewLine
+					from dual;
+
+					
+					
+					INSERT INTO scmf_datalist (
+					scmf_datalist_id,ad_client_id,ad_org_id,isactive,created,createdby,updated,updatedby,
+					record_id,line,qty)
+					VALUES(get_uuid(),null,null,'Y',V_NewDateFrom,null, V_NewDateto,NULL,V_RecorTemp,V_NewLine, V_CountSales2);
+					
+					Raise Notice '%','Nueva linea en scmf_datalist ==>> ' || to_char(V_NewLine);
+
+					v_n_insertions:=v_n_insertions+1;
+
+				END LOOP; -- Fin Calculo por semana
+
+				V_Variance:=0; 
+			   
+				V_Variance:=V_AcumSquareDifference/V_Average; -- Varianza;
+
+				--V_Variance:=0;  --Varianza;
+				V_DeviationStandar:=0;
+
+				V_DeviationStandar:= sqrt(V_Variance);-- Desviación Estandar = Raíz Cuadrada de la Varianza
+				--V_DeviationStandar:= 0;
+
+				--RAISE NO_DATA_FOUND || V_Variance ; --  || ' - ' || V_NumberWeek; --OBTG:-20000--
+
+
+				V_RecorTemp2:=(select get_uuid() from dual);
+				
+				FOR CUR_MEDIANA IN 1..V_NumberWeek LOOP
+				
+					select (
+						SELECT min(qty) AS qty_media
+						from scmf_datalist
+						WHERE record_id=V_RecorTemp
+					)
+					into V_Qty_Media
+					from dual;
+
+					
+					select coalesce((
+						SELECT min(line) AS qty_media
+						from scmf_datalist
+						WHERE record_id=V_RecorTemp
+						and qty=V_Qty_Media
+					),0)
+					into V_LineMin
+					from dual;
+
+					
+
+					select
+					coalesce((select coalesce(max(line),0)+1 from scmf_datalist where record_id=V_RecorTemp2),0)
+					into V_NewLine
+					from dual;
+
+
+					insert into scmf_datalist  (
+					scmf_datalist_id,ad_client_id,ad_org_id,isactive,created,createdby,updated,updatedby,
+					record_id,line,qty)
+					values (get_uuid(),null,null,'Y',now(),null, now(),NULL,V_RecorTemp2, V_NewLine,V_Qty_Media);
+					
+					--RAISE NO_DATA_FOUND ;  --OBTG:-20000--
+
+					Raise Notice '%','Nueva linea en scmf_datalist 2==>> ' || to_char(V_NewLine);
+
+					delete from scmf_datalist where record_id = V_RecorTemp and qty = V_Qty_Media AND LINE = V_LineMin;
+
+					
+				END LOOP;			
+				
+
+				IF V_NumberWeek = 1 THEN
+					V_MediaLine:=1;
+				ELSE
+					V_MediaLine:=trunc((V_NumberWeek+1)/2,0);
+				END IF;
+				
+				select 
+				(
+					SELECT qty AS qty_media
+					from scmf_datalist
+					WHERE LINE=V_MediaLine
+				)
+				into V_Qty_Media
+				from dual;
+				V_ResultMedia:= V_Qty_Media;
+				
+
+				
+				SELECT
+				coalesce((SELECT QTY
+				FROM scmf_datalist WHERE LINE=V_MediaLine),0)
+				INTO V_Media
+				FROM DUAL;
+			
+				V_NewDateFrom:= V_Dateto-V_Historydays;
+				V_AuxHistoryDays:= V_Historydays; 
+				V_CountRegressionLine:=0;
+
+				
+				FOR CUR_CALCULATE IN 1..V_AuxHistoryDays LOOP-- Calculo por DIA Regresión
+
+					--RAISE_APPLICATION_ERROR(-20000, 'linea ' || V_NewDateFrom ||  ' Ventas: ' ||  V_NewDateto);
+					
+					V_CountSales3:=0;
+					SELECT
+					COALESCE((SELECT
+					abs(sum(qty))  as CountSales
+					FROM scmf_transactionbydate 
+					WHERE (to_char(MOVEMENTDATE,'dd/MM/yyyy') = to_char(V_NewDateFrom,'dd/MM/yyyy'))
+					AND M_PRODUCT_ID = V_Product_ID 
+					AND AD_ORG_ID = v_Org_ID),0)
+					INTO V_CountSales3
+					FROM DUAL;
+
+
+					
+					V_NewDateFrom:=V_NewDateFrom+1;
+					
+					V_xi	:=to_number(CUR_CALCULATE);
+
+					 
+					V_yi	:=to_number(V_CountSales3);
+
+					
+					V_xi_yi	:= to_number(V_xi*V_yi);
+					V_xiSquare	:=to_number(V_xi*V_xi);
+					V_yiSquare	:=to_number(V_yi*V_yi);
+					
+					
+					INSERT INTO scmf_regressionline_calc (
+					scmf_regressionline_calc_id,ad_client_id,ad_org_id,isactive,created,createdby,updated,updatedby,
+					m_product_id,xi_days,yi_sales,xi_yi,xi_square,yi_square)
+					VALUES(get_uuid(),v_Client_ID,v_Org_ID,'Y',now(),'100', now(),'100'
+					,V_Product_ID,V_xi,V_yi,V_xi_yi,V_xiSquare,V_yiSquare);
+					
+					-- select * from scmf_regressionline_calc
+					
+					V_CountRegressionLine:=V_CountRegressionLine+V_xi;
+				END LOOP; -- Fin Calculo por DIA
+
+				
+				IF V_CountRegressionLine>0 THEN
+
+
+					SELECT COALESCE(SUM(xi_days),0) AS xi_days,COALESCE(SUM(yi_sales),0) AS yi_sales,
+					       COALESCE(SUM(xi_yi),0) as xi_yi,COALESCE(SUM(xi_square),0) AS xi_square,COALESCE(SUM(yi_square),0) AS yi_square
+					INTO	V_xi, 	V_yi,	V_xi_yi,	V_xiSquare,	V_yiSquare
+					FROM scmf_regressionline_calc
+					WHERE M_PRODUCT_ID = V_Product_ID;
+
+
+					SELECT
+					COALESCE((
+						SELECT COUNT(*)
+						FROM scmf_regressionline_calc
+						WHERE M_PRODUCT_ID = V_Product_ID
+						
+					),0)
+					INTO V_Total_XDays
+					FROM DUAL;
+
+					--IF V_Total_XDays <> 0 THEN
+						V_Media_X:=V_CountRegressionLine/V_Total_XDays;
+						V_Media_Y:=V_yi/V_Total_XDays;
+						V_Covariance:= V_xi_yi/V_Total_XDays-(V_Media_X*V_Media_Y);
+						V_Variance_X:= (V_xisquare/V_Total_XDays) -(V_Media_X*V_Media_X);
+
+					/*ELSE
+						V_Media_X:=0;
+						V_Media_Y:=0;
+						V_Covariance:=0;
+						V_Variance_X:=0;
+					END IF;*/
+
+					IF V_Variance	<> 0 THEN
+						V_Incline:=V_Covariance/V_Variance;
+						--RAISE_APPLICATION_ERROR(-20000, 'linea mmmm ');
+
+						
+					ELSE
+						V_Incline:=0;
+					END IF;
+				
+				END IF;
+
+				
+
+				SELECT
+				coalesce((select EM_Scmf_Dispersion_Value
+				 from m_product_org
+				 where m_product_id = V_Product_ID
+				 AND AD_ORG_ID = v_Org_ID ),0)
+				 INTO V_DispersionValue
+				 FROM DUAL;
+
+				/* Bloque comentado por la nueva funcionalidad del Coeficiente de Variación
+
+				IF (V_DeviationStandar) < V_DispersionValue THEN
+				
+					V_StockMin1:= V_Media + ((V_Incline*V_Media)/100);
+				END IF;
+				
+				IF V_DeviationStandar > V_DispersionValue THEN
+				
+					V_StockMin1:= V_Average + ((V_Incline*V_Average )/100);
+				END IF;
+
+				V_StockMinEnd:= V_StockMin1 + ((V_StockMin1*V_Increase)/100);*/
+
+				--RAISE_APPLICATION_ERROR(-20000, 'linea mmmm ' || to_number(V_StockMinEnd));
+
+
+					----->>>>>>>>>>>>> Nuevo Proceso
+
+					V_CoefficientVariation:= V_DeviationStandar/V_Average;
+
+					IF V_CoefficientVariation>to_number(0.25) AND V_CoefficientVariation<=to_number(0.99999) THEN
+
+						V_StockMin1:= V_Media; 
+
+					ELSIF V_CoefficientVariation>=to_number(0) AND V_CoefficientVariation <=to_number(0.25) THEN
+
+						V_StockMin1:= V_Average; 
+
+					ELSIF V_CoefficientVariation >to_number(1) THEN
+
+						V_StockMin1:=V_DeviationStandar;
+						
+					END IF;
+
+
+					IF V_StockMin1=0 AND  V_StockMin1<1 THEN
+						V_StockMin1:=1;
+					END IF;
+
+					---->>>>>>>>>>>>>>>< Fin Nuevo Proceso
+
+					V_StockMinEnd:= V_StockMin1 + ((V_StockMin1*V_Increase)/100) + ((V_StockMin1*V_Incline)/100);				
+				
+				update m_product_org 
+				set qtymin = to_number(trunc(V_StockMinEnd,0))
+				,stockmin= trunc((V_StockMinEnd*em_scmf_percentage)/100,0)
+				 where m_product_id = V_Product_ID
+				 and ad_org_id = v_Org_ID;
+
+				V_NewDateFrom:= V_Dateto-V_Historydays;
+				Insert into scmf_process_production (scmf_process_production_id,created,createdby,updated,updatedby,ad_client_id,
+				ad_org_id,isactive,proccessdate,m_product_id,historydays,startdate,percentage_growth,medium,half,
+				standard_deviation,stock_min,increase_percentage,stock_min_end,variance,median_x,median_y,covariance,Variance_X, Incline,CoefficientVariation)
+				values(get_uuid(),now(),'100',now(),'100',v_Client_ID,v_Org_ID,'Y',now(),V_Product_ID,V_Historydays,(now()-V_Historydays),V_Incline,V_Media,V_Average,
+				V_DeviationStandar,V_StockMin1,V_Increase,V_StockMinEnd,V_Variance,V_Media_X,V_Media_Y,V_Covariance,V_Variance_X, V_Incline,V_CoefficientVariation);
+
+				delete from scmf_datalist;
+
+				delete from scmf_regressionline_calc WHERE  M_PRODUCT_ID = V_Product_ID;
+				--  select * FROM m_product_org
+				--  delete FROM scmf_process_production
+				Raise Notice '%','Nueva linea en scmf_process_production ==>> ';
+
+			END IF;
+				
+		END LOOP;
+		
+ELSIF v_Org_ID IS NULL THEN
+
+
+INSERT INTO scmf_transaction(scmf_transaction_id, AD_ORG_ID,AD_CLIENT_ID, ISACTIVE, CREATED, CREATEDBY,UPDATED, UPDATEDBY,M_PRODUCT_ID,QTY
+)
+
+SELECT 
+get_uuid(),
+AD_ORG_ID,
+v_Client_ID,
+'Y',
+now(),
+'100',
+now(),
+'100',
+M_PRODUCT_ID,
+abs(sum(movementqty)) as total
+FROM scmf_transaction_v 
+WHERE (MOVEMENTDATE between V_DateFrom AND V_Dateto)
+AND AD_ORG_ID = v_Org_ID
+AND MOVEMENTTYPE = 'C-'
+group by AD_ORG_ID,
+--AD_CLIENT_ID,
+M_PRODUCT_ID  ;
+
+
+
+INSERT INTO scmf_transactionbydate(scmf_transactionbydate_id, AD_ORG_ID,AD_CLIENT_ID, ISACTIVE, CREATED, CREATEDBY,UPDATED, UPDATEDBY,M_PRODUCT_ID,QTY,movementdate
+)
+SELECT 
+get_uuid(),
+AD_ORG_ID,
+v_Client_ID,
+'Y',
+now(),
+'100',
+now(),
+'100',
+M_PRODUCT_ID,
+abs(sum(movementqty)) as total,
+movementdate
+FROM scmf_transbydate_v  
+WHERE (MOVEMENTDATE between V_DateFrom AND V_Dateto)
+AND AD_ORG_ID = v_Org_ID
+AND MOVEMENTTYPE = 'C-'
+group by movementdate,AD_ORG_ID,
+M_PRODUCT_ID;
+
+			--RAISE_APPLICATION_ERROR(-20000, 'linea ' || V_NewDateFrom ||  ' Ventas: ' ||  V_NewDateto);
+
+	FOR CUR_ORGANIZATION IN
+			(	
+				SELECT AD_ORG_ID FROM AD_ORG
+				WHERE ISACTIVE='Y'
+				
+			)
+			LOOP
+			
+			v_Org_ID:= CUR_ORGANIZATION.AD_ORG_ID;
+
+			FOR CUR_PRODUCT IN
+			(	
+				SELECT M_PRODUCT_ID
+					FROM scmf_transaction
+					where ad_org_id=v_Org_ID
+
+			)
+			LOOP
+			
+
+			
+				V_Product_ID:=CUR_PRODUCT.M_PRODUCT_ID;
+
+				delete from scmf_datalist;
+				
+				
+				SELECT
+				coalesce((SELECT qty  
+				FROM scmf_transaction 
+				WHERE  M_PRODUCT_ID = V_Product_ID
+				AND AD_ORG_ID = v_Org_ID),0) 
+				INTO V_CountSales
+				FROM DUAL;
+				IF V_CountSales>0 THEN
+					
+					--RAISE_APPLICATION_ERROR(-20000,'Total ventas  =' || V_CountSales);
+					V_Average:= TRUNC( TO_NUMBER(V_CountSales)/TO_NUMBER(V_NumberWeek),3); -- (Promedio total ventas) / (numero de dias)
+
+					
+					V_NewDateFrom:= V_Dateto-V_Historydays; --- Fecha actual - Numero de dias
+
+					V_AcumSquareDifference:=0;
+
+					V_RecorTemp:=(select get_uuid() from dual);
+
+					V_NewDateto:= V_NewDateFrom+6; 
+					--RAISE_APPLICATION_ERROR(-20000, 'linea ' || V_NewDateFrom);
+
+					V_AuxNumberWeek:=TRUNC(to_number(((V_Dateto-V_DateFrom)/7)),0);
+					V_NumberWeek:=to_number(V_AuxNumberWeek);
+					
+					--RAISE_APPLICATION_ERROR(-20000, 'linea ' || V_DateFrom ||  ' Ventas: ' ||  V_Dateto);
+					
+					FOR CUR_CALCULATE IN 1..V_NumberWeek LOOP-- Calculo por Semana 
+
+						--RAISE_APPLICATION_ERROR(-20000, 'linea ' || V_NewDateFrom ||  ' Ventas: ' ||  V_NewDateto);
+						IF TO_NUMBER(CUR_CALCULATE) = V_NumberWeek THEN
+
+							V_NewDateto:=now();
+						END IF;
+						V_CountSales2:=0;
+						SELECT
+						COALESCE((SELECT
+						abs(sum(qty))  as CountSales
+						FROM scmf_transactionbydate 
+						WHERE (MOVEMENTDATE between V_NewDateFrom AND V_NewDateto)
+						AND M_PRODUCT_ID = V_Product_ID 
+						AND AD_ORG_ID = v_Org_ID
+						AND MOVEMENTTYPE = 'C-'),0)
+						INTO V_CountSales2
+						FROM DUAL;
+
+					
+						V_NewDateFrom:=V_NewDateto+1;
+						V_NewDateto:=(V_NewDateFrom)+v_WeekOrDay;
+						
+						
+				
+						V_SalesWeek:= coalesce(V_CountSales2,0);
+
+						V_SalesAverage:= V_SalesWeek - V_Average;  -- (total semana ) - (promedio de ventas)
+						V_SquareDifference:= V_SalesAverage*V_SalesAverage; -- Cuadrado 
+						V_AcumSquareDifference:= V_AcumSquareDifference+V_SquareDifference;  -- total cuadrado
+
+					
+						select
+						coalesce((select coalesce(max(line),0)+1 from scmf_datalist where record_id=V_RecorTemp),0)
+						into V_NewLine
+						from dual;
+
+						
+						
+						INSERT INTO scmf_datalist (
+						scmf_datalist_id,ad_client_id,ad_org_id,isactive,created,createdby,updated,updatedby,
+						record_id,line,qty)
+						VALUES(get_uuid(),null,null,'Y',V_NewDateFrom,null, V_NewDateto,NULL,V_RecorTemp,V_NewLine, V_CountSales2);
+						
+						Raise Notice '%','Nueva linea en scmf_datalist ==>> ' || to_char(V_NewLine);
+
+						--RAISE_APPLICATION_ERROR(-20000,'Primer Insert') ;
+			
+						v_n_insertions:=v_n_insertions+1;
+
+					END LOOP; -- Fin Calculo por semana
+
+					V_Variance:=0; 
+
+					IF V_Average <>0 THEN
+						V_Variance:=V_AcumSquareDifference/V_Average; -- Varianza;
+						--RAISE_APPLICATION_ERROR(-20000, 'linea mmmm ') ;
+					ELSE
+						V_Variance:=0;
+					END IF;
+
+					--V_Variance:=0;  --Varianza;
+					V_DeviationStandar:=0;
+
+					V_DeviationStandar:= sqrt(V_Variance);-- Desviación Estandar = Raíz Cuadrada de la Varianza
+					--V_DeviationStandar:= 0;
+
+					--RAISE NO_DATA_FOUND || V_Variance ; --  || ' - ' || V_NumberWeek; --OBTG:-20000--
+
+
+					V_RecorTemp2:=(select get_uuid() from dual);
+					
+					FOR CUR_MEDIANA IN 1..V_NumberWeek LOOP
+					
+						select (
+							SELECT min(qty) AS qty_media
+							from scmf_datalist
+							WHERE record_id=V_RecorTemp
+						)
+						into V_Qty_Media
+						from dual;
+
+						
+						select coalesce((
+							SELECT min(line) AS qty_media
+							from scmf_datalist
+							WHERE record_id=V_RecorTemp
+							and qty=V_Qty_Media
+						),0)
+						into V_LineMin
+						from dual;
+
+						
+
+						select
+						coalesce((select coalesce(max(line),0)+1 from scmf_datalist where record_id=V_RecorTemp2),0)
+						into V_NewLine
+						from dual;
+
+
+						insert into scmf_datalist  (
+						scmf_datalist_id,ad_client_id,ad_org_id,isactive,created,createdby,updated,updatedby,
+						record_id,line,qty)
+						values (get_uuid(),null,null,'Y',now(),null, now(),NULL,V_RecorTemp2, V_NewLine,V_Qty_Media);
+						
+						--RAISE_APPLICATION_ERROR(-20000,'Segundo Insert') ;
+
+						Raise Notice '%','Nueva linea en scmf_datalist 2==>> ' || to_char(V_NewLine);
+
+						delete from scmf_datalist where record_id = V_RecorTemp and qty = V_Qty_Media AND LINE = V_LineMin;
+
+						
+					END LOOP;			
+					
+
+					IF V_NumberWeek = 1 THEN
+						V_MediaLine:=1;
+					ELSE
+						V_MediaLine:=trunc((V_NumberWeek+1)/2,0);
+					END IF;
+					
+					select 
+					(
+						SELECT qty AS qty_media
+						from scmf_datalist
+						WHERE LINE=V_MediaLine
+					)
+					into V_Qty_Media
+					from dual;
+					V_ResultMedia:= V_Qty_Media;
+					
+
+					
+					SELECT
+					coalesce((SELECT QTY
+					FROM scmf_datalist WHERE LINE=V_MediaLine),0)
+					INTO V_Media
+					FROM DUAL;
+		
+				
+					V_NewDateFrom:= V_Dateto-V_Historydays;
+					V_AuxHistoryDays:= V_Historydays; 
+					V_CountRegressionLine:=0;
+
+					
+					FOR CUR_CALCULATE IN 1..V_AuxHistoryDays LOOP-- Calculo por DIA Regresión
+
+						V_CountSales3:=0;
+						SELECT
+						COALESCE((SELECT
+						abs(sum(movementqty))  as CountSales
+						FROM scmf_transactionbydate 
+						WHERE (to_char(MOVEMENTDATE,'dd/MM/yyyy') = to_char(V_NewDateFrom,'dd/MM/yyyy'))
+						AND M_PRODUCT_ID = V_Product_ID 
+						AND AD_ORG_ID = v_Org_ID),0)
+						INTO V_CountSales3
+						FROM DUAL;
+
+
+						V_NewDateFrom:=V_NewDateFrom+1;
+						
+						V_xi	:=to_number(CUR_CALCULATE);
+
+						 
+						V_yi	:=to_number(V_CountSales3);
+
+						
+						V_xi_yi	:= to_number(V_xi*V_yi);
+						V_xiSquare	:=to_number(V_xi*V_xi);
+						V_yiSquare	:=to_number(V_yi*V_yi);
+						
+						
+						INSERT INTO scmf_regressionline_calc (
+						scmf_regressionline_calc_id,ad_client_id,ad_org_id,isactive,created,createdby,updated,updatedby,
+						m_product_id,xi_days,yi_sales,xi_yi,xi_square,yi_square)
+						VALUES(get_uuid(),v_Client_ID,v_Org_ID,'Y',now(),'100', now(),'100'
+						,V_Product_ID,V_xi,V_yi,V_xi_yi,V_xiSquare,V_yiSquare);
+						
+					
+						V_CountRegressionLine:=V_CountRegressionLine+V_xi;
+					END LOOP; -- Fin Calculo por DIA
+
+					
+					IF V_CountRegressionLine>0 THEN
+
+
+						SELECT COALESCE(SUM(xi_days),0) AS xi_days,COALESCE(SUM(yi_sales),0) AS yi_sales,
+						       COALESCE(SUM(xi_yi),0) as xi_yi,COALESCE(SUM(xi_square),0) AS xi_square,COALESCE(SUM(yi_square),0) AS yi_square
+						INTO	V_xi, 	V_yi,	V_xi_yi,	V_xiSquare,	V_yiSquare
+						FROM scmf_regressionline_calc
+						WHERE M_PRODUCT_ID = V_Product_ID;
+
+						SELECT
+						COALESCE((
+							SELECT COUNT(*)
+							FROM scmf_regressionline_calc
+							WHERE M_PRODUCT_ID = V_Product_ID
+							
+						),0)
+						INTO V_Total_XDays
+						FROM DUAL;
+
+						--IF V_Total_XDays<>0 THEN
+							V_Media_X:=V_CountRegressionLine/V_Total_XDays;
+							V_Media_Y:=V_yi/V_Total_XDays;
+							V_Covariance:= V_xi_yi/V_Total_XDays-(V_Media_X*V_Media_Y);
+							V_Variance_X:= (V_xisquare/V_Total_XDays) -(V_Media_X*V_Media_X);
+						--ELSE
+						/*	V_Media_X:=0;
+							V_Media_Y:=0;
+							V_Covariance:=0;
+							V_Variance_X:=0;
+						END IF;*/
+
+						IF V_Variance<>0 THEN
+							V_Incline:=V_Covariance/V_Variance;
+						ELSE
+							V_Incline:=0;
+						END IF;
+						
+					
+					END IF;
+
+					
+
+					SELECT
+					coalesce((select EM_Scmf_Dispersion_Value
+					 from m_product_org
+					 where m_product_id = V_Product_ID),0)
+					 INTO V_DispersionValue
+					 FROM DUAL;
+
+					/*  Bloque comentado por la nueva funcionalidad del Coeficiente de Variación
+
+					IF (V_DeviationStandar) < V_DispersionValue THEN
+					
+						V_StockMin1:= V_Media + (V_Incline);
+					END IF;
+					
+					IF V_DeviationStandar > V_DispersionValue THEN
+					
+						V_StockMin1:= V_Average + ((V_Incline));
+					END IF;*/
+
+					----->>>>>>>>>>>>> Nuevo Proceso
+					V_CoefficientVariation:= V_DeviationStandar/V_Average;
+
+					IF V_CoefficientVariation>to_number(0.25) AND V_CoefficientVariation<=to_number(0.99999) THEN
+
+						V_StockMin1:= V_Media; 
+
+					ELSIF V_CoefficientVariation>=to_number(0) AND V_CoefficientVariation <=to_number(0.25) THEN
+
+						V_StockMin1:= V_Average; 
+
+					ELSIF V_CoefficientVariation >to_number(1) THEN
+
+						V_StockMin1:=V_DeviationStandar;
+						
+					END IF;
+
+					IF V_StockMin1=0 AND  V_StockMin1<1 THEN
+						V_StockMin1:=1;
+					END IF;
+					---->>>>>>>>>>>>>>>< Fin Nuevo Proceso
+
+					V_StockMinEnd:= V_StockMin1 + ((V_StockMin1*V_Increase)/100) + ((V_StockMin1*V_Incline)/100);
+
+				
+					
+
+					update m_product_org 
+					set qtymin = to_number(trunc(V_StockMinEnd,0))
+					,stockmin= to_number(trunc((V_StockMinEnd*em_scmf_percentage)/100,0))
+					where m_product_id = V_Product_ID
+					and ad_org_id = v_Org_ID
+					;
+
+					V_NewDateFrom:= V_Dateto-V_Historydays;
+					Insert into scmf_process_production (scmf_process_production_id,created,createdby,updated,updatedby,ad_client_id,
+					ad_org_id,isactive,proccessdate,m_product_id,historydays,startdate,percentage_growth,medium,half,
+					standard_deviation,stock_min,increase_percentage,stock_min_end,variance,median_x,median_y,covariance,Variance_X, Incline,CoefficientVariation)
+					values(get_uuid(),now(),'100',now(),'100',v_Client_ID,v_Org_ID,'Y',now(),V_Product_ID,V_Historydays,(now()-V_Historydays),V_Incline,V_Media,V_Average,
+					V_DeviationStandar,V_StockMin1,V_Increase,V_StockMinEnd,V_Variance,V_Media_X,V_Media_Y,V_Covariance,V_Variance_X, V_Incline,V_CoefficientVariation) ;
+
+					delete from scmf_regressionline_calc WHERE  M_PRODUCT_ID = V_Product_ID;
+					delete from scmf_datalist;
+
+					Raise Notice '%','Nueva linea en scmf_process_production ==>> ';
+
+				END IF;
+					
+			END LOOP;
+
+	END LOOP;
+
+END IF;
+        --<<FINISH_PROCESS>>
+    --  Update AD_PInstance
+    v_Message := '@RowsInserted@: ' || v_n_insertions || '.';
+    DBMS_OUTPUT.PUT_LINE('Updating PInstance - Finished ' || v_Message) ;
+    AD_UPDATE_PINSTANCE(p_PInstance_ID, NULL, 'N', 1, v_Message) ;
+    RETURN;
+  END; --BODY
+  
+EXCEPTION
+WHEN OTHERS THEN
+  v_ResultStr:= '@ERROR=' || SQLERRM;
+  DBMS_OUTPUT.PUT_LINE(v_ResultStr) ;
+  ROLLBACK;
+  AD_UPDATE_PINSTANCE(p_PInstance_ID, NULL, 'N', 0, v_ResultStr) ;
+  RETURN;
+END SCMF_STOCK_MRP
+]]></body>
+    </function>
+  </database>

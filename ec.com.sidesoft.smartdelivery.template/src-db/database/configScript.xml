@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+  <vector>
+    <versionInfo version="3.0.27124"/>
+    <columnDataChange tablename="AD_FIELD" columnname="ISREADONLY" pkRow="C80F41AD90E342DF98FEE2224706776F">
+      <oldValue><![CDATA[N]]></oldValue>
+      <newValue><![CDATA[Y]]></newValue>
+    </columnDataChange>  
+    <columnDataChange tablename="AD_FIELD" columnname="ISREADONLY" pkRow="C79ED1AC0C604F5E8DDD9206794C7956">
+      <oldValue><![CDATA[N]]></oldValue>
+      <newValue><![CDATA[Y]]></newValue>
+    </columnDataChange>  
+    <columnDataChange tablename="AD_FIELD" columnname="ISREADONLY" pkRow="ABD29274DB0A479992CECFB20EE46F3E">
+      <oldValue><![CDATA[N]]></oldValue>
+      <newValue><![CDATA[Y]]></newValue>
+    </columnDataChange>  
+    <columnDataChange tablename="AD_FIELD" columnname="ISREADONLY" pkRow="2E4176B172E2472E8D552BE7B23721E8">
+      <oldValue><![CDATA[N]]></oldValue>
+      <newValue><![CDATA[Y]]></newValue>
+    </columnDataChange>  
+    <columnDataChange tablename="AD_FIELD" columnname="ISREADONLY" pkRow="977AE4532CE943D1ABE34411E05EE177">
+      <oldValue><![CDATA[N]]></oldValue>
+      <newValue><![CDATA[Y]]></newValue>
+    </columnDataChange>    
+    <columnDataChange tablename="AD_FIELD" columnname="ISREADONLY" pkRow="EA088D5C9CB94B9C94EC5054A0299515">
+      <oldValue><![CDATA[N]]></oldValue>
+      <newValue><![CDATA[Y]]></newValue>
+    </columnDataChange>        
+  </vector>

@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SSDAH_GETSUBPRODUCTS">
+    <function name="SSDAH_GETSUBPRODUCTS" type="NULL">
+      <parameter name="recipe_nam" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <parameter name="recipe_name" type="VARCHAR" mode="out">
+        <default/>
+      </parameter>
+      <parameter name="component_name" type="VARCHAR" mode="out">
+        <default/>
+      </parameter>
+      <parameter name="bomqty" type="NUMERIC" mode="out">
+        <default/>
+      </parameter>
+      <parameter name="level" type="VARCHAR" mode="out">
+        <default/>
+      </parameter>
+      <body><![CDATA[BEGIN
+RETURN QUERY
+    WITH RECURSIVE recipe_tree AS (
+        -- Primer caso: empezar con la receta inicial
+        SELECT 
+            mp.name AS recipe_name,
+            mpb.M_Productbom_ID AS component_id,
+            mpb.Bomqty,
+            1 AS level
+        FROM 
+            m_product mp
+            JOIN ssdah_mirror_pb mpb ON mp.m_product_id = mpb.m_product_id
+        WHERE 
+            mp.m_product_id = --'BA505F5D807841A081BBDE9B6905C008'--
+	recipe_nam
+        
+        UNION ALL
+        
+        -- Caso recursivo: unir con ssdah_mirror_pb para obtener componentes
+        SELECT 
+            rt.recipe_name,
+            mpb.M_Productbom_ID AS component_id,
+            rt.Bomqty * mpb.Bomqty AS Bomqty,
+            rt.level + 1
+        FROM 
+            recipe_tree rt
+            JOIN m_product mp ON rt.component_id = mp.m_product_id
+            JOIN ssdah_mirror_pb mpb ON mp.m_product_id = mpb.m_product_id
+        WHERE 
+            mp.isbom = 'Y'
+    )
+    SELECT 
+        rt.recipe_name,
+        mp.m_product_id AS component_name,
+        rt.Bomqty,
+        rt.level
+    FROM 
+        recipe_tree rt
+        JOIN m_product mp ON rt.component_id = mp.m_product_id
+    ORDER BY 
+        rt.level, rt.recipe_name, component_name;
+END SSDAH_GETSUBPRODUCTS
+]]></body>
+    </function>
+  </database>

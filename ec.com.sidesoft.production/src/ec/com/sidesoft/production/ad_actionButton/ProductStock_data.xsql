@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<SqlClass name="ProductStockData" package="ec.com.sidesoft.production.ad_actionButton">
+  <SqlClassComment></SqlClassComment>
+  <SqlMethod name="select" type="preparedStatement" return="multiple">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        SELECT '' as M_PRODUCT_ID, '' as M_LOCATOR_ID, '' AS M_ATTRIBUTESETINSTANCE_ID
+        ,'' as LOT, '' as GUARANTEEDATE, '' as DESCRIPTION, 0 AS STOCK
+        FROM DUAL
+     ]]>
+     </Sql>
+   </SqlMethod>
+  <SqlMethod name="selectproduct" type="preparedStatement" return="multiple">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+		select 
+		mp.m_product_id, msd.m_locator_id
+		, mas.m_attributesetinstance_id
+		, mas.lot,  mas.guaranteedate ,  mas.description
+		, msd.qtyonhand as stock
+		from m_storage_detail msd
+		left join m_attributesetinstance mas on mas.m_attributesetinstance_id = msd.m_attributesetinstance_id
+		join m_product mp on mp.m_product_id = msd.m_product_id
+		where msd.m_product_id = ?
+		and msd.m_locator_id = ?
+     ]]>
+     </Sql>
+     <Parameter name="productId"/>
+     <Parameter name="locatorId"/>
+  </SqlMethod>
+</SqlClass>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_ELEMENT" version="">
+  <row id="2EF72AAC20A348928549E453770FCB90" trl="Y">
+    <value column="Name" isTrl="Y" original="Sended JSON">JSON enviado</value>
+    <value column="PrintName" isTrl="Y" original="Sended JSON">JSON enviado</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="421D48054EF24408891D328E78B25B4A" trl="N">
+    <value column="Name" isTrl="N" original="Ssplug_Post_Sale_Settings_ID">Ssplug_Post_Sale_Settings_ID</value>
+    <value column="PrintName" isTrl="N" original="Ssplug_Post_Sale_Settings_ID">Ssplug_Post_Sale_Settings_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="509CC2DCEE0644269D5F30B43B1E3020" trl="N">
+    <value column="Name" isTrl="N" original="Ssplug_Post_Sale_Logs_ID">Ssplug_Post_Sale_Logs_ID</value>
+    <value column="PrintName" isTrl="N" original="Ssplug_Post_Sale_Logs_ID">Ssplug_Post_Sale_Logs_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="79F8D6A45D77444298D25818656168EE" trl="Y">
+    <value column="Name" isTrl="Y" original="Answer JSON">JSON respuesta</value>
+    <value column="PrintName" isTrl="Y" original="Answer JSON">JSON respuesta</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="92F47C67638E4216963EE1D5A2E769FD" trl="Y">
+    <value column="Name" isTrl="Y" original="Default cashier">Cajero predeterminado</value>
+    <value column="PrintName" isTrl="Y" original="Default cashier">Cajero predeterminado</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="9A028968DA974B7DB421524F032E2059" trl="Y">
+    <value column="Name" isTrl="Y" original="Survey sended">Encuesta enviada</value>
+    <value column="PrintName" isTrl="Y" original="Survey sended">Encuesta enviada</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="A145710FA8E3454293402E63D1030BD2" trl="Y">
+    <value column="Name" isTrl="Y" original="Brandid">Marca</value>
+    <value column="PrintName" isTrl="Y" original="Brandid">Marca</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="A6AA2D142513498B91110D06CD51BC1C" trl="Y">
+    <value column="Name" isTrl="Y" original="Survey type">Tipo de encuesta</value>
+    <value column="PrintName" isTrl="Y" original="Survey type">Tipo de encuesta</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="BB68E3BE77A045A9AA666704A5C1AC47" trl="Y">
+    <value column="Name" isTrl="Y" original="Invoice No.">Número de factura</value>
+    <value column="PrintName" isTrl="Y" original="Invoice No.">Número de factura</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="D02129962815401F8557FBC823AF512F" trl="Y">
+    <value column="Name" isTrl="Y" original="Service URL">URL servicio</value>
+    <value column="PrintName" isTrl="Y" original="Service URL">URL servicio</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="E6781434BBCA4512A80211514FBADBE2" trl="Y">
+    <value column="Name" isTrl="Y" original="Default phone">Teléfono cliente predeterminado</value>
+    <value column="PrintName" isTrl="Y" original="Default phone">Teléfono cliente predeterminado</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

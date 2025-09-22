@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TAB" version="">
+  <row id="027E3BB9B7114CA68F976D0C0133E682" trl="N">
+    <value column="Name" isTrl="Y" original="Payment Type">Tipo de pago</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="0475CA1C9D5E41D2BC1E04CFF9433186" trl="N">
+    <value column="Name" isTrl="N" original="Hardware Manager">Administrador de Hardware</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="List of Hardware Manager servers that can be used by POS terminals">Lista de servidores de Administración de Hardware que pueden ser usado por las terminales TPV</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original="Defines the list of Hardware Manager servers that can be used by POS terminals.">Define la lista de servidores de Administración de Hardware que pueden ser usado por las terminales TPV.</value>
+  </row>
+  <row id="1C508696073944B1BD81E42FC929AEFD" trl="N">
+    <value column="Name" isTrl="Y" original="Payment Method Categories">Categorías de métodos de pago</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="2137170018EE4A77BEAAE150E1D46215" trl="N">
+    <value column="Name" isTrl="N" original="Choose warehouse">Seleccione almacén</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="2628B44F02DF452A95BEDAF2050CC617" trl="N">
+    <value column="Name" isTrl="Y" original="Coins and Bank notes">Monedas y billetes</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Coins and bank notes panel for the Web POS window.">Panel de monedas y billetes para la ventana Web TPV</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="28AC9979365E4DD987EA59A3F0787B75" trl="N">
+    <value column="Name" isTrl="Y" original="POS Print Templates">Plantillas de impresión en TPV</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="POS Print Templates">Plantillas de impresión en TPV</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Defines print templates to be used from Web POS">Define las plantillas de impresión usadas desde el TPV</value>
+  </row>
+  <row id="33BF870C0F014B08AB1A7A580CD23B56" trl="N">
+    <value column="Name" isTrl="Y" original="Reconciliation">Reconciliación</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="36BD8C59083849CCA7CF84DE0BABF7AF" trl="N">
+    <value column="Name" isTrl="Y" original="Approvals">Autorizaciones</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Keeps track of all approvals granted by supervisors to this Order.">Guarda la traza de todas las autorizaciones otorgadas por el supervisor a este pedido.</value>
+  </row>
+  <row id="4D9F5E9CC0014A96861CEFB64BBF013B" trl="N">
+    <value column="Name" isTrl="Y" original="Payment Method">Método de pago</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Payment Method">Método de pago</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Defines each of the payment methods the terminal type can use. When creating the POS terminal based on this type, all payment methods defined here will be available to create different payment types. Note that even they are available, it is not mandatory to create all of them, so it would be possible to have different terminals based on same type but each of them with different payment types.&#10;&#10;Here it is defined the payment method (cash, card, etc...) and also which actions are allowed for Cash Management and Cash Up processes.&#10;">Define cada uno de los métodos de pao que puede usar el tipo de terminal. Cuando se crea un TPV basado en este tipo, todos los pagos definidos aquí estarán disponibles para crear en él tipos de pago.
+    
+Aquí se define el método de pago (al contado, tarjeta, etc...) y también qué acciones están permitidas en los proceses de gestión y cierre de caja.
+</value>
+  </row>
+  <row id="690AC45A78DF4816A2FB1DFD602E9E31" trl="N">
+    <value column="Name" isTrl="Y" original="Cashup Tax Info">Cierre de caja: Información Impuestos</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="8478FCB5F2DC451FBA4478E0DC6521B9" trl="N">
+    <value column="Name" isTrl="N" original="Cross Channel Warehouse">Almacén de Canales Cruzados</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original="Relation of prioritized cross channel warehouses of the Organization.">Relación de almacenes de canales cruzados priorizados por la Organización.</value>
+  </row>
+  <row id="A925A0C806A7453EBB31CBEC60DB80B3" trl="N">
+    <value column="Name" isTrl="N" original="Approval Reason">Razón de Aprobación</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="B6F711C7D81A4DF492C9C874564152C3" trl="N">
+    <value column="Name" isTrl="Y" original="POS Terminal Access">Acceso a TPV</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="This tab contains the POS terminals the user has access to. If there are no terminals defined in this tab, the user has access to all terminals in the system.">Esta pestaña contiene los TPVs a los que el usuario tiene acceso. Si no hay terminales definidos en la pestaña, el usuario tiene acceso a todos los terminales del sistema.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="This tab contains the POS terminals the user has access to. If there are no terminals defined in this tab, the user has access to all terminals in the system.">Esta pestaña contiene los TPVs a los que el usuario tiene acceso. Si no hay terminales definidos en la pestaña, el usuario tiene acceso a todos los terminales del sistema.</value>
+  </row>
+  <row id="B998BD2B2F824450BD974BF9EC364F5A" trl="N">
+    <value column="Name" isTrl="N" original="Hardware URL">URL de Hardware</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="Hardware URL list">Lista URL de Hardware URL</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original="Defines the list of hardware URL this terminal type can be selected by the cashier to print documents from the POS terminal.">Define la lista de los URL de hardware de este tipo de terminal, que puede ser seleccionado por el cajero para imprimir documentos desde la terminal TPV.</value>
+  </row>
+  <row id="C21BA8DF0E8546C0804DE6EFFF5EA3F2" trl="N">
+    <value column="Name" isTrl="Y" original="Subreports">Subinformes</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="D01039797B054BE69CA5770B8CFB933C" trl="N">
+    <value column="Name" isTrl="Y" original="Terminal Type">Tipo de terminal</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Header of terminal type">Cabecera del tipo de terminal</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Terminal type groups a set of allowed payment methods and defines which are the document types for each of the different documents that are generated in back end from POS transactions.">El tipo de terminal agrupa una serie de métodos de pago permitidos y define qué tipos de documento se usan para cada uno de los diferente docuemtos generados en el backoffice a partir de las transacciones en el TPV.</value>
+  </row>
+  <row id="E792295610A742A7BDCDE11153072408" trl="N">
+    <value column="Name" isTrl="N" original="Cashup Approval">Aprobación de Cierre de caja</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="EA65410E0F7C439A97C1301C2B882150" trl="N">
+    <value column="Name" isTrl="Y" original="Cash Up History">Histórico de cierre de caja</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="EC4D45180BCB4EB5A78FA8E8F319FD1C" trl="N">
+    <value column="Name" isTrl="Y" original="Errors While Importing POS Data">Errores al importar pedidos desde el TPV</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Errors while importing POS data">Errores al importar pedidos desde el TPV</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="This tab shows the list of errors occurred when synchronizing from POS terminal.">Esta solapa muestra los errores ocurridos al sincronizar pedidos desde el TVP.</value>
+  </row>
+  <row id="F4FFE8E8AF0547579CF2B717B192F273" trl="N">
+    <value column="Name" isTrl="Y" original="Payment Method Status Cashup">Estado métodos de pago en Cierre de caja</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="FF80818132F311740132F3233778004B" trl="N">
+    <value column="Name" isTrl="Y" original="POS Terminal">Terminal Punto de Venta</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="A POS terminal is each one of the physical terminals in a store.">Un TPV es cada uno de los terminales físicos en una tienda.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="A POS terminal is each one of the physical terminals in a store.">Un TPV es cada uno de los terminales físicos en una tienda.</value>
+  </row>
+</compiereTrl>

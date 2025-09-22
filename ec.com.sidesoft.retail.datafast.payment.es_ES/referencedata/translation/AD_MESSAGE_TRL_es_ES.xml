@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="3C1C8BE6A3A44F5A9906E00AB9E50D96" trl="N">
+    <value column="MsgText" isTrl="Y" original="Amount">Monto</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="597F73815ED74A6497D810AD4FC44EBB" trl="N">
+    <value column="MsgText" isTrl="Y" original="Payment Type">Tipo de Pago</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="8EF3E2D3FD2240449B16AE2949D7B817" trl="N">
+    <value column="MsgText" isTrl="Y" original="Pay">Pagar</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="C7A544C6917847CDA33CD6C7E522C0EE" trl="N">
+    <value column="MsgText" isTrl="Y" original="Cancel">Cancelar</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

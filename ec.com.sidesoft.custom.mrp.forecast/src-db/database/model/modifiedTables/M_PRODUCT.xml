@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE M_PRODUCT">
+    <table name="M_PRODUCT" primaryKey="M_PRODUCT_KEY">
+      <column name="EM_SCMF_MRP_PRODSUBCAT_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="SCMF_MRP_PROD_SUBCATEGORY" name="EM_SCMF_PROD_MRP_SUBCAT_FK">
+        <reference local="EM_SCMF_MRP_PRODSUBCAT_ID" foreign="SCMF_MRP_PROD_SUBCATEGORY_ID"/>
+      </foreign-key>
+    </table>
+  </database>

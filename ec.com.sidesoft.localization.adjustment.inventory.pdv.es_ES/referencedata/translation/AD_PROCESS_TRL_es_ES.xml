@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
+  <row id="1D22EE8C9F834A8E8051257DE39CBDB4" trl="N">
+    <value column="Name" isTrl="Y" original="Generate Key">Generar Clave</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="2DE57776FDB7430884061D5B204D4868" trl="N">
+    <value column="Name" isTrl="Y" original="Update Quantity">Actualizar cantidad</value>
+    <value column="Description" isTrl="Y" original="The Book Quantity is updated with current book quantity">El libro cantidad se actualiza con el libro actual de cantidad</value>
+    <value column="Help" isTrl="Y" original="The Update Quantity Process will update the book quantity with the current book quantity.">Actualiza el libro cantidad con la cantidad actual</value>
+  </row>
+  <row id="AC75ECE94DB64314A25355F944485D3D" trl="N">
+    <value column="Name" isTrl="Y" original="Process Inventory Count">Proceso de conteo de inventario</value>
+    <value column="Description" isTrl="Y" original="Process Inventory count and update Inventory">Proceso inventario cuenta y actualiza el inventario</value>
+    <value column="Help" isTrl="Y" original="Process Inventory count and update Inventory">Proceso inventario cuenta y actualiza el inventario</value>
+  </row>
+  <row id="BE47BB86C27E41748A566FA6F0B552AE" trl="N">
+    <value column="Name" isTrl="Y" original="Create Inventory Count List">Crear lista de conteo de inventario</value>
+    <value column="Description" isTrl="Y" original="Create Inventory Count List">Crear lista de conteo de inventario</value>
+    <value column="Help" isTrl="Y" original="The inventory count lines are generated.  You can add new lines or delete lines.">Cuenta las líneas generadas.Se puede añadir nuevas líneas o borrarlas</value>
+  </row>
+</compiereTrl>

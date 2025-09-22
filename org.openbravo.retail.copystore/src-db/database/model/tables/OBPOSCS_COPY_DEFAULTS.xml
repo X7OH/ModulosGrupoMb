@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+  <database name="TABLE OBPOSCS_COPY_DEFAULTS">
+    <table name="OBPOSCS_COPY_DEFAULTS" primaryKey="OBPOSCS_COPY_DEFAULTS_PK">
+      <column name="OBPOSCS_COPY_DEFAULTS_ID" primaryKey="true" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_CLIENT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_ORG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISACTIVE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="NAME" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_GLITEM_WRITEOFF_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_GLITEM_DIFF_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_GLITEM_DROPS_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_GLITEM_DEPOSITS_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_GLITEM_DROPDEP_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="C_GLITEM" name="OBPOSCS_DEF_DEPOSIT">
+        <reference local="C_GLITEM_DEPOSITS_ID" foreign="C_GLITEM_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_GLITEM" name="OBPOSCS_DEF_DIFF">
+        <reference local="C_GLITEM_DIFF_ID" foreign="C_GLITEM_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_GLITEM" name="OBPOSCS_DEF_DROP">
+        <reference local="C_GLITEM_DROPS_ID" foreign="C_GLITEM_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_GLITEM" name="OBPOSCS_DEF_DROPDEP">
+        <reference local="C_GLITEM_DROPDEP_ID" foreign="C_GLITEM_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_GLITEM" name="OBPOSCS_DEF_WRITEOFF">
+        <reference local="C_GLITEM_WRITEOFF_ID" foreign="C_GLITEM_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_CLIENT" name="OBPOSCS_DEFAULTS_CLIENT">
+        <reference local="AD_CLIENT_ID" foreign="AD_CLIENT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_ORG" name="OBPOSCS_DEFAULTS_ORG">
+        <reference local="AD_ORG_ID" foreign="AD_ORG_ID"/>
+      </foreign-key>
+      <unique name="OBPOSCS_DEFAULTS_NAME_UN">
+        <unique-column name="NAME"/>
+      </unique>
+      <check name="OBPOSCS_DEFAULTS_ISACTIVE_CHK"><![CDATA[ISACTIVE IN ('Y', 'N')]]></check>
+    </table>
+  </database>

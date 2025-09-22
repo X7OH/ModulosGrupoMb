@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REF_LIST" version="">
+  <row id="07E22B294D9E476E83226C412A6B336B" trl="N">
+    <value column="Name" isTrl="Y" original="All of Selected">Todos los Seleccionados</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="0A5E4E4F7B55433ABE2464F97F29F833" trl="N">
+    <value column="Name" isTrl="Y" original="All Not Selected">Todos los No Seleccionados</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="5D3C8641A3564F6E8C4ED18EABCF75EA" trl="N">
+    <value column="Name" isTrl="Y" original="Window">Ventana</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="952AC6C0292242409911940B484DB4E1" trl="N">
+    <value column="Name" isTrl="Y" original="Tab">Solapa</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

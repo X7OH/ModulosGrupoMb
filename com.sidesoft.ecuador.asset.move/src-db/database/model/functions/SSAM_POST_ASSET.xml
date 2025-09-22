@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SSAM_POST_ASSET">
+    <function name="SSAM_POST_ASSET" type="VARCHAR">
+      <body><![CDATA[v_Count NUMBER;
+  
+BEGIN
+
+  IF AD_isTriggerEnabled()='N' THEN IF TG_OP = 'DELETE' THEN RETURN OLD; ELSE RETURN NEW; END IF; 
+  END IF;
+    
+  IF TG_OP = 'DELETE' THEN
+
+    IF(old.processed = 'Y') THEN
+     
+        RAISE_APPLICATION_ERROR(-20000, '@20501@') ;
+        
+    END IF;
+  
+  END IF;
+IF TG_OP = 'DELETE' THEN RETURN OLD; ELSE RETURN NEW; END IF;
+END SSAM_POST_ASSET
+]]></body>
+    </function>
+  </database>

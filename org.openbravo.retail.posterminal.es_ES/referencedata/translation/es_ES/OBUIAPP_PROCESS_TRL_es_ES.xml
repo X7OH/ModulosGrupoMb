@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="OBUIAPP_PROCESS" version="">
+  <row id="8CA536FCF9334FEB9C1A469CFC270346" trl="N">
+    <value column="Name" isTrl="N" original="Save order">Guardar orden</value>
+    <value column="Description" isTrl="N" original="Try to process the order again">Intentar procesar la orden de nuevo</value>
+    <value column="Help" isTrl="N" original="After fixing the data, the order can be processed again. Depending on the error, to fix the data can require to edit the JSON data to adjust it, or to properly set up configuration.">Tras arreglar los datos, la orden puede ser procesada de nuevo. Dependiendo del error, arreglar los datos puede requerir editar el JSON para ajustarlo, o para preparar la configuración correctamente.</value>
+  </row>
+  <row id="AF7D3AFDFB8F43D2A5DBB58B74935F08" trl="N">
+    <value column="Name" isTrl="N" original="POS Terminal Unlink Device">TPV Terminal desenlazar dispositivo</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="B525F34D8CAD4A0F8BD2E9C6E2C669D3" trl="N">
+    <value column="Name" isTrl="N" original="Choose Warehouse">Seleccione Almacén</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="DCC9B9DB379D4F6BA6EC3F99F10D19A6" trl="N">
+    <value column="Name" isTrl="N" original="Open Hardware URL">Abrir URL de Hardware</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="F5F9F693ED114C7A9B1D58946B8EA496" trl="N">
+    <value column="Name" isTrl="N" original="Clear error">Limpiar error</value>
+    <value column="Description" isTrl="N" original="Delete fixed error">Borrar error arreglado</value>
+    <value column="Help" isTrl="N" original="Once the error has been fixed and saved again, it is possible to remove it from the table by executing this process.">Tras arreglar el error y guardarlo de nuevo, es posible borrarlo de la tabla ejecutando este proceso.</value>
+  </row>
+  <row id="FA5617448077492C83DEBCF2E3E59138" trl="N">
+    <value column="Name" isTrl="N" original="Open Hardware URL">Abrir URL de Hardware</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

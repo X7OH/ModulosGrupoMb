@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SESCR_DATEBIRTHDAY">
+    <function name="SESCR_DATEBIRTHDAY" type="NUMERIC">
+      <parameter name="pdatebirthday" type="timestamp" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[v_tempstartdate timestamp;
+v_tempenddate timestamp;
+v_age number;
+
+begin
+select
+coalesce((select trunc((trunc(now()) - trunc(pdatebirthday) )/365) as edad from dual),0)
+into v_age
+from dual;
+
+return v_age;
+end]]></body>
+    </function>
+  </database>

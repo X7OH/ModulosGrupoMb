@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
+  <row id="72CA4706A80C4DCB8E10DA9FA6F6F2A9" trl="Y">
+    <value column="Name" isTrl="Y" original="Sdsch_ConfigChannelsAndDelivery">Generar</value>
+    <value column="Description" isTrl="Y" original="Sdsch_ConfigChannelsAndDelivery">Generar</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

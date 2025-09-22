@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SCMF_LOADFORECAST">
+    <function name="SCMF_LOADFORECAST" type="VARCHAR">
+      <parameter name="forecast" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[group_id varchar2(32);
+FechaDesde DATE;
+FechaHasta DATE;
+v_days NUMBER;
+v_nameday CHARACTER VARYING(32);
+V_namemonth CHARACTER VARYING(32);
+
+BEGIN
+
+--Borrar datos actuales, si fuese necesario
+--TRUNCATE TABLE DIM_TIEMPO
+--Rango de fechas a generar: del 01/01/2006 al 31/12/Año actual+2
+FechaDesde := TO_DATE('20060101','YYYYMMDD');
+FechaHasta := TO_DATE('20501231','YYYYMMDD');
+WHILE FechaDesde <= FechaHasta LOOP
+
+v_days:=0;
+v_nameday:=trim(TO_CHAR(TO_DATE(TO_CHAR(TO_DATE(FechaDesde),'yyyy-MM-dd'),'yyyy-MM-dd'),'Day'));
+V_namemonth:=trim(TO_CHAR(TO_DATE(TO_CHAR(TO_DATE(FechaDesde),'yyyy-MM-dd'),'yyyy-MM-dd'),'Month'));
+
+IF (v_nameday='Monday') THEN
+	v_days:=1;
+END IF;
+
+IF (v_nameday='Tuesday') THEN
+	v_days:=2;
+END IF;
+IF (v_nameday='Wednesday') THEN
+	v_days:=3;
+END IF;
+IF (v_nameday='Thursday') THEN
+	v_days:=4;
+END IF;
+IF (v_nameday='Friday') THEN
+	v_days:=5;
+END IF;
+IF (v_nameday='Saturday') THEN
+	v_days:=6;
+END IF;
+IF (v_nameday='Sunday') THEN
+	v_days:=7;
+END IF;
+
+--raise notice '%', ' día: ' || (to_char(v_days),0) || ' ' || v_nameday;
+
+INSERT INTO scmf_dateforecast
+(
+scmf_dateforecast_id,
+  dateforecast,
+  stringdate,
+  dayforecast,
+  monthforecast,
+  yearforecast,
+  weekforecast
+)
+VALUES
+(
+get_uuid(),
+FechaDesde,
+to_char(FechaDesde,'dd/MM/yyyy'),
+v_days
+,
+(case
+	when V_namemonth='January' THEN 1
+	when V_namemonth='February' THEN 2
+	when V_namemonth='March' THEN 3
+	when V_namemonth='April' THEN 4
+	when V_namemonth='May' THEN 5
+	when V_namemonth='June' THEN 6
+	when V_namemonth='July' THEN 7
+	when V_namemonth='August' THEN 8
+	when V_namemonth='September' THEN 9
+	when V_namemonth='October' THEN 10
+	when V_namemonth='November' THEN 11
+	when V_namemonth='December' THEN 12
+end),
+to_number(TO_CHAR(FechaDesde,'yyyy'))
+,
+to_number(TO_CHAR(FechaDesde,'W'))
+);
+
+--raise notice '%', 'f1: ' || TO_CHAR(FechaDesde,'Day') || ' ' || to_char(v_days) || '    ' || TO_CHAR(FechaDesde,'Month');
+--Incremento del bucle
+FechaDesde := FechaDesde + 1;
+END LOOP;
+
+Return 'OK';
+END SCMF_LOADFORECAST
+]]></body>
+    </function>
+  </database>

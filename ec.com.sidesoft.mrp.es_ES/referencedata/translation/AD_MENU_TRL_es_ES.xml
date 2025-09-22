@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="03A373C3BB644A6BAC3E41DC755E3861" trl="N">
+    <value column="Name" isTrl="Y" original="Planning Method">Método de planificación</value>
+    <value column="Description" isTrl="Y" original="Define how transaction types will be dealt with in the application.">Define cómo se tratarán los tipos de transacción en la aplicación.</value>
+  </row>
+  <row id="0A74F83957514737A673AE79337D7698" trl="N">
+    <value column="Name" isTrl="Y" original="Purchasing Plan">Planificación de compras</value>
+    <value column="Description" isTrl="Y" original="Create a comprehensive and organized plan to request purchases over a specified time period.">Crea un plan organizado e integral para efectuar pedidos de compra durante un período específico de tiempo.</value>
+  </row>
+  <row id="3CB952332BBA4FF4A491665C1867B706" trl="N">
+    <value column="Name" isTrl="Y" original="Material Requirement Planning">Gestión de MRP</value>
+    <value column="Description" isTrl="Y" original="MRP provides the tools to plan and monitor purchase and production planning by tracking several inputs such as sales forecast and current stock levels.">Abre una carpeta en la que puede editar sus planes de producción, su control de inventario y sus actividades de compra.</value>
+  </row>
+  <row id="6FFCD0042AF14EBCAFEC14B8328034A8" trl="N">
+    <value column="Name" isTrl="N" original="Manufacturing Plan">Planificación de la producción</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="80B9753D3AAD45A6968DE0B6415E0326" trl="N">
+    <value column="Name" isTrl="Y" original="Setup">Configuración</value>
+    <value column="Description" isTrl="Y" original="Open a folder where you can define all information to be used in this module.">Abre una carpeta en la que puede definir toda la información necesaria para este módulo.</value>
+  </row>
+  <row id="A0B5F3E1A226414AB729EA205FD7D391" trl="N">
+    <value column="Name" isTrl="Y" original="Transactions">Transacciones</value>
+    <value column="Description" isTrl="Y" original="Open a folder where you can create, edit, and add data to be used to complete a given transaction.">Abre una carpeta en la que puede crear, editar y añadir los datos necesarios para completar una transacción determinada.</value>
+  </row>
+  <row id="AD773D738DC44E58BFEF68D83F78D68B" trl="N">
+    <value column="Name" isTrl="Y" original="MRP Forecast">Previsión de ventas</value>
+    <value column="Description" isTrl="Y" original="Create and edit MRP forecasts over a specified time period in order to help plan necessary purchases.">Crea y edita las previsiones de venta para un período específico de tiempo, a fin de ayudar a planear las compras necesarias.</value>
+  </row>
+  <row id="D646F4B6D97D4197BF5964981FD00709" trl="N">
+    <value column="Name" isTrl="Y" original="Planner">Planificador</value>
+    <value column="Description" isTrl="Y" original="Define the entity in charge of managing the purchase or production of specific products.">Define la entidad a cargo de la compra o producción de determinados productos.</value>
+  </row>
+  <row id="D938280F7F764E62875DFE870165B7A3" trl="N">
+    <value column="Name" isTrl="Y" original="Manufacturing Plan">Planificación de la producción</value>
+    <value column="Description" isTrl="Y" original="Create a comprehensive work requirement in order to request materials over a specified time period.">Crea una orden integral de fabricación a fin de requerir los materiales en un período específico de tiempo.</value>
+  </row>
+</compiereTrl>

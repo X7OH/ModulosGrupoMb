@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
+  <row id="5554F241BA6140CD93F334990529D435" trl="N">
+    <value column="Name" isTrl="Y" original="Return Stock Process">Devolver Stock</value>
+    <value column="Description" isTrl="Y" original="Return Stock Process of LDM Product">Devuleve el Stock de los productos LDM</value>
+    <value column="Help" isTrl="N" original="">Devuleve el Stock de los productos LDM</value>
+  </row>
+  <row id="71AEEBF2ECF54ABD8FC9C39A7809302E" trl="N">
+    <value column="Name" isTrl="Y" original="Return Stock">Devolver Stock</value>
+    <value column="Description" isTrl="Y" original="Return Stock of LDM Product">Devuleve el Stock de los productos LDM</value>
+    <value column="Help" isTrl="Y" original="Return Stock of LDM Product">Devuleve el Stock de los productos LDM</value>
+  </row>
+</compiereTrl>

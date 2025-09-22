@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TEXTINTERFACES" version="">
+  <row id="06B6202B32F9456A811694C5016C1BFA" trl="N">
+    <value column="Text" isTrl="N" original="Número Guía">Número Guía</value>
+  </row>
+  <row id="09812E44CC7A427EAC00E762049E8A4E" trl="N">
+    <value column="Text" isTrl="N" original="Hasta:">Hasta:</value>
+  </row>
+  <row id="21CB0ACD72604E14AEAD6C369042EE96" trl="N">
+    <value column="Text" isTrl="N" original="Reporte de Costo de Ventas - Detallado">Reporte de Costo de Ventas - Detallado</value>
+  </row>
+  <row id="244B16AE66C14A3D83D3451ABF2EE581" trl="N">
+    <value column="Text" isTrl="N" original="Cod Producto">Cod Producto</value>
+  </row>
+  <row id="25AEAAEE2A8D443498F9ED7D4FEE1A7C" trl="N">
+    <value column="Text" isTrl="N" original="Nombre Cliente">Nombre Cliente</value>
+  </row>
+  <row id="3F80D715433543F2A20A8BDCB0380371" trl="N">
+    <value column="Text" isTrl="N" original="Fecha Desde:">Fecha Desde:</value>
+  </row>
+  <row id="4F28CF38122745E8ABAD928FF760037E" trl="N">
+    <value column="Text" isTrl="N" original="Cod Cliente">Cod Cliente</value>
+  </row>
+  <row id="5732137D4AB24225ACA28FF0E21C3FC3" trl="N">
+    <value column="Text" isTrl="N" original="Fecha Guía">Fecha Guía</value>
+  </row>
+  <row id="7A5C81E497CC45A5B290C29CB7E4CB8C" trl="N">
+    <value column="Text" isTrl="N" original="Total Organización:">Total Organización:</value>
+  </row>
+  <row id="8F1EA4F7661A4B9E9BCD08173886B7B0" trl="N">
+    <value column="Text" isTrl="N" original="Costo Guia">Costo Guia</value>
+  </row>
+  <row id="91BAAE346CC6482F8ECEE3929608205C" trl="N">
+    <value column="Text" isTrl="N" original="Organización:">Organización:</value>
+  </row>
+  <row id="98EF3CFB433A42C3A64C18D9E6AE4399" trl="N">
+    <value column="Text" isTrl="N" original="Categoria Producto">Categoria Producto</value>
+  </row>
+  <row id="C7053FA66CA442A499BC5037BCC095EE" trl="N">
+    <value column="Text" isTrl="N" original="Cantidad">Cantidad</value>
+  </row>
+  <row id="DC3A449C580B4354B0EF5CE3D50A1561" trl="N">
+    <value column="Text" isTrl="N" original="Total Costo de Ventas:">Total Costo de Ventas:</value>
+  </row>
+  <row id="EDF7DF3C108644CDB452C12D7606EB6E" trl="N">
+    <value column="Text" isTrl="N" original="Nombre Producto">Nombre Producto</value>
+  </row>
+  <row id="EF83F389D56A469B8EC4A41AD8A1A920" trl="N">
+    <value column="Text" isTrl="N" original="Costo Contabilidad">Costo Contabilidad</value>
+  </row>
+</compiereTrl>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="03559A599D61433E8AE745746673BB5C" trl="N">
+    <value column="Name" isTrl="N" original="Copy Retail Store">Copiar Tienda</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="F314DBB6830B4CEBB6A3AB8E25EF0807" trl="N">
+    <value column="Name" isTrl="N" original="Copy Store Parameterization">Copiar parametrización de la tienda</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

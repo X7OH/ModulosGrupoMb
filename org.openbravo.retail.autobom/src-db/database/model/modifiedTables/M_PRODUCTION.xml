@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE M_PRODUCTION">
+    <table name="M_PRODUCTION" primaryKey="M_PRODUCTION_KEY">
+      <column name="EM_OBBOM_C_ORDER_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="C_ORDER" name="EM_OBBOM_C_ORDER_PRODUCTION">
+        <reference local="EM_OBBOM_C_ORDER_ID" foreign="C_ORDER_ID"/>
+      </foreign-key>
+      <index name="EM_OBBOM_C_ORDER_IND" unique="false">
+        <index-column name="EM_OBBOM_C_ORDER_ID"/>
+      </index>
+    </table>
+  </database>

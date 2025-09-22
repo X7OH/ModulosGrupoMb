@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="3EA8B2D1159E43F7BC5FCF8673D0212B" trl="N">
+    <value column="MsgText" isTrl="N" original="Percentage field is mandatory if Discount Type is Percentage">El campo Porcentaje es obligatorio cuando el Tipo de Descuento es Porcentaje</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="C1644BBD7EEC482D873084A05CF95FEC" trl="N">
+    <value column="MsgText" isTrl="N" original="Fixed Price field is mandatory if Discount Type is Fixed Price">El campo Precio Fijo es obligatorio cuando el Tipo de Descuento es Precio Fijo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="C8C9AD17D430451BACE222001CA8B41F" trl="N">
+    <value column="MsgText" isTrl="N" original="Fixed Discount field is mandatory if Discount Type is Fixed Discount">El campo Descuento Fijo es obligatorio cuando el Tipo de Descuento es Descuento Fijo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

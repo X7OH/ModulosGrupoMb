@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SAQB_ORDERLINE_TRG">
+    <trigger name="SAQB_ORDERLINE_TRG" table="SAQB_ORDERLINE" fires="after" insert="true" update="true" delete="true" foreach="row">
+      <body><![CDATA[/*
+ * Copyright (C) 2008-2013 Openia S.r.l.
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. 
+ */
+
+     v_subtotal NUMBER:=0;
+     v_linenetamt NUMBER:=0;
+     v_saqb_order_id VARCHAR(32); --OBTG:varchar2;
+ 
+BEGIN
+ 
+  IF AD_isTriggerEnabled()='N' THEN RETURN;
+  END IF;
+ 
+  IF INSERTING THEN
+  
+     --  Create Translation Row
+     v_saqb_order_id:=:new.saqb_order_id;
+     
+     select sum(subtotal), sum(linenetamt)
+     into v_subtotal, v_linenetamt
+     from saqb_orderline
+     where saqb_order_id=v_saqb_order_id;
+     
+     UPDATE saqb_order
+     SET 
+     grandtotal=v_linenetamt, 
+     totallines=v_subtotal
+     WHERE saqb_order_id=v_saqb_order_id;
+ 
+  END IF;
+ 
+  IF UPDATING THEN
+  
+     --  Update Translation Row
+     v_saqb_order_id:=:new.saqb_order_id;
+     
+     select sum(subtotal), sum(linenetamt)
+     into v_subtotal, v_linenetamt
+     from saqb_orderline
+     where saqb_order_id=v_saqb_order_id;
+     
+     UPDATE saqb_order
+     SET 
+     grandtotal=v_linenetamt, 
+     totallines=v_subtotal
+     WHERE saqb_order_id=v_saqb_order_id;
+     
+  END IF;
+
+  IF DELETING THEN
+  
+     --  Delete Translation Row
+     v_saqb_order_id:=:old.saqb_order_id;
+     
+     select sum(subtotal), sum(linenetamt)
+     into v_subtotal, v_linenetamt
+     from saqb_orderline
+     where saqb_order_id=v_saqb_order_id;
+     
+     IF (v_subtotal IS NULL OR v_linenetamt IS NULL) THEN
+	     UPDATE saqb_order
+	     SET 
+	     grandtotal=0, 
+	     totallines=0
+	     WHERE saqb_order_id=v_saqb_order_id;
+      ELSE
+
+	     UPDATE saqb_order
+	     SET 
+	     grandtotal=v_linenetamt, 
+	     totallines=v_subtotal
+	     WHERE saqb_order_id=v_saqb_order_id;
+
+      END IF;
+     
+  END IF;
+ 
+  END SAQB_ORDERLINE_TRG
+]]></body>
+    </trigger>
+  </database>

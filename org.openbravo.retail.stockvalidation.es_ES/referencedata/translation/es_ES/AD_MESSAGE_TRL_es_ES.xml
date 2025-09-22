@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="15080939ABD646ECAFE9D7ADAF3A5321" trl="N">
+    <value column="MsgText" isTrl="Y" original="The stock level for this product is %0. You cannot sell %1 unit(s) of this product because your system doesn't allow negative stocks.">El nivel de existencias de este producto es de 0%. No se puede vender % 1 unidad (s) de este producto debido a que su sistema no permite existencias negativas.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="2EC0F0706FD84AB5936FD609D94D2FAB" trl="N">
+    <value column="MsgText" isTrl="Y" original="The stock level for this product is %0. You don't have enough stock to sell %1 units of this product.&#10;Do you want to proceed anyway (the stock of this product will be negative)?">El nivel de existencias de este producto es de 0%. Usted no tiene suficientes existencias para vender % 1 unidades de este producto. ¿Quieres continuar de todos modos (el stock de este producto será negativo)?</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="33E6ED333F8C46EC845BA5D07F84905B" trl="N">
+    <value column="MsgText" isTrl="Y" original="Not enough stock">No Hay Existencia Suficiente </value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="40C3DDD2FF6F4B8D9CD348B8A2273D6C" trl="N">
+    <value column="MsgText" isTrl="N" original="Because the system is working in offline mode the stock cannot be checked. The order will be closed and processed when the system returns to online mode.">Because the system is working in offline mode the stock cannot be checked. The order will be closed and processed when the system returns to online mode.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="61E5ED76CF20442BAC04CD5BABD712B1" trl="N">
+    <value column="MsgText" isTrl="N" original="The stock level for product %0 is %1. You don't have enough stock to sell %2 units of this product.">The stock level for product %0 is %1. You don't have enough stock to sell %2 units of this product.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="80B2E0BDB3074130814E22732B7B8913" trl="N">
+    <value column="MsgText" isTrl="Y" original="Do you want to proceed anyway (the stock of this product will be negative)?">¿Quieres continuar de todos modos (el stock de este producto será negativo)?</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="9CB6EAAC1FAE4E86AA4A76A9F04554D8" trl="N">
+    <value column="MsgText" isTrl="Y" original="Error retrieving the stock information from server. It could be generated because the system is in offline mode">Error! The stock cannot be retrieved from server</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="AD6BBCECB3FE401A97A1AD965400E6A2" trl="N">
+    <value column="MsgText" isTrl="N" original="Your system doesn't allow negative stocks.">La configuración del Sistema no permite stocks negativos.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="D5CD0B5B67174F47ABDF9AFBE8CB6988" trl="N">
+    <value column="MsgText" isTrl="N" original="Proceed">Proceed</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="E6629DBD8EF34A699090A7BA506AF9EE" trl="N">
+    <value column="MsgText" isTrl="N" original="The stock data is being retrieved from server">El stock esta siendo consultado en el servidor.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="941B30F9B2084B4C82334F9885FA37DF" trl="N">
+    <value column="Name" isTrl="N" original="Transfer">Transfer</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

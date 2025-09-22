@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+  <vector>
+    <versionInfo version="3.0.31111"/>
+    <columnDataChange tablename="AD_FIELD" columnname="SEQNO" pkRow="3786">
+      <oldValue><![CDATA[20]]></oldValue>
+      <newValue><![CDATA[50]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="SEQNO" pkRow="3787">
+      <oldValue><![CDATA[50]]></oldValue>
+      <newValue><![CDATA[40]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="STARTNEWLINE" pkRow="3787">
+      <oldValue><![CDATA[N]]></oldValue>
+      <newValue><![CDATA[Y]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="SEQNO" pkRow="3788">
+      <oldValue><![CDATA[30]]></oldValue>
+      <newValue><![CDATA[60]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="SEQNO" pkRow="3791">
+      <oldValue><![CDATA[40]]></oldValue>
+      <newValue><![CDATA[70]]></newValue>
+    </columnDataChange>
+  </vector>

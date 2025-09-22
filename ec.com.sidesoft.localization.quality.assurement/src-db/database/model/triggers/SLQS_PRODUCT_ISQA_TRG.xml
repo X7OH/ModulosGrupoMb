@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SLQS_PRODUCT_ISQA_TRG">
+    <trigger name="SLQS_PRODUCT_ISQA_TRG" table="M_INOUTLINE" fires="before" insert="true" update="true" delete="true" foreach="row">
+      <body><![CDATA[
+   TYPE RECORD IS REF CURSOR; 
+
+  v_checkqa VARCHAR2(1);
+  v_StatusActual VARCHAR2(32);
+  v_MsgBox  VARCHAR2(255);
+  v_ControlId VARCHAR2(32);
+  
+BEGIN
+
+    IF AD_isTriggerEnabled()='N' THEN IF DELETING THEN RETURN OLD; ELSE RETURN NEW; END IF;
+    END IF;
+
+ 
+    IF (INSERTING OR UPDATING) THEN
+
+
+	v_StatusActual:= COALESCE((:new.em_slqs_eval_quality),TO_CHAR('ND'));
+	v_checkqa:= COALESCE((:new.em_slqs_check_quality),TO_CHAR('N'));
+
+	select
+	coalesce((select a.em_slqs_check_quality 
+	from m_product a 
+	where a.m_product_id = :new.m_product_id),'N')
+	into v_checkqa
+	from dual;
+
+
+	select
+	coalesce((select a.em_slqs_mp_per_ctrl 
+	from m_product a 
+	where a.m_product_id = :new.m_product_id),'ND')
+	into v_ControlId
+	from dual;
+
+	IF (v_ControlId='ND' AND v_checkqa='Y') THEN
+		RAISE_APPLICATION_ERROR(-20000, '@El producto seleccionado no tiene configurado el campo "Control Periódico" @') ;
+	END IF;
+	
+	IF (v_ControlId<>'ND') THEN
+		:new.em_slqs_check_quality :=v_checkqa;
+		:new.em_slqs_ma_per_ctrl_id:=v_ControlId;
+	END IF;
+	
+
+
+    END IF;
+
+    IF (DELETING) THEN
+
+	v_StatusActual:= COALESCE((:old.em_slqs_eval_quality),TO_CHAR('ND'));
+	v_checkqa:= COALESCE((:old.em_slqs_check_quality),TO_CHAR('N'));
+	
+	IF (v_checkqa='Y') THEN
+
+		IF (v_StatusActual='NA' OR v_StatusActual='AP') THEN
+			RAISE_APPLICATION_ERROR(-20000, '@No se puede eliminar la linea en estado Aprobado/No Aprobado@') ;
+		END IF;
+	END IF;
+    
+    END IF;
+
+    END SLQS_PRODUCT_ISQA_TRG
+]]></body>
+    </trigger>
+  </database>

@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_Evolution_Costs_By_product" pageWidth="962" pageHeight="842" columnWidth="922" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.9487171000000163"/>
+	<property name="ireport.x" value="1123"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="DATE_FROM" class="java.util.Date"/>
+	<parameter name="DATE_TO" class="java.util.Date"/>
+	<parameter name="M_PRODUCT_ID" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[with data as (
+	select
+	to_char(mpd.movementdate,'dd/MM/yyyy') as "fecha"
+	,mp.name as "producto"
+	,mpc.name as "categoria"
+	,COALESCE(mpd.documentno,'') as "parte"
+	,mwr.documentno as "orden_fabricacion"
+	,mpp.ProductionQty as "cantidadproducida"
+	,upper(uom.uomsymbol) as "unidad_medida"
+	,mpdl.movementqty as "cantidad"
+	,(mt.transactioncost / mpdl.movementqty) as "costounitario"
+	,mt.transactioncost as "costoproduccion"
+	,mp.ad_org_id as "organizationid"
+	from m_production mpd
+	left join m_productionplan mpp on mpp.m_production_id = mpd.m_production_id
+	left join m_productionline mpdl on mpdl.m_productionplan_id = mpp.m_productionplan_id
+	left join m_product mp on mp.m_product_id = mpdl.m_product_id
+	left join m_product_category mpc on mpc.m_product_category_id = mp.m_product_category_id
+	left join ma_wrphase mwp on mwp.ma_wrphase_id = mpp.ma_wrphase_id
+	left join MA_WorkRequirement mwr on mwr.MA_WorkRequirement_id = mwp.MA_WorkRequirement_id
+	left join m_attributesetinstance mas on mas.m_attributesetinstance_id = mpdl.m_attributesetinstance_id
+	left join c_uom uom on uom.c_uom_id = mpdl.c_uom_id
+	left join m_transaction mt ON mt.m_productionline_id = mpdl.m_productionline_id
+	WHERE mpd.movementdate between $P{DATE_FROM} AND $P{DATE_TO}
+          AND mp.m_product_id = $P{M_PRODUCT_ID}
+          AND mpdl.productiontype = '+'
+          AND mpp.processed='Y'
+	ORDER BY mpd.movementdate
+)
+
+select
+  fecha,
+  producto,
+  categoria,
+  parte,
+  orden_fabricacion,
+  cantidadproducida,
+  unidad_medida,
+  cantidad,
+  costounitario,
+  costoproduccion,
+  organizationid,
+  sum(costoproduccion) over (order by fecha asc rows between unbounded preceding and current row) sumacosto,
+  sum(cantidad) over (order by fecha asc rows between unbounded preceding and current row) sumacantidad,
+  ( sum(costoproduccion) over (order by fecha asc rows between unbounded preceding and current row) /
+    sum(cantidad) over (order by fecha asc rows between unbounded preceding and current row)
+  ) as promedio,
+  COALESCE( (
+
+	  CASE WHEN 	  COALESCE(ABS(
+	  LEAD(costoproduccion,-1) OVER (order by fecha asc rows between unbounded preceding and current row) -
+	  LEAD(costoproduccion,0) OVER (order by fecha asc rows between unbounded preceding and current row)
+	  ),0) = 0 THEN 0
+	  ELSE
+		  COALESCE(ABS(
+		  LEAD(cantidad,-1) OVER (order by fecha asc rows between unbounded preceding and current row) -
+		  LEAD(cantidad,0) OVER (order by fecha asc rows between unbounded preceding and current row)
+		  ),0)
+		  /
+		  COALESCE(ABS(
+		  LEAD(costoproduccion,-1) OVER (order by fecha asc rows between unbounded preceding and current row) -
+		  LEAD(costoproduccion,0) OVER (order by fecha asc rows between unbounded preceding and current row)
+		  ),0)
+
+	  END
+ ) , 0 ) as variacion
+from data]]>
+	</queryString>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="producto" class="java.lang.String"/>
+	<field name="categoria" class="java.lang.String"/>
+	<field name="parte" class="java.lang.String"/>
+	<field name="orden_fabricacion" class="java.lang.String"/>
+	<field name="cantidadproducida" class="java.math.BigDecimal"/>
+	<field name="unidad_medida" class="java.lang.String"/>
+	<field name="cantidad" class="java.math.BigDecimal"/>
+	<field name="costounitario" class="java.math.BigDecimal"/>
+	<field name="costoproduccion" class="java.math.BigDecimal"/>
+	<field name="organizationid" class="java.lang.String"/>
+	<field name="sumacosto" class="java.math.BigDecimal"/>
+	<field name="sumacantidad" class="java.math.BigDecimal"/>
+	<field name="promedio" class="java.math.BigDecimal"/>
+	<field name="variacion" class="java.math.BigDecimal"/>
+	<variable name="costo_promedio" class="java.lang.Double" resetType="None" incrementType="Report" calculation="Sum">
+		<variableExpression><![CDATA[($F{costoproduccion}.doubleValue()!=Double.valueOf("0") && $F{cantidad}.doubleValue()!=Double.valueOf("0"))? ($F{costoproduccion}.doubleValue()/$F{cantidad}.doubleValue()): Double.valueOf("0")]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="sum_cantidad" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{cantidadproducida}]]></variableExpression>
+	</variable>
+	<variable name="sum_costo_pro" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{costoproduccion}]]></variableExpression>
+	</variable>
+	<variable name="sum_promedio" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{promedio}]]></variableExpression>
+	</variable>
+	<variable name="count_promedio" class="java.math.BigDecimal" calculation="Count">
+		<variableExpression><![CDATA[$F{promedio}]]></variableExpression>
+	</variable>
+	<variable name="total_promedio" class="java.lang.Double" resetType="None">
+		<variableExpression><![CDATA[($V{sum_promedio}.doubleValue()!=Double.valueOf("0") && $V{count_promedio}.doubleValue()!=Double.valueOf("0"))? ($V{sum_promedio}.doubleValue()/$V{count_promedio}.doubleValue()): Double.valueOf("0")]]></variableExpression>
+	</variable>
+	<variable name="sum_variacion" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{variacion}]]></variableExpression>
+	</variable>
+	<variable name="count_variacion" class="java.math.BigDecimal" calculation="Count">
+		<variableExpression><![CDATA[$F{variacion}]]></variableExpression>
+	</variable>
+	<variable name="total_variacion" class="java.lang.Double" resetType="None">
+		<variableExpression><![CDATA[($V{sum_variacion}.doubleValue()!=Double.valueOf("0") && $V{count_variacion}.doubleValue()!=Double.valueOf("0"))? ($V{sum_variacion}.doubleValue()/$V{count_variacion}.doubleValue()): Double.valueOf("0")]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="96" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="771" height="49"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Evolución de costos por producto]]></text>
+			</staticText>
+			<image scaleImage="RetainShape" hAlign="Right" vAlign="Top" isUsingCache="true">
+				<reportElement key="image-1" x="793" y="0" width="126" height="85"/>
+				<imageExpression class="java.awt.Image"><![CDATA[org.openbravo.erpCommon.utility.Utility.showImageLogo("yourcompanylegal", $F{organizationid})]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="50" width="145" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="5"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Categoria de producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="70" width="145" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="5"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Producto:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="584" y="50" width="85" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="5"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Fecha inicial]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="584" y="70" width="85" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="5"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Fecha final]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="669" y="50" width="102" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{DATE_FROM}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="669" y="70" width="102" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{DATE_TO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="145" y="50" width="439" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{categoria}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="145" y="70" width="260" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{producto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="405" y="70" width="55" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="5"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Unidad]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="460" y="70" width="124" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{unidad_medida}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="109" height="30"/>
+				<box leftPadding="5">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="109" y="0" width="129" height="30"/>
+				<box leftPadding="5">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Parte]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="238" y="0" width="158" height="30"/>
+				<box leftPadding="5">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Orden de fabricación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="396" y="0" width="89" height="30"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad producida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="485" y="0" width="143" height="30"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Costo de Producción Unitario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="628" y="0" width="95" height="30"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Costo producción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="723" y="0" width="86" height="30"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Costo promedio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="809" y="0" width="111" height="30"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Variación Costo de Producción]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="109" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="109" y="0" width="129" height="20"/>
+				<box rightPadding="5">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{parte}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="238" y="0" width="158" height="20"/>
+				<box rightPadding="5">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{orden_fabricacion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="396" y="0" width="89" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{cantidadproducida}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="723" y="0" width="86" height="20"/>
+				<box rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{promedio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="809" y="0" width="111" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{variacion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="485" y="0" width="143" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{costounitario}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="628" y="0" width="95" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{costoproduccion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="25" splitType="Stretch">
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="396" y="0" width="89" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_cantidad}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="628" y="0" width="95" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_costo_pro}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="723" y="0" width="86" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{total_promedio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="809" y="0" width="111" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{total_variacion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

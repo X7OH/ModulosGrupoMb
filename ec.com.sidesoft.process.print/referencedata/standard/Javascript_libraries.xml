@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?><ob:Openbravo xmlns:ob="http://www.openbravo.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SSPRI_Library id="14B23D849503431D9226B9C5056AE2B2" identifier="Datasource">
+    <id>14B23D849503431D9226B9C5056AE2B2</id>
+    <active>true</active>
+    <creationDate transient="true">2018-11-21T13:49:50.361Z</creationDate>
+    <createdBy transient="true" id="100" entity-name="ADUser" identifier="Openbravo"/>
+    <updated transient="true">2018-12-19T08:37:51.362Z</updated>
+    <updatedBy transient="true" id="100" entity-name="ADUser" identifier="Openbravo"/>
+    <name>Datasource</name>
+    <templatePath>web/ec.com.sidesoft.process.print/datasource.js</templatePath>
+    <lineNo>90</lineNo>
+  </SSPRI_Library>
+  <SSPRI_Library id="157EB8CA816B4F5F8D379B4D0FDB5341" identifier="OB Debug">
+    <id>157EB8CA816B4F5F8D379B4D0FDB5341</id>
+    <active>true</active>
+    <creationDate transient="true">2018-11-20T11:21:22.799Z</creationDate>
+    <createdBy transient="true" id="100" entity-name="ADUser" identifier="Openbravo"/>
+    <updated transient="true">2018-12-19T08:37:38.605Z</updated>
+    <updatedBy transient="true" id="100" entity-name="ADUser" identifier="Openbravo"/>
+    <name>OB Debug</name>
+    <templatePath>web/org.openbravo.mobile.core/source/utils/ob-debug.js</templatePath>
+    <lineNo>40</lineNo>
+  </SSPRI_Library>
+  <SSPRI_Library id="1BFD79E7F0CE4456B6DCE2D4FBC729C1" identifier="Date Utilities">
+    <id>1BFD79E7F0CE4456B6DCE2D4FBC729C1</id>
+    <active>true</active>
+    <creationDate transient="true">2018-12-28T09:41:43.804Z</creationDate>
+    <createdBy transient="true" id="100" entity-name="ADUser" identifier="Openbravo"/>
+    <updated transient="true">2018-12-28T09:41:43.804Z</updated>
+    <updatedBy transient="true" id="100" entity-name="ADUser" identifier="Openbravo"/>
+    <name>Date Utilities</name>
+    <templatePath>web/org.openbravo.client.application/js/utilities/ob-utilities-date.js</templatePath>
+    <lineNo>45</lineNo>
+  </SSPRI_Library>
+  <SSPRI_Library id="242530F8D0EC4DBD8D3FB35432AC2E8B" identifier="Underscore">
+    <id>242530F8D0EC4DBD8D3FB35432AC2E8B</id>
+    <active>true</active>
+    <creationDate transient="true">2018-11-22T12:21:29.942Z</creationDate>
+    <createdBy transient="true" id="100" entity-name="ADUser" identifier="Openbravo"/>
+    <updated transient="true">2018-12-19T08:37:35.340Z</updated>
+    <updatedBy transient="true" id="100" entity-name="ADUser" identifier="Openbravo"/>
+    <name>Underscore</name>
+    <templatePath>web/org.openbravo.mobile.core/lib/vendor/underscore-1.3.3.js</templatePath>
+    <lineNo>30</lineNo>
+  </SSPRI_Library>
+  <SSPRI_Library id="3C4D05E7AD614FE3AE0A93E445AD7DCC" identifier="Constants">
+    <id>3C4D05E7AD614FE3AE0A93E445AD7DCC</id>
+    <active>true</active>
+    <creationDate transient="true">2018-11-27T16:33:14.536Z</creationDate>
+    <createdBy transient="true" id="100" entity-name="ADUser" identifier="Openbravo"/>
+    <updated transient="true">2018-12-19T08:37:53.879Z</updated>
+    <updatedBy transient="true" id="100" entity-name="ADUser" identifier="Openbravo"/>
+    <name>Constants</name>
+    <templatePath>web/ec.com.sidesoft.process.print/constants.js</templatePath>
+    <lineNo>100</lineNo>
+  </SSPRI_Library>
+  <SSPRI_Library id="488AB48F7F0740D7A4E5F293DF933460" identifier="Markdown">
+    <id>488AB48F7F0740D7A4E5F293DF933460</id>
+    <active>true</active>
+    <creationDate transient="true">2018-11-22T12:42:33.740Z</creationDate>
+    <createdBy transient="true" id="100" entity-name="ADUser" identifier="Openbravo"/>
+    <updated transient="true">2018-12-19T08:37:32.790Z</updated>
+    <updatedBy transient="true" id="100" entity-name="ADUser" identifier="Openbravo"/>
+    <name>Markdown</name>
+    <templatePath>web/org.openbravo.mobile.core/lib/vendor/markdown-0.6.0-beta1.js</templatePath>
+    <lineNo>20</lineNo>
+  </SSPRI_Library>
+  <SSPRI_Library id="8672EADE53AB486D94FE27C3A4B55D60" identifier="Mobile i18n">
+    <id>8672EADE53AB486D94FE27C3A4B55D60</id>
+    <active>true</active>
+    <creationDate transient="true">2018-11-20T10:31:58.182Z</creationDate>
+    <createdBy transient="true" id="100" entity-name="ADUser" identifier="Openbravo"/>
+    <updated transient="true">2018-12-19T08:37:41.187Z</updated>
+    <updatedBy transient="true" id="100" entity-name="ADUser" identifier="Openbravo"/>
+    <name>Mobile i18n</name>
+    <templatePath>web/org.openbravo.mobile.core/source/utils/ob-i18n.js</templatePath>
+    <lineNo>50</lineNo>
+  </SSPRI_Library>
+  <SSPRI_Library id="B1ECDBA273C5443692B65789FAC1BBBA" identifier="Console">
+    <id>B1ECDBA273C5443692B65789FAC1BBBA</id>
+    <active>true</active>
+    <creationDate transient="true">2018-11-22T10:02:18.257Z</creationDate>
+    <createdBy transient="true" id="100" entity-name="ADUser" identifier="Openbravo"/>
+    <updated transient="true">2018-12-19T08:37:30.113Z</updated>
+    <updatedBy transient="true" id="100" entity-name="ADUser" identifier="Openbravo"/>
+    <name>Console</name>
+    <templatePath>web/ec.com.sidesoft.process.print/console.js</templatePath>
+    <lineNo>10</lineNo>
+  </SSPRI_Library>
+  <SSPRI_Library id="CEA1C6693CF342E9BFC8A6E9014E9881" identifier="Utilities Number">
+    <id>CEA1C6693CF342E9BFC8A6E9014E9881</id>
+    <active>true</active>
+    <creationDate transient="true">2018-11-28T17:31:37.198Z</creationDate>
+    <createdBy transient="true" id="100" entity-name="ADUser" identifier="Openbravo"/>
+    <updated transient="true">2018-12-19T08:37:46.41Z</updated>
+    <updatedBy transient="true" id="100" entity-name="ADUser" identifier="Openbravo"/>
+    <name>Utilities Number</name>
+    <templatePath>web/org.openbravo.client.application/js/utilities/ob-utilities-number.js</templatePath>
+    <lineNo>70</lineNo>
+  </SSPRI_Library>
+  <SSPRI_Library id="D0578C7F6D29457AAE0C1155268A7379" identifier="Backbone">
+    <id>D0578C7F6D29457AAE0C1155268A7379</id>
+    <active>true</active>
+    <creationDate transient="true">2018-11-22T17:42:07.681Z</creationDate>
+    <createdBy transient="true" id="100" entity-name="ADUser" identifier="Openbravo"/>
+    <updated transient="true">2018-12-19T08:37:48.418Z</updated>
+    <updatedBy transient="true" id="100" entity-name="ADUser" identifier="Openbravo"/>
+    <name>Backbone</name>
+    <templatePath>web/org.openbravo.mobile.core/lib/vendor/backbone-0.9.10.js</templatePath>
+    <lineNo>80</lineNo>
+  </SSPRI_Library>
+  <SSPRI_Library id="E9D98671A72945F3B0C208F208FB278E" identifier="Mobile Utilities">
+    <id>E9D98671A72945F3B0C208F208FB278E</id>
+    <active>true</active>
+    <creationDate transient="true">2018-11-20T10:31:30.171Z</creationDate>
+    <createdBy transient="true" id="100" entity-name="ADUser" identifier="Openbravo"/>
+    <updated transient="true">2018-12-19T08:37:43.412Z</updated>
+    <updatedBy transient="true" id="100" entity-name="ADUser" identifier="Openbravo"/>
+    <name>Mobile Utilities</name>
+    <templatePath>web/org.openbravo.mobile.core/source/utils/ob-utilities.js</templatePath>
+    <lineNo>60</lineNo>
+  </SSPRI_Library>
+</ob:Openbravo>

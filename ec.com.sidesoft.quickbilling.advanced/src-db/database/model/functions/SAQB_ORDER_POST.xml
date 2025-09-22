@@ -1,0 +1,683 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SAQB_ORDER_POST">
+    <function name="SAQB_ORDER_POST" type="NULL">
+      <parameter name="p_pinstance_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[-- Logistics
+  v_ResultStr VARCHAR2(2000):='';
+  v_Message VARCHAR2(2000):='';
+  v_Record_ID VARCHAR2(32);
+  v_User VARCHAR2(32);
+  v_IsProcessing CHAR(1) ;
+  v_IsProcessed VARCHAR(60) ;
+  v_Result NUMBER:=1; -- Success
+  v_is_included NUMBER:=0;
+  v_is_ready AD_Org.IsReady%TYPE;
+  v_is_tr_allow AD_OrgType.IsTransactionsAllowed%TYPE;
+  -- Parameter
+  TYPE RECORD IS REF CURSOR;
+    Cur_Parameter RECORD;
+  TYPE RECORD IS REF CURSOR;
+    OrderLines RECORD;
+  TYPE RECORD IS REF CURSOR;
+    Cur_PaymentMethods RECORD;
+    
+  V_Taxidtype VARCHAR2(60);
+  v_Cif_Nif VARCHAR2(32);
+  v_client_id VARCHAR2(32);
+  v_org_id VARCHAR2(32);
+  v_user_id VARCHAR2(32);
+  v_name VARCHAR2(60);
+  v_bp_group_id VARCHAR2(32);
+  v_language VARCHAR2(6);
+  v_reference VARCHAR2(300);
+  v_bpartner_id VARCHAR2(32);
+  v_c_bpartner_id VARCHAR2(32);
+  V_location_id VARCHAR2(32);
+  V_bpartner_location_id VARCHAR2(32);
+  v_country_id VARCHAR2(32);
+  v_alias VARCHAR2(60);
+  v_phone VARCHAR2(40);
+  v_doctype_id VARCHAR2(32);
+  v_costcenteer_id VARCHAR2(32);
+  v_dateordered DATE;
+  v_currency_id VARCHAR2(32);
+  V_fin_paymentmethod_id VARCHAR2(32);
+  v_warehouse_id VARCHAR2(32);
+  v_pricelist_id VARCHAR2(32);
+  v_costcenter_id VARCHAR2(32);
+  v_order_id VARCHAR2(32);
+  v_ad_sequence_id VARCHAR2(32);
+  v_documentno VARCHAR2(60);
+  v_paymentterm_id VARCHAR2(60);
+  V_SUBTOTAL NUMBER:=0;
+  V_TOTAL NUMBER:=0;
+  v_invoicerule VARCHAR2(60);
+  v_conf_org_id VARCHAR2(32);
+  v_electronicinvoice CHAR(1);
+  v_email VARCHAR2(60);
+  v_org_region_id VARCHAR2(32);
+  v_metodo_pago VARCHAR2(40000);
+  v_new_address CHAR(1);
+  v_address_complete  VARCHAR2(60); 
+  v_sales_region_id VARCHAR2(32);
+  v_Module NUMBER:=0;  
+  v_observations VARCHAR2(1000);
+  v_financial_entity VARCHAR2(32);
+  v_card_id VARCHAR2(32);
+  v_counter NUMBER:=0;
+  v_istaxincluded VARCHAR2(32);
+  v_obpos_applications_id VARCHAR2(32);
+  v_orgname VARCHAR2(200);
+  v_delcontact_name VARCHAR2(25);
+  v_delcontact_phone VARCHAR2(10);
+  v_paymentstodescription VARCHAR2(40000);
+  v_delcontact_name2 VARCHAR2(100);
+  v_delcontact_phone2 VARCHAR2(100);
+  v_sales_zone VARCHAR2(100);
+
+  v_counterlines NUMBER:=0;
+  v_withooutpayments NUMBER:=0;
+  v_sumamount NUMBER:=0;
+  v_sumgrandtotal NUMBER:=0;
+  v_address_complete2 VARCHAR2(100); 
+  v_deliveryinvoiceaddr CHAR(1);
+  V_lonlat VARCHAR2(100);
+
+  v_new_address_fac CHAR(1);
+  v_bpartner_location_fac VARCHAR2(32); 
+  v_address_complete_fac  VARCHAR2(60); 
+  v_phone_fac VARCHAR2(60);
+  v_alias_fac VARCHAR2(60);  
+  v_addressbilling_error VARCHAR2(2000); 
+  V_contactperson_id VARCHAR2(32); 
+  v_ptermid VARCHAR2(32); 
+  v_pmethodid VARCHAR2(32); 
+  v_authorizationcode VARCHAR2(100); 
+  v_authorizationcode2  VARCHAR2(150); 
+  
+BEGIN
+
+  IF (p_PInstance_ID IS NOT NULL) THEN
+      --  Update AD_PInstance
+      DBMS_OUTPUT.PUT_LINE('Updating PInstance - Processing ' || p_PInstance_ID) ;
+      v_ResultStr:='PInstanceNotFound';
+      AD_UPDATE_PINSTANCE(p_PInstance_ID, NULL, 'Y', NULL, NULL) ;
+      -- Get Parameters
+      v_ResultStr:='ReadingParameters';
+      FOR Cur_Parameter IN
+        (SELECT i.Record_ID, i.AD_User_ID, p.ParameterName, p.P_String,
+          p.P_Number, p.P_Date
+        FROM AD_PINSTANCE i
+        LEFT JOIN AD_PINSTANCE_PARA p
+          ON i.AD_PInstance_ID=p.AD_PInstance_ID
+        WHERE i.AD_PInstance_ID=p_PInstance_ID
+        ORDER BY p.SeqNo
+        )
+      LOOP
+        v_Record_ID:=Cur_Parameter.Record_ID;
+        v_User:=Cur_Parameter.AD_User_ID;
+      END LOOP; -- Get Parameter
+    END IF;
+    DBMS_OUTPUT.PUT_LINE('  Record_ID=' || v_Record_ID) ;
+
+  select c_bpartner_id,cif_nif,a.ad_client_id,a.ad_org_id,a.createdby,name_partner,address1, Sswh_Taxidtype, Address1_Alias, phone,
+  dateordered,c_bpartner_location_id,email,ad_org_region_id,
+  new_address,address_complete,c_salesregion_id,a.description,a.totallines,a.grandtotal,a.deliverycontact_name,a.deliverycontact_phone,
+  a.delivery_invoice_address, new_address_fac,c_bpartner_location_fac_id,address_complete_fac,phone_fac,address1_alias_fac,authorization_code,
+  a.lon_lat
+  into v_bpartner_id,v_Cif_Nif,v_client_id,v_org_id,v_user_id,v_name, v_reference, V_Taxidtype, v_alias, v_phone,
+  v_dateordered,v_bpartner_location_id,v_email,v_org_region_id,
+  v_new_address,v_address_complete,v_sales_region_id,v_observations,V_SUBTOTAL,V_TOTAL,v_delcontact_name,v_delcontact_phone,
+  v_deliveryinvoiceaddr, v_new_address_fac, v_bpartner_location_fac,v_address_complete_fac, v_phone_fac, v_alias_fac, v_authorizationcode,
+  V_lonlat
+  from saqb_order a
+  where saqb_order_id = v_Record_ID;
+
+  IF((select count(*)
+  from saqb_callcenterinvoice_conf 
+  where ad_org_id = v_org_region_id)=0) THEN
+    RAISE_APPLICATION_ERROR(-20000, '@Saqb_OrgConfiguration@');
+  END IF;
+
+  select c_bp_group_id, ad_language,c_country_id,c_doctype_id,c_currency_id,m_warehouse_id,m_pricelist_id,c_costcenter_id,c_paymentterm_id,invoicerule,ad_org_id,obpos_applications_id
+  into v_bp_group_id, v_language,v_country_id,v_doctype_id,v_currency_id,v_warehouse_id,v_pricelist_id,v_costcenter_id,v_paymentterm_id,v_invoicerule,v_conf_org_id,v_obpos_applications_id
+  from saqb_callcenterinvoice_conf 
+  where ad_org_id = v_org_region_id;
+
+  select em_obretco_dbp_ptermid, em_obretco_dbp_pmethodid
+  into v_ptermid, v_pmethodid
+  from ad_org
+  where ad_org_id = v_org_region_id;
+
+--TARIFA INCLUYE IMPUESTOS
+  SELECT istaxincluded INTO v_istaxincluded FROM m_pricelist WHERE m_pricelist_id=v_pricelist_id;
+
+--NO PERMITIR COMPLETAR SI NO ESTÁ CONFIGURADA DIRECCIÓN DE FACTURACIÓN
+  IF(v_deliveryinvoiceaddr='N') THEN
+   IF(v_new_address_fac ='N' AND v_bpartner_location_fac IS NULL) THEN 
+    v_addressbilling_error:='@SSRCM_AddressFac@';
+   END IF;
+   
+   IF(v_address_complete_fac IS NULL) THEN
+    v_addressbilling_error:= COALESCE(v_addressbilling_error,'')||' - '|| '@SSRCM_Address_Complete_Fac@';
+   END IF;
+   
+   IF(v_phone_fac IS NULL) THEN
+    v_addressbilling_error:= COALESCE(v_addressbilling_error,'')||' - '|| '@SSRCM_Phone_Fac@';
+   END IF;
+
+   IF(v_alias_fac IS NULL) THEN
+    v_addressbilling_error:= COALESCE(v_addressbilling_error,'')||' - '|| '@SSRCM_AddressAlias_Fac@';
+   END IF;
+
+   IF(v_addressbilling_error IS NOT NULL) THEN
+    RAISE_APPLICATION_ERROR(-20000, '@Saqb_RequieredFields@'||' '||v_addressbilling_error);
+   END IF;
+  
+  END IF;
+
+--NO PERMITIR COMPLETAR SI SOLO EXISTE PRODUCTOS POR DEFECTO
+  SELECT coalesce(count(*),0) INTO v_counterlines FROM saqb_orderline where saqb_order_id=v_Record_ID and isdefault<>'Y' ;
+  IF (v_counterlines=0 )THEN
+      RAISE_APPLICATION_ERROR(-20000, '@Saqb_Without_Lines@');
+  END IF;
+
+--NO PERMITIR COMPLETAR SI NO EXISTEN MÉTODOS DE PAGO
+  SELECT coalesce(count(saqbp_payment_methods_id),0) INTO v_withooutpayments FROM saqbp_payment_methods where saqb_order_id=v_Record_ID;
+  IF (v_withooutpayments=0)THEN
+      RAISE_APPLICATION_ERROR(-20000, '@Saqb_Without_Payments@');
+  END IF;
+
+--NO PERMITIR COMPLETAR SI LA SUMA DE MONTOS EN MÉTODOS DE PAGO ES INFERIOR AL TOTAL
+  SELECT coalesce(sum(amount),0) INTO v_sumamount FROM saqbp_payment_methods where saqb_order_id=v_Record_ID;
+  SELECT coalesce(grandtotal,0) INTO v_sumgrandtotal FROM saqb_order where saqb_order_id=v_Record_ID;
+  IF (v_sumamount<>v_sumgrandtotal)THEN
+      RAISE_APPLICATION_ERROR(-20000, '@Saqb_PayMethod_NotMatch@');
+  END IF;
+  
+
+  IF (v_Cif_Nif ='9999999999')THEN
+  --NO PERMITIR COMPLETAR SI NO EXISTE NOMBRE DEL CONTACTO
+  IF (v_delcontact_name IS NULL) THEN
+    RAISE_APPLICATION_ERROR(-20000, '@Saqb_Contact_Name_Null@' ||' '||v_name);
+  END IF;
+
+  --NO PERMITIR COMPLETAR SI NO EXISTE TELÉFONO DEL CONTACTO
+  IF (v_delcontact_phone IS NULL) THEN
+    RAISE_APPLICATION_ERROR(-20000, '@Saqb_Contact_Phone_Null@' ||' '||v_name);
+  END IF;
+  
+  --NO COMPLETAR SI NO EXISTE DIRECCION CONSUMIDOR FINAL PARA ESA ORGANIZACIÓN
+  SELECT  EM_Obretco_C_bp_Location_ID,name INTO v_bpartner_location_id, v_orgname FROM ad_org WHERE ad_org_id = v_org_region_id;
+  IF (v_bpartner_location_id IS NULL) THEN
+    RAISE_APPLICATION_ERROR(-20000, '@Saqb_AddressNotConfig@ '''||coalesce(v_name,'')||''' @Saqb_AtOrg@ '||coalesce(v_orgname,''));
+  END IF;
+  END IF;
+  
+
+  --VALIDO SI EL TERCERO EXISTE
+  IF(v_bpartner_id IS NULL) THEN
+  -- raise exception '%', 'insert 1';
+  v_bpartner_id := get_uuid();
+  INSERT INTO c_bpartner(
+            c_bpartner_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, 
+            value, name, name2, issummary, c_bp_group_id, isonetime, isprospect, 
+            isvendor, iscustomer, isemployee, issalesrep, ad_language, taxid, istaxexempt, 
+            showpriceinorder, customer_blocking, vendor_blocking, so_payment_blocking, po_payment_blocking, 
+            so_invoice_blocking, po_invoice_blocking, so_order_blocking, po_order_blocking, so_goods_blocking, 
+            po_goods_blocking, iscashvat, update_currency, em_sfpr_isfpr, em_sspr_create_payroll, 
+            em_sspr_isdisabled, em_sspr_compers_id, em_sspr_thirteenth, em_sspr_fourteenth, em_sspr_ispassant, 
+            em_sspr_isexecutive, em_eei_eeioice, em_eei_detail_ei, em_eei_eeioicev, 
+            em_gcnv_uniquecreditnote, em_spep_payrolladvpaym,EM_Sswh_Taxidtype,m_pricelist_id,BP_Currency_ID,
+            C_PaymentTerm_ID, FIN_Paymentmethod_ID)
+  VALUES (v_bpartner_id, v_client_id, v_org_id, 'Y', now(), v_User, now(), v_User,
+            v_Cif_Nif, v_name, v_name, 'N', v_bp_group_id, 'N', 'Y', 
+            'N', 'Y', 'N', 'N', v_language, v_Cif_Nif, 'N',
+            'Y', 'N', 'N', 'N', 'Y', 
+            'Y', 'Y', 'Y', 'Y', 'Y',  
+            'N', 'N','N', 'N', 'N',
+            'N', 0, 'N', 'N', 'N',
+            'N', 'N', 'N', 'N', 
+            'Y', 'Y', V_Taxidtype,v_pricelist_id,v_currency_id, v_ptermid, v_pmethodid);
+
+       --ACTUALIZO ID DEL TERCERO EN LA CABECERA DE LA ORDEN DEL CALL CENTER
+       UPDATE saqb_order SET 
+       C_BPARTNER_ID = v_bpartner_id
+       WHERE saqb_order_ID = v_Record_ID;
+
+  -- INSERTA LOCATION
+  V_location_id:=get_uuid();
+  INSERT INTO c_location(
+  c_location_id, ad_client_id, ad_org_id, isactive,created, createdby, updated, updatedby,
+  address1, address2,c_country_id)
+  VALUES(V_location_id,v_client_id, v_org_id, 'Y', now(), v_User, now(), v_User,
+  v_address_complete, substr(v_reference,1,60),v_country_id);
+
+  -- INSERTA DIRECCION
+  V_bpartner_location_id:=get_uuid();
+  INSERT INTO c_bpartner_location(
+  c_bpartner_location_id, ad_client_id, ad_org_id, isactive,created, createdby, updated, updatedby,
+  c_location_id,isbillto, isshipto, ispayfrom, isremitto, c_bpartner_id, istaxlocation,name,EM_Saqb_Reference, EM_Saqb_Alias, phone,c_salesregion_id)
+  VALUES(V_bpartner_location_id,v_client_id, v_org_id, 'Y', TO_DATE(now() + (interval '10 hours')), v_User, TO_DATE(now() + (interval '10 hours')), v_User,
+  V_location_id, 'Y', 'Y', 'Y','Y', v_bpartner_id,'N',v_address_complete, v_reference, v_alias, v_phone,v_sales_region_id);
+
+  -- INSERTA CONTACT PERSON
+  V_contactperson_id:=get_uuid();
+  INSERT INTO ad_user(
+  ad_user_id, ad_client_id, ad_org_id, isactive,created, createdby, updated, updatedby,
+  name, email, phone , c_bpartner_id, EM_Opcrm_Donotcall,username)
+  VALUES(V_location_id,v_client_id, v_org_id, 'Y', now(), v_User, now(), v_User,
+  LEFT(v_name,29),v_email,v_phone,v_bpartner_id, 'N',LEFT(v_name,29));     
+
+  --ACTUALIZO ID DE LA DIRECCION DEL TERCERO EN LA CABECERA DE LA ORDEN DEL CALL CENTER
+        UPDATE saqb_order SET 
+        c_bpartner_location_ID = V_bpartner_location_id
+        WHERE saqb_order_ID = v_Record_ID;
+
+  IF(v_deliveryinvoiceaddr='N') THEN
+    -- INSERTA LOCATION FACTURACIÓN
+    V_location_id:=get_uuid();
+    INSERT INTO c_location(
+    c_location_id, ad_client_id, ad_org_id, isactive,created, createdby, updated, updatedby,
+    address1,c_country_id)
+    VALUES(V_location_id,v_client_id, v_org_id, 'Y', now(), v_User, now(), v_User,
+    v_address_complete_fac,v_country_id);
+
+    -- INSERTA DIRECCIÓN FACTURACIÓN
+    v_bpartner_location_fac:=get_uuid();
+    INSERT INTO c_bpartner_location(
+    c_bpartner_location_id, ad_client_id, ad_org_id, isactive,created, createdby, updated, updatedby,
+    c_location_id,isbillto, isshipto, ispayfrom, isremitto, c_bpartner_id, istaxlocation,name,EM_Saqb_Alias, phone)
+    VALUES(v_bpartner_location_fac,v_client_id, v_org_id, 'Y', TO_DATE(now() + (interval '10 hours')), v_User, TO_DATE(now() + (interval '10 hours')), v_User,
+    V_location_id, 'Y', 'Y', 'Y','Y', v_bpartner_id,'N',v_address_complete_fac, v_alias_fac, v_phone_fac);
+
+    --ACTUALIZO ID DE LA DIRECCION DEL TERCERO EN LA CABECERA DE LA ORDEN DEL CALL CENTER FACTURACIÓN
+    UPDATE saqb_order SET 
+    c_bpartner_location_fac_ID = v_bpartner_location_fac
+    WHERE saqb_order_ID = v_Record_ID;
+  END IF;
+
+            
+        --ACTUALIZA CORREO PARA FACTURA ELECTRÓNICA
+        --COMPROBAR EXISTENCIA MÓDULO ec.cusoft.facturaec
+  SELECT 
+  COALESCE((SELECT COUNT(*) AS CONTAR FROM AD_MODULE WHERE JAVAPACKAGE = 'ec.cusoft.facturaec'),0)
+  INTO v_Module
+  FROM DUAL;
+  
+  IF (v_Module>0) THEN
+    EXECUTE IMMEDIATE 'UPDATE c_bpartner SET em_eei_eeioice=''Y'', em_eei_email = '''||v_email||''' WHERE c_bpartner_id='''||v_bpartner_id||''''; 
+      END IF;
+
+  ELSIF(v_bpartner_id IS NOT NULL AND v_Cif_Nif <>'9999999999') THEN
+
+  --ACTUALIZA NOMBRE
+  --UPDATE c_bpartner SET name=v_name WHERE c_bpartner_id=v_bpartner_id;
+    
+       --ACTUALIZA CORREO PARA FACTURA ELECTRÓNICA
+        --COMPROBAR EXISTENCIA MÓDULO ec.cusoft.facturaec
+  SELECT 
+  COALESCE((SELECT COUNT(*) AS CONTAR FROM AD_MODULE WHERE JAVAPACKAGE = 'ec.cusoft.facturaec'),0)
+  INTO v_Module
+  FROM DUAL;
+  
+  IF (v_Module>0) THEN
+    EXECUTE IMMEDIATE 'UPDATE c_bpartner SET em_eei_eeioice=''Y'', em_eei_email = '''||v_email||''' WHERE c_bpartner_id='''||v_bpartner_id||''''; 
+      END IF;
+
+  --NUEVA DIRECCION
+  IF (v_new_address = 'Y') THEN
+    
+    -- INSERTA LOCATION
+    V_location_id:=get_uuid();
+    INSERT INTO c_location(
+    c_location_id, ad_client_id, ad_org_id, isactive,created, createdby, updated, updatedby,
+    address1, address2,c_country_id)
+    VALUES(V_location_id,v_client_id, v_org_id, 'Y', now(), v_User, now(), v_User,
+    v_address_complete, substr(v_reference,1,60),v_country_id);
+
+    -- INSERTA DIRECCION
+    V_bpartner_location_id:=get_uuid();
+    INSERT INTO c_bpartner_location(
+    c_bpartner_location_id, ad_client_id, ad_org_id, isactive,created, createdby, updated, updatedby,
+    c_location_id,isbillto, isshipto, ispayfrom, isremitto, c_bpartner_id, istaxlocation,name,EM_Saqb_Reference, EM_Saqb_Alias, phone,c_salesregion_id)
+    VALUES(V_bpartner_location_id,v_client_id, v_org_id, 'Y', TO_DATE(now() + (interval '10 hours')), v_User, TO_DATE(now() + (interval '10 hours')), v_User,
+    V_location_id, 'Y', 'Y', 'Y','Y', v_bpartner_id,'N',v_address_complete, v_reference, v_alias, v_phone,v_sales_region_id);
+
+    --ACTUALIZO ID DE LA DIRECCION DEL TERCERO EN LA CABECERA DE LA ORDEN DEL CALL CENTER
+    UPDATE saqb_order SET 
+    c_bpartner_location_ID = V_bpartner_location_id
+    WHERE saqb_order_ID = v_Record_ID;
+      
+  ELSIF(v_new_address = 'N') THEN
+
+    UPDATE c_location SET 
+    address1=v_address_complete
+    WHERE c_location_id=
+    (SELECT c_location_id from c_bpartner_location where c_bpartner_location_id=V_bpartner_location_id);
+      
+    UPDATE c_bpartner_location SET 
+    name=v_address_complete,
+    EM_Saqb_Reference = v_reference,
+    phone = v_phone,
+    c_salesregion_id=v_sales_region_id,
+    em_saqb_alias= v_alias
+    WHERE c_bpartner_location_ID = V_bpartner_location_id;
+    
+  END IF;
+
+  --DIRECCIÓN FACTURACIÓN
+  
+  IF(v_deliveryinvoiceaddr='N') THEN
+    --NUEVA DIRECCION FACTURACIÓN
+    IF (v_new_address_fac = 'Y') THEN
+    
+      -- INSERTA LOCATION FACTURACIÓN
+      V_location_id:=get_uuid();
+      INSERT INTO c_location(
+      c_location_id, ad_client_id, ad_org_id, isactive,created, createdby, updated, updatedby,
+      address1, c_country_id)
+      VALUES(V_location_id,v_client_id, v_org_id, 'Y', now(), v_User, now(), v_User,
+      v_address_complete_fac,v_country_id);
+
+      -- INSERTA DIRECCION FACTURACIÓN
+      v_bpartner_location_fac:=get_uuid();
+      INSERT INTO c_bpartner_location(
+      c_bpartner_location_id, ad_client_id, ad_org_id, isactive,created, createdby, updated, updatedby,
+      c_location_id,isbillto, isshipto, ispayfrom, isremitto, c_bpartner_id, istaxlocation,name, EM_Saqb_Alias, phone)
+      VALUES(v_bpartner_location_fac,v_client_id, v_org_id, 'Y', TO_DATE(now() + (interval '10 hours')), v_User, TO_DATE(now() + (interval '10 hours')), v_User,
+      V_location_id, 'Y', 'Y', 'Y','Y', v_bpartner_id,'N',v_address_complete_fac, v_alias_fac, v_phone_fac);
+
+      --ACTUALIZO ID DE LA DIRECCION DEL TERCERO EN LA CABECERA DE LA ORDEN DEL CALL CENTER FACTURACIÓN
+            UPDATE saqb_order SET 
+            c_bpartner_location_fac_ID = v_bpartner_location_fac
+            WHERE saqb_order_ID = v_Record_ID;
+           
+    ELSIF(v_new_address_fac = 'N' AND v_bpartner_location_fac <> V_bpartner_location_id) THEN
+
+      UPDATE c_location SET 
+      address1=v_address_complete_fac
+      WHERE c_location_id=
+      (SELECT c_location_id from c_bpartner_location where c_bpartner_location_id=v_bpartner_location_fac);
+        
+      UPDATE c_bpartner_location SET 
+      name=v_address_complete_fac,
+      phone = v_phone_fac,
+      em_saqb_alias= v_alias_fac
+      WHERE c_bpartner_location_ID = v_bpartner_location_fac;
+      
+    END IF;
+  END IF;
+
+  END IF; 
+
+  --COMPROBAR MÉTODOS DE PAGO
+  v_metodo_pago:= null;
+  FOR Cur_PaymentMethods IN
+   (SELECT 
+    case 
+    when pmt.em_saqb_type_call_center = 'EFE' then pmt.name||': Valor= '||COALESCE(pm.amount,0)||'  - Valor de billete: '||COALESCE(to_char(Billet_Value),'')||', Observaciones: '||COALESCE(pm.description,'')
+    when pmt.em_saqb_type_call_center = 'CHE' then pmt.name||': Valor= '||COALESCE(pm.amount,0)||'  - Banco: '||COALESCE(fen.name,'')||', No. Cheque: '||COALESCE(no_check,'')||', Observaciones: '||COALESCE(pm.description,'')
+    when pmt.em_saqb_type_call_center = 'TAR' then pmt.name||': Valor= '||COALESCE(pm.amount,0)||'  - No.: '||COALESCE(Cardno,'')||', Código seguridad: '||COALESCE(Securitycode,'')||
+    ', Marca de tarjeta: '||COALESCE(cb.name,'')||', Tipo de tarjeta: '|| case when COALESCE(Cardtype,'') = 'C' then 'Crédito' else 'Débito' end||
+    ', Propietario: '||COALESCE(pm.cardpropietary,'') ||', Fecha de expiración: '||COALESCE(to_char(Expirationdate),'')||', Observaciones: '||COALESCE(pm.description,'')
+    else pmt.name||': Valor= '||COALESCE(pm.amount,0)||'  - Observaciones: '||COALESCE(pm.description,'')
+    end as metodo_pago,
+    pm.saqb_financial_entity_id,pm.newcard,pm.saqb_card_id,pm.cardtype,pm.cardno,pm.expirationdate,pm.securitycode,
+    pm.scai_card_brand_id,pm.cardpropietary,pmt.em_saqb_type_call_center,pm.fin_paymentmethod_id
+    FROM saqbp_payment_methods pm
+    LEFT JOIN FIN_Paymentmethod pmt ON pm.FIN_Paymentmethod_ID = pmt.FIN_Paymentmethod_ID
+    LEFT JOIN saqb_financial_entity fen ON pm.saqb_financial_entity_id = fen.saqb_financial_entity_id
+    LEFT JOIN scai_card_brand cb ON pm.scai_card_brand_id = cb.scai_card_brand_id
+    WHERE saqb_order_id = v_Record_ID ORDER BY pm.line ASC)
+    LOOP
+    --PRIMER MÉTODO DE PAGO PARA CABECERA PEDIDO DE VENTA
+    v_counter:=v_counter+1;
+    IF(v_counter=1)THEN
+      v_fin_paymentmethod_id:=Cur_PaymentMethods.fin_paymentmethod_id;
+    END IF;
+    
+    --PAGOS PARA DESCRIPCIÓN EN PEDIDO DE VENTA
+    IF (v_metodo_pago IS NOT NULL) THEN
+      v_metodo_pago:=coalesce(v_metodo_pago,'')||'
+*'||Cur_PaymentMethods.metodo_pago;
+--NO IDENTAR OJO
+    ELSE
+      v_metodo_pago:=coalesce(v_metodo_pago,'') ||'*'||Cur_PaymentMethods.metodo_pago;
+    END IF;
+
+    END LOOP;
+
+  --INSERTO CABECERA DE LA ORDER DE VENTA
+  v_order_id:= get_uuid();
+  IF ((SELECT DocNoSequence_ID FROM c_doctype where c_doctype_id=v_doctype_id ) IS NULL) THEN
+  RAISE_APPLICATION_ERROR(-20000, 'No existe una secuencia atada al tipo de documento seleccionado en la configuración para esta organización.');
+  END IF;
+  
+  SELECT name 
+  INTO v_sales_zone
+  FROM C_SalesRegion 
+  WHERE C_SalesRegion_id = v_sales_region_id;
+
+  v_documentno := (SELECT ad_sequence_doctype(v_doctype_id,null,'Y') FROM dual);
+  
+    IF(v_delcontact_name IS NULL) THEN
+      v_delcontact_name2 = '*CON: '|| COALESCE(v_name,'') ;
+    ELSE
+      v_delcontact_name2 = '*CON: '|| COALESCE(v_delcontact_name,'') ;
+    END IF;
+    
+    v_address_complete2 := '
+*DIR: '|| COALESCE(v_address_complete,'') ;
+    --OJO NO IDENTAR SALTO DE LÍNEA
+    v_reference := '
+*REF: '|| COALESCE(v_reference,'') ;
+    --OJO NO IDENTAR SALTO DE LÍNEA
+    v_delcontact_phone2 := '
+*TEL: '|| COALESCE(v_delcontact_phone,'') || ' - ' || COALESCE(v_phone,'')  ;
+    --OJO NO IDENTAR SALTO DE LÍNEA
+    v_sales_zone := '
+*ZONA: '|| COALESCE(v_sales_zone,'') ;   
+    --OJO NO IDENTAR SALTO DE LÍNEA    
+    v_observations := '
+*OBS: '|| COALESCE(v_observations,'') ;
+     --OJO NO IDENTAR SALTO DE LÍNEA    
+    v_paymentstodescription := '
+*PAG: '|| COALESCE(v_metodo_pago,'') ;
+    --OJO NO IDENTAR SALTO DE LÍNEA
+    v_authorizationcode2 := '
+*COD: '|| COALESCE(v_authorizationcode,'') ;
+
+  IF(v_deliveryinvoiceaddr='N') THEN
+  v_bpartner_location_id := v_bpartner_location_fac; 
+  END IF;
+
+  INSERT INTO c_order(
+            c_order_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+            issotrx, documentno, docstatus, docaction, processing,processed, 
+            c_doctype_id, c_doctypetarget_id, description , isdelivered,
+             
+            isinvoiced, isprinted, isselected, dateordered,datepromised, dateacct, 
+            c_bpartner_id,billto_id ,c_bpartner_location_id,  isdiscountprinted, c_currency_id, 
+            paymentrule, c_paymentterm_id, invoicerule, deliveryrule, freightcostrule, 
+            deliveryviarule, priorityrule, totallines, grandtotal, m_warehouse_id, 
+
+            m_pricelist_id, istaxincluded, posted, 
+            ad_user_id,copyfrom,isselfservice,generatetemplate,copyfrompo ,fin_paymentmethod_id,
+            rm_pickfromshipment,rm_receivematerials,rm_createinvoice,rm_addorphanline,
+            
+            calculate_promotions,c_costcenter_id,convertquotation,
+            create_polines ,iscashvat,rm_pickfromreceipt,cancelandreplace,confirmcancelandreplace, iscancelled,
+            em_ssmrdr_smartdelivery,em_opcrm_create_opport,em_opcrm_opp_from_quot,em_aprm_addpayment,em_obdisc_addpack,
+            em_obpos_sendemail, em_obpos_notinvoiceoncashup,em_obpos_isdeleted, em_obpos_islayaway,
+            em_saqb_paymentdetail, em_saqb_order_id,em_obpos_applications_id,EM_OBPOS_CREATEDABSOLUTE,
+            em_saqb_contactdelivery,em_saqb_contactnumber,em_saqb_authorization_code,
+  			em_saqb_longitude_latitude)
+    VALUES (v_order_id, v_client_id, v_org_region_id, 'Y', now(), v_User, now(), v_User,
+            'Y', v_documentno, 'DR', '--','N' ,'N',
+            v_doctype_id, v_doctype_id,v_delcontact_name2||v_address_complete2||v_reference||v_delcontact_phone2||v_sales_zone||v_observations||v_paymentstodescription||v_authorizationcode2,'N', 
+            
+            'N', 'N', 'N', v_dateordered,v_dateordered, v_dateordered, 
+            v_bpartner_id ,v_bpartner_location_id, v_bpartner_location_id, 'Y', v_currency_id, 
+            'B', v_paymentterm_id, v_invoicerule, 'A', 'I',
+      'P','5', V_SUBTOTAL, V_TOTAL, v_warehouse_id,
+      
+            v_pricelist_id, v_istaxincluded,'N', 
+            v_User,'N', 'N', 'N','N',v_fin_paymentmethod_id,
+            'N','N','N','N',
+            
+            'N',v_costcenter_id, 'N',
+            'N','N','N','N','N','N',
+      'N','N','N','N','N',
+            'N','N','N','Y'
+            ,v_metodo_pago, v_Record_ID,v_obpos_applications_id,now(),
+            v_delcontact_name,v_delcontact_phone,v_authorizationcode,
+		    V_lonlat);
+
+  --CAMBIA ESTADO PEDIDO A CALL CENTER
+        --COMPROBAR EXISTENCIA MÓDULO ec.com.sidesoft.special.customization.mb
+  SELECT 
+  COALESCE((SELECT COUNT(*) AS CONTAR FROM AD_MODULE WHERE JAVAPACKAGE = 'ec.com.sidesoft.special.customization.mb'),0)
+  INTO v_Module
+  FROM DUAL;
+  
+  IF (v_Module>0) THEN
+    EXECUTE IMMEDIATE 'UPDATE c_order SET  em_sscmb_sales_origin = ''CLC'' WHERE c_order_id='''||v_order_id||''''; 
+      END IF;
+   
+
+  --INSERTA LINEAS AL PEDIDO DE VENTA
+  FOR OrderLines IN (
+    SELECT GET_UUID() as c_orderline_id,v_client_id as ad_client_id, v_org_region_id as ad_org_id, 'Y' as isactive, now() as created, v_User as createdby,
+      now() as updated,  v_User as updatedby,
+      v_order_id as c_order_id, line,
+      v_dateordered as dateordered, v_dateordered as datepromised, 
+      m_product_id,v_warehouse_id as m_warehouse_id,'N' as directship, 
+      (select c_uom_id from m_product where m_product_id = saqb_orderline.m_product_id) as c_uom_id,
+      qtyordered,0 as qtyreserved,0 as qtydelivered, 0 as qtyinvoiced,v_currency_id as c_currency_id,
+      price as pricelist,price as priceactual,price as pricelimit,price as pricestd,linenetamt,0 as discount,0 as freightamt,
+      0 as chargeamt, c_tax_id,
+      'N' as isdescription, price as pricestd, 'N' as cancelpricead, 'N' as iseditlinenetamt,
+      CASE WHEN istaxinclude='Y' THEN
+      (price * qtyordered)
+      ELSE subtotal END as taxbaseamt, 
+      CASE WHEN istaxinclude='Y' THEN
+      gross_unit_price
+      ELSE TO_NUMBER(0) END as grosspricestd, 
+      CASE WHEN istaxinclude='Y' THEN
+      gross_unit_price
+      ELSE TO_NUMBER(0)END as grossunitprice,
+      CASE WHEN istaxinclude='Y' THEN
+      linenetamt
+      ELSE TO_NUMBER(0)END as line_gross_amount,
+      CASE WHEN istaxinclude='Y' THEN
+      gross_unit_price
+      ELSE NULL END as grosspricelist,
+      'N' as explode, 'N' as print_description,'N' as manage_reservation,
+      'N' as manage_prereservation,
+      'N' as relate_orderline, m_offer_id, combo_qty,subtotal,description, qtyordered as aumqty
+      from saqb_orderline WHERE saqb_order_ID = v_Record_ID 
+  ) LOOP
+
+    INSERT INTO c_orderline(
+            c_orderline_id, ad_client_id, ad_org_id, isactive, created, createdby, 
+            updated, updatedby, c_order_id, line, c_bpartner_id, c_bpartner_location_id, 
+            dateordered, datepromised, description, 
+            m_product_id, m_warehouse_id, directship, c_uom_id,
+            qtyordered,qtyreserved, qtydelivered, qtyinvoiced, c_currency_id, 
+            pricelist, priceactual, pricelimit, linenetamt, discount, freightamt, 
+            chargeamt, c_tax_id, 
+            isdescription,
+            pricestd, cancelpricead, iseditlinenetamt, 
+            taxbaseamt, gross_unit_price, 
+            line_gross_amount, grosspricelist, c_costcenter_id, grosspricestd, 
+            a_asset_id, m_warehouse_rule_id, user1_id, quotationline_id, 
+            user2_id, create_reservation, c_project_id, so_res_status, manage_reservation, 
+            manage_prereservation, explode, bom_parent_id, print_description, 
+            relate_orderline,
+            c_aum, aumqty)
+    VALUES (OrderLines.c_orderline_id, OrderLines.ad_client_id, OrderLines.ad_org_id, 'Y', OrderLines.created, v_User, 
+            OrderLines.updated, OrderLines.updatedby, OrderLines.c_order_id, OrderLines.line,v_bpartner_id, v_bpartner_location_id, 
+            OrderLines.dateordered, OrderLines.datepromised, OrderLines.description, 
+            OrderLines.m_product_id, OrderLines.m_warehouse_id, OrderLines.directship, OrderLines.c_uom_id, 
+            OrderLines.qtyordered, OrderLines.qtyreserved, OrderLines.qtydelivered, OrderLines.qtyinvoiced, OrderLines.c_currency_id, 
+            OrderLines.pricelist, OrderLines.priceactual, OrderLines.pricelimit, OrderLines.linenetamt, OrderLines.discount, OrderLines.freightamt, 
+            OrderLines.chargeamt, OrderLines.c_tax_id,
+            OrderLines.isdescription,
+            OrderLines.pricestd, OrderLines.cancelpricead,OrderLines.iseditlinenetamt, 
+            --OJO taxbaseamt gross_unit_price linenetamt grosspricelist c_costcenter_id grosspricestd
+            OrderLines.taxbaseamt, OrderLines.grossunitprice, 
+            OrderLines.line_gross_amount, OrderLines.grosspricelist, v_costcenter_id, OrderLines.grosspricestd, 
+            null, null, null, null, 
+            null, null, null, null, OrderLines.manage_reservation, 
+            --OJO bom_parent_id
+            OrderLines.manage_prereservation, OrderLines.explode, null, OrderLines.print_description, 
+            OrderLines.relate_orderline,
+            --OJO c_aum, aumqty
+            null, null);
+
+    IF (OrderLines.combo_qty > 0) THEN
+        INSERT INTO c_orderline_offer(
+            c_orderline_offer_id, ad_client_id, ad_org_id, isactive, created, createdby, 
+            updated, updatedby, 
+            c_orderline_id, line, m_offer_id, 
+            priceoffer, amtoffer, priceoffergross, 
+            totalamt, displayedtotalamt, 
+            em_obdisc_qtyoffer, em_obdisc_identifier)
+        VALUES (GET_UUID(), OrderLines.ad_client_id, v_org_region_id, OrderLines.isactive, OrderLines.created, OrderLines.createdby,
+                OrderLines.updated, OrderLines.updatedby, 
+                OrderLines.c_orderline_id, OrderLines.line, OrderLines.m_offer_id, 
+                0, 0, 0, 
+                0, 0, 
+                OrderLines.combo_qty, (select name from m_offer where m_offer_id = OrderLines.m_offer_id));
+
+    END IF;
+  END LOOP;
+
+  --ELIMINACIÓN CAMPOS CLAVES
+  UPDATE saqbp_payment_methods SET securitycode= '.'  WHERE saqb_order_id = v_Record_ID;
+
+  UPDATE c_order SET totallines= V_SUBTOTAL, grandtotal=V_TOTAL WHERE c_order_id= v_order_id;
+
+  --ACTUALIZA DIRECCIÓN SMARTDELIVERY
+        --COMPROBAR EXISTENCIA MÓDULO ec.com.sidesoft.ws.ordercreate
+  SELECT 
+  COALESCE((SELECT COUNT(*) AS CONTAR FROM AD_MODULE WHERE JAVAPACKAGE = 'ec.com.sidesoft.ws.ordercreate'),0)
+  INTO v_Module
+  FROM DUAL;
+  
+  IF (v_Module>0) THEN
+    EXECUTE IMMEDIATE 'UPDATE c_order SET EM_SWSOC_HOMEADDRESS='''||v_address_complete||''' WHERE c_order_id ='''||v_order_id||''''; 
+      END IF;
+
+  --UPDATE ESTADO Y NÚMERO DE DOCUMENTO DE LA TRANSACCION
+  UPDATE saqb_order
+  SET DOCSTATUS = 'CO',
+  documentno= v_documentno
+  WHERE saqb_order_ID = v_Record_ID;
+
+  --CREA FIN_PAYMENT_SCHEDULE
+  INSERT INTO fin_payment_schedule
+  SELECT get_uuid(), ad_client_id, ad_org_id, now(), createdby, now(), updatedby, null, c_order_id, 
+  dateordered, fin_paymentmethod_id, v_currency_id, grandtotal, 0, grandtotal, 'Y', null, 'Y', dateordered, null, dateordered, 'N', 'N'
+  FROM c_order
+  WHERE c_order_id =v_order_id;
+
+  UPDATE c_order
+  SET docstatus = 'CO',processed='Y'
+  WHERE c_order_id =v_order_id;
+  
+ AD_UPDATE_PINSTANCE(p_PInstance_ID, NULL, 'N', 1, 'Pedido procesado. Nº. de pedido: '||coalesce(v_documentno,'')) ;
+ 
+ EXCEPTION
+WHEN OTHERS THEN
+  v_ResultStr:= '@ERROR=' || SQLERRM;
+  DBMS_OUTPUT.PUT_LINE(v_ResultStr) ;
+  ROLLBACK;
+  AD_UPDATE_PINSTANCE(p_PInstance_ID, NULL, 'N', 0, v_ResultStr);
+END SAQB_ORDER_POST
+]]></body>
+    </function>
+  </database>

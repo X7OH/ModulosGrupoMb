@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <provider>
+   <bean>
+       <name>setOrderWeb</name>
+       <class>ec.com.sidesoft.ws.ordercreate.webservices.setorderweb.OrderWebWS</class>
+       <singleton>true</singleton>
+   </bean>
+ </provider>

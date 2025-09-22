@@ -1,0 +1,409 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SSDAH_CHARGE_MOFFER">
+    <function name="SSDAH_CHARGE_MOFFER" type="NULL">
+      <parameter name="p_instance_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[-- Logistice
+    v_ResultStr VARCHAR2(2000):='';
+    v_Message VARCHAR2(2000):='';
+    v_Result NUMBER:=1; -- 0=failure
+    v_Record_ID VARCHAR2(32);
+    v_User_ID VARCHAR2(32):='0';
+	lvl0		VARCHAR(32);
+	lvl1		VARCHAR(32);
+	v_reg NUMBER:=0;
+	texto		TEXT;
+	Error_prom	TEXT;
+	errorm		TEXT;
+    
+    TYPE RECORD IS REF CURSOR;
+    Cur_Parameter RECORD;
+	Cur_MOffer		RECORD;
+	Cur_Lines		RECORD;
+	Cur_Family		RECORD;
+	
+
+BEGIN
+
+    DBMS_OUTPUT.PUT_LINE('Updating PInstance - Processing ' || P_Instance_ID);
+    v_ResultStr:='PInstanceNotFound';
+    AD_UPDATE_PINSTANCE(P_Instance_ID, NULL, 'Y', NULL, NULL);
+    
+    BEGIN --BODY
+        -- Get Parameters
+        v_ResultStr:='ReadingParameters';
+        FOR Cur_Parameter IN (
+            SELECT i.Record_ID, i.AD_User_ID, p.ParameterName, p.P_String, p.P_Number, p.P_Date
+            FROM AD_PInstance i
+                LEFT JOIN AD_PInstance_Para p ON i.AD_PInstance_ID = p.AD_PInstance_ID
+            WHERE i.AD_PInstance_ID = P_Instance_ID
+            ORDER BY p.SeqNo
+        ) LOOP
+            v_Record_ID := Cur_Parameter.Record_ID;
+            v_User_ID := Cur_Parameter.AD_User_ID;
+        END LOOP; -- Get Parameter
+        
+		Delete from ssdah_moc_family_trl;
+		Delete from ssdah_moc_product;
+		Delete from ssdah_mds_freeproduct;
+		Delete from ssdah_mirrormo_bpartner;
+		Delete from ssdah_mirrormo_bp_group;
+		Delete from ssdah_mirrormo_charac;
+		Delete from ssdah_mirrormo_organization;
+		Delete from ssdah_mirrormo_pricelist;
+		Delete from ssdah_mirrormo_prod_cat;
+		Delete from ssdah_mirrormo_product;
+		Delete from ssdah_mirrormo_trl;
+		Delete from ssdah_mirror_odo_role;
+		Delete from ssdah_mmo_oc_family;
+		Delete from ssdah_mirrormo;
+		
+		
+        FOR Cur_MOffer IN(
+			SELECT 
+				m_offer_id, ad_client_id, ad_org_id, isactive, 
+				created, createdby, updated, updatedby, 
+				name, priority, addamt, discount, 
+				fixed, datefrom, dateto, bpartner_selection, 
+				bp_group_selection, product_selection, prod_cat_selection, description, 
+				pricelist_selection, qty_from, qty_to, m_offer_type_id, 
+				apply_next, print_name, org_selection, ismultiple, 
+				multiple, characteristics_selection, em_obcombo_combofixprice, em_obcombo_allowinclineprice, 
+				em_obdisc_x, em_obdisc_y, em_obdisc_subtype, em_obdisc_distribute, 
+				em_obdisc_price, em_obdisc_c_currency_id, em_obdisc_upc, em_obdisc_image, 
+				em_obdisc_amt, em_obdisc_percentage, em_obdisc_role_selection, em_obdisc_approval_required, 
+				em_ssrcm_pro_category_id, em_swsoc_value, em_disct_totalreceipt, em_disct_totalamountdisc,
+				em_disct_totalpercdisc, em_sdelvr_value
+			FROM public.m_offer
+		) LOOP
+			Error_prom:=Cur_MOffer.name;
+			lvl0 := get_uuid();
+		
+			-- Insertando la cabecera
+			INSERT INTO public.ssdah_mirrormo(
+				ssdah_mirrormo_id, ad_client_id, ad_org_id, isactive, 
+				created, createdby, updated, updatedby, 
+				name, priority, addamt, discount, 
+				fixed, datefrom, dateto, bpartner_selection, 
+				bp_group_selection, product_selection, prod_cat_selection, description, 
+				pricelist_selection, qty_from, qty_to, m_offer_type_id, 
+				apply_next, print_name, org_selection, ismultiple, 
+				multiple, characteristics_selection, ssdah_oc_combofixprice, ssdah_oc_allowinclineprice, 
+				ssdah_od_x, ssdah_od_y, ssdah_od_subtype, ssdah_od_distribute, 
+				ssdah_od_price, ssdah_od_c_currency_id, ssdah_od_upc, ssdah_od_image, 
+				ssdah_od_amt, ssdah_od_percentage, ssdah_od_role_selection,	ssdah_od_approval_required, 
+				ssdah_sr_pro_category_id, ssdah_ss_value, ssdah_ds_totalreceipt, ssdah_ds_totalamountdisc, 
+				ssdah_ds_totalpercdisc, ssdah_se_value, ssdah_reforiginalid)
+			VALUES (
+				lvl0, Cur_MOffer.ad_client_id, Cur_MOffer.ad_org_id, Cur_MOffer.isactive, 
+				Cur_MOffer.created, Cur_MOffer.createdby, Cur_MOffer.updated, Cur_MOffer.updatedby, 
+				Cur_MOffer.name, Cur_MOffer.priority, Cur_MOffer.addamt, Cur_MOffer.discount, 
+				Cur_MOffer.fixed, Cur_MOffer.datefrom, Cur_MOffer.dateto, Cur_MOffer.bpartner_selection, 
+				Cur_MOffer.bp_group_selection, Cur_MOffer.product_selection, Cur_MOffer.prod_cat_selection, Cur_MOffer.description, 
+				Cur_MOffer.pricelist_selection, Cur_MOffer.qty_from, Cur_MOffer.qty_to, Cur_MOffer.m_offer_type_id, 
+				Cur_MOffer.apply_next, Cur_MOffer.print_name, Cur_MOffer.org_selection, Cur_MOffer.ismultiple, 
+				Cur_MOffer.multiple, Cur_MOffer.characteristics_selection, Cur_MOffer.em_obcombo_combofixprice, Cur_MOffer.em_obcombo_allowinclineprice, 
+				Cur_MOffer.em_obdisc_x, Cur_MOffer.em_obdisc_y, Cur_MOffer.em_obdisc_subtype, Cur_MOffer.em_obdisc_distribute, 
+				Cur_MOffer.em_obdisc_price, Cur_MOffer.em_obdisc_c_currency_id, Cur_MOffer.em_obdisc_upc, Cur_MOffer.em_obdisc_image, 
+				Cur_MOffer.em_obdisc_amt, Cur_MOffer.em_obdisc_percentage, Cur_MOffer.em_obdisc_role_selection, Cur_MOffer.em_obdisc_approval_required, 
+				Cur_MOffer.em_ssrcm_pro_category_id, Cur_MOffer.em_swsoc_value, Cur_MOffer.em_disct_totalreceipt, Cur_MOffer.em_disct_totalamountdisc,
+				Cur_MOffer.em_disct_totalpercdisc, Cur_MOffer.em_sdelvr_value, Cur_MOffer.m_offer_id);
+			
+			-- Insertando en Solapa Traduccion
+				FOR Cur_Lines IN(
+					SELECT 
+						m_offer_trl_id, m_offer_id, ad_language, ad_client_id, 
+						ad_org_id, isactive, created, createdby, 
+						updated, updatedby, name, print_name, 
+						istranslated
+					FROM public.m_offer_trl
+					where m_offer_id = Cur_MOffer.m_offer_id
+				) LOOP
+					INSERT INTO public.ssdah_mirrormo_trl(
+						ssdah_mirrormo_trl_id, ssdah_mirrormo_id, ad_language, ad_client_id, 
+						ad_org_id, isactive, created, createdby, 
+						updated, updatedby, name, print_name, 
+						istranslated, ssdah_reforiginalid)
+					VALUES (
+						get_uuid(), lvl0, Cur_Lines.ad_language, Cur_Lines.ad_client_id, 
+						Cur_Lines.ad_org_id, Cur_Lines.isactive, Cur_Lines.created, Cur_Lines.createdby, 
+						Cur_Lines.updated, Cur_Lines.updatedby, Cur_Lines.name, Cur_Lines.print_name, 
+						Cur_Lines.istranslated, Cur_Lines.m_offer_trl_id);
+				END LOOP;
+				
+				-- Insertando Solapa Grupo de Terceros
+				FOR Cur_Lines IN(
+					SELECT 
+						m_offer_bp_group_id, ad_client_id, ad_org_id, isactive, 
+						created, createdby, updated, updatedby, 
+						m_offer_id, c_bp_group_id
+					FROM public.m_offer_bp_group
+					where m_offer_id = Cur_MOffer.m_offer_id
+				) LOOP
+					INSERT INTO public.ssdah_mirrormo_bp_group(
+						ssdah_mirrormo_bp_group_id, ad_client_id, ad_org_id, isactive, 
+						created, createdby, updated, updatedby, 
+						ssdah_mirrormo_id, c_bp_group_id, ssdah_reforiginalid)
+					VALUES (
+						get_uuid(), Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive, 
+						Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby, 
+						lvl0, Cur_Lines.c_bp_group_id, Cur_Lines.m_offer_bp_group_id);
+				END LOOP;
+				
+				-- Insertando Solapa Terceros
+				FOR Cur_Lines IN(
+					SELECT 
+						m_offer_bpartner_id, ad_client_id, ad_org_id, isactive, 
+						created, createdby, updated, updatedby, 
+						m_offer_id, c_bpartner_id
+					FROM public.m_offer_bpartner
+					where m_offer_id = Cur_MOffer.m_offer_id
+				) LOOP
+					INSERT INTO public.ssdah_mirrormo_bpartner(
+						ssdah_mirrormo_bpartner_id, ad_client_id, ad_org_id, isactive, 
+						created, createdby, updated, updatedby, 
+						ssdah_mirrormo_id, c_bpartner_id, ssdah_reforiginalid)
+					VALUES (
+						get_uuid(), Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive, 
+						Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby, 
+						lvl0, Cur_Lines.c_bpartner_id, Cur_Lines.m_offer_bpartner_id);
+				END LOOP;
+				
+				-- Insertando Categoria del Producto
+				FOR Cur_Lines IN(
+					SELECT 
+						m_offer_prod_cat_id, ad_client_id, ad_org_id, isactive, 
+						created, createdby, updated, updatedby, 
+						m_offer_id, m_product_category_id
+					FROM public.m_offer_prod_cat
+					where m_offer_id = Cur_MOffer.m_offer_id
+				) LOOP
+					INSERT INTO public.ssdah_mirrormo_prod_cat(
+						ssdah_mirrormo_prod_cat_id, ad_client_id, ad_org_id, isactive,
+						created, createdby, updated, updatedby,
+						ssdah_mirrormo_id, m_product_category_id, ssdah_reforiginalid)
+					VALUES (
+						get_uuid(), Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive, 
+						Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby, 
+						lvl0, Cur_Lines.m_product_category_id, Cur_Lines.m_offer_prod_cat_id);
+				END LOOP;
+				
+				--Insertando Productos
+				FOR Cur_Lines IN(
+					SELECT 
+						m_offer_product_id, ad_client_id, ad_org_id, isactive, 
+						created, createdby, updated, updatedby, 
+						m_offer_id, m_product_id, em_obdisc_is_gift, em_obdisc_qty, 
+						em_obdisc_gifqty
+					FROM public.m_offer_product
+					where m_offer_id = Cur_MOffer.m_offer_id
+				) LOOP
+					INSERT INTO public.ssdah_mirrormo_product(
+						ssdah_mirrormo_product_id, ad_client_id, ad_org_id, isactive, 
+						created, createdby, updated, updatedby, 
+						ssdah_mirrormo_id, m_product_id, ssdah_od_is_gift, ssdah_od_qty, 
+						ssdah_od_gifqty, ssdah_reforiginalid)
+					VALUES (
+						get_uuid(), Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive, 
+						Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby, 
+						lvl0, Cur_Lines.m_product_id, Cur_Lines.em_obdisc_is_gift, Cur_Lines.em_obdisc_qty, 
+						Cur_Lines.em_obdisc_gifqty, Cur_Lines.m_offer_product_id);
+				END LOOP;
+				
+				-- Insertando Lista de Precios
+				FOR Cur_Lines IN(
+					SELECT
+						m_offer_pricelist_id, ad_client_id, ad_org_id, isactive, 
+						created, createdby, updated, updatedby, 
+						m_offer_id, m_pricelist_id
+					FROM public.m_offer_pricelist
+					where m_offer_id = Cur_MOffer.m_offer_id
+				) LOOP
+					INSERT INTO public.ssdah_mirrormo_pricelist(
+						ssdah_mirrormo_pricelist_id, ad_client_id, ad_org_id, isactive, 
+						created, createdby, updated, updatedby, 
+						ssdah_mirrormo_id, m_pricelist_id, ssdah_reforiginalid)
+					VALUES (
+						get_uuid(), Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive, 
+						Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby, 
+						lvl0, Cur_Lines.m_pricelist_id, Cur_Lines.m_offer_pricelist_id);
+				END LOOP;
+				
+				-- Insertando Orgnizaciones
+				FOR Cur_Lines IN(
+					SELECT 
+						m_offer_organization_id, ad_client_id, ad_org_id, isactive, 
+						created, createdby, updated, updatedby, 
+						m_offer_id
+					FROM public.m_offer_organization
+					where m_offer_id = Cur_MOffer.m_offer_id
+				) LOOP
+					INSERT INTO public.ssdah_mirrormo_organization(
+						ssdah_mirrormo_organization_id, ad_client_id, ad_org_id, isactive, 
+						created, createdby, updated, updatedby, 
+						ssdah_mirrormo_id, ssdah_reforiginalid)
+					VALUES (
+						get_uuid(), Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive, 
+						Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby,  
+						lvl0, Cur_Lines.m_offer_organization_id);
+				END LOOP;
+				
+				--Insertando Caracteristicas
+				FOR Cur_Lines IN(
+					SELECT 
+						m_offer_characteristic_id, ad_client_id, ad_org_id, isactive, 
+						created, createdby, updated, updatedby, 
+						m_offer_id, m_characteristic_id, m_ch_value_id
+					FROM public.m_offer_characteristic
+					where m_offer_id = Cur_MOffer.m_offer_id
+				) LOOP
+					INSERT INTO public.ssdah_mirrormo_charac(
+						ssdah_mirrormo_charac_id, ad_client_id, ad_org_id, isactive, 
+						created, createdby, updated, updatedby, 
+						ssdah_mirrormo_id, m_characteristic_id, m_ch_value_id, ssdah_reforiginalid)
+					VALUES (
+						get_uuid(), Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive, 
+						Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby, 
+						lvl0, Cur_Lines.m_characteristic_id, Cur_Lines.m_ch_value_id, Cur_Lines.m_offer_characteristic_id);
+				END LOOP;
+				-- /*
+				select COALESCE(count(obcombo_family_id), 0)
+				into v_reg
+				from obcombo_family
+				where m_offer_id = Cur_MOffer.m_offer_id;
+				
+				-- RAISE LOG '%', v_reg || ' - ' || Cur_MOffer.name ;
+				
+				IF v_reg > 0 THEN
+				
+					--Insertando Familia
+					FOR Cur_Lines IN(
+						SELECT 
+							obcombo_family_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby, 
+							m_offer_id, name, discount_type, fixed_price, 
+							percentage, quantity, fixed_discount, em_swsoc_main, 
+							em_sdelvr_deliprice
+						FROM public.obcombo_family
+						where m_offer_id = Cur_MOffer.m_offer_id
+					) LOOP
+						lvl1:=get_uuid();
+
+						INSERT INTO public.ssdah_mmo_oc_family(
+							ssdah_mmo_oc_family_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby, 
+							ssdah_mirrormo_id, name, discount_type, fixed_price, 
+							percentage, quantity, fixed_discount, ssdah_ss_main, 
+							ssdah_se_deliprice, ssdah_reforiginalid)
+						VALUES (
+							lvl1, Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive, 
+							Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby, 
+							lvl0, Cur_Lines.name, Cur_Lines.discount_type, Cur_Lines.fixed_price, 
+							Cur_Lines.percentage, Cur_Lines.quantity, Cur_Lines.fixed_discount, Cur_Lines.em_swsoc_main, 
+							Cur_Lines.em_sdelvr_deliprice, Cur_Lines.obcombo_family_id);
+
+						--Insertando Traduccion Familia
+						FOR Cur_Family IN(
+							SELECT
+								obcombo_family_trl_id, obcombo_family_id, ad_language, ad_client_id, 
+								ad_org_id, isactive, created, createdby, 
+								updated, updatedby, name, istranslated
+							FROM public.obcombo_family_trl
+							where obcombo_family_id = Cur_Lines.obcombo_family_id
+						)LOOP
+							INSERT INTO public.ssdah_moc_family_trl(
+								ssdah_moc_family_trl_id, ssdah_mmo_oc_family_id, ad_language, ad_client_id, 
+								ad_org_id, isactive, created, createdby, 
+								updated, updatedby, name, istranslated,
+								ssdah_reforiginalid)
+							VALUES (
+								get_uuid(), lvl1, Cur_Family.ad_language, Cur_Family.ad_client_id, 
+								Cur_Family.ad_org_id, Cur_Family.isactive, Cur_Family.created, Cur_Family.createdby, 
+								Cur_Family.updated, Cur_Family.updatedby, Cur_Family.name, Cur_Family.istranslated,
+								Cur_Family.obcombo_family_trl_id);
+						END LOOP;
+
+						--Insertando Producto Familia					
+						FOR Cur_Family IN(
+							SELECT
+								obcombo_product_id, ad_client_id, ad_org_id, isactive, 
+								created, createdby, updated, updatedby, 
+								obcombo_family_id, m_product_id, em_ssrcb_main, em_ssrcm_extra_suplement,
+								em_swsoc_domicile, em_ssrcm_callcenter, em_sglovo_default, em_speya_default
+							FROM public.obcombo_product
+							where obcombo_family_id = Cur_Lines.obcombo_family_id
+						)LOOP
+							INSERT INTO public.ssdah_moc_product(
+								ssdah_moc_product_id, ad_client_id, ad_org_id, isactive, 
+								created, createdby, updated, updatedby, 
+								ssdah_mmo_oc_family_id, m_product_id, ssdah_msrb_main, ssdah_msrm_extra_suplement, 
+								ssdah_mssc_domicile, ssdah_msrm_callcenter, ssdah_mslv_default, ssdah_msea_default,
+								ssdah_reforiginalid)
+							VALUES (
+								get_uuid(), Cur_Family.ad_client_id, Cur_Family.ad_org_id, Cur_Family.isactive, 
+								Cur_Family.created, Cur_Family.createdby, Cur_Family.updated, Cur_Family.updatedby, 
+								lvl1, Cur_Family.m_product_id, Cur_Family.em_ssrcb_main, Cur_Family.em_ssrcm_extra_suplement,
+								Cur_Family.em_swsoc_domicile, Cur_Family.em_ssrcm_callcenter, Cur_Family.em_sglovo_default, Cur_Family.em_speya_default,
+								Cur_Family.obcombo_product_id);
+						END LOOP;
+						
+					END LOOP;
+				
+				END IF;
+				-- */
+				
+				-- Insertando Productos Gratis
+				FOR Cur_Lines IN(
+					SELECT 
+						disct_freeproduct_id, ad_client_id, ad_org_id, isactive, 
+						created, createdby, updated, updatedby, 
+						m_offer_id, m_product_id, quantity
+					FROM public.disct_freeproduct
+					where m_offer_id = Cur_MOffer.m_offer_id
+				) LOOP
+					INSERT INTO public.ssdah_mds_freeproduct(
+						ssdah_mds_freeproduct_id, ad_client_id, ad_org_id, isactive, 
+						created, createdby, updated, updatedby, 
+						ssdah_mirrormo_id, m_product_id, quantity, ssdah_reforiginalid)
+					VALUES (
+						get_uuid(), Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive, 
+						Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby, 
+						lvl0, Cur_Lines.m_product_id, Cur_Lines.quantity, Cur_Lines.disct_freeproduct_id);
+				END LOOP;
+					
+		END LOOP;
+		
+		-- RAISE LOG 'FIN';
+
+        DBMS_OUTPUT.PUT_LINE('Updating PInstance - Finished ' || v_Message);
+        AD_UPDATE_PINSTANCE(P_Instance_ID, NULL, 'N', v_Result, v_Message);
+
+        RETURN;
+    END; --BODY
+    
+    EXCEPTION WHEN OTHERS THEN
+        v_ResultStr:= '@ERROR=' || SQLERRM;
+        DBMS_OUTPUT.PUT_LINE( v_ResultStr) ;
+		-- RAISE LOG '%', v_ResultStr ;
+		
+		SELECT SUBSTRING(SQLERRM, 2, LENGTH(SQLERRM) - 2)
+		into errorm;
+		
+		select msgtext 
+		into texto
+		from ad_message_trl
+		where ad_message_id in (select ad_message_id 
+		from ad_message 
+		where value = errorm);
+		IF texto is not null then
+			RAISE texto || ' Producto: '|| Error_prom;
+		ELSE
+			RAISE Error_prom || ' - 'v_ResultStr;
+		END IF;
+        ROLLBACK;
+        AD_UPDATE_PINSTANCE(P_Instance_ID, NULL, 'N', 0, v_ResultStr);
+END SSDAH_CHARGE_MOFFER
+]]></body>
+    </function>
+  </database>

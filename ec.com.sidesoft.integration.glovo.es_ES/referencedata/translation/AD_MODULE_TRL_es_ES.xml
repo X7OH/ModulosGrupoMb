@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MODULE" version="">
+  <row id="27FE3444086F4628A7CDCC28914C348D" trl="N">
+    <value column="Description" isTrl="N" original="Sidesoft Integration for Glovo">Sidesoft Integration for Glovo</value>
+    <value column="Help" isTrl="N" original="- Retail Delivery Glovo&#10;- Ticket 9741 - Configuración personalizada para Glovo, se crea el proceso de crear ordenes de Glovo y se adiciona una un item a la lista del log de la configuracion de Delivery para poder filtrar por tipo de integracion&#10;- Dependencia con el modulo module ec.com.sidesoft.integration.delivery">- Retail Delivery Glovo
+- Ticket 9741 - Configuración personalizada para Glovo, se crea el proceso de crear ordenes de Glovo y se adiciona una un item a la lista del log de la configuracion de Delivery para poder filtrar por tipo de integracion
+- Dependencia con el modulo module ec.com.sidesoft.integration.delivery</value>
+    <value column="License" isTrl="N" original=""/>
+    <value column="Updateinfo" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

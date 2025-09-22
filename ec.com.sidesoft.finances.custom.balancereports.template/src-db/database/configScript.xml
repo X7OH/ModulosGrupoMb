@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+  <vector>
+    <versionInfo version="3.0.31111"/>
+    <columnDataChange tablename="AD_PROCESS_PARA" columnname="ISACTIVE" pkRow="58AEA50E61274F6D9B68DB85F9030FEA">
+      <oldValue><![CDATA[N]]></oldValue>
+      <newValue><![CDATA[Y]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_PROCESS_PARA" columnname="ISACTIVE" pkRow="619B66DB2A9443638D34E687EE256942">
+      <oldValue><![CDATA[N]]></oldValue>
+      <newValue><![CDATA[Y]]></newValue>
+    </columnDataChange>
+  </vector>

@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_ProductionLDM" pageWidth="828" pageHeight="842" columnWidth="788" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="2.923075650000019"/>
+	<property name="ireport.x" value="1525"/>
+	<property name="ireport.y" value="20"/>
+	<parameter name="AD_Org_ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DateFrom" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DateTo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="C_DocType_ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="M_Product_Category_ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="M_Product_ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="AD_User_ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select a.m_production_id as "m_production_id",
+a.documentno as "documentno",
+a.movementdate as "movementdate",
+b.m_productionplan_id as "m_productionplan_id",
+b.m_product_id as "m_product_id",
+a.documentno as "documentno",
+a.ad_org_id as "ad_org_id",
+k.name as "orgname",
+a.MovementDate as "MovementDate",
+c.name as "tipodoc",
+j.name as "categoria",
+d.value as "cod_producto",
+d.name as "producto",
+b.productionqty as "cantidad",
+coalesce(f.name,e.name) as "unidad",
+sum(i.cost) as "costototal",
+sum(i.cost)/b.productionqty as "costounitario" ,
+to_char('ND') as "puntoventa",
+to_char('Usuario: ') || (select coalesce(to_char(cbp.name), to_char(au.name)) from ad_user au left join c_bpartner cbp on cbp.c_bpartner_id = au.c_bpartner_id where au.ad_user_id = $P{AD_User_ID}) AS "usuario",
+'Fecha de Impresión:  ' || TO_CHAR(NOW(),'dd/MM/yyyy HH24:MI:SS') as "fecha_impresion"
+from m_production a
+inner join m_productionplan b on a.m_production_id = b.m_production_id
+inner join c_doctype c on a.em_spdai_c_doctype_id = c.c_doctype_id
+inner join m_product d on b.m_product_id = d.m_product_id
+inner join c_uom e on d.c_uom_id = e.c_uom_id
+left join c_uom_trl f on e.c_uom_id = f.c_uom_id
+inner join m_productionline g on b.m_productionplan_id = g.m_productionplan_id and g.movementqty = b.productionqty
+inner join m_transaction h on g.m_productionline_id = h.m_productionline_id and h.movementqty = b.productionqty
+inner join m_transaction_cost i on h.m_transaction_id = i.m_transaction_id
+inner join M_product_category j on d.M_product_category_id = j.M_product_category_id
+inner JOIN AD_ORG k on a.ad_org_id = k.ad_org_id
+where a.ad_org_id = $P{AD_Org_ID}
+and (a.MovementDate between $P{DateFrom} and $P{DateTo})
+and ( a.em_spdai_c_doctype_id = $P{C_DocType_ID} or $P{C_DocType_ID} is null)
+and ( d.M_product_category_id = $P{M_Product_Category_ID} or $P{M_Product_Category_ID} is null)
+and ( b.m_product_id = $P{M_Product_ID} or $P{M_Product_ID} is null)
+group by a.m_production_id,b.m_productionplan_id,b.m_product_id,a.documentno,d.value,d.name,b.productionqty,coalesce(f.name,e.name) ,c.name,j.name    ,k.name
+order by "categoria","producto"]]>
+	</queryString>
+	<field name="m_production_id" class="java.lang.String"/>
+	<field name="documentno" class="java.lang.String"/>
+	<field name="movementdate" class="java.sql.Timestamp"/>
+	<field name="m_productionplan_id" class="java.lang.String"/>
+	<field name="m_product_id" class="java.lang.String"/>
+	<field name="ad_org_id" class="java.lang.String"/>
+	<field name="orgname" class="java.lang.String"/>
+	<field name="tipodoc" class="java.lang.String"/>
+	<field name="categoria" class="java.lang.String"/>
+	<field name="cod_producto" class="java.lang.String"/>
+	<field name="producto" class="java.lang.String"/>
+	<field name="cantidad" class="java.math.BigDecimal"/>
+	<field name="unidad" class="java.lang.String"/>
+	<field name="costototal" class="java.math.BigDecimal"/>
+	<field name="costounitario" class="java.math.BigDecimal"/>
+	<field name="puntoventa" class="java.lang.String"/>
+	<field name="usuario" class="java.lang.String"/>
+	<field name="fecha_impresion" class="java.lang.String"/>
+	<variable name="v_totalcantidad" class="java.math.BigDecimal" resetType="Group" resetGroup="category" calculation="Sum">
+		<variableExpression><![CDATA[$F{cantidad}]]></variableExpression>
+	</variable>
+	<variable name="v_totalcost" class="java.math.BigDecimal" resetType="Group" resetGroup="category" calculation="Sum">
+		<variableExpression><![CDATA[$F{costototal}]]></variableExpression>
+	</variable>
+	<variable name="v_totalcost_general" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{costototal}]]></variableExpression>
+	</variable>
+	<variable name="v_totalcatidad_pro" class="java.math.BigDecimal" resetType="Group" resetGroup="product" calculation="Sum">
+		<variableExpression><![CDATA[$F{cantidad}]]></variableExpression>
+	</variable>
+	<variable name="v_totalcostounitario_pro" class="java.math.BigDecimal" resetType="Group" resetGroup="product" calculation="Sum">
+		<variableExpression><![CDATA[$F{costounitario}]]></variableExpression>
+	</variable>
+	<variable name="v_costototal_pro" class="java.math.BigDecimal" resetType="Group" resetGroup="product" calculation="Sum">
+		<variableExpression><![CDATA[$F{costototal}]]></variableExpression>
+	</variable>
+	<group name="category">
+		<groupExpression><![CDATA[$F{categoria}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="14">
+				<textField isBlankWhenNull="true">
+					<reportElement x="711" y="2" width="77" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_totalcost}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
+					<reportElement mode="Transparent" x="480" y="2" width="69" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="SansSerif" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_totalcantidad}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="251" y="2" width="42" height="12"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TOTAL]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="293" y="2" width="187" height="12"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{categoria}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="481" y="0" width="307" height="1"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="product">
+		<groupExpression><![CDATA[$F{m_product_id}]]></groupExpression>
+		<groupHeader>
+			<band height="8"/>
+		</groupHeader>
+		<groupFooter>
+			<band height="16">
+				<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
+					<reportElement mode="Transparent" x="480" y="1" width="70" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="SansSerif" size="8" isBold="true" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_totalcatidad_pro}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
+					<reportElement mode="Transparent" x="711" y="1" width="77" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="SansSerif" size="8" isBold="true" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_costototal_pro}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="480" y="0" width="308" height="1"/>
+				</line>
+				<staticText>
+					<reportElement x="105" y="1" width="375" height="15"/>
+					<box rightPadding="3"/>
+					<textElement textAlignment="Right" verticalAlignment="Top">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total producto:]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="85" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="685" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONSOLIDADO DE PRODUCCIÓN LDM ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="31" width="63" height="12"/>
+				<box leftPadding="3"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LOCAL:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="43" width="69" height="12"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA HASTA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="55" width="112" height="12"/>
+				<box leftPadding="3"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIPO DE DOCUMENTO: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="43" width="71" height="12"/>
+				<box leftPadding="3"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA DESDE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="63" y="31" width="149" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{orgname}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="112" y="55" width="100" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tipodoc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="577" y="15" width="210" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{usuario}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="577" y="3" width="210" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha_impresion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="71" y="43" width="141" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{DateFrom}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="377" y="43" width="100" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{DateTo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="711" y="73" width="77" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COSTO  TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="549" y="73" width="83" height="12"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UNIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="73" width="69" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CANTIDAD ELAB.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="293" y="73" width="187" height="12"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE PRODUCTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="227" y="73" width="66" height="12"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="632" y="73" width="79" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COSTO UNITARIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="171" y="73" width="56" height="12"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="105" y="73" width="66" height="12"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. ORDEN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="73" width="105" height="12"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CATEGORIA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="293" y="0" width="187" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{producto}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="227" y="0" width="66" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cod_producto}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="105" y="0" width="66" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{documentno}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="MM/dd/yyyy" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="171" y="0" width="56" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{movementdate}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00000;-###0.00000" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="632" y="0" width="79" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{costounitario}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="711" y="0" width="77" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{costototal}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="550" y="0" width="82" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{unidad}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="480" y="0" width="70" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="105" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{categoria}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="13">
+			<staticText>
+				<reportElement x="252" y="0" width="101" height="13"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL GENERAL          ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="711" y="0" width="77" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_totalcost_general}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

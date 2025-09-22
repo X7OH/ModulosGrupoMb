@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MODULE" version="">
+  <row id="E1CEC33B43934CE390EDDF0F6EA1CCA3" trl="N">
+    <value column="Description" isTrl="Y" original="Quality Assurement Localization">Localización Aseguramiento de Calidad</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="License" isTrl="N" original=""/>
+    <value column="Updateinfo" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

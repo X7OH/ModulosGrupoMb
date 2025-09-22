@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MODULE" version="">
+  <row id="03EAA5DB4C0A41C9809C6CE546F28DE7" trl="N">
+    <value column="Description" isTrl="N" original="Sidesoft Integration Plugthem">Sidesoft Integration Plugthem</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="License" isTrl="N" original=""/>
+    <value column="Updateinfo" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

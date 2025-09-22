@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="68D0A4B8636642438971DAA6C037A3A7" trl="N">
+    <value column="Name" isTrl="Y" original="Physical Inventory PDV">Inventario Físico PDV</value>
+    <value column="Description" isTrl="Y" original="Physical Inventory PDV">Inventario Físico PDV</value>
+  </row>
+</compiereTrl>

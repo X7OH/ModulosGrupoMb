@@ -1,0 +1,402 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SSRS_RESUPPLY_COMPLETE_POS">
+    <function name="SSRS_RESUPPLY_COMPLETE_POS" type="NULL">
+      <parameter name="p_pinstance_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[/*************************************************************************
+* The contents of this file are subject to the Openbravo  Public  License
+* Version  1.1  (the  "License"),  being   the  Mozilla   Public  License
+* Version 1.1  with a permitted attribution clause; you may not  use this
+* file except in compliance with the License. You  may  obtain  a copy of
+* the License at http://www.openbravo.com/legal/license.html
+* Software distributed under the License  is  distributed  on  an "AS IS"
+* basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+* License for the specific  language  governing  rights  and  limitations
+* under the License.
+* The Original Code is Openbravo ERP.
+* The Initial Developer of the Original Code is Openbravo SLU
+* All portions are Copyright (C) 2001-2013 Openbravo SLU
+* All Rights Reserved.
+* Contributor(s):  ______________________________________.
+************************************************************************/
+  -- Logistice
+  v_ResultStr VARCHAR2(2000):='';     
+  v_Message VARCHAR2(2000):='';       
+  v_Result NUMBER:=1;                -- 0=failure
+  v_Record_ID VARCHAR2(32);           
+  v_User_ID VARCHAR2(32):='0';        
+  v_AD_Org_ID VARCHAR2(32):='0';      
+  v_AD_Client_ID VARCHAR2(32):='0';   
+  v_errormsg  VARCHAR2(2000):='';       
+  v_DocAction VARCHAR2(60);           
+  v_DocStatus VARCHAR2(60);           
+  v_Aux NUMBER;
+  v_bpartner VARCHAR2(32);            
+  v_bpartner_blocked VARCHAR2(1):='N';
+  v_inOutBlocking VARCHAR2(1):='N';   
+  v_bpartner_name c_bpartner.name%TYPE;
+  v_productname m_product.name%TYPE;
+  v_Org_ID VARCHAR2(32);              
+  v_em_ssrs_timeto DATE;
+  v_created DATE;
+  v_Count  NUMBER;
+  v_resupply_pos VARCHAR2(32);        
+
+  v_get_idBP  VARCHAR2(32);             
+  v_get_idBR  VARCHAR2(32);             
+  v_pinstance_vac_id VARCHAR2(32);             
+  
+  v_Org_ID_Send VARCHAR2(32);         
+  v_Org_ID_Transaction VARCHAR2(32);  
+  v_documentSends VARCHAR2(32);       
+  v_documentTransaction VARCHAR2(32); 
+  v_err_stock VARCHAR2(32);           
+  v_err_num NUMBER;
+  v_M_Locator_ID VARCHAR2(32);        
+  v_M_Locator_Reception  VARCHAR2(32);
+  v_M_Locator_Transitory  VARCHAR2(32);
+  v_line  NUMBER;
+  v_Qtycount NUMBER;
+  v_Qtyloquesi NUMBER;
+  v_Real_Qtycount NUMBER;
+  v_Qtyloquesidos NUMBER;
+v_Sequence_ID VARCHAR(32); 		--OBTG:VARCHAR2--
+  v_documento_env VARCHAR2(60);           
+  v_documento_reciv VARCHAR2(60);           
+  v_NextNo NUMBER;
+   v_Prefix VARCHAR2(60);           
+    v_Suffix VARCHAR2(60);           
+    v_NextNoTW NUMBER;
+   v_PrefixTW VARCHAR2(60);           
+    v_SuffixTW VARCHAR2(60);           
+    v_Sequence_IDTW VARCHAR(32); 		--OBTG:VARCHAR2--
+v_documentread1  VARCHAR2(60);           
+v_documentread2  VARCHAR2(60);           
+v_Tpv VARCHAR2(60);           
+ 
+v_NameDocumentType VARCHAR2(60);           
+v_NameDocumentType2 VARCHAR2(60);           
+v_documentnoRessuplyPOs VARCHAR2(60);           
+
+  v_line2  NUMBER;
+  v_count_documento_env NUMBER:=0; 
+  v_count_documento_reciv NUMBER:=0;
+  --  Parameter 
+  TYPE RECORD IS REF CURSOR;
+    Cur_Parameter RECORD;
+    Cur_ResupplyLine RECORD;
+    Cur_stockproduct RECORD;
+    Cur_Products_change RECORD;
+    Cur_New_Storage RECORD;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Updating PInstance - Processing ' || p_PInstance_ID) ;
+  v_ResultStr:='PInstanceNotFound';
+  AD_UPDATE_PINSTANCE(p_PInstance_ID, NULL, 'Y', NULL, NULL) ;
+
+  BEGIN --BODY
+    -- Get Parameters
+    v_ResultStr:='ReadingParameters';
+    FOR Cur_Parameter IN
+      (SELECT i.Record_ID, i.AD_User_ID, i.AD_Client_ID, i.AD_Org_ID,
+        p.ParameterName, p.P_String, p.P_Number, p.P_Date
+      FROM AD_PInstance i
+      LEFT JOIN AD_PInstance_Para p
+        ON i.AD_PInstance_ID=p.AD_PInstance_ID
+      WHERE i.AD_PInstance_ID=p_PInstance_ID
+      ORDER BY p.SeqNo) LOOP
+      v_Record_ID:=Cur_Parameter.Record_ID;
+      v_AD_Org_ID:=Cur_Parameter.AD_Org_ID;
+      v_User_ID:=Cur_Parameter.AD_User_ID;
+      v_AD_Client_ID:=Cur_Parameter.AD_Client_ID;
+    END LOOP; -- Get Parameter
+
+	--Sacar variables de cabecera
+	SELECT DocAction, DocStatus , c_bpartner_id,AD_Org_Id_Req,AD_Org_ID, documentno
+	INTO v_DocAction, v_DocStatus, v_bpartner, v_Org_ID_Send ,v_Org_ID_Transaction, v_documentnoRessuplyPOs
+	FROM ssrs_resupply_pos
+	WHERE ssrs_resupply_pos_ID = v_Record_ID;
+
+	--Recupera si hay algun error en esta función
+	v_err_stock := (select ssrs_validateresupply_pos(v_Record_ID) from dual);
+	
+	v_line:=0;
+	v_line2:=0;
+	v_Qtyloquesidos:=0;
+	--Si no hay ningun error en la funcion entra
+	IF(v_err_stock is null)THEN
+		-- v_documentSends - documento para quien envia 
+		-- v_documentTransaction - Es de la matriz quien va a sacar para mi bodega
+		SELECT AD_ORG.EM_SSRS_C_DOCTYPEFROM_ID, AD_ORG.EM_SSRS_C_DOCTYPETO_ID , substr(AD_ORG.name,1,3)
+		INTO v_documentSends, v_documentTransaction, v_Tpv
+		FROM AD_ORG 
+		LEFT JOIN C_DOCTYPE ON C_DOCTYPE.C_DOCTYPE_ID = AD_ORG.EM_SSRS_C_DOCTYPEFROM_ID
+		LEFT JOIN C_DOCTYPE C_DOCTYPETO ON C_DOCTYPETO.C_DOCTYPE_ID = AD_ORG.EM_SSRS_C_DOCTYPETO_ID
+		LEFT JOIN AD_SEQUENCE ON AD_SEQUENCE.AD_SEQUENCE_ID = C_DOCTYPE.DOCNOSEQUENCE_ID
+		WHERE AD_ORG.AD_ORG_ID = v_Org_ID_Transaction;
+				
+		--Para cabeceras
+		v_get_idBP:=get_uuid();
+
+		SELECT DocNoSequence_ID
+		INTO v_Sequence_IDTW
+		FROM C_DocType
+		WHERE C_DocType_ID=v_documentSends 
+		AND IsDocNoControlled='Y'  AND IsActive='Y';
+
+		SELECT name
+		INTO v_NameDocumentType
+		FROM C_DocType
+		WHERE C_DocType_ID=v_documentSends -- parameter
+		AND IsDocNoControlled='Y'  AND IsActive='Y';
+				
+
+		-- Get the numbers
+		SELECT s.CurrentNext, s.Prefix, s.Suffix
+		INTO v_NextNoTW, v_PrefixTW, v_SuffixTW
+		FROM AD_Sequence s
+		WHERE s.AD_Sequence_ID = v_Sequence_IDTW AND s.IsActive='Y'  AND s.IsTableID='N'  AND s.IsAutoSequence='Y';
+
+		UPDATE AD_Sequence
+		SET CurrentNext=v_NextNoTW 
+		WHERE AD_Sequence_ID=v_Sequence_IDTW;
+		v_documento_env:=COALESCE(v_PrefixTW, '') || v_NextNoTW || COALESCE(v_SuffixTW, '') ;
+
+		-- VALIDACION DEL NUMERO DE DOCUMENTO EN LA M_MOVEMENT
+		SELECT count(*) 
+		INTO v_count_documento_env
+		FROM M_MOVEMENT 
+		WHERE DOCUMENTNO = v_documento_env;
+
+		IF(v_count_documento_env > 0) THEN
+			RAISE_APPLICATION_ERROR(-20000, 'Ya existe un movimiento con el numero de documento  '|| v_documento_env) ;
+		END IF;
+		-- VALIDACION DEL NUMERO DE DOCUMENTO EN LA M_MOVEMENT
+
+		--Con la bodega del producto
+		INSERT INTO M_MOVEMENT(
+					M_MOVEMENT_ID,AD_CLIENT_ID,AD_ORG_ID,CREATED,CREATEDBY
+					,UPDATED,UPDATEDBY,NAME,DESCRIPTION,MOVEMENTDATE
+					,POSTED,PROCESSED,PROCESSING,MOVE_FROMTO_LOCATOR,DOCUMENTNO
+					--,EM_SSRS_RESUPPLY_ID,
+					,EM_Ssrs_Resupply_Pos_ID,EM_SSRS_TYPERESUPPLY
+					,EM_SSRS_ISRESUPPLY,EM_SSRS_C_DOCTYPE_ID)
+		VALUES(
+					v_get_idBP,v_AD_Client_ID,v_Org_ID_Transaction,now(),v_User_ID
+					,now(),v_User_ID, 'Reaprovisionamiento' || ' - '  || v_Tpv  || ' - ' ||  v_documentnoRessuplyPOs, 'Reaprovisionamiento' || ' - ' ||  v_Tpv  || ' - ' || v_documentnoRessuplyPOs,now()
+					,'N','N','N','N',v_documento_env
+					--,?
+					,v_Record_ID,'N'
+					,'Y',v_documentTransaction);
+
+		--Con mi bodega
+		v_get_idBR:=get_uuid();
+
+		SELECT DocNoSequence_ID
+		INTO v_Sequence_ID
+		FROM C_DocType
+		WHERE C_DocType_ID=v_documentTransaction -- parameter
+		AND IsDocNoControlled='Y'  AND IsActive='Y';
+
+
+		SELECT name
+		INTO v_NameDocumentType2
+		FROM C_DocType
+		WHERE C_DocType_ID=v_documentTransaction -- parameter
+		AND IsDocNoControlled='Y'  AND IsActive='Y';
+		
+		-- Get the numbers
+		SELECT s.CurrentNext, s.Prefix, s.Suffix
+		INTO v_NextNo, v_Prefix, v_Suffix
+		FROM AD_Sequence s
+		WHERE s.AD_Sequence_ID = v_Sequence_ID AND s.IsActive='Y'  AND s.IsTableID='N'  AND s.IsAutoSequence='Y';
+
+		UPDATE AD_Sequence
+		SET CurrentNext=v_NextNo 
+		WHERE AD_Sequence_ID=v_Sequence_ID;
+
+		v_documento_reciv:=COALESCE(v_Prefix, '') || v_NextNo || COALESCE(v_Suffix, '') ;
+
+		-- VALIDACION DEL NUMERO DE DOCUMENTO EN LA M_MOVEMENT
+		SELECT count(*) 
+		INTO v_count_documento_reciv
+		FROM M_MOVEMENT 
+		WHERE DOCUMENTNO = v_documento_reciv;
+		
+		IF(v_count_documento_reciv > 0) THEN
+			RAISE_APPLICATION_ERROR(-20000, 'Ya existe un movimiento con el numero de documento  '|| v_documento_reciv) ;
+		END IF;
+		-- VALIDACION DEL NUMERO DE DOCUMENTO EN LA M_MOVEMENT		
+			
+		--v_documento_reciv:=ad_sequence_doctype(v_documentTransaction,null,'N');
+		INSERT INTO M_MOVEMENT(
+					M_MOVEMENT_ID,AD_CLIENT_ID,AD_ORG_ID,CREATED,CREATEDBY
+					,UPDATED,UPDATEDBY,NAME,DESCRIPTION,MOVEMENTDATE
+					,POSTED,PROCESSED,PROCESSING,MOVE_FROMTO_LOCATOR,DOCUMENTNO
+					--,EM_SSRS_RESUPPLY_ID,
+					,EM_Ssrs_Resupply_Pos_ID,EM_SSRS_TYPERESUPPLY
+					,EM_SSRS_ISRESUPPLY,EM_SSRS_C_DOCTYPE_ID)
+		VALUES(
+					v_get_idBR,v_AD_Client_ID,v_Org_ID_Send,now(),v_User_ID
+					,now(),v_User_ID, 'Guía de Remisión' || ' - ' || v_Tpv  || ' - ' || v_documentnoRessuplyPOs , 'Guía de Remisión' || ' - ' ||  v_Tpv  || ' - ' || v_documentnoRessuplyPOs,now()
+					,'N','N','N','N',v_documento_reciv
+					--,?
+					,v_Record_ID,'N'
+					,'Y',v_documentSends);
+
+	    /***************************************************************************************************************************/					
+	    /*****************PRODUCTOS CON CAMBIOS*****************/
+		For Cur_Products_change in(
+					SELECT l.ssrs_resupplyposline_id,l.line
+						,l.QTY_Dispatched--Solicitado Real en unidad de producto
+						,l.Orderedqty--No tengo idea
+						,p.m_product_id,p.name, C_Aum, p.EM_Ssrs_M_Warehouse_ID
+						,Secqty_Dispatched,l.secqtyuom
+					FROM ssrs_resupplyposline l
+					inner join m_product p on p.m_product_id = l.m_product_id
+					WHERE l.QTY_Dispatched > 0
+					AND ssrs_resupply_pos_id = v_Record_ID
+					Order by l.QTY_Dispatched desc
+						
+		)
+		Loop
+			v_Qtycount:=(Cur_Products_change.QTY_Dispatched);
+
+			IF(v_Qtycount<>0)THEN
+				v_M_Locator_ID:=(SELECT M_Locator_ID FROM M_Locator WHERE M_Warehouse_ID =Cur_Products_change.EM_Ssrs_M_Warehouse_ID);
+				
+				SELECT em_ssrs_m_locatortrn_id,em_ssrs_m_locatorrcp_id 
+				INTO v_M_Locator_Transitory,v_M_Locator_Reception
+				FROM ad_org  
+				WHERE ad_org_id = v_Org_ID_Transaction;
+
+				FOR Cur_New_Storage IN(
+					select a.m_product_id, a.m_locator_id, a.qtyonhand, a.qtyorderonhand, a.c_uom_id, a.M_Product_UOM_ID, a.m_attributesetinstance_id
+					from m_storage_detail a
+					left join m_product b on b.m_product_id = a.m_product_id
+					left join m_attributesetinstance c on c.m_attributesetinstance_id = a.m_attributesetinstance_id
+					left join m_locator d on d.m_locator_id = a.m_locator_id
+					where a.m_product_id = Cur_Products_change.m_product_id
+					and d.m_warehouse_id = b.EM_Ssrs_M_Warehouse_ID
+					and b.isstocked = 'Y'
+					and b.isactive = 'Y'
+					and a.qtyonhand > 0
+					order by  b.EM_Ssrs_M_Warehouse_ID, c.guaranteedate asc
+				)LOOP
+					v_Real_Qtycount:=Cur_New_Storage.QtyOnHand;
+						
+					IF(v_Qtycount>v_Real_Qtycount)THEN
+						v_Qtyloquesi:=v_Real_Qtycount;
+						v_Qtycount:=v_Qtycount-v_Qtyloquesi;
+						IF(Cur_Products_change.secqtyuom<>0)THEN
+							v_Qtyloquesidos:=v_Qtyloquesi/Cur_Products_change.secqtyuom;
+						END IF;
+
+						v_line:=v_line+10;
+						v_line2:=v_line2+10;
+						--Desde el producto
+						INSERT INTO m_movementline(
+							m_movementline_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby
+							, m_movement_id, m_locator_id, m_locatorto_id, m_product_id, line, movementqty, description
+							, m_attributesetinstance_id, m_product_uom_id, quantityorder, c_uom_id, m_reservation_id, c_aum, aumqty) 
+						VALUES (get_uuid(),v_AD_Client_ID,v_Org_ID_Send,'Y',now(),v_User_ID,now(),v_User_ID,
+							v_get_idBR, v_M_Locator_ID,v_M_Locator_Transitory, Cur_Products_change.m_product_id, TO_NUMBER(v_line), TO_NUMBER(v_Qtyloquesi), null
+							,Cur_New_Storage.M_AttributeSetInstance_ID ,null,null,Cur_New_Storage.C_UOM_ID,null,Cur_Products_change.C_Aum, TO_NUMBER(v_Qtyloquesidos));
+
+						--A mi bodega
+						INSERT INTO m_movementline(
+							m_movementline_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby
+							, m_movement_id, m_locator_id, m_locatorto_id, m_product_id, line, movementqty, description
+							, m_attributesetinstance_id, m_product_uom_id, quantityorder, c_uom_id, m_reservation_id, c_aum, aumqty) 
+						VALUES (get_uuid(),v_AD_Client_ID,v_Org_ID_Transaction,'Y',now(),v_User_ID,now(),v_User_ID,
+							v_get_idBP,v_M_Locator_Transitory,v_M_Locator_Reception,Cur_Products_change.m_product_id,TO_NUMBER(v_line2),TO_NUMBER(v_Qtyloquesi),null
+							,Cur_New_Storage.M_AttributeSetInstance_ID,null,null,Cur_New_Storage.C_UOM_ID,null,Cur_Products_change.C_Aum,TO_NUMBER(v_Qtyloquesidos));
+						
+					ELSIF(v_Qtycount<>0)THEN
+
+						v_line:=v_line+10;
+						v_line2:=v_line2+10;
+						
+						v_Qtyloquesi:=v_Qtycount;
+						IF(Cur_Products_change.secqtyuom<>0)THEN
+							v_Qtyloquesidos:=v_Qtyloquesi/Cur_Products_change.secqtyuom;
+						END IF;
+						
+						--Desde la bodega
+						INSERT INTO m_movementline(m_movementline_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby
+							, m_movement_id, m_locator_id, m_locatorto_id, m_product_id, line, movementqty, description
+							, m_attributesetinstance_id, m_product_uom_id, quantityorder, c_uom_id, m_reservation_id, c_aum, aumqty) 
+						VALUES (get_uuid(),v_AD_Client_ID,v_Org_ID_Send,'Y',now(),v_User_ID,now(),v_User_ID,
+							v_get_idBR,v_M_Locator_ID,v_M_Locator_Transitory,Cur_Products_change.m_product_id,TO_NUMBER(v_line),TO_NUMBER(v_Qtyloquesi),null
+							,Cur_New_Storage.M_AttributeSetInstance_ID,null,null,Cur_New_Storage.C_UOM_ID,null,Cur_Products_change.C_Aum,TO_NUMBER(v_Qtyloquesidos));
+
+						--A mi bodega
+						INSERT INTO m_movementline(m_movementline_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby
+							, m_movement_id, m_locator_id, m_locatorto_id, m_product_id, line, movementqty,description
+							, m_attributesetinstance_id, m_product_uom_id, quantityorder, c_uom_id, m_reservation_id, c_aum, aumqty) 
+						VALUES (get_uuid(),v_AD_Client_ID,v_Org_ID_Transaction,'Y',now(),v_User_ID,now(),v_User_ID,	
+							v_get_idBP,v_M_Locator_Transitory,v_M_Locator_Reception,Cur_Products_change.m_product_id,TO_NUMBER(v_line2),TO_NUMBER(v_Qtyloquesi),null
+							,Cur_New_Storage.M_AttributeSetInstance_ID,null,null,Cur_New_Storage.C_UOM_ID,null,Cur_Products_change.C_Aum,TO_NUMBER(v_Qtyloquesidos));
+
+						v_Qtycount:=0;
+					END IF;	
+				END LOOP; --    Cur_Storage
+			END IF;
+		END LOOP;-- Cur_Products_change
+	    /***************************************************************************************************************************/			
+		--Crea instancia
+		v_pinstance_vac_id := get_uuid();
+		insert into AD_PINSTANCE( ad_pinstance_id, ad_process_id,record_id, isprocessing, created, ad_user_id, updated, 
+					result, errormsg,ad_client_id, ad_org_id,createdby,updatedby,isactive)
+		values(v_pinstance_vac_id,'E11C1695EEEE414994FE2C2922F94A31',v_get_idBR,'N',now(),v_User_ID,now(),
+			1,'@Insert@: Instance vacations',v_AD_Client_ID, v_AD_Org_ID, v_User_ID,v_User_ID,'Y');
+			
+	    M_MOVEMENT_POST(v_pinstance_vac_id);
+		
+		select coalesce(to_number((select pi.result
+					from ad_pinstance pi 
+					where pi.ad_pinstance_id = v_pinstance_vac_id)),to_number(1))
+		into v_result 
+		from dual;
+
+		select coalesce(to_char((select pi.errormsg 
+				from ad_pinstance pi 
+				where pi.ad_pinstance_id = v_pinstance_vac_id)),to_char(''))
+		into v_errormsg
+		from dual;
+				
+		If v_result = 0 then
+			RAISE_APPLICATION_ERROR(-20000, v_errormsg) ;
+		End if;
+		
+		v_documentread1:=(SELECT documentno from m_movement where m_movement_id =v_get_idBP);
+		v_documentread2:=(SELECT documentno from m_movement where m_movement_id =v_get_idBR);
+		v_Message:='Se generaron las sigientes transacciones : 1.- '||v_documentread2||' 2.- '|| v_documentread1;
+		update ssrs_resupply_pos 
+		set DocStatus = 'AU' 
+		where ssrs_resupply_pos_id = v_Record_ID;
+
+
+		update ssrs_resupply_pos
+		set m_movement_id =v_get_idBR
+		,m_movement2_id =v_get_idBP
+		where ssrs_resupply_pos_id = v_Record_ID;
+
+	Else
+		v_err_num:=(select line from ssrs_resupplyposline where ssrs_resupplyposline_id =v_err_stock);
+		RAISE_APPLICATION_ERROR(-20000, 'En la linea '|| v_err_num ||' el estock solicitado es mayor al disponible.');
+	END IF;
+
+  END; --BODY
+  AD_UPDATE_PINSTANCE(p_PInstance_ID, NULL, 'N', v_Result, v_Message) ;
+EXCEPTION
+WHEN OTHERS THEN
+  DBMS_OUTPUT.PUT_LINE('M_RequisitionLine_Post error: ' || v_ResultStr);
+  v_ResultStr:= '@ERROR=' || SQLERRM;
+  DBMS_OUTPUT.PUT_LINE(v_ResultStr) ;
+  ROLLBACK;
+  AD_UPDATE_PINSTANCE(p_PInstance_ID, NULL, 'N', 0, v_ResultStr);
+END SSRS_RESUPPLY_COMPLETE_POS
+]]></body>
+    </function>
+  </database>

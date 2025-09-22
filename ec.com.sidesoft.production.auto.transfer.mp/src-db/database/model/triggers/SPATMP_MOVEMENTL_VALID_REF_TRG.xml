@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SPATMP_MOVEMENTL_VALID_REF_TRG">
+    <trigger name="SPATMP_MOVEMENTL_VALID_REF_TRG" table="M_MOVEMENTLINE" fires="before" insert="false" update="true" delete="true" foreach="row">
+      <body><![CDATA[  v_Total_Amount_Recuested NUMBER;
+  v_exists NUMBER;
+BEGIN
+    
+	IF AD_isTriggerEnabled()='N' THEN RETURN;
+    END IF;
+  
+   IF(UPDATING ) THEN
+	-- Check if locator and locator_to are diferents
+	Select sum(Total_Amount_Recuested)
+	Into v_Total_Amount_Recuested
+	from spatmp_reference_transfer
+	where m_movementline_id = :new.m_movementline_id;
+	
+	IF (:NEW.MovementQty <> v_Total_Amount_Recuested) THEN
+		RAISE_APPLICATION_ERROR(-20000, '@La cantidad movida debe ser igual a la suma de las lineas de la Referencia OF@');
+	END IF;
+   END IF;
+  
+   IF DELETING THEN
+	SELECT COUNT(*)
+	Into v_exists
+	from spatmp_reference_transfer
+	where m_movementline_id = :new.m_movementline_id;
+	IF v_exists > 0 THEN
+		RAISE_APPLICATION_ERROR(-20000, '@No se puede eliminar por que tiene lineas relacionadas en la Referencia OF@');
+	END IF;
+  END IF;
+  
+END SPATMP_MOVEMENTL_VALID_REF_TRG
+]]></body>
+    </trigger>
+  </database>

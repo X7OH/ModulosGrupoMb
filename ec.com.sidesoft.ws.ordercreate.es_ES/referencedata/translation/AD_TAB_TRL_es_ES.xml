@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TAB" version="">
+  <row id="091B405F3EEF49CCACA463EC9EAB056D" trl="N">
+    <value column="Name" isTrl="N" original="Sales Order WS Configuration">Sales Order WS Configuration</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="6C2C79D277C94592A51E43379220CC06" trl="N">
+    <value column="Name" isTrl="N" original="Homologation Products">Homologation Products</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="991166CD0DDB4A0C820D2E655E0B265B" trl="N">
+    <value column="Name" isTrl="N" original="Homologation Offer Alternative">Homologation Offer Alternative</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="D6D22801DA5545A9AF6D4DD43D4658EF" trl="N">
+    <value column="Name" isTrl="Y" original="Sales Order WS Log">Log WS Pedido de Venta</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="E72FA2682782448CB1217B73DDF4DB07" trl="N">
+    <value column="Name" isTrl="N" original="Homologation Offer">Homologation Offer</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

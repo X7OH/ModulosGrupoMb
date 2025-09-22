@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="0181CA0B2AF940468A2575A4DE72F0BF" trl="N">
+    <value column="Name" isTrl="Y" original="Balance Sheet by Period">Balance de Situación por Período</value>
+    <value column="Description" isTrl="Y" original="Balance Sheet by Period">Balance de Situación por Período</value>
+  </row>
+  <row id="23BA3C83B8654AD9857E521E1A5A587C" trl="N">
+    <value column="Name" isTrl="Y" original="Balance of result">Balance de Resultado Acumulado</value>
+    <value column="Description" isTrl="Y" original="Balance of result">Balance de Resultado Acumulado</value>
+  </row>
+  <row id="8FC53EB97A99466D9AC04A2E7065EE50" trl="N">
+    <value column="Name" isTrl="Y" original="Balance Checking">Balance de Comprobación</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="9455AF929ABD4E11828AA81599739952" trl="N">
+    <value column="Name" isTrl="Y" original="Balance Sheet for Projects">Balance general por proyectos</value>
+    <value column="Description" isTrl="Y" original="Balance Sheet for Projects">Balance general por proyectos</value>
+  </row>
+  <row id="9BEAF6DF45C44BE295515254F3FBFF08" trl="N">
+    <value column="Name" isTrl="Y" original="Balance of Result by Period">Balance de Resultados por Período</value>
+    <value column="Description" isTrl="Y" original="Balance of Result by Period">Balance de Resultados por Período</value>
+  </row>
+  <row id="E656ABCB6DE24556B6606AE5517905AD" trl="N">
+    <value column="Name" isTrl="Y" original="Balance Sheet">Balance de Situación Acumulado</value>
+    <value column="Description" isTrl="Y" original="Balance Sheet">Balance de Situación Acumulado</value>
+  </row>
+</compiereTrl>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_WINDOW" version="">
+  <row id="67C3F5060FE3451681828B742B3715A2" trl="Y">
+    <value column="Name" isTrl="Y" original="Cash Clousure">Cierre de caja</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="B2C17CF575FE4491B384CD17C172792B" trl="Y">
+    <value column="Name" isTrl="Y" original="Setup - Close Cash">Configuración</value>
+    <value column="Description" isTrl="N" original="Setup of close cash"/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="F9352E711BD144A2BF4021CDCC28945C" trl="Y">
+    <value column="Name" isTrl="Y" original="Cash Clousure - Admin">Cierre de Caja - Administrador</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

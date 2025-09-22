@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REF_LIST" version="">
+  <row id="5673E558B60E490689C65E6849AA395D" trl="N">
+    <value column="Name" isTrl="N" original="Enable Stock Validation">Enable Stock Validation</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

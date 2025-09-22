@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_WINDOW" version="">
+  <row id="121BFFD5BE97400CBBB04065CFC83B64" trl="N">
+    <value column="Name" isTrl="N" original="Hardware Manager">Administrador de Hardware</value>
+    <value column="Description" isTrl="N" original="List of Hardware Manager servers that can be used by POS terminals">Lista servidores de Administradores de Hardware que pueden ser usado por las terminales TPV</value>
+    <value column="Help" isTrl="N" original="Defines the list of Hardware Manager servers that can be used by POS terminals.">Define la Lista servidores de Administradores de Hardware que pueden ser usado por las terminales TPV.</value>
+  </row>
+  <row id="5445A3183C924660A1C2789E88433667" trl="N">
+    <value column="Name" isTrl="Y" original="POS Print Templates">Plantillas de impresión en TPV</value>
+    <value column="Description" isTrl="Y" original="Defines print templates to be used from Web POS">Define las plantillas de impresión usadas desde el TPV</value>
+    <value column="Help" isTrl="Y" original="Defines print templates to be used from Web POS">Define las plantillas de impresión usadas desde el TPV</value>
+  </row>
+  <row id="6ADC15D4EEAE4048B26216DD49C2F2C7" trl="N">
+    <value column="Name" isTrl="N" original="POS Approval Reason">Razón de Aprobación TPV</value>
+    <value column="Description" isTrl="N" original="POS Approval Reason">Razón de Aprobación TPV</value>
+    <value column="Help" isTrl="N" original="POS Approval Reason">Razón de Aprobación TPV</value>
+  </row>
+  <row id="8AC4D0AC73A44547ACE1FC6A39D00F7F" trl="N">
+    <value column="Name" isTrl="Y" original="POS Terminal Type">Tipo de TPV</value>
+    <value column="Description" isTrl="Y" original="Defines Terminal Properties">Define las propiedades del terminal</value>
+    <value column="Help" isTrl="Y" original="POS Terminal Types are used to define a series of properties that will be shared among all terminals of the same type. In this way, definition of type is done once and reused by different terminals, each of these terminals will set the terminal specific configuration.">Los tipos de TPV se usan para definir una serie de propiedades que pueden ser compartidas por diferentes terminales del mismo tipo. De esta manera, la definición del tipo se hace una vez y es reusada por diferentes terminales, cada uno de ello seteará la configuración específica.</value>
+  </row>
+  <row id="9E29B398CC2F49239D190C3B5C325E4E" trl="N">
+    <value column="Name" isTrl="Y" original="POS Payment Method Categories">TPV Categorías de métodos de pago</value>
+    <value column="Description" isTrl="Y" original="POS Payment Method Categories">TPV Categorías de métodos de pago</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="B2738FA83B494AD08AE1660859C014A6" trl="N">
+    <value column="Name" isTrl="Y" original="Errors While Importing POS Data">Errores al importar pedidos desde el TPV</value>
+    <value column="Description" isTrl="Y" original="Errors While Importing POS Data">Errores al importar pedidos desde el TPV</value>
+    <value column="Help" isTrl="Y" original="When synchronizing data from POS to back office, the errors are not shown in POS user interface as the cashier needn't know how to react in those cases. This window compiles all the errors occurred, allowing to fix data to try to create the data again.">Al sincronizar pedidos desde el TPV al backoffice, los posibles errores no son mostrados al usuario en el TPV ya que el cajero no necesita saber cómo actuar en estos casos. Esta ventana recoge todos estos errors, permitiendo arreglar la información para intentar volver a crear los pedidos de nuevo.</value>
+  </row>
+  <row id="E7F17EE70B2B46AA9CA2377D4D6A3537" trl="N">
+    <value column="Name" isTrl="N" original="Choose warehouse">Escoger almacén</value>
+    <value column="Description" isTrl="N" original="Grid to select the cross channel warehouse">Cuadrícula para seleccionar los almacenes de canales cruzados</value>
+    <value column="Help" isTrl="N" original="Grid to select the cross channel warehouse">Cuadrícula para seleccionar los almacenes de canales cruzados</value>
+  </row>
+  <row id="FF80818132F311740132F322B8CD0048" trl="N">
+    <value column="Name" isTrl="Y" original="POS Terminal">Terminal Punto de Venta</value>
+    <value column="Description" isTrl="Y" original="POS Terminal">Terminal Punto de Venta</value>
+    <value column="Help" isTrl="Y" original="A POS terminal is each one of the physical terminals in a store.">Un TPV es cada uno de los terminales físicos en una tienda.</value>
+  </row>
+</compiereTrl>

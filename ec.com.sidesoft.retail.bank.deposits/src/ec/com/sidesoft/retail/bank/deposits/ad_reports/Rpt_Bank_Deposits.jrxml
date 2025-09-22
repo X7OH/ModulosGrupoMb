@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_Bank_Deposits" pageWidth="880" pageHeight="842" columnWidth="880" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="9d0d769e-3bc1-41ff-b267-192c12ce64cf">
+	<property name="ireport.zoom" value="4.0"/>
+	<property name="ireport.x" value="282"/>
+	<property name="ireport.y" value="240"/>
+	<parameter name="AD_Org_ID" class="java.lang.String"/>
+	<parameter name="obpos_applications_id" class="java.lang.String"/>
+	<parameter name="DateFrom" class="java.util.Date"/>
+	<parameter name="DateTo" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT  	ad_org_id,
+	organizacion,
+	fechaventa,
+	terminal,
+	banco,
+	nodeposito,
+	valordeposito,
+	valorcierre,
+	diferencia,
+    	usuario,
+    	fecha
+FROM(
+    SELECT  org.ad_org_id as "ad_org_id",
+        org.name as "organizacion",
+        bdep.sales_date as "fechaventa",
+        tpv.name as "terminal",
+        ffc.name as "banco",
+        bdepl.depositno as "nodeposito",
+        bdepl.value as "valordeposito",
+        cashp.totalcounted as "valorcierre",
+        cash.cashupdate,
+        tpv.obpos_applications_id,
+        cash.obpos_applications_id,
+        (COALESCE(bdepl.value, 0) - cashp.totalcounted)as "diferencia",
+        (select AD_USER.NAME from AD_USER where AD_USER_ID = bdep.createdby) AS "usuario",
+	to_char(now(),'dd-MM-yyyy HH24:MI:SS') as "fecha"
+    FROM ssrbd_bankdeposits bdep
+    LEFT JOIN ssrbd_bankdepositslines bdepl ON bdepl.ssrbd_bankdeposits_id = bdep.ssrbd_bankdeposits_id
+    LEFT JOIN fin_financial_account ffc ON ffc.fin_financial_account_id = bdepl.fin_financial_account_id
+    LEFT JOIN ad_org org ON org.ad_org_id = bdep.ad_org_id
+    LEFT JOIN obpos_applications tpv ON tpv.obpos_applications_id = bdepl.terminal_pdv_id
+    LEFT JOIN obpos_app_cashup cash ON cash.obpos_applications_id = tpv.obpos_applications_id
+                        AND to_char(cash.cashupdate,'YYYY-MM-DD') =  to_char(bdep.sales_date,'YYYY-MM-DD')
+    LEFT JOIN obpos_paymentmethodcashup cashp ON cashp.obpos_app_Cashup_id = cash.obpos_App_Cashup_id
+    WHERE cashp.searchkey = 'OBPOS_payment.cash'
+    AND cashp.totalsales > 0
+    AND bdep.status = 'PR'
+    AND bdep.ad_org_id IN (	SELECT  tree.ad_org_id FROM ad_org_tree tree
+				left join ad_org org ON org.ad_org_id = tree.ad_org_id
+				where ad_parent_org_id=$P{AD_Org_ID}
+				and org.isactive = 'Y' )
+    AND (bdepl.terminal_pdv_id = $P{obpos_applications_id} or $P{obpos_applications_id} is null)
+    AND bdep.sales_date between $P{DateFrom} and $P{DateTo}
+    ORDER BY cash.cashupdate
+)A
+WHERE diferencia <> 0
+ORDER BY terminal, organizacion]]>
+	</queryString>
+	<field name="ad_org_id" class="java.lang.String"/>
+	<field name="organizacion" class="java.lang.String"/>
+	<field name="fechaventa" class="java.sql.Timestamp"/>
+	<field name="terminal" class="java.lang.String"/>
+	<field name="banco" class="java.lang.String"/>
+	<field name="nodeposito" class="java.lang.String"/>
+	<field name="valordeposito" class="java.math.BigDecimal"/>
+	<field name="valorcierre" class="java.math.BigDecimal"/>
+	<field name="diferencia" class="java.math.BigDecimal"/>
+	<field name="usuario" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String"/>
+	<variable name="SUM_DEPOSITO" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{valordeposito}]]></variableExpression>
+	</variable>
+	<variable name="SUM_CIERRE" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorcierre}]]></variableExpression>
+	</variable>
+	<variable name="SUM_DIFERENCIA" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{diferencia}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="109" splitType="Stretch">
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement x="156" y="19" width="715" height="20" uuid="b9ff6492-1950-41b7-98b4-988375e8c4c2"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha}+" / "+$F{usuario}]]></textFieldExpression>
+			</textField>
+			<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle" isUsingCache="true">
+				<reportElement key="image-1" x="0" y="0" width="156" height="59" uuid="2a512f9c-0019-40ad-be76-30624f496cbc"/>
+				<imageExpression><![CDATA[org.openbravo.erpCommon.utility.Utility.showImageLogo("yourcompanylegal", $F{ad_org_id})]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="59" width="879" height="17" uuid="410a82e5-3292-4f68-8db5-11d3210880e7"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DEPÓSITOS BANCARIOS PUNTO DE VENTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="76" width="156" height="16" uuid="16548c66-41ca-4199-a40a-04dcffd33ff9"/>
+				<box leftPadding="0" rightPadding="5"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Desde:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="156" y="76" width="221" height="16" uuid="e1c0e006-55f6-49f9-a41b-0575719e856c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{DateFrom}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="377" y="76" width="173" height="16" uuid="e3b91465-1205-40cc-8fd5-785118e89141"/>
+				<box leftPadding="0" rightPadding="5"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Hasta:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="550" y="76" width="329" height="16" uuid="9cbfc749-44fa-40b1-a92f-f521e9b36141"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{DateTo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="252" y="0" width="125" height="26" uuid="f4bb562d-80b2-4396-94f5-05c6bab678f0"/>
+				<box>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Terminal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="377" y="0" width="173" height="26" uuid="23f2b0d0-a397-467b-9714-bfa6c35cdba7"/>
+				<box>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Banco de Depósito]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="156" height="26" uuid="16f3d948-7c6e-4c36-9390-f62f0ed74e6f"/>
+				<box>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Organización]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="156" y="0" width="96" height="26" uuid="1b2f3bc7-cd84-4f28-b5ff-778d1324e574"/>
+				<box>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Venta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="550" y="0" width="112" height="26" uuid="d01b7a1c-2be7-4c44-89af-8b65b6069ed8"/>
+				<box>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. Depósito]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="662" y="0" width="77" height="26" uuid="911cfc16-4896-4cd1-9f37-c472b0a2e38b"/>
+				<box>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Depósito]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="809" y="0" width="70" height="26" uuid="319f1a28-083f-45b6-a4c3-c7f9a6ac1607"/>
+				<box>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Diferencia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="739" y="0" width="70" height="26" uuid="d13f8bcf-4e70-413a-be91-5eeeb886671b"/>
+				<box>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Cierre]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="252" y="0" width="125" height="12" uuid="e28abe90-44c8-4715-8a00-f3f1a79bbb1b"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{terminal}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="377" y="0" width="173" height="12" uuid="e1187a61-6106-4867-b627-05cb48bbacc4"/>
+				<box leftPadding="5" rightPadding="0"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{banco}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="156" height="12" uuid="c09167ce-b4dd-40ee-aa51-d205c06e6318"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{organizacion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="156" y="0" width="96" height="12" uuid="0193b70c-ee1e-4dd7-8753-3d56fbcd8eaf"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechaventa}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="550" y="0" width="112" height="12" uuid="1666c93d-100b-4ff4-9567-11b48b8f6d63"/>
+				<box rightPadding="0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nodeposito}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="809" y="0" width="70" height="12" uuid="18121678-2c85-496f-a7d7-273d8b54993d"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{diferencia}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="662" y="0" width="77" height="12" uuid="bfbfde13-60c5-433d-bfce-60a628fa8563"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valordeposito}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="739" y="0" width="70" height="12" uuid="0ecf3c22-ad0a-4eb9-8491-2c9190e36334"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorcierre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="65" splitType="Stretch">
+			<staticText>
+				<reportElement x="550" y="0" width="112" height="20" uuid="0dc6f20e-cd7e-4e4e-bdce-2e2080cd806c"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total General]]></text>
+			</staticText>
+			<elementGroup>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="662" y="0" width="77" height="20" uuid="20bfe6a6-8cfb-48af-b889-12204d36a06c"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SUM_DEPOSITO}]]></textFieldExpression>
+				</textField>
+			</elementGroup>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="739" y="0" width="70" height="20" uuid="d60d9aad-26cb-42f1-8414-698db1aacbbc"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SUM_CIERRE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="809" y="0" width="70" height="20" uuid="ac052f07-aa50-48ee-bbd0-81d855866fb6"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SUM_DIFERENCIA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

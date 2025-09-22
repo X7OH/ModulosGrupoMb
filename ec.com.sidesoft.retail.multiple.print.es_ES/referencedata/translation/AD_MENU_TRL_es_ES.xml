@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="88CF70199EB543C7AC378320DD520777" trl="Y">
+    <value column="Name" isTrl="Y" original="Multiple print">Impresión multiple</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="8EB05A174D9A44A2A57BF75EEA19A29E" trl="N">
+    <value column="Name" isTrl="Y" original="Settings Multiple Print">Configuración de impresión multiple</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

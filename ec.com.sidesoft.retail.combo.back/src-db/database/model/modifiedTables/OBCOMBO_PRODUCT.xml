@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE OBCOMBO_PRODUCT">
+    <table name="OBCOMBO_PRODUCT" primaryKey="OBCOMBO_PRODUCT_KEY">
+      <column name="EM_SSRCB_MAIN" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <check name="EM_SSRCB_MAIN_CHK"><![CDATA[EM_SSRCB_MAIN IN ('Y', 'N')]]></check>
+    </table>
+  </database>

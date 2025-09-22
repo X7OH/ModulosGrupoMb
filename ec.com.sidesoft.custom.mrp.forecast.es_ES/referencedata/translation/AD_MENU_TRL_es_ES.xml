@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="28D2C377F0A54898971403C360A3AF85" trl="N">
+    <value column="Name" isTrl="Y" original="Configuration - Season Product">Configuración - Producto de temporada</value>
+    <value column="Description" isTrl="Y" original="Configuration - Season Product">Configuración - Producto de temporada</value>
+  </row>
+  <row id="463BF8A8E90543129436BDB8411EAA14" trl="N">
+    <value column="Name" isTrl="Y" original="Process - Minimiun and Security  Stock">Proceso - Stock mínimo y de seguridad</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="81C6CA5614FD4C69B2C543858378CA7B" trl="N">
+    <value column="Name" isTrl="Y" original="Store Type">Tipo de tienda</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="C3D4E2187E1F4121B424416D92033A4B" trl="N">
+    <value column="Name" isTrl="Y" original="MRP - Subcategory">MRP - Subcategoría</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="D8AD325825CB4399A93E15728E49088F" trl="N">
+    <value column="Name" isTrl="Y" original="Process Information MRP - Forecast">Información del proceso MRP - Pronóstico</value>
+    <value column="Description" isTrl="Y" original="Process Information MRP - Forecast">Información del proceso MRP - Pronóstico</value>
+  </row>
+</compiereTrl>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="109023937A5240A7A276D9F65D5C33A5" trl="N">
+    <value column="MsgText" isTrl="N" original="There is already an Organization/Store with the same Search Key">Existe una Organización/Tienda con la misma clave</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="1761BCB6635F468A90917AAA60622DDF" trl="N">
+    <value column="MsgText" isTrl="N" original="Process Execution Log">Log de la ejecución del proceso</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="1B4F37FC25764BD4AE0A361A61256B7B" trl="N">
+    <value column="MsgText" isTrl="N" original="Rolled back the whole transaction">Transacción revertida completamente</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="2D0F8A343A734DF78846C75FB695D161" trl="N">
+    <value column="MsgText" isTrl="N" original="Open Record">Abrir entrada</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="309B43BF49A641CB88C96EEC239F22A1" trl="N">
+    <value column="MsgText" isTrl="N" original="Prevalidations failed, please check the parameters and try again">Las prevalidaciones han fallado, por favor, chequee los parametros y vuelva a intentarlo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="3D58385F8CB14791935E582D92CCF49E" trl="N">
+    <value column="MsgText" isTrl="N" original="Created role has no user assigned">El rol creado no tiene usuario asignado</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="3FEF46F9ACCE4326A4AFDA8623B30762" trl="N">
+    <value column="MsgText" isTrl="N" original="Organization set as ready">Organización marcada como preparada</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="44844A45376E4990A50E66546F70B1C0" trl="N">
+    <value column="MsgText" isTrl="N" original="There is already an Organization/Store with the same Name">Existe una Organización/Tienda con la misma Nombre</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="47B5885514AC4C95A6083E9C7A06DA9C" trl="N">
+    <value column="MsgText" isTrl="N" original="Terminal successfully copied">Terminal copiado correctamente</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="51E7BAA313984F779C07F4605251A637" trl="N">
+    <value column="MsgText" isTrl="N" original="Execution prevalidations">Ejecución prevalidaciones</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="581640599098498692D4D829DA0A91AA" trl="N">
+    <value column="MsgText" isTrl="N" original="Copied %0: %1 to %2">Copiado %0: %1 a %2</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="6EE84AFD345440129335963BED71C1D0" trl="N">
+    <value column="MsgText" isTrl="N" original="Price list has been created without versions nor product. Please review its configuration.">La Lista de precios se ha creado sin versiones ni producto. Por favor, revise la configuración.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="70FD38C4E8A848C18552564E6EDBB98C" trl="N">
+    <value column="MsgText" isTrl="N" original="There is already another terminal with the same Name">Existe un terminal con el mismo nombre</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="744C55045A624905B32F36A9D3BF5F3A" trl="N">
+    <value column="MsgText" isTrl="N" original="Store copied successfully">Tienda copiada con éxito</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="9346613DCE0F4092AE6A3B8288AA051E" trl="N">
+    <value column="MsgText" isTrl="N" original="Location for the new Store could not be created, please check new store's Information tab.">La localización para la nueva tienda no se ha podido crear, por favor, compruebe la pestaña Información de la nueva tienda.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="AA03DC68A6154DEA8654FF14C7FE2DBD" trl="N">
+    <value column="MsgText" isTrl="N" original="Anonymous Customer or BP Category needs to be selected">Debe seleccionar un Tercero anónimo o una categoría de tercero</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="BC0E74C5982443E2BD785359BD3B26CF" trl="N">
+    <value column="MsgText" isTrl="N" original="Created new anonymous Business Partner %0">Creado tercero anónimo %0</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="C7A5749138724D668AE7C2730E7158FD" trl="N">
+    <value column="MsgText" isTrl="N" original="There is already another terminal with the same Search Key">Existe un terminal con la misma clave</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="CB3CF09F43DD4E5AB8B5C2AC29C12599" trl="N">
+    <value column="MsgText" isTrl="N" original="New assortment has been created without including any products. Please, review its configuration.">Se ha creado una lista de productos sin incluir ningún producto. Por favor, revise la configuracíon.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="DDDE3FF62A2B40B5B2B9319B4EAA872D" trl="N">
+    <value column="MsgText" isTrl="N" original="Store has been successfully created, please review the log to complete configuration">La tienda se ha creado con éxito, por favor, revise el log para completar la configuración</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="E82B325843114FC6B1FE129D89920E77" trl="N">
+    <value column="MsgText" isTrl="N" original="Created new Warehouse %0">Creado Almacén %0</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="E895EB49994B41888D38EB60EE0FD415" trl="N">
+    <value column="MsgText" isTrl="N" original="Please, review configuration of created BP to be used as Anonymous Customer">Por favor, revise la configuración de los terceros creados para usarlo como Tercero anónimo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="F763E00E64634354BBAF7B8A42FEB58D" trl="N">
+    <value column="MsgText" isTrl="N" original="Terminal has been successfully created, please review the log to complete configuration">El terminal se ha creado con éxito, por favor, revise el log para completar la configuración</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="F83F61A492E5466287AA46F51515B3EE" trl="N">
+    <value column="MsgText" isTrl="N" original="There were errors during the process, see the execution log for more details">Ha habido problemas durante el proces, vea el log de ejecución para más detalles</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="FB4CCEA3D27B4A47950131CD20B6CF0B" trl="N">
+    <value column="MsgText" isTrl="N" original="Prevalidations Failed">Las prevalidaciones han fallado</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

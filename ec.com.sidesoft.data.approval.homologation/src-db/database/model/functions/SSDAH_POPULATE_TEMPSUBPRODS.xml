@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SSDAH_POPULATE_TEMPSUBPRODS">
+    <function name="SSDAH_POPULATE_TEMPSUBPRODS" type="NULL">
+      <parameter name="recipe_nam" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[BEGIN
+    -- Crear la tabla temporal si no existe
+    CREATE TEMP TABLE IF NOT EXISTS ssdah_tempsubprods (
+        recipe_name character varying(60),
+        component_name character varying(32),
+        Bomqty NUMBER,
+        level INTEGER
+    );
+    
+    -- Limpiar la tabla temporal
+    DELETE FROM ssdah_tempsubprods;
+    
+    WITH RECURSIVE recipe_tree AS (
+        -- Caso base: empezar con la receta inicial
+        SELECT 
+            mp.name AS recipe_name,
+            mpb.M_Productbom_ID AS component_id,
+            mpb.Bomqty,
+            1 AS level
+        FROM 
+            m_product mp
+            JOIN ssdah_mirror_pb mpb ON mp.m_product_id = mpb.m_product_id
+        WHERE 
+            mp.m_product_id = recipe_nam
+        
+        UNION ALL
+        
+        -- Caso recursivo: unir con ssdah_mirror_pb para obtener componentes
+        SELECT 
+            rt.recipe_name,
+            mpb.M_Productbom_ID AS component_id,
+            rt.Bomqty * mpb.Bomqty AS Bomqty,
+            rt.level + 1
+        FROM 
+            recipe_tree rt
+            JOIN m_product mp ON rt.component_id = mp.m_product_id
+            JOIN ssdah_mirror_pb mpb ON mp.m_product_id = mpb.m_product_id
+        WHERE 
+            mp.isbom = 'Y'
+    )
+	INSERT INTO ssdah_tempsubprods (recipe_name, component_name, Bomqty, level)
+    SELECT 
+        rt.recipe_name,
+        mp.m_product_id AS component_name,
+        rt.Bomqty,
+        rt.level
+    FROM 
+        recipe_tree rt
+        JOIN m_product mp ON rt.component_id = mp.m_product_id
+    ORDER BY 
+        rt.level, rt.recipe_name, component_name;
+END SSDAH_POPULATE_TEMPSUBPRODS
+]]></body>
+    </function>
+  </database>

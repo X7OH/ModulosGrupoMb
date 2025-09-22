@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_FORM" version="">
+  <row id="DB11A21C046F48C2AF9457811EA8E290" trl="N">
+    <value column="Name" isTrl="N" original="HQL Query Tool">Herramienta de consultas HQL</value>
+    <value column="Description" isTrl="N" original="Supports entering HQL query through a web interface">Permite hacer consultas HQL desde el interfaz web</value>
+    <value column="Help" isTrl="N" original="Allows a user to enter HQL queries in a window and see the results directly. The user manual can be found &lt;a href=&quot;http://forge.openbravo.com/plugins/mwiki/index.php/Hqlquerytool/User_Manual&quot;&gt;here&lt;/a&gt;.&#10;&#10;Queries make use of the Entities and Properties of the entity model. The entity model can be viewed on this location: &lt;a href=&quot;http://wiki.openbravo.com/wiki/ERP/2.50/Developers_Guide/Reference/Entity_Model&quot;&gt;Entity Model&lt;/a&gt;.">Permite al usuario realizar consultas HQL en una ventana y ver los resultados directamente. El manual de usuario (en inglés) se encuentra &lt;a href="http://forge.openbravo.com/plugins/mwiki/index.php/Hqlquerytool/User_Manual"&gt;aquí&lt;/a&gt;.&#10;&#10;Las consultas utilizan las Entidades y Propiedades del modelo de entidades. El modelo de entidades se puede ver en: &lt;a href="http://wiki.openbravo.com/wiki/ERP/3.0/Developers_Guide/Reference/Entity_Model"&gt;Entity Model&lt;/a&gt;.</value>
+  </row>
+</compiereTrl>

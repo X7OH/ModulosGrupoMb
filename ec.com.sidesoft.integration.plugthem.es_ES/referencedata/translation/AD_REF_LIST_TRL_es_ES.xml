@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REF_LIST" version="">
+  <row id="1A3A7E56F9C04040AEE3BF7992CB0AA3" trl="Y">
+    <value column="Name" isTrl="Y" original="Buffalos commercial surveys in-person channel">Buffalos encuestas comercial canal presencial</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="6D76C95528264852B284A4C6F8DB5DCE" trl="Y">
+    <value column="Name" isTrl="N" original="Mayflower">Mayflower</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="B9D6C9B3555B4153AF92A1FF7EC2F6E0" trl="Y">
+    <value column="Name" isTrl="Y" original="Sucessfull">Éxito</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="EEDF5484F53D4F8699A2B9249516D00F" trl="Y">
+    <value column="Name" isTrl="Y" original="Mayflower commercial surveys in-person channel">Mayflower encuestas comercial canal presencial</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="F8EDA282279040109A5E9DE571DE6C8F" trl="Y">
+    <value column="Name" isTrl="N" original="Buffalos">Buffalos</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="F93CEB253BBE4067A222BBCFA5C5D15B" trl="Y">
+    <value column="Name" isTrl="N" original="Error">Error</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

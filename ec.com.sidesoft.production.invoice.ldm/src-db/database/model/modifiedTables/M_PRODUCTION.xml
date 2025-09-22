@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE M_PRODUCTION">
+    <table name="M_PRODUCTION" primaryKey="M_PRODUCTION_KEY">
+      <column name="EM_SPINL_C_INVOICE_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SPINL_ACTIONBUTTON" primaryKey="false" required="true" type="VARCHAR" size="2" autoIncrement="false">
+        <default><![CDATA[NA]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SPINL_M_LOCATOR_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="C_INVOICE" name="EM_SPINL_PRODUCTION_INVOICE">
+        <reference local="EM_SPINL_C_INVOICE_ID" foreign="C_INVOICE_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_LOCATOR" name="EM_SPINL_PRODUCTION_LOCATOR">
+        <reference local="EM_SPINL_M_LOCATOR_ID" foreign="M_LOCATOR_ID"/>
+      </foreign-key>
+      <unique name="EM_SPINL_C_INVOICE_UNIC">
+        <unique-column name="EM_SPINL_C_INVOICE_ID"/>
+        <unique-column name="AD_CLIENT_ID"/>
+      </unique>
+    </table>
+  </database>

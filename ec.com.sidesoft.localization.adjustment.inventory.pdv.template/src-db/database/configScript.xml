@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+  <vector>
+    <versionInfo version="3.0.33196"/>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="3554">
+      <oldValue/>
+      <newValue><![CDATA[@Ssipdv_ReqAuth@='Y' & (@em_ssipdv_status_key@!'KA' & @em_ssipdv_status_key@!'')]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="AD_VAL_RULE_ID" pkRow="3815">
+      <oldValue/>
+      <newValue><![CDATA[66D36660ADA24A559F3761E4A0C146B3]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="3816">
+      <oldValue/>
+      <newValue><![CDATA[@Ssipdv_ReqAuth@='Y']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="3817">
+      <oldValue/>
+      <newValue><![CDATA[@Ssipdv_ReqAuth@='Y']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_REF_TABLE" columnname="WHERECLAUSE" pkRow="197">
+      <oldValue><![CDATA[M_Warehouse.AD_Client_ID=@#AD_Client_ID@ AND (select ad.isactive from ad_org ad where ad.ad_org_id = M_Warehouse.AD_Org_ID) = 'Y']]></oldValue>
+      <newValue/>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="DISPLAYLOGIC" pkRow="2689">
+      <oldValue><![CDATA[@Processed@='N']]></oldValue>
+      <newValue><![CDATA[@Processed@='N' & ((@Ssipdv_ReqAuth@='Y' & @em_ssipdv_status_key@='KA') |  (@Ssipdv_ReqAuth@='N' ))]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="DISPLAYLOGIC" pkRow="2922">
+      <oldValue><![CDATA[@Processed@='N']]></oldValue>
+      <newValue><![CDATA[@Processed@='N'  & @Ssipdv_ReqAuth@='N']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="DISPLAYLOGIC" pkRow="2925">
+      <oldValue><![CDATA[@Processed@='N']]></oldValue>
+      <newValue><![CDATA[@Processed@='N'   & @Ssipdv_ReqAuth@='N']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="DISPLAYLOGIC" pkRow="11421825E9864C6C99F191998AEF4907">
+      <oldValue><![CDATA[@DocBaseType@='MMM']]></oldValue>
+      <newValue><![CDATA[@DocBaseType@='MMM' | @DocBaseType@='MMI']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_VAL_RULE" columnname="CODE" pkRow="CD05CF2F81254E39A457A2598F4399C1">
+      <oldValue><![CDATA[C_DocType.DocBaseType IN ('MMI')]]></oldValue>
+      <newValue><![CDATA[C_DocType.DocBaseType IN ('MMI') AND ( C_DocType.C_DOCTYPE_ID IN (SELECT C_DOCTYPE_ID FROM SSIPDV_DOCTYPE WHERE AD_CLIENT_ID = @#AD_CLIENT_ID@)
+)]]></newValue>
+    </columnDataChange>
+  </vector>

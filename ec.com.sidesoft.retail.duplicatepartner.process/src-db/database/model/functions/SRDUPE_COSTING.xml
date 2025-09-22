@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SRDUPE_COSTING">
+    <function name="SRDUPE_COSTING" type="NULL">
+      <body><![CDATA[--  Logistice
+	v_ResultStr VARCHAR2(2000):='';
+	v_Message VARCHAR2(2000):='';
+	v_Record_ID VARCHAR2(32);
+	v_Result NUMBER:=1; --  Success
+	--  Parameter
+
+  BEGIN
+
+    v_Result:=1;
+    --  Get Parameters
+    v_ResultStr:='ReadingParameters';
+
+	UPDATE M_TRANSACTION
+	SET TRXPROCESSDATE = M_TRANSACTION.TRXPROCESSDATE + '00:00:00.001'
+	FROM 
+	(
+		SELECT T.M_PRODUCT_ID, TRXPROCESSDATE, MIN(MOVEMENTQTY) AS MOVEMENTQTY
+		FROM M_TRANSACTION T
+		INNER JOIN M_PRODUCT P ON T.M_PRODUCT_ID = P.M_PRODUCT_ID
+		WHERE TRXPROCESSDATE > (now() - '1 days'::interval)::timestamp
+		AND P.ISBOM = 'Y'
+		GROUP BY T.M_PRODUCT_ID, TRXPROCESSDATE
+		HAVING COUNT(*)
+		 > 1 AND MIN(MOVEMENTQTY) < 0 AND MAX(MOVEMENTQTY) > 0
+		ORDER BY TRXPROCESSDATE
+	) X
+	WHERE M_TRANSACTION.M_PRODUCT_ID=X.M_PRODUCT_ID 
+	AND M_TRANSACTION.TRXPROCESSDATE=X.TRXPROCESSDATE 
+	AND M_TRANSACTION.MOVEMENTQTY=X.MOVEMENTQTY;
+
+    --<<FINISH_PROCESS>>
+    --  Update AD_PInstance
+    DBMS_OUTPUT.PUT_LINE('Updating PInstance - Finished - ' || v_Message) ;
+    RETURN;
+EXCEPTION
+  WHEN OTHERS THEN
+    v_ResultStr:= '@ERROR=' || SQLERRM;
+    DBMS_OUTPUT.PUT_LINE(v_ResultStr) ;
+    ROLLBACK;
+
+    RETURN;
+END SRDUPE_COSTING
+]]></body>
+    </function>
+  </database>

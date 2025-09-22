@@ -1,0 +1,1917 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ ************************************************************************************
+ * Copyright (C) 2012-2016 Openbravo S.L.U.
+ * Licensed under the Openbravo Commercial License version 1.0
+ * You may obtain a copy of the License at http://www.openbravo.com/legal/obcl.html
+ * or in the legal folder of this module distribution.
+ * REPORT COMANDA
+ * REPORTE RECIBO/FACTURA
+ ************************************************************************************
+-->
+<output>
+
+<ticket printer="1">
+    <line></line>
+    <line size="1">
+        <text align="center" bold="true" length="40">RECIBO DE VENTA</text>
+    </line>
+    
+    <line>
+            <text align ="left" bold="true" length="40">********************************************</text>
+    </line>
+    <line>
+        <text align="center" bold="true" length="40"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_MatOrg')) %></text>
+    </line>
+    
+            <%
+    var availableLines = 22;
+    var dirORG = OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_MatDirection'));
+    var dirLength = dirORG.length;
+    if(dirLength >= 27)
+    { %>
+        <line>
+            <text align="left" length="9"  bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_Mat')) %></text>
+            <text align ="left" length="35" bold="true"><%= dirORG.substr(0, 29) %></text>
+        </line> 
+        <line>
+            <text align ="left" bold="true" length="40"><%= dirORG.substr(29, dirORG.length ) %></text>
+        </line>
+    <%
+    
+    }
+    else
+    { %>    
+        <line>
+                <text align="left" length="9" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_Mat')) %></text>
+                <text align="left" length="35" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_MatDirection')) %></text>
+        </line>
+    <% } %>
+        
+
+    <line>
+        <text align="left" length="9" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_Suc')) %></text>
+        <%
+        var IdSUC = order.get('organization');
+        var NameSuc ="";
+        if (IdSUC = 'B0CF08F481A546B9AE007F5A558F3B3F'){
+            NameSuc ='M1 - LA CARRION';
+        }else if(IdSUC = '19234717EC114F99B0CEC61F7F49C4B8'){
+            NameSuc ='BUFALOS';
+        }else if(IdSUC = 'D0789F6E56324361A75EAB486F985FB0'){
+            NameSuc ='MAYFLOWER';
+        }else if(IdSUC = '44E8B952BC2B4CB085EF228F6D4E1EE9'){
+            NameSuc ='B1 - MALL EL JARDIN';
+        }else if(IdSUC = '219E891032134ED1A94D0F0B0ECEADC1'){
+            NameSuc ='M2 - QUICENTRO SHOPPING';
+        }else if(IdSUC = 'FC3F7EF376074B038F08C5CE0E93BF15'){
+            NameSuc ='B1- EL CONDADO';
+        }
+        %>
+        <text align="left" length="25" bold="true"><%=  ' ' + OB.UTIL.encodeXMLComponent( user.org ) %></text>
+    </line>    
+    <line>
+        <text align="left" length="32" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_MatTaxpayer')) %></text>
+        <text align="left" length="5" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_MatTaxpayerNo')) %></text>
+    </line>     
+    <line>
+        <text align="left" length="32" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_MatAccounting')) %></text>
+        <text align="left" length="2" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_MatMsgConfirmation')) %></text>
+    </line>   
+    <line>
+        <text align="left" length="5" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_MatRUC')) %></text>
+        <text align="left" length="15" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_MatRucNo')) %></text>
+    </line> 
+    <line>
+            <text align ="left" bold="true" length="40">********************************************</text>
+    </line>  
+    <!--MM 20160103 N
+    Verificamos la longitud del Cliente 1 o 2 lineas (40 caracteres max x linea)
+    Definimos el numero de lineas disponibles para impresion 22, writtenLines especifica el numero de lineas utilizadas
+    -->
+
+    <%
+    var availableLines = 22;
+    
+    var clientLength = order.get('bp').get('_identifier').length;
+    if(clientLength >= 27)
+    { %>
+        <line>
+            <text align="left" length="15" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('SSPOS_Name')) %></text>
+            <text align ="left" length="27" bold="true"><%= OB.UTIL.encodeXMLComponent(order.get('bp').get('_identifier')).substr(0, 27) %></text>
+        </line>
+    
+        <line>
+            <text align ="left" bold="true" length="40"><%= OB.UTIL.encodeXMLComponent(order.get('bp').get('_identifier')).substr(27, order.get('bp').get('_identifier').length ) %></text>
+        </line>
+    <%
+    
+    }
+    else
+    { %>
+        <line>
+                <text align="left" length="15" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('SSPOS_Name')) %></text>
+                <text align="left" length="27" bold="true"><%= OB.UTIL.encodeXMLComponent(order.get('bp').get('_identifier')) %></text>
+            </line>
+    <% } %>
+        
+    <!-- Fin MM 20160103 N-->       
+    <line><!---->
+      <text align="left" length="15" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('SSPOS_TaxID')) %></text>
+      <text bold="true"><%= OB.UTIL.encodeXMLComponent(order.get('bp').get('taxID')) %></text>
+    </line>
+    <!--
+    <line>
+    <text align="left" length="15"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('SSPOS_Address')) %></text>
+    <%
+    var secStreet='';
+    if(!_.isUndefined(order.get('bp').get('locName2'))){
+        secStreet =order.get('bp').get('locName2');
+    }
+    %>
+    <text align="left" length="25"><%= OB.UTIL.encodeXMLComponent(order.get('bp').get('locName')+','+secStreet) %></text>
+    </line>-->
+    <line>
+      <text align="left" length="15" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('SSPOS_Date')) %></text>
+      <text bold="true"><%= OB.I18N.formatDate(order.get('orderDate')) %></text>
+      <text bold="true">, </text>
+      <text bold="true"><%= OB.I18N.formatHour(order.get('orderDate')) %></text>
+    </line>
+
+    <!--MM 20160103 N-->
+    <line>
+        <text align ="left" bold="true" length="40">********************************************</text>
+    </line> 
+    <line>
+        <text align="left" length="15" bold="true"><%= '******* '+ OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_Documentno')) %></text>
+        <text bold="true"><%= OB.UTIL.encodeXMLComponent(order.get('documentNo')) +' *********'  %></text>
+    </line>
+    <line>
+        <text align ="left" bold="true" length="40">********************************************</text>
+    </line> 
+    <!--MM 20160103 N-->        
+    <line><!---->
+    <text align="left" length="17" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('SSPOS_Description'))%></text>
+    <text align="left" length="5" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('SSPOS_Qty'))%></text>
+    <text align="right" length="8" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('SSPOS_PVP'))%></text>
+    <text align ="right" length="4" bold="true"><%= OB.UTIL.encodeXMLComponent('  ')%></text> 
+    <text align="right" length="5" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('SSPOS_Total'))%></text>
+    </line>
+    <!--MM 20160103 N-->
+    <line>
+            <text align ="left" bold="true" length="40">============================================</text>
+    </line>
+    <!--MM 20160103 N-->
+    <% 
+    var lines = [];      
+    _.each(order.get('lines').models, function (line) {        
+    var clonedLine = new OB.Model.OrderLine(line.attributes);        
+    lines.push(clonedLine);      });
+    var  line, promotions, auxLines;
+    var finalLines = [];
+      
+    var totaltax = 0;
+    var totalnotax = 0;
+    var totalpvp = 0;
+    var qtyprod=0;
+    
+    for (var i = 0; i < lines.length; i++)
+    {
+        //line = lines.at(i);
+        line = lines[i];
+        
+                
+         if (line.printNet()==0.00 ||  line.printNet()==0){
+         //console.log("No imprime linea:  " + i );
+            continue;
+         }
+         
+        var listp=line.get('product').get('listPrice');
+    
+        var qty = line.get('qty');
+        qtyprod += qty;
+        var totalpvpaux = listp * qty;
+    %>
+        <!--MM 20160103 M
+        Verificamos la longitud de la descripcion del producto 1 o 2 lineas (42 caracteres max x linea, max 22 lineas)
+        Se reemplaza el simbolo " ya que presenta inconvenientes en la impresion
+        -->
+        
+        <%
+        var descLength = line.get('product').get('_identifier').length;
+        if(descLength  >= 42)
+        { %>
+            <line>
+                <text align ="left" bold="true" length="40"><%= OB.UTIL.encodeXMLComponent(line.get('product').get('_identifier').replace(/"/g, '')).substr(0, 42) %></text>
+            </line>
+    
+            <line>
+                <text align ="left" length="18" bold="true"><%= OB.UTIL.encodeXMLComponent(line.get('product').get('_identifier').replace(/"/g, '')).substr(42, line.get('product').get('_identifier').length ) %></text>
+                <text align ="left" length="7" bold="true"><%= line.printQty() %></text>
+            
+            <%
+            if(!_.isUndefined(line.get('linerate')))
+            {
+                if(line.get('linerate')==1)
+                {
+            %>
+                        <%
+                        if(order.get('priceIncludesTax')) 
+                        {
+                            totalpvp += totalpvpaux;
+                        %>
+                        <text align ="right" length="6" bold="true"><%= (line.printPrice()/line.get('linerate')).toFixed(2) %></text>
+                        <text align ="right" length="6" bold="true"><%= line.printNet() %></text>
+                        <%
+                        } else 
+                        {
+                            var ltax = 1;
+                            var tax = totalpvpaux * ltax;
+                            totalpvp += tax;        
+                        %>  
+                        <text align ="right" length="6" bold="true"><%= (line.printPrice()*1).toFixed(2) %></text>
+                        <text align ="right" length="6" bold="true"><%= line.printNet() %></text>
+                        <%}%>
+                <% } else 
+                { %>
+                    
+                    <%if(order.get('priceIncludesTax'))
+                    {
+                        totalpvp += totalpvpaux;%>
+                        <text align ="right" length="6" bold="true"><%= (line.printPrice()/line.get('linerate')).toFixed(2)%></text>
+                        <text align ="right" length="6" bold="true"><%= line.printNet() %></text>
+                        <text align ="right" length="1" bold="true"><%= OB.UTIL.encodeXMLComponent('*')%></text> 
+                    <%} else
+                    {
+                        var ltax = 1;
+                        var tax = totalpvpaux * ltax;
+                        totalpvp += tax;
+                    %>
+                        <text align ="right" length="6" bold="true"><%= (line.printPrice()*1).toFixed(2) %></text>
+                        <text align ="right" length="6" bold="true"><%= line.printNet() %></text>
+                    <%}%>
+                <%}
+            } else 
+            { %>
+                <text align ="right" length="8" bold="true"><%= (line.printPrice()*1).toFixed(2) %></text>
+                <%if(order.get('priceIncludesTax'))
+                {
+                    totalpvp += totalpvpaux;%>
+                        <text align ="right" length="6" bold="true"><%= (line.printPrice()/line.get('linerate')).toFixed(2) %></text>
+                        <text align ="right" length="1" bold="true"><%= OB.UTIL.encodeXMLComponent('&')%></text>  
+                <% } else
+                {
+                    var ltax = 1;
+                    var tax = totalpvpaux * ltax;
+                    totalpvp += tax;
+                    %>
+                    <text align ="right" length="8" bold="true"><%= line.printNet() %></text>
+                <%}
+            } %>
+
+            </line>
+        <% 
+        
+        }
+        else
+        { %>
+        <line>
+            <text align ="left" bold="true" length="40"><%= OB.UTIL.encodeXMLComponent(line.get('product').get('_identifier').replace(/"/g, '')) %></text>
+        </line>
+        <line>
+            <text align ="left" length="21" bold="true"><%= OB.UTIL.encodeXMLComponent('')%></text>
+            <text align ="left" length="6" bold="true"><%= line.printQty() %></text>
+            
+            <%
+            if(!_.isUndefined(line.get('linerate')))
+            {
+                if(line.get('linerate')==1)
+                {
+            %>
+                        <%
+                        if(order.get('priceIncludesTax')) 
+                        {
+                            totalpvp += totalpvpaux;
+                        %>
+                        <text align ="right" length="6" bold="true"><%= (line.printPrice()/line.get('linerate')).toFixed(2) %></text>
+                        <text align ="right" length="6" bold="true"><%= line.printNet() %></text>
+                        <%
+                        } else 
+                        {
+                            var ltax = 1;
+                            var tax = totalpvpaux * ltax;
+                            totalpvp += tax;        
+                        %>  
+                        <text align ="right" length="6" bold="true"><%= (line.printPrice()*1).toFixed(2) %></text>
+                        <text align ="right" length="6" bold="true"><%= line.printNet() %></text>
+                        <%}%>
+                <% } else 
+                { %>
+                    
+                    <%if(order.get('priceIncludesTax'))
+                    {
+                        totalpvp += totalpvpaux;%>
+                        <text align ="right" bold="true" length="6"><%= (line.printPrice()/line.get('linerate')).toFixed(2)%></text>
+                        <text align ="right" bold="true" length="6"><%= line.printNet() %></text>
+                        <text align ="right" length="1" bold="true"><%= OB.UTIL.encodeXMLComponent('*')%></text> 
+                    <%} else
+                    {
+                        var ltax = 1;
+                        var tax = totalpvpaux * ltax;
+                        totalpvp += tax;
+                    %>
+                        <text align ="right" bold="true" length="6"><%= (line.printPrice()*1).toFixed(2) %></text>
+                        <text align ="right" bold="true" length="6"><%= line.printNet() %></text>
+                    <%}%>
+                <%}
+            } else 
+            { %>
+                <text align ="right" length="8" bold="true"><%= (line.printPrice()*1).toFixed(4) %></text>
+                <%if(order.get('priceIncludesTax'))
+                {
+                    totalpvp += totalpvpaux;%>
+                        <text align ="right" length="8" bold="true"><%= (line.printPrice()/line.get('linerate')).toFixed(2) %></text>
+                        <text align ="right" length="1" bold="true"><%= OB.UTIL.encodeXMLComponent('&')%></text>  
+                <% } else
+                {
+                    var ltax = 1;
+                    var tax = totalpvpaux * ltax;
+                    totalpvp += tax;
+                    %>
+                    <text align ="right" bold="true" length="6"><%= line.printNet() %></text>
+                <%}
+            } %>
+        </line>
+        <% 
+        
+        }
+        %>
+        
+        <!-- Fin MM 20160103 M-->
+    <%
+    
+    }
+    
+    var totAmount = 0;
+    var totNet = 0;
+    var totNoTax = 0;
+    var totSub=0;
+      var taxes = order.get('taxes');
+      for (var t in taxes) {
+    if(taxes[t].amount == 0){
+    totNet += taxes[t].net;
+    }else{
+    totNoTax += taxes[t].net;
+    }
+        totAmount += taxes[t].amount;
+      } 
+    totSub=totNet+totNoTax;
+    %>
+    <!--MM 20151229-->
+    <line>
+            <text align ="left" bold="true" length="40">============================================</text>
+    </line>
+    <!--MM 20151229-->
+
+      <line>
+        <text align ="right" length="30" bold="true"><%= OB.I18N.getLabel('Spai_SubTotalTax') %></text>
+        <text align ="right" length="2" bold="true"></text>
+        <text align ="right" length="7" bold="true"><%= OB.I18N.formatCurrency(totNoTax) %></text>  
+      </line>
+      <line>
+        <text align ="right" length="30" bold="true"><%= OB.I18N.getLabel('SSPOS_SubtotalNoTax') %></text>
+        <text align ="right" length="2" bold="true"></text>
+        <text align ="right" length="7" bold="true"><%= OB.I18N.formatCurrency(totNet) %></text>  
+      </line>
+      <line>
+        <text align ="right" length="30" bold="true"><%= OB.I18N.getLabel('SSPOS_Subtotal') %></text>
+        <text align ="right" length="2" bold="true"></text>
+        <text align ="right" length="7" bold="true"><%= OB.I18N.formatCurrency(totSub) %></text>  
+      </line>
+      <line>
+        <text align ="right" length="30" bold="true"><%= OB.I18N.getLabel('Spai_TotalTax') %></text>
+        <text align ="right" length="2" bold="true"></text>
+        <text align ="right" length="7" bold="true"><%= OB.I18N.formatCurrency(totAmount) %></text>
+      </line>
+    <line>
+      <text align ="left" length="25" bold="true"><%=OB.I18N.getLabel('OBPOS_ReceiptTotal') + ' ' + order.get('currency' + OB.Constants.FIELDSEPARATOR + OB.Constants.IDENTIFIER) %></text>
+      <text align ="right" length="14" bold="true"><%= order.printGross() %></text>
+    </line>
+      <%
+        var payments = order.get('payments');
+        for (var i = 0; i < payments.length; i++) {
+      if(payments.at(i).get('rate') && payments.at(i).get('rate')!=='1'){
+      %>
+        <line>
+          <text align="left" length="15" bold="true"><%= payments.at(i).get('name') %></text>
+          <text align="right" length="12" bold="true"><%= '('+OB.I18N.formatCurrency(payments.at(i).get('amount'))+' '+payments.at(i).get('isocode')+')' %></text>
+          <text align="right" length="12" bold="true"><%= OB.I18N.formatCurrency(payments.at(i).get('origAmount')) %></text>
+        </line>
+     <%
+         }else {
+     %>
+        <line>
+          <text align="left" length="20" bold="true"><%= payments.at(i).get('name') %></text>
+          <text align="right" length="19" bold="true"><%= OB.I18N.formatCurrency(payments.at(i).get('amount')) %></text>
+        </line>
+      <%
+        }}
+    var rateaux = totalpvp-order.get('net');
+    var rate = (rateaux/order.get('net'))*100;
+    %>   
+    <line>
+      <text align="left" length="20" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('SSPOS_ticketChange')) %></text>
+      <text align="right" length="19" bold="true"><%= OB.I18N.formatCurrency(order.get('change'))%></text>
+    </line>
+    <line>
+      <text align="center"  bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('SSPOS_AtendBy')) + ' ' +  OB.UTIL.encodeXMLComponent(  user.user) %></text>
+    </line>
+
+    <line>
+        <text align ="left" bold="true" length="40">============================================</text>
+    </line>
+    <line></line>
+    <line>
+       <text align ="center" bold="true" length="40">*********** DATOS DE ENTREGA **************</text>
+    </line>
+    <line></line>
+    <line>
+       <text align ="left" bold="true" length="40"><%= OB.UTIL.encodeXMLComponent(  order.get('addressDesc')) %></text> 
+    </line>
+    <%
+      //console.log("Sample");
+      if (order.get('description')){
+         var descriptionToSplit = user.descriptionorder;
+         //console.log( user.descriptionorder);
+         var descsplitted = descriptionToSplit ;
+         for (var i = 0; i < descsplitted.length; i++) {
+            var descriptionToShow = descsplitted[i];
+            
+            
+            var countDescription = descriptionToShow.length;
+              //console.log( "*******contando");
+              //console.log( countDescription);
+              if( countDescription>40   ){
+                for (var k=0; k < 4;k++){
+                    //console.log( descriptionToShow);
+                    var imprimirTexto = descriptionToShow.substr(0,40);
+                    
+                                        
+                    //console.log( "*******IMPRIMIR");
+                    //console.log( imprimirTexto);
+                    
+                    descriptionToShow = descriptionToShow.replace(imprimirTexto,"") ;
+                    countDescription = descriptionToShow.length;
+
+                    
+                    //console.log( "*******contando 2");
+                    //console.log( countDescription);
+                    
+                    if (imprimirTexto.length>0){
+                   
+                    
+                    %>
+                    <line>
+                       <text align ="left" bold="true" length="40"><%= OB.UTIL.encodeXMLComponent(  imprimirTexto )  %></text> 
+                    </line>
+                    <%
+                    
+                     }
+                }
+              }else{
+              
+                    //console.log( "*******contando");
+                    //console.log( countDescription);
+                  %>
+                  <line>
+                     <text align ="left" bold="true" length="40"><%= OB.UTIL.encodeXMLComponent(  descriptionToShow )  %></text> 
+                  </line>
+                  <%              
+              
+              }
+          }
+         }
+    %>
+    <line></line>
+    <line>
+        <text align ="left" bold="true" length="40">Servicio a Domicilio no incluye bebidas</text>
+    </line>
+	<line>
+        <text align ="left" bold="true" length="40">   excepto en promociones especiales   </text>
+    </line>
+	<line>
+       <text align ="center" bold="true" length="40">**************************************</text>
+    </line>    
+    <line></line>      
+  </ticket>
+
+  <display>
+      <line>
+        <text align="left" length="10" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('OBPOS_display_total'))%></text>
+        <text align="right" length="10" bold="true"><%= order.printGross() %></text>
+      </line>
+      <line>
+        <text align="center" length="20" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('OBPOS_thankyou'))%></text>
+      </line>
+  </display>
+
+
+
+
+<ticket printer="2">
+<line>
+</line>
+<line>
+</line>
+<%
+
+            //Productos
+            var strMesaCarrionMay = 'F8771274FB3840B680E22DB61237F204'; 
+            var strMesaCarrionBuff = '432498A662DA45C29E378A34BCB00145';
+            console.log( user.isDomicilie);
+            
+            
+            if(!user.isDomicilie){
+%>
+
+
+                  
+                  <line size="1">
+                      <text align="center" bold="true" length="40"><%- OB.I18N.getLabel('Spai_title') %></text>
+                  </line>
+          <%
+            }else{          
+          %>      
+          
+                  <line size="1">
+                      <text align="center" bold="true" length="40"><%- OB.I18N.getLabel('Spai_titleDomicilie') %></text>
+                  </line>    
+
+<%
+            }
+%>
+
+<line>
+    <text align="center" bold="true" length="40"><%- OB.I18N.getLabel('Spai_Documentno') + ' ' +  OB.UTIL.encodeXMLComponent(order.get('documentNo') )   %></text>
+</line>
+
+<line>
+    <text align="center" bold="true" length="40"><%- OB.I18N.getLabel('Spai_BoxNumber') + ' ' + OB.UTIL.encodeXMLComponent(order.get('posTerminal'+OB.Constants.FIELDSEPARATOR + OB.Constants.IDENTIFIER))  %></text>
+</line>
+
+<line>
+    <text align="left" length="15" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_Date')) %></text>
+    <text bold="true"><%= OB.I18N.formatDate(order.get('orderDate')) + '  ' %></text>
+    <text bold="true"><%= OB.I18N.formatHour(order.get('orderDate')) %></text>
+</line>  
+
+<line>
+      <!--text  align ="left" bold="true" length="40">============================================</text-->
+    </line>
+    <% 
+      
+    var line, promotions;      
+    var lines = [];      
+    _.each(order.get('lines').models, function (line) {        
+    var clonedLine = new OB.Model.OrderLine(line.attributes);        
+    lines.push(clonedLine);      });      
+    var finalLines = [];
+    
+    var totaltax = 0;
+    var totalnotax = 0;
+    var totalpvp = 0;
+    var qtyprod=0;
+    var nameproductMain ='';
+    var printProductMainObject;
+    var indxProm=0;
+    var flagProm='false';
+    var productoPromocion ='';
+    var productNameOld='';
+    
+    var promocionOld='';
+    
+    
+    var comboID='';
+    var comboOldID='1';
+    for (var i = 0; i < lines.length; i++)
+    {
+        //line = lines.at(i);
+        line = lines[i];
+
+         
+        //console.log("Linea Comanda"+ i);
+       //console.log(line);
+            
+        var productName= line.get('product').get('_identifier');
+        var pnameLength = productName.length;
+        //console.log(productName );
+
+    %>
+    
+       <%
+       var countProm=0;
+       var countPromociones2 =0;
+       try{
+            comboID = line.get('comboId');
+            var objprom = line.get('promotions');
+             countProm = objprom.length;
+
+            if (countProm>0){
+           
+                if (indxProm==0){
+                    indxProm =i;
+                }
+                
+             var linep = lines[i];
+             productNameOld= linep.get('product').get('_identifier');
+                        
+             printProductMainObject = line.get('promotions');
+             nameproductMain = printProductMainObject[0].name; 
+             countPromociones2 =  nameproductMain.length;
+            
+                console.log("****************");
+                console.log("productNameOld: "+ productNameOld);
+                console.log("nameproductMain: "+ nameproductMain);
+                console.log("****************");
+
+                                
+                
+                            
+                if (productNameOld==nameproductMain){
+                  %>
+                    
+                  <%
+                  indxProm=0;
+                }
+            }
+            
+          }catch(err){
+          }
+          
+
+          
+          if (countPromociones2 ==0 ){
+
+          }
+          
+             
+                          
+            if ( comboID != comboOldID){
+                comboOldID = comboID ;
+                console.log("       *******************Imprimir linea");
+                %>
+                      <line> 
+                        <text  align ="left" bold="true" length="40">============================================</text>
+                      </line>
+                <%
+            
+            }
+          
+       %>
+    
+  
+      <%
+          var productoID = line.get('product').get('id');
+          if (productoID!=strMesaCarrionBuff  &&  productoID!=strMesaCarrionMay){
+      %>
+
+  <%                            
+        if (pnameLength>0){
+      %>
+            <!-- <line>
+        <text align ="left" length="5"><%= line.printQty() + ' ' %></text>
+        <text align ="left" length="21"><%= OB.UTIL.encodeXMLComponent(line.get('product').get('description')) %></text>
+      </line> -->
+      
+          <%                    
+                if(pnameLength >=34) 
+                { %>
+                    <line>
+                        <text align ="left" length="5" bold="true"><%= line.printQty() + ' ' %></text>
+                        <text align ="left" bold="true" length="40"><%= OB.UTIL.encodeXMLComponent(line.get('product').get('_identifier')).substr(0, 34) %></text>
+                    </line>
+                <%
+                
+                }
+                if(pnameLength >34 && pnameLength>68) 
+                { %>
+                    <line> 
+                            <text align="left" bold="true" length="40"><%= '     ' + OB.UTIL.encodeXMLComponent(line.get('product').get('_identifier')).substr(34, 34) %></text>
+                    </line>
+                
+                <% }
+                else if(pnameLength >34 && pnameLength<=68) 
+                {
+                 %>
+            
+                    <line>
+                            <text align="left" bold="true" length="40"><%= '     ' + OB.UTIL.encodeXMLComponent(line.get('product').get('_identifier')).substr(34, 34) %></text>
+                    </line> 
+                 
+                 <%
+                 }
+                 if (pnameLength>68)
+                 {
+                 %>
+            
+                    <line>
+                            <text align="left" bold="true" length="40"><%= '     ' + OB.UTIL.encodeXMLComponent(line.get('product').get('_identifier')).substr(68, 34) %></text>
+                    </line>     
+                
+                <%
+                 }
+                %>
+                
+                <!--FIN Proceso para imprimir en 3 lineas la descripción-->
+
+                <%
+                    if (pnameLength >0 && pnameLength<=33){
+                %>
+                      <line> 
+                        <text align ="left" length="5"  bold="true"><%= line.printQty() + ' ' %></text>
+                        <text align ="left" bold="true" length="40"><%= OB.UTIL.encodeXMLComponent(line.get('product').get('_identifier'))  %></text>
+                      </line>
+                <%
+                }
+                %> 
+                
+      <%
+        }
+      %>
+      
+      
+        <%}else{%>
+
+  <%                            
+        if (pnameLength>0){
+      %>
+            <!-- <line>
+        <text align ="left" length="5"><%= line.printQty() + ' ' %></text>
+        <text align ="left" length="21"><%= OB.UTIL.encodeXMLComponent(line.get('product').get('description')) %></text>
+      </line> -->
+       <line></line>
+          <%                    
+                if(pnameLength >=34) 
+                { %>
+                    <line size="1">
+                        <text align ="left" length="5" bold="true"><%= line.printQty() + ' ' %></text>
+                        <text align ="left" bold="true" length="40"><%= OB.UTIL.encodeXMLComponent(line.get('product').get('_identifier')).substr(0, 34) %></text>
+                    </line>
+                <%
+                
+                }
+                if(pnameLength >34 && pnameLength>68) 
+                { %>
+                    <line size="1"> 
+                            <text align="left" bold="true" length="40"><%= '     ' + OB.UTIL.encodeXMLComponent(line.get('product').get('_identifier')).substr(34, 34) %></text>
+                    </line>
+                
+                <% }
+                else if(pnameLength >34 && pnameLength<=68) 
+                {
+                 %>
+            
+                    <line size="1">
+                            <text align="left" bold="true" length="40"><%= '     ' + OB.UTIL.encodeXMLComponent(line.get('product').get('_identifier')).substr(34, 34) %></text>
+                    </line> 
+                 
+                 <%
+                 }
+                 if (pnameLength>68)
+                 {
+                 %>
+            
+                    <line size="1">
+                            <text align="left" bold="true" length="40"><%= '     ' + OB.UTIL.encodeXMLComponent(line.get('product').get('_identifier')).substr(68, 34) %></text>
+                    </line>     
+                
+                <%
+                 }
+                %>
+                
+                <!--FIN Proceso para imprimir en 3 lineas la descripción-->
+
+                <%
+                    if (pnameLength >0 && pnameLength<=33){
+                %>
+                      <line size="1"> 
+                        <text align ="left" length="5"  bold="true"><%= line.printQty() + ' ' %></text>
+                        <text align ="left" bold="true" length="40"><%= OB.UTIL.encodeXMLComponent(line.get('product').get('_identifier'))  %></text>
+                      </line>
+                <%
+                }
+                %> 
+                
+      <%
+        }
+      %>
+            
+             
+        <%}%>
+
+
+              <%
+                  var V_DES = line.get('description');
+                  var desLength = line.get('description').length;
+                  if (V_DES!=null && V_DES!=''){
+              %>
+              
+              
+                  <%                    
+                        if(desLength >=34) 
+                        { %>
+                            <line>
+                                <text align ="left" bold="true" length="40"><%= '   ' + OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_SmallerThan')) +  OB.UTIL.encodeXMLComponent(line.get('description')).substr(0, 34) %></text>
+                            </line>
+                        <%
+                        
+                        }
+                        if(desLength >34 && desLength>68) 
+                        { %>
+                            <line>
+                                    <text align="left" bold="true" length="40"><%= '   ' + OB.UTIL.encodeXMLComponent(line.get('description')).substr(34, 34) %></text>
+                            </line>
+                        
+                        <% }
+                        else if(desLength >34 && desLength<=68) 
+                        {
+                         %>
+                    
+                            <line>
+                                    <text align="left" bold="true" length="40"><%= '   ' + OB.UTIL.encodeXMLComponent(line.get('description')).substr(34, 34) + OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_GreaterThan'))  %></text>
+                            </line> 
+                         
+                         <%
+                         }
+                         if (desLength>68)
+                         {
+                         %>
+                    
+                            <line>
+                                    <text align="left" bold="true" length="40"><%= '   ' + OB.UTIL.encodeXMLComponent(line.get('description')).substr(68, 34) + OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_GreaterThan'))  %></text>
+                            </line>     
+                        
+                        <%
+                         }
+                        %>
+                        
+                        <!--FIN Proceso para imprimir en 3 lineas la descripción-->
+        
+                        <%
+                        if (line.get('description').length >0 && line.get('description').length<=33){
+                        %>
+                              <line> 
+                                <text align ="left" bold="true" length="40"><%= '   ' + OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_SmallerThan')) + OB.UTIL.encodeXMLComponent(line.get('description')) + OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_GreaterThan'))  %></text>
+                              </line>
+                        <%
+                        }
+                        %> 
+                        
+              <%
+                }
+              %>
+
+          
+       <%
+            try{
+            var printProductMainObjectflag = line.get('promotions');
+            //console.log(printProductMainObjectflag);
+            
+            if (printProductMainObjectflag){
+                printProductMainObject = line.get('promotions');
+   
+                var countProductMain = printProductMainObject.length;
+           
+                nameproductMain = printProductMainObject[0].name;
+                productoPromocion =    nameproductMain; 
+
+                if (productName != nameproductMain)
+                {
+                               
+      %>
+                <%                  
+                var countlettersProduct= nameproductMain.length;
+
+                if(countlettersProduct >=32) 
+                { 
+                %>
+                    <line>
+                        <text align ="left" bold="true" length="40"><%= '     --' + nameproductMain.substr(0, 32) %></text>
+                    </line>
+                <%
+                
+                }
+                if(countlettersProduct >32 && countlettersProduct>64) 
+                { %>
+                    <line> 
+                            <text align="left" bold="true" length="40"><%= '       ' + nameproductMain.substr(32, 32) %></text>
+                    </line>
+                
+                <% }
+                else if(countlettersProduct >32 && countlettersProduct<=64) 
+                {
+                 %>
+            
+                    <line>
+                            <text align="left" bold="true" length="40"><%= '       ' + nameproductMain.substr(32, 32) %></text>
+                    </line> 
+                 
+                 <%
+                 }
+                 if (countlettersProduct>64)
+                 {
+                 %>
+            
+                    <line>
+                            <text align="left" bold="true" length="40"><%= '       ' + nameproductMain.substr(62, 32) %></text>
+                    </line>     
+                
+                <%
+                 }
+                %>
+                
+                <!--FIN Proceso para imprimir en 3 lineas la descripción-->
+
+                <%
+                    if (countlettersProduct >0 && countlettersProduct<=31){
+                %>
+                      <line> 
+                        <text align ="left" bold="true" length="40"><%= '     --' + nameproductMain  %></text>
+                      </line>
+                <%
+                }
+                %>  
+      
+      <%
+                }
+
+            }
+            
+            }catch(err){
+            }
+
+                                  
+          
+            
+            
+      %>
+          
+    <%
+      }
+    %> 
+    <line></line>
+    <line>
+        <text  align ="left" bold="true" length="40">====================@=====================</text>        
+    </line>    <line></line>
+    <line></line>    
+    <line></line>
+    <line></line>
+    <line></line>    
+</ticket>
+
+
+<ticket printer="1">
+    <line></line>
+    <line size="1">
+        <text align="center" bold="true" length="40">RECIBO DE VENTA</text>
+    </line>
+    
+    <line>
+            <text align ="left" bold="true" length="40">********************************************</text>
+    </line>
+    <line>
+        <text align="center" bold="true" length="40"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_MatOrg')) %></text>
+    </line>
+    
+            <%
+    var availableLines = 22;
+    var dirORG = OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_MatDirection'));
+    var dirLength = dirORG.length;
+    if(dirLength >= 27)
+    { %>
+        <line>
+            <text align="left" length="9"  bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_Mat')) %></text>
+            <text align ="left" length="35" bold="true"><%= dirORG.substr(0, 29) %></text>
+        </line> 
+        <line>
+            <text align ="left" bold="true" length="40"><%= dirORG.substr(29, dirORG.length ) %></text>
+        </line>
+    <%
+    
+    }
+    else
+    { %>    
+        <line>
+                <text align="left" length="9" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_Mat')) %></text>
+                <text align="left" length="35" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_MatDirection')) %></text>
+        </line>
+    <% } %>
+        
+
+    <line>
+        <text align="left" length="9" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_Suc')) %></text>
+        <%
+        var IdSUC = order.get('organization');
+        var NameSuc ="";
+        if (IdSUC = 'B0CF08F481A546B9AE007F5A558F3B3F'){
+            NameSuc ='M1 - LA CARRION';
+        }else if(IdSUC = '19234717EC114F99B0CEC61F7F49C4B8'){
+            NameSuc ='BUFALOS';
+        }else if(IdSUC = 'D0789F6E56324361A75EAB486F985FB0'){
+            NameSuc ='MAYFLOWER';
+        }else if(IdSUC = '44E8B952BC2B4CB085EF228F6D4E1EE9'){
+            NameSuc ='B1 - MALL EL JARDIN';
+        }else if(IdSUC = '219E891032134ED1A94D0F0B0ECEADC1'){
+            NameSuc ='M2 - QUICENTRO SHOPPING';
+        }else if(IdSUC = 'FC3F7EF376074B038F08C5CE0E93BF15'){
+            NameSuc ='B1- EL CONDADO';
+        }
+        %>
+        <text align="left" length="25" bold="true"><%=  ' ' + OB.UTIL.encodeXMLComponent( user.org ) %></text>
+    </line>    
+    <line>
+        <text align="left" length="32" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_MatTaxpayer')) %></text>
+        <text align="left" length="5" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_MatTaxpayerNo')) %></text>
+    </line>     
+    <line>
+        <text align="left" length="32" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_MatAccounting')) %></text>
+        <text align="left" length="2" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_MatMsgConfirmation')) %></text>
+    </line>   
+    <line>
+        <text align="left" length="5" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_MatRUC')) %></text>
+        <text align="left" length="15" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_MatRucNo')) %></text>
+    </line> 
+    <line>
+            <text align ="left" bold="true" length="40">********************************************</text>
+    </line>  
+    <!--MM 20160103 N
+    Verificamos la longitud del Cliente 1 o 2 lineas (40 caracteres max x linea)
+    Definimos el numero de lineas disponibles para impresion 22, writtenLines especifica el numero de lineas utilizadas
+    -->
+
+    <%
+    var availableLines = 22;
+    
+    var clientLength = order.get('bp').get('_identifier').length;
+    if(clientLength >= 27)
+    { %>
+        <line>
+            <text align="left" length="15" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('SSPOS_Name')) %></text>
+            <text align ="left" length="27" bold="true"><%= OB.UTIL.encodeXMLComponent(order.get('bp').get('_identifier')).substr(0, 27) %></text>
+        </line>
+    
+        <line>
+            <text align ="left" bold="true" length="40"><%= OB.UTIL.encodeXMLComponent(order.get('bp').get('_identifier')).substr(27, order.get('bp').get('_identifier').length ) %></text>
+        </line>
+    <%
+    
+    }
+    else
+    { %>
+        <line>
+                <text align="left" length="15" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('SSPOS_Name')) %></text>
+                <text align="left" length="27" bold="true"><%= OB.UTIL.encodeXMLComponent(order.get('bp').get('_identifier')) %></text>
+            </line>
+    <% } %>
+        
+    <!-- Fin MM 20160103 N-->       
+    <line><!---->
+      <text align="left" length="15" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('SSPOS_TaxID')) %></text>
+      <text bold="true"><%= OB.UTIL.encodeXMLComponent(order.get('bp').get('taxID')) %></text>
+    </line>
+    <!--
+    <line>
+    <text align="left" length="15"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('SSPOS_Address')) %></text>
+    <%
+    var secStreet='';
+    if(!_.isUndefined(order.get('bp').get('locName2'))){
+        secStreet =order.get('bp').get('locName2');
+    }
+    %>
+    <text align="left" length="25"><%= OB.UTIL.encodeXMLComponent(order.get('bp').get('locName')+','+secStreet) %></text>
+    </line>-->
+    <line>
+      <text align="left" length="15" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('SSPOS_Date')) %></text>
+      <text bold="true"><%= OB.I18N.formatDate(order.get('orderDate')) %></text>
+      <text bold="true">, </text>
+      <text bold="true"><%= OB.I18N.formatHour(order.get('orderDate')) %></text>
+    </line>
+
+    <!--MM 20160103 N-->
+    <line>
+        <text align ="left" bold="true" length="40">********************************************</text>
+    </line> 
+    <line>
+        <text align="left" length="15" bold="true"><%= '******* '+ OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_Documentno')) %></text>
+        <text bold="true"><%= OB.UTIL.encodeXMLComponent(order.get('documentNo')) +' *********'  %></text>
+    </line>
+    <line>
+        <text align ="left" bold="true" length="40">********************************************</text>
+    </line> 
+    <!--MM 20160103 N-->        
+    <line><!---->
+    <text align="left" length="17" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('SSPOS_Description'))%></text>
+    <text align="left" length="5" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('SSPOS_Qty'))%></text>
+    <text align="right" length="8" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('SSPOS_PVP'))%></text>
+    <text align ="right" length="4" bold="true"><%= OB.UTIL.encodeXMLComponent('  ')%></text> 
+    <text align="right" length="5" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('SSPOS_Total'))%></text>
+    </line>
+    <!--MM 20160103 N-->
+    <line>
+            <text align ="left" bold="true" length="40">============================================</text>
+    </line>
+    <!--MM 20160103 N-->
+    <% 
+    var lines = [];      
+    _.each(order.get('lines').models, function (line) {        
+    var clonedLine = new OB.Model.OrderLine(line.attributes);        
+    lines.push(clonedLine);      });
+    var  line, promotions, auxLines;
+    var finalLines = [];
+      
+    var totaltax = 0;
+    var totalnotax = 0;
+    var totalpvp = 0;
+    var qtyprod=0;
+    
+    for (var i = 0; i < lines.length; i++)
+    {
+        //line = lines.at(i);
+        line = lines[i];
+        
+                
+         if (line.printNet()==0.00 ||  line.printNet()==0){
+         //console.log("No imprime linea:  " + i );
+            continue;
+         }
+        var listp=line.get('product').get('listPrice');
+    
+        var qty = line.get('qty');
+        qtyprod += qty;
+        var totalpvpaux = listp * qty;
+    %>
+        <!--MM 20160103 M
+        Verificamos la longitud de la descripcion del producto 1 o 2 lineas (42 caracteres max x linea, max 22 lineas)
+        Se reemplaza el simbolo " ya que presenta inconvenientes en la impresion
+        -->
+        
+        <%
+        var descLength = line.get('product').get('_identifier').length;
+        if(descLength  >= 42)
+        { %>
+            <line>
+                <text align ="left" bold="true" length="40"><%= OB.UTIL.encodeXMLComponent(line.get('product').get('_identifier').replace(/"/g, '')).substr(0, 42) %></text>
+            </line>
+    
+            <line>
+                <text align ="left" length="18" bold="true"><%= OB.UTIL.encodeXMLComponent(line.get('product').get('_identifier').replace(/"/g, '')).substr(42, line.get('product').get('_identifier').length ) %></text>
+                <text align ="left" length="7" bold="true"><%= line.printQty() %></text>
+            
+            <%
+            if(!_.isUndefined(line.get('linerate')))
+            {
+                if(line.get('linerate')==1)
+                {
+            %>
+                        <%
+                        if(order.get('priceIncludesTax')) 
+                        {
+                            totalpvp += totalpvpaux;
+                        %>
+                        <text align ="right" length="6" bold="true"><%= (line.printPrice()/line.get('linerate')).toFixed(2) %></text>
+                        <text align ="right" length="6" bold="true"><%= line.printNet() %></text>
+                        <%
+                        } else 
+                        {
+                            var ltax = 1;
+                            var tax = totalpvpaux * ltax;
+                            totalpvp += tax;        
+                        %>  
+                        <text align ="right" length="6" bold="true"><%= (line.printPrice()*1).toFixed(2) %></text>
+                        <text align ="right" length="6" bold="true"><%= line.printNet() %></text>
+                        <%}%>
+                <% } else 
+                { %>
+                    
+                    <%if(order.get('priceIncludesTax'))
+                    {
+                        totalpvp += totalpvpaux;%>
+                        <text align ="right" length="6" bold="true"><%= (line.printPrice()/line.get('linerate')).toFixed(2)%></text>
+                        <text align ="right" length="6" bold="true"><%= line.printNet() %></text>
+                        <text align ="right" length="1" bold="true"><%= OB.UTIL.encodeXMLComponent('*')%></text> 
+                    <%} else
+                    {
+                        var ltax = 1;
+                        var tax = totalpvpaux * ltax;
+                        totalpvp += tax;
+                    %>
+                        <text align ="right" length="6" bold="true"><%= (line.printPrice()*1).toFixed(2) %></text>
+                        <text align ="right" length="6" bold="true"><%= line.printNet() %></text>
+                    <%}%>
+                <%}
+            } else 
+            { %>
+                <text align ="right" length="8" bold="true"><%= (line.printPrice()*1).toFixed(2) %></text>
+                <%if(order.get('priceIncludesTax'))
+                {
+                    totalpvp += totalpvpaux;%>
+                        <text align ="right" length="6" bold="true"><%= (line.printPrice()/line.get('linerate')).toFixed(2) %></text>
+                        <text align ="right" length="1" bold="true"><%= OB.UTIL.encodeXMLComponent('&')%></text>  
+                <% } else
+                {
+                    var ltax = 1;
+                    var tax = totalpvpaux * ltax;
+                    totalpvp += tax;
+                    %>
+                    <text align ="right" length="8" bold="true"><%= line.printNet() %></text>
+                <%}
+            } %>
+
+            </line>
+        <% 
+        
+        }
+        else
+        { %>
+        <line>
+            <text align ="left" bold="true" length="40"><%= OB.UTIL.encodeXMLComponent(line.get('product').get('_identifier').replace(/"/g, '')) %></text>
+        </line>
+        <line>
+            <text align ="left" length="21" bold="true"><%= OB.UTIL.encodeXMLComponent('')%></text>
+            <text align ="left" length="6" bold="true"><%= line.printQty() %></text>
+            
+            <%
+            if(!_.isUndefined(line.get('linerate')))
+            {
+                if(line.get('linerate')==1)
+                {
+            %>
+                        <%
+                        if(order.get('priceIncludesTax')) 
+                        {
+                            totalpvp += totalpvpaux;
+                        %>
+                        <text align ="right" length="6" bold="true"><%= (line.printPrice()/line.get('linerate')).toFixed(2) %></text>
+                        <text align ="right" length="6" bold="true"><%= line.printNet() %></text>
+                        <%
+                        } else 
+                        {
+                            var ltax = 1;
+                            var tax = totalpvpaux * ltax;
+                            totalpvp += tax;        
+                        %>  
+                        <text align ="right" length="6" bold="true"><%= (line.printPrice()*1).toFixed(2) %></text>
+                        <text align ="right" length="6" bold="true"><%= line.printNet() %></text>
+                        <%}%>
+                <% } else 
+                { %>
+                    
+                    <%if(order.get('priceIncludesTax'))
+                    {
+                        totalpvp += totalpvpaux;%>
+                        <text align ="right" bold="true" length="6"><%= (line.printPrice()/line.get('linerate')).toFixed(2)%></text>
+                        <text align ="right" bold="true" length="6"><%= line.printNet() %></text>
+                        <text align ="right" length="1" bold="true"><%= OB.UTIL.encodeXMLComponent('*')%></text> 
+                    <%} else
+                    {
+                        var ltax = 1;
+                        var tax = totalpvpaux * ltax;
+                        totalpvp += tax;
+                    %>
+                        <text align ="right" bold="true" length="6"><%= (line.printPrice()*1).toFixed(2) %></text>
+                        <text align ="right" bold="true" length="6"><%= line.printNet() %></text>
+                    <%}%>
+                <%}
+            } else 
+            { %>
+                <text align ="right" length="8" bold="true"><%= (line.printPrice()*1).toFixed(4) %></text>
+                <%if(order.get('priceIncludesTax'))
+                {
+                    totalpvp += totalpvpaux;%>
+                        <text align ="right" length="8" bold="true"><%= (line.printPrice()/line.get('linerate')).toFixed(2) %></text>
+                        <text align ="right" length="1" bold="true"><%= OB.UTIL.encodeXMLComponent('&')%></text>  
+                <% } else
+                {
+                    var ltax = 1;
+                    var tax = totalpvpaux * ltax;
+                    totalpvp += tax;
+                    %>
+                    <text align ="right" bold="true" length="6"><%= line.printNet() %></text>
+                <%}
+            } %>
+        </line>
+        <% 
+        
+        }
+        %>
+        
+  
+        <!-- Fin MM 20160103 M-->
+    <%
+    
+    }
+    
+    var totAmount = 0;
+    var totNet = 0;
+    var totNoTax = 0;
+    var totSub=0;
+      var taxes = order.get('taxes');
+      for (var t in taxes) {
+    if(taxes[t].amount == 0){
+    totNet += taxes[t].net;
+    }else{
+    totNoTax += taxes[t].net;
+    }
+        totAmount += taxes[t].amount;
+      } 
+    totSub=totNet+totNoTax;
+    %>
+    <!--MM 20151229-->
+    <line>
+            <text align ="left" bold="true" length="40">============================================</text>
+    </line>
+    <!--MM 20151229-->
+
+      <line>
+        <text align ="right" length="30" bold="true"><%= OB.I18N.getLabel('Spai_SubTotalTax') %></text>
+        <text align ="right" length="2" bold="true"></text>
+        <text align ="right" length="7" bold="true"><%= OB.I18N.formatCurrency(totNoTax) %></text>  
+      </line>
+      <line>
+        <text align ="right" length="30" bold="true"><%= OB.I18N.getLabel('SSPOS_SubtotalNoTax') %></text>
+        <text align ="right" length="2" bold="true"></text>
+        <text align ="right" length="7" bold="true"><%= OB.I18N.formatCurrency(totNet) %></text>  
+      </line>
+      <line>
+        <text align ="right" length="30" bold="true"><%= OB.I18N.getLabel('SSPOS_Subtotal') %></text>
+        <text align ="right" length="2" bold="true"></text>
+        <text align ="right" length="7" bold="true"><%= OB.I18N.formatCurrency(totSub) %></text>  
+      </line>
+      <line>
+        <text align ="right" length="30" bold="true"><%= OB.I18N.getLabel('Spai_TotalTax') %></text>
+        <text align ="right" length="2" bold="true"></text>
+        <text align ="right" length="7" bold="true"><%= OB.I18N.formatCurrency(totAmount) %></text>
+      </line>
+    <line>
+      <text align ="left" length="25" bold="true"><%=OB.I18N.getLabel('OBPOS_ReceiptTotal') + ' ' + order.get('currency' + OB.Constants.FIELDSEPARATOR + OB.Constants.IDENTIFIER) %></text>
+      <text align ="right" length="14" bold="true"><%= order.printGross() %></text>
+    </line>
+      <%
+        var payments = order.get('payments');
+        for (var i = 0; i < payments.length; i++) {
+      if(payments.at(i).get('rate') && payments.at(i).get('rate')!=='1'){
+      %>
+        <line>
+          <text align="left" length="15" bold="true"><%= payments.at(i).get('name') %></text>
+          <text align="right" length="12" bold="true"><%= '('+OB.I18N.formatCurrency(payments.at(i).get('amount'))+' '+payments.at(i).get('isocode')+')' %></text>
+          <text align="right" length="12" bold="true"><%= OB.I18N.formatCurrency(payments.at(i).get('origAmount')) %></text>
+        </line>
+     <%
+         }else {
+     %>
+        <line>
+          <text align="left" length="20" bold="true"><%= payments.at(i).get('name') %></text>
+          <text align="right" length="19" bold="true"><%= OB.I18N.formatCurrency(payments.at(i).get('amount')) %></text>
+        </line>
+      <%
+        }}
+    var rateaux = totalpvp-order.get('net');
+    var rate = (rateaux/order.get('net'))*100;
+    %>   
+    <line>
+      <text align="left" length="20" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('SSPOS_ticketChange')) %></text>
+      <text align="right" length="19" bold="true"><%= OB.I18N.formatCurrency(order.get('change'))%></text>
+    </line>
+    <line>
+      <text align="center"  bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('SSPOS_AtendBy')) + ' ' +  OB.UTIL.encodeXMLComponent(  user.user) %></text>
+    </line>
+
+    <line>
+        <text align ="left" bold="true" length="40">============================================</text>
+    </line>
+    <line></line>
+    <line>
+       <text align ="center" bold="true" length="40">*********** DATOS DE ENTREGA **************</text>
+    </line>
+    <line></line>
+    <line>
+       <text align ="left" bold="true" length="40"><%= OB.UTIL.encodeXMLComponent(  order.get('addressDesc')) %></text> 
+    </line>
+    <%
+      //console.log("Sample");
+      if (order.get('description')){
+         var descriptionToSplit = user.descriptionorder;
+         //console.log( user.descriptionorder);
+         var descsplitted = descriptionToSplit ;
+         for (var i = 0; i < descsplitted.length; i++) {
+            var descriptionToShow = descsplitted[i];
+            
+            
+            var countDescription = descriptionToShow.length;
+              //console.log( "*******contando");
+              //console.log( countDescription);
+              if( countDescription>40   ){
+                for (var k=0; k < 4;k++){
+                    //console.log( descriptionToShow);
+                    var imprimirTexto = descriptionToShow.substr(0,40);
+                    
+                                        
+                    //console.log( "*******IMPRIMIR");
+                    //console.log( imprimirTexto);
+                    
+                    descriptionToShow = descriptionToShow.replace(imprimirTexto,"") ;
+                    countDescription = descriptionToShow.length;
+
+                    
+                    //console.log( "*******contando 2");
+                    //console.log( countDescription);
+                    
+                    if (imprimirTexto.length>0){
+                   
+                    
+                    %>
+                    <line>
+                       <text align ="left" bold="true" length="40"><%= OB.UTIL.encodeXMLComponent(  imprimirTexto )  %></text> 
+                    </line>
+                    <%
+                    
+                     }
+                }
+              }else{
+              
+                    //console.log( "*******contando");
+                    //console.log( countDescription);
+                  %>
+                  <line>
+                     <text align ="left" bold="true" length="40"><%= OB.UTIL.encodeXMLComponent(  descriptionToShow )  %></text> 
+                  </line>
+                  <%              
+              
+              }
+          }
+         }
+    %>
+    <line></line>
+    <line>
+        <text align ="left" bold="true" length="40">Servicio a Domicilio no incluye bebidas</text>
+    </line>
+	<line>
+        <text align ="left" bold="true" length="40">   excepto en promociones especiales   </text>
+    </line>
+	<line>
+       <text align ="center" bold="true" length="40">**************************************</text>
+    </line>
+    <line></line>      
+  </ticket>
+ 
+
+<ticket printer="2">
+    <line></line>
+<%
+
+            //Productos
+            var strMesaCarrionMay = 'F8771274FB3840B680E22DB61237F204'; 
+            var strMesaCarrionBuff = '432498A662DA45C29E378A34BCB00145';
+            console.log( user.isDomicilie);
+            
+            
+            if(!user.isDomicilie){
+%>
+
+
+                  
+                  <line size="1">
+                      <text align="center" bold="true" length="40"><%- OB.I18N.getLabel('Spai_title') %></text>
+                  </line>
+          <%
+            }else{          
+          %>      
+          
+                  <line size="1">
+                      <text align="center" bold="true" length="40"><%- OB.I18N.getLabel('Spai_titleDomicilie') %></text>
+                  </line>    
+
+<%
+            }
+%>
+
+<line>
+    <text align="center" bold="true" length="40"><%- OB.I18N.getLabel('Spai_Documentno') + ' ' +  OB.UTIL.encodeXMLComponent(order.get('documentNo') )   %></text>
+</line>
+
+<line>
+    <text align="center" bold="true" length="40"><%- OB.I18N.getLabel('Spai_BoxNumber') + ' ' + OB.UTIL.encodeXMLComponent(order.get('posTerminal'+OB.Constants.FIELDSEPARATOR + OB.Constants.IDENTIFIER))  %></text>
+</line>
+
+<line>
+    <text align="left" length="15" bold="true"><%= OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_Date')) %></text>
+    <text bold="true"><%= OB.I18N.formatDate(order.get('orderDate')) + '  ' %></text>
+    <text bold="true"><%= OB.I18N.formatHour(order.get('orderDate')) %></text>
+</line>  
+
+<line>
+      <!--text  align ="left" bold="true" length="40">============================================</text-->
+    </line>
+    <% 
+      
+    var line, promotions;      
+    var lines = [];      
+    _.each(order.get('lines').models, function (line) {        
+    var clonedLine = new OB.Model.OrderLine(line.attributes);        
+    lines.push(clonedLine);      });      
+    var finalLines = [];
+    
+    var totaltax = 0;
+    var totalnotax = 0;
+    var totalpvp = 0;
+    var qtyprod=0;
+    var nameproductMain ='';
+    var printProductMainObject;
+    var indxProm=0;
+    var flagProm='false';
+    var productoPromocion ='';
+    var productNameOld='';
+    
+    var promocionOld='';
+    
+    
+    var comboID='';
+    var comboOldID='1';
+    for (var i = 0; i < lines.length; i++)
+    {
+        //line = lines.at(i);
+        line = lines[i];
+
+         
+        //console.log("Linea Comanda"+ i);
+       //console.log(line);
+            
+        var productName= line.get('product').get('_identifier');
+        var pnameLength = productName.length;
+        //console.log(productName );
+
+    %>
+    
+       <%
+       var countProm=0;
+       var countPromociones2 =0;
+       try{
+            comboID = line.get('comboId');
+            var objprom = line.get('promotions');
+             countProm = objprom.length;
+
+            if (countProm>0){
+           
+                if (indxProm==0){
+                    indxProm =i;
+                }
+                
+             var linep = lines[i];
+             productNameOld= linep.get('product').get('_identifier');
+                        
+             printProductMainObject = line.get('promotions');
+             nameproductMain = printProductMainObject[0].name; 
+             countPromociones2 =  nameproductMain.length;
+            
+                console.log("****************");
+                console.log("productNameOld: "+ productNameOld);
+                console.log("nameproductMain: "+ nameproductMain);
+                console.log("****************");
+
+                                
+                
+                            
+                if (productNameOld==nameproductMain){
+                  %>
+                    
+                  <%
+                  indxProm=0;
+                }
+            }
+            
+          }catch(err){
+          }
+          
+
+          
+          if (countPromociones2 ==0 ){
+
+          }
+          
+             
+                          
+            if ( comboID != comboOldID){
+                comboOldID = comboID ;
+                console.log("       *******************Imprimir linea");
+                %>
+                      <line> 
+                        <text  align ="left" bold="true" length="40">============================================</text>
+                      </line>
+                <%
+            
+            }
+          
+       %>
+    
+  
+      <%
+          var productoID = line.get('product').get('id');
+          if (productoID!=strMesaCarrionBuff  &&  productoID!=strMesaCarrionMay){
+      %>
+
+  <%                            
+        if (pnameLength>0){
+      %>
+            <!-- <line>
+        <text align ="left" length="5"><%= line.printQty() + ' ' %></text>
+        <text align ="left" length="21"><%= OB.UTIL.encodeXMLComponent(line.get('product').get('description')) %></text>
+      </line> -->
+      
+          <%                    
+                if(pnameLength >=34) 
+                { %>
+                    <line>
+                        <text align ="left" length="5" bold="true"><%= line.printQty() + ' ' %></text>
+                        <text align ="left" bold="true" length="40"><%= OB.UTIL.encodeXMLComponent(line.get('product').get('_identifier')).substr(0, 34) %></text>
+                    </line>
+                <%
+                
+                }
+                if(pnameLength >34 && pnameLength>68) 
+                { %>
+                    <line> 
+                            <text align="left" bold="true" length="40"><%= '     ' + OB.UTIL.encodeXMLComponent(line.get('product').get('_identifier')).substr(34, 34) %></text>
+                    </line>
+                
+                <% }
+                else if(pnameLength >34 && pnameLength<=68) 
+                {
+                 %>
+            
+                    <line>
+                            <text align="left" bold="true" length="40"><%= '     ' + OB.UTIL.encodeXMLComponent(line.get('product').get('_identifier')).substr(34, 34) %></text>
+                    </line> 
+                 
+                 <%
+                 }
+                 if (pnameLength>68)
+                 {
+                 %>
+            
+                    <line>
+                            <text align="left" bold="true" length="40"><%= '     ' + OB.UTIL.encodeXMLComponent(line.get('product').get('_identifier')).substr(68, 34) %></text>
+                    </line>     
+                
+                <%
+                 }
+                %>
+                
+                <!--FIN Proceso para imprimir en 3 lineas la descripción-->
+
+                <%
+                    if (pnameLength >0 && pnameLength<=33){
+                %>
+                      <line> 
+                        <text align ="left" length="5"  bold="true"><%= line.printQty() + ' ' %></text>
+                        <text align ="left" bold="true" length="40"><%= OB.UTIL.encodeXMLComponent(line.get('product').get('_identifier'))  %></text>
+                      </line>
+                <%
+                }
+                %> 
+                
+      <%
+        }
+      %>
+      
+      
+        <%}else{%>
+
+  <%                            
+        if (pnameLength>0){
+      %>
+            <!-- <line>
+        <text align ="left" length="5"><%= line.printQty() + ' ' %></text>
+        <text align ="left" length="21"><%= OB.UTIL.encodeXMLComponent(line.get('product').get('description')) %></text>
+      </line> -->
+       <line></line>
+          <%                    
+                if(pnameLength >=34) 
+                { %>
+                    <line size="1">
+                        <text align ="left" length="5" bold="true"><%= line.printQty() + ' ' %></text>
+                        <text align ="left" bold="true" length="40"><%= OB.UTIL.encodeXMLComponent(line.get('product').get('_identifier')).substr(0, 34) %></text>
+                    </line>
+                <%
+                
+                }
+                if(pnameLength >34 && pnameLength>68) 
+                { %>
+                    <line size="1"> 
+                            <text align="left" bold="true" length="40"><%= '     ' + OB.UTIL.encodeXMLComponent(line.get('product').get('_identifier')).substr(34, 34) %></text>
+                    </line>
+                
+                <% }
+                else if(pnameLength >34 && pnameLength<=68) 
+                {
+                 %>
+            
+                    <line size="1">
+                            <text align="left" bold="true" length="40"><%= '     ' + OB.UTIL.encodeXMLComponent(line.get('product').get('_identifier')).substr(34, 34) %></text>
+                    </line> 
+                 
+                 <%
+                 }
+                 if (pnameLength>68)
+                 {
+                 %>
+            
+                    <line size="1">
+                            <text align="left" bold="true" length="40"><%= '     ' + OB.UTIL.encodeXMLComponent(line.get('product').get('_identifier')).substr(68, 34) %></text>
+                    </line>     
+                
+                <%
+                 }
+                %>
+                
+                <!--FIN Proceso para imprimir en 3 lineas la descripción-->
+
+                <%
+                    if (pnameLength >0 && pnameLength<=33){
+                %>
+                      <line size="1"> 
+                        <text align ="left" length="5"  bold="true"><%= line.printQty() + ' ' %></text>
+                        <text align ="left" bold="true" length="40"><%= OB.UTIL.encodeXMLComponent(line.get('product').get('_identifier'))  %></text>
+                      </line>
+                <%
+                }
+                %> 
+                
+      <%
+        }
+      %>
+            
+             
+        <%}%>
+
+
+              <%
+                  var V_DES = line.get('description');
+                  var desLength = line.get('description').length;
+                  if (V_DES!=null && V_DES!=''){
+              %>
+              
+              
+                  <%                    
+                        if(desLength >=34) 
+                        { %>
+                            <line>
+                                <text align ="left" bold="true" length="40"><%= '   ' + OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_SmallerThan')) +  OB.UTIL.encodeXMLComponent(line.get('description')).substr(0, 34) %></text>
+                            </line>
+                        <%
+                        
+                        }
+                        if(desLength >34 && desLength>68) 
+                        { %>
+                            <line>
+                                    <text align="left" bold="true" length="40"><%= '   ' + OB.UTIL.encodeXMLComponent(line.get('description')).substr(34, 34) %></text>
+                            </line>
+                        
+                        <% }
+                        else if(desLength >34 && desLength<=68) 
+                        {
+                         %>
+                    
+                            <line>
+                                    <text align="left" bold="true" length="40"><%= '   ' + OB.UTIL.encodeXMLComponent(line.get('description')).substr(34, 34) + OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_GreaterThan'))  %></text>
+                            </line> 
+                         
+                         <%
+                         }
+                         if (desLength>68)
+                         {
+                         %>
+                    
+                            <line>
+                                    <text align="left" bold="true" length="40"><%= '   ' + OB.UTIL.encodeXMLComponent(line.get('description')).substr(68, 34) + OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_GreaterThan'))  %></text>
+                            </line>     
+                        
+                        <%
+                         }
+                        %>
+                        
+                        <!--FIN Proceso para imprimir en 3 lineas la descripción-->
+        
+                        <%
+                        if (line.get('description').length >0 && line.get('description').length<=33){
+                        %>
+                              <line> 
+                                <text align ="left" bold="true" length="40"><%= '   ' + OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_SmallerThan')) + OB.UTIL.encodeXMLComponent(line.get('description')) + OB.UTIL.encodeXMLComponent(OB.I18N.getLabel('Spai_GreaterThan'))  %></text>
+                              </line>
+                        <%
+                        }
+                        %> 
+                        
+              <%
+                }
+              %>
+
+          
+       <%
+            try{
+            var printProductMainObjectflag = line.get('promotions');
+            //console.log(printProductMainObjectflag);
+            
+            if (printProductMainObjectflag){
+                printProductMainObject = line.get('promotions');
+   
+                var countProductMain = printProductMainObject.length;
+           
+                nameproductMain = printProductMainObject[0].name;
+                productoPromocion =    nameproductMain; 
+
+                if (productName != nameproductMain)
+                {
+                               
+      %>
+                <%                  
+                var countlettersProduct= nameproductMain.length;
+
+                if(countlettersProduct >=32) 
+                { 
+                %>
+                    <line>
+                        <text align ="left" bold="true" length="40"><%= '     --' + nameproductMain.substr(0, 32) %></text>
+                    </line>
+                <%
+                
+                }
+                if(countlettersProduct >32 && countlettersProduct>64) 
+                { %>
+                    <line> 
+                            <text align="left" bold="true" length="40"><%= '       ' + nameproductMain.substr(32, 32) %></text>
+                    </line>
+                
+                <% }
+                else if(countlettersProduct >32 && countlettersProduct<=64) 
+                {
+                 %>
+            
+                    <line>
+                            <text align="left" bold="true" length="40"><%= '       ' + nameproductMain.substr(32, 32) %></text>
+                    </line> 
+                 
+                 <%
+                 }
+                 if (countlettersProduct>64)
+                 {
+                 %>
+            
+                    <line>
+                            <text align="left" bold="true" length="40"><%= '       ' + nameproductMain.substr(62, 32) %></text>
+                    </line>     
+                
+                <%
+                 }
+                %>
+                
+                <!--FIN Proceso para imprimir en 3 lineas la descripción-->
+
+                <%
+                    if (countlettersProduct >0 && countlettersProduct<=31){
+                %>
+                      <line> 
+                        <text align ="left" bold="true" length="40"><%= '     --' + nameproductMain  %></text>
+                      </line>
+                <%
+                }
+                %>  
+      
+      <%
+                }
+
+            }
+            
+            }catch(err){
+            }
+
+                                  
+          
+            
+            
+      %>
+          
+    <%
+      }
+    %> 
+    <line></line>
+    <line>
+        <text  align ="left" bold="true" length="40">====================@=====================</text>        
+    </line>    <line></line>
+    <line></line>    
+    <line></line>
+    <line></line>
+    <line></line>    
+</ticket>
+
+
+</output>

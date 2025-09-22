@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TAB" version="">
+  <row id="03C9DF93A4314729AD7E3BB1033782C6" trl="N">
+    <value column="Name" isTrl="Y" original="Cost Center">Centro de costos</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create cost centers to be used in production processes.">Crea los centros de costos para los procesos de producción.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original="">Crea los centros de costos para los procesos de producción.</value>
+  </row>
+  <row id="0900D60ACE024263B76D6D211FB966BA" trl="N">
+    <value column="Name" isTrl="Y" original="Machine">Máquina</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add and edit resources used to complete a specified part of a work requirement.">Añade y edita los recursos utilizados para completar una parte específica de la orden de fabricación.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add and edit resources used to complete a specified part of a work requirement.">Añade y edita los recursos utilizados para completar una parte específica de la orden de fabricación.</value>
+  </row>
+  <row id="0969D826EC994C7F9C412B6E9A1EE480" trl="N">
+    <value column="Name" isTrl="Y" original="Accounting">Contabilidad</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Accounting information related to the internal consumption">Información contable relacionada con el consumo interno</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Accounting information related to the internal consumption">Información contable relacionada con el consumo interno</value>
+  </row>
+  <row id="10DE4170EF8A41B894ECC29BB0DCE45E" trl="N">
+    <value column="Name" isTrl="Y" original="Outsourced">Subcontratado</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add invoices corresponding to the outsourced part of a completed work requirement.">Añade las facturas correspondientes a la parte tercerizada de la orden de fabricación terminada.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add invoices corresponding to the outsourced part of a completed work requirement.">Añade las facturas correspondientes a la parte tercerizada de la orden de fabricación terminada.</value>
+  </row>
+  <row id="141487605E1B4895911279C1D8877296" trl="N">
+    <value column="Name" isTrl="Y" original="Date and Shift">Fecha y  turno</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create measurements and insert gathered values or a specifc date and shift.">Crea las mediciones e inserte los valores reunidos o un dato y turno específicos.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Create measurements and insert gathered values or a specifc date and shift.">Crea las mediciones e inserte los valores reunidos o un dato y turno específicos.</value>
+  </row>
+  <row id="14336FB242BE43708C6DBBAA22C2E629" trl="N">
+    <value column="Name" isTrl="Y" original="Maintenance">Mantenimiento</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create and edit maintenance tasks for a specific date.">Crea y edita las tareas de mantenimiento para una fecha específica.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Create and edit maintenance tasks for a specific date.">Crea y edita las tareas de mantenimiento para una fecha específica.</value>
+  </row>
+  <row id="1AB0A08EC1EA4FD6807ECB89014FC4FA" trl="N">
+    <value column="Name" isTrl="Y" original="Indirect Cost">Costo Indirecto</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create a new indirect cost.">Crea un nuevo costo indirecto.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Create a new indirect cost.">Crea un nuevo costo indirecto.</value>
+  </row>
+  <row id="1CEB68D858D542E8A841612DD3A26163" trl="N">
+    <value column="Name" isTrl="Y" original="Section">Área</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create a production plant section to assign work centers to it.">Crea un plan de producción y asígnele los puestos de trabajo.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original="">Crea un plan de producción y asígnele los puestos de trabajo.</value>
+  </row>
+  <row id="1F06612F825F42219CA21F57208888E1" trl="N">
+    <value column="Name" isTrl="Y" original="Incidence">Incidencia</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add work incidences that might have occurred during the completion of a related work requirement.">Añade las incidencias de trabajo que podrían ocurrir mientras se completa la orden de fabricación relacionada.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add work incidences that might have occurred during the completion of a related work requirement.">Añade las incidencias de trabajo que podrían ocurrir mientras se completa la orden de fabricación relacionada.</value>
+  </row>
+  <row id="25F65FBA0023415CB323A482524D8E06" trl="N">
+    <value column="Name" isTrl="Y" original="Product">Producto</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add and edit I/O products related to a completed part of a work requirement.">Añade o edita los productos I/O relacionados con la parte completada de la orden de fabricación.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add and edit I/O products related to a completed part of a work requirement.">Añade o edita los productos I/O relacionados con la parte completada de la orden de fabricación.</value>
+  </row>
+  <row id="2931B8F78F0D423B9F234C63B7194CC9" trl="N">
+    <value column="Name" isTrl="Y" original="Result">Resultado</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create and edit quality tests for a specified checkpoint, and add test results of the performed tests.">Crea y edita tests de calidad para un checkpoint específico, y añade los resultados del test ejecutado.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Create and edit quality tests for a specified checkpoint, and add test results of the performed tests.">Crea y edita tests de calidad para un checkpoint específico, y añade los resultados del test ejecutado.</value>
+  </row>
+  <row id="2CD0BF27521446AA8971D4241CEAE8F1" trl="N">
+    <value column="Name" isTrl="Y" original="Machine">Máquina</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add and edit resources used to complete a specified part of a work requirement.">Añade y edita los recursos utilizados para completar una parte específica de la orden de fabricación.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add and edit resources used to complete a specified part of a work requirement.">Añade y edita los recursos utilizados para completar una parte específica de la orden de fabricación.</value>
+  </row>
+  <row id="3B74F6554E824033ADF87166F9510668" trl="N">
+    <value column="Name" isTrl="Y" original="Check Point">Puntos</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create check points for a related set.">Crea los checkpoints para un grupo determinado.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Create check points for a related set.">Crea los checkpoints para un grupo determinado.</value>
+  </row>
+  <row id="40B71D2A6EF5433A9AE9F8636968B7DE" trl="N">
+    <value column="Name" isTrl="Y" original="Value">Costo</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create and edit values for this indirect cost.">Crea y edita los valores para este costo indirecto.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Create and edit values for this indirect cost.">Crea y edita los valores para este costo indirecto.</value>
+  </row>
+  <row id="4357755887D54B259CCA50E2BFD677B0" trl="N">
+    <value column="Name" isTrl="Y" original="Lines">Linea</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add internal consumption lines. Each line corresponds to one product.">Añade líneas de consumo interno. Cada línea corresponde a un producto.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add internal consumption lines. Each line corresponds to one product.">Añade líneas de consumo interno. Cada línea corresponde a un producto.</value>
+  </row>
+  <row id="464699F6915D4B0480AC54DFFA576FA4" trl="N">
+    <value column="Name" isTrl="Y" original="Machine">Máquina</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add resources to a specific cost center version.">Añade recursos a una versión específica de los centros de costos.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add resources to a specific cost center version.">Añade recursos a una versión específica de los centros de costos.</value>
+  </row>
+  <row id="4E55C1D60FA54F508AEE18CCDCD25885" trl="N">
+    <value column="Name" isTrl="Y" original="Production Run">Parte Fabricación</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add progress details of the specified work requirements.">Añade los detalles de la evolución de las órdenes de fabricación específicas.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add progress details of the specified work requirements.">Añade los detalles de la evolución de las órdenes de fabricación específicas.</value>
+  </row>
+  <row id="562B72A9175B4049A8821BE11004F404" trl="N">
+    <value column="Name" isTrl="Y" original="Salary Category / Employee">Categoría salarial</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add or edit salary category workers that took part in a work requirement.">Añade o edita las categorías de salario de los trabajadores que tomaron parte en la orden de fabricación.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add or edit salary category workers that took part in a work requirement.">Añade o edita las categorías de salario de los trabajadores que tomaron parte en la orden de fabricación.</value>
+  </row>
+  <row id="59B3A9AF87394A32A75163139784F180" trl="N">
+    <value column="Name" isTrl="Y" original="Maintenance Task">Operación</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Define general maintenance tasks to be used in production.">Define las tareas generales de mantenimiento para la producción.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Define general maintenance tasks to be used in production.">Define las tareas generales de mantenimiento para la producción.</value>
+  </row>
+  <row id="5F602CB362A147CCAB0FF5289880C654" trl="N">
+    <value column="Name" isTrl="Y" original="Maintenance">Mantenimiento</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">Define los tipos de mantenimiento necesarios para una máquina específica.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original="">Define los tipos de mantenimiento necesarios para una máquina específica.</value>
+  </row>
+  <row id="61F48EB626624E43BB8BDF551A62F5DB" trl="N">
+    <value column="Name" isTrl="Y" original="Indirect Cost">Costo Indirecto</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add indirect costs to specific cost center version.">Añade costos indirectos a una versión específica de los centros de costos.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add indirect costs to specific cost center version.">Añade costos indirectos a una versión específica de los centros de costos.</value>
+  </row>
+  <row id="64AF9B0F6DB949B08B15DBB7D4FDFAB6" trl="N">
+    <value column="Name" isTrl="Y" original="Global Use">Consumo Global</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add global use of products used for completion of a related work requirement.">Añade los productos utilizados para completar la orden de fabricación relacionada.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add global use of products used for completion of a related work requirement.">Añade los productos utilizados para completar la orden de fabricación relacionada.</value>
+  </row>
+  <row id="6E762FAB5352459288338FB6AF4778F1" trl="N">
+    <value column="Name" isTrl="Y" original="Machine">Máquinas</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Define machines that are used for a specific process.">Define las máquinas necesarias para un proceso específico.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Define machines that are used for a specific process.">Define las máquinas necesarias para un proceso específico.</value>
+  </row>
+  <row id="7028EEDEC5F64AE2B15BF0DB82E8D9AA" trl="N">
+    <value column="Name" isTrl="Y" original="Maintenance">Mantenimiento</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Define maintenance types needed for a specific machine.">Define los tipos de mantenimiento necesarios para una máquina específica.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Define maintenance types needed for a specific machine.">Define los tipos de mantenimiento necesarios para una máquina específica.</value>
+  </row>
+  <row id="7144EF6E41D84491A22212CA67F8537F" trl="N">
+    <value column="Name" isTrl="Y" original="Version">Versión</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create cost center versions to be used with specified time periods.">Crea versiones de los centros de costos para períodos específicos de tiempo.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Create cost center versions to be used with specified time periods.">Crea versiones de los centros de costos para períodos específicos de tiempo.</value>
+  </row>
+  <row id="7D3BDB3F7E5049878F3AFE1F696CE77E" trl="N">
+    <value column="Name" isTrl="Y" original="Toolset">Utillaje</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Define structural trees to be used in the application.">Define las estructuras de árbol que van a utilizarse en la aplicación.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Define structural trees to be used in the application.">Define las estructuras de árbol que van a utilizarse en la aplicación.</value>
+  </row>
+  <row id="7F0FECCFD8864532893AEA5EDC06EE37" trl="N">
+    <value column="Name" isTrl="Y" original="Toolset">Utillaje Procesos</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="View the toolsets of a selected process">Muestra el utillaje del proceso seleccionado.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="View the toolsets of a selected process.">Muestra el utillaje del proceso seleccionado.</value>
+  </row>
+  <row id="80A56B892836475DA13B7311D53C9A36" trl="N">
+    <value column="Name" isTrl="Y" original="Shift">Turno</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Define shifts when the tests for a related group will be performed.">Define los turnos en que se han de realizar los tests de un grupo determinado.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Define shifts when the tests for a related group will be performed.">Define los turnos en que se han de realizar los tests de un grupo determinado.</value>
+  </row>
+  <row id="831343167A724A8A9E9118CCAEC92AEE" trl="N">
+    <value column="Name" isTrl="Y" original="Values">Valores</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="83D96D3BEAFB4CA2B2777D6E693EFCAD" trl="N">
+    <value column="Name" isTrl="Y" original="Activity">Proceso</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create activities to be used in the production process.">Crea las actividades para el proceso de producción.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Create activities to be used in the production process.">Crea las actividades para el proceso de producción.</value>
+  </row>
+  <row id="8420DE5225604E9BA13BEC120823E2C5" trl="N">
+    <value column="Name" isTrl="Y" original="Test">Prueba</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create measurements at a predefined checkpoint for produced product.">Crea mediciones en los checkpoints predefinidos para el producto creado.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Create measurements at a predefined checkpoint for produced product.">Crea mediciones en los checkpoints predefinidos para el producto creado.</value>
+  </row>
+  <row id="8851885C50914EE8A25B2E8DB05F0937" trl="N">
+    <value column="Name" isTrl="Y" original="Work Incidence">Incidencia</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create work incidence types that may occur during production.">Crea los tipos de incidencia de trabajo que pueden ocurrir durante la producción.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Create work incidence types that may occur during production.">Crea los tipos de incidencia de trabajo que pueden ocurrir durante la producción.</value>
+  </row>
+  <row id="8CAC32ED473047DFB8D65218C56E2C8B" trl="N">
+    <value column="Name" isTrl="Y" original="Incidence">Incidencia</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add work incidences that might have occurred during the completion of a related work requirement.">Añade las incidencias de trabajo que podrían ocurrir mientras se completa la orden de fabricación relacionada.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add work incidences that might have occurred during the completion of a related work requirement.">Añade las incidencias de trabajo que podrían ocurrir mientras se completa la orden de fabricación relacionada.</value>
+  </row>
+  <row id="8F21B87B715744C5AB6836FBB4D8A207" trl="N">
+    <value column="Name" isTrl="Y" original="Check Point Set">Grupos</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create check point sets and define tests frequencies.">Crea grupos de checkpoints y defina la frecuencia de los tests.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Create check point sets and define tests frequencies.">Crea grupos de checkpoints y defina la frecuencia de los tests.</value>
+  </row>
+  <row id="91967BF4F5E74D20863B09EC6BBE9230" trl="N">
+    <value column="Name" isTrl="Y" original="Salary Category / Employee">Categoría Salarial</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">Añade o edita las categorías de salario de los trabajadores que tomaron parte en la orden de fabricación.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add or edit salary category workers that took part in a work requirement.">Añade o edita las categorías de salario de los trabajadores que tomaron parte en la orden de fabricación.</value>
+  </row>
+  <row id="924F9DD3EA1C4D2496C422F7269841F8" trl="N">
+    <value column="Name" isTrl="Y" original="Operation">Secuencia</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add processes to be performed for a specified process plan.">Añade los procesos que deben ejecutarse en un plan de procesos específico.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add processes to be performed for a specified process plan.">Añade los procesos que deben ejecutarse en un plan de procesos específico.</value>
+  </row>
+  <row id="94E2BEC40E42446F919F1F1E1944C0D9" trl="N">
+    <value column="Name" isTrl="Y" original="Toolset">Utillajes</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add or edit toolsets used to complete a specified part of a work requirement.">Añade o edita el utillaje utilizado para completar una parte específica de la orden de fabricación.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add or edit toolsets used to complete a specified part of a work requirement.">Añade o edita el utillaje utilizado para completar una parte específica de la orden de fabricación.</value>
+  </row>
+  <row id="95B74C0CD2074A51B9591C7D903AF664" trl="N">
+    <value column="Name" isTrl="Y" original="Periodicity">Periodicidad</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add interval timings to schedule and complete a specified maintenance.">Añade los intervalos de tiempo necesarios para programar y completar un mantenimiento específico.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add interval timings to schedule and complete a specified maintenance.">Añade los intervalos de tiempo necesarios para programar y completar un mantenimiento específico.</value>
+  </row>
+  <row id="965B2EE3597041BF9E815EA4E0683B6B" trl="N">
+    <value column="Name" isTrl="Y" original="Order">Parte</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add previously scheduled maintenances for a specific date and report observations.">Añade los mantenimientos previamente programados para una fecha específica y las observaciones del informe.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add previously scheduled maintenances for a specific date and report observations.">Añade los mantenimientos previamente programados para una fecha específica y las observaciones del informe.</value>
+  </row>
+  <row id="97AC0ED4DD34412E85DF3849695066C8" trl="N">
+    <value column="Name" isTrl="Y" original="Indirect Cost">Costo indirecto</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Define indirect costs related to a specified process.">Define los costos indirectos relacionados con un proceso específico.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Define indirect costs related to a specified process.">Define los costos indirectos relacionados con un proceso específico.</value>
+  </row>
+  <row id="9BB9D6D39A8C4CEC9B2755983F8F9501" trl="N">
+    <value column="Name" isTrl="Y" original="Machine Category">Tipo de Máquina</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">Define los tipos de máquinas para agrupar máquinas de características similares.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original="">Define los tipos de máquinas para agrupar máquinas de características similares.</value>
+  </row>
+  <row id="A1DABC81E3F1445794EDEEF8D6E44487" trl="N">
+    <value column="Name" isTrl="Y" original="Header">Cabecera</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create products which are to be used inside the organization, and not sold to customers.">Crea productos para uso exclusivo de la organización, que no estén a la venta para los clientes.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Create products which are to be used inside the organization, and not sold to customers.">Crea productos para uso exclusivo de la organización, que no estén a la venta para los clientes.</value>
+  </row>
+  <row id="A62702434B764F84B33E49415DC007C6" trl="N">
+    <value column="Name" isTrl="Y" original="Test">Control Periódico</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create checkpoints to be used for quality control of produced products.">Crea los checkpoints para el control de calidad de los productos elaborados.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Create checkpoints to be used for quality control of produced products.">Crea los checkpoints para el control de calidad de los productos elaborados.</value>
+  </row>
+  <row id="A79C6ED22BCD4CAFA9CDBEAC39C7FFB7" trl="N">
+    <value column="Name" isTrl="Y" original="Time">Hora</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create and edit times for related check points.">Crea y edita los horarios de los checkpoints relacionados.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Create and edit times for related check points.">Crea y edita los horarios de los checkpoints relacionados.</value>
+  </row>
+  <row id="A81C62555D6841AC9080FA04EB367574" trl="N">
+    <value column="Name" isTrl="Y" original="Machine">Máquina</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add machines to be used in production processes.">Añade las máquinas que se utilizan en los procesos de producción.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add machines to be used in production processes.">Añade las máquinas que se utilizan en los procesos de producción.</value>
+  </row>
+  <row id="A8C05D00857A474A925853489138299B" trl="N">
+    <value column="Name" isTrl="Y" original="Cost">Costo</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Set the full cost of a related machine.">Establezca el costo total de la máquina relacionada.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Set the full cost of a related machine.">Establezca el costo total de la máquina relacionada.</value>
+  </row>
+  <row id="A8C08B6F9136483897636087302715C8" trl="N">
+    <value column="Name" isTrl="Y" original="Work Center">Puesto Trabajo</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create work centers.">Crea los puestos de trabajo.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Create work centers.">Crea los puestos de trabajo.</value>
+  </row>
+  <row id="AACC5B3EF36E41C1976C3DEE0DA1F869" trl="N">
+    <value column="Name" isTrl="Y" original="Employee">Operarios</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add employees to a specific cost center version.">Añade empleados a una versión específica de los centros de costos.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add employees to a specific cost center version.">Añade empleados a una versión específica de los centros de costos.</value>
+  </row>
+  <row id="B9ECB8E09A544A3AA253004F7C5D3AD4" trl="N">
+    <value column="Name" isTrl="Y" original="Process Plan">Plan de Producción</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create production process models.">Crea modelos de procesos de producción.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Create production process models.">Crea modelos de procesos de producción.</value>
+  </row>
+  <row id="BD82CF81E81045459A4C362CD0D00F2F" trl="N">
+    <value column="Name" isTrl="Y" original="Periodicity">Periodicidad</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add timing intervals to schedule and complete a specified maintenance.">Añade los intervalos de tiempo necesarios para programar y completar un mantenimiento específico.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add timing intervals to schedule and complete a specified maintenance.">Añade los intervalos de tiempo necesarios para programar y completar un mantenimiento específico.</value>
+  </row>
+  <row id="C191CB59135145CF875EB85FD0C27059" trl="N">
+    <value column="Name" isTrl="Y" original="Toolset">Utillaje</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add or edit toolsets used to complete a specified part of a work requirement.">Añade o edita el utillaje utilizado para completar una parte específica de la orden de fabricación.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add or edit toolsets used to complete a specified part of a work requirement.">Añade o edita el utillaje utilizado para completar una parte específica de la orden de fabricación.</value>
+  </row>
+  <row id="C1BB1B45CA3742CB86B3B3609343FDB3" trl="N">
+    <value column="Name" isTrl="Y" original="Products View for Attributes">Reporte Productos por Atributos</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="C29047EF245B46BA84FF7C5FD2881AE4" trl="N">
+    <value column="Name" isTrl="Y" original="Outsourced">Subcontratado</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add invoices corresponding to the outsourced part of a completed work requirement.">Añade las facturas correpondientes a la parte tercerizada de la orden de fabricación terminada.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add invoices corresponding to the outsourced part of a completed work requirement.">Añade las facturas correpondientes a la parte tercerizada de la orden de fabricación terminada.</value>
+  </row>
+  <row id="C56562C42CB7472E977C781DD969FFD9" trl="N">
+    <value column="Name" isTrl="Y" original="Product">Producto</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add and edit I/O products related to a completed part of a work requirement.">Añade y edita los productos I/O relacionados con la parte completada de la orden de fabricación.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add and edit I/O products related to a completed part of a work requirement.">Añade y edita los productos I/O relacionados con la parte completada de la orden de fabricación.</value>
+  </row>
+  <row id="C5F379938010486A9B7A0D448781E02B" trl="N">
+    <value column="Name" isTrl="Y" original="Copy From Attribute">Copiar de atributo</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Define the relation between attributes to be copied.">Define la relación entre los atributos que van a ser copiados.</value>
+  </row>
+  <row id="C62A54D8F0B6460096B2A71297BADC9B" trl="N">
+    <value column="Name" isTrl="Y" original="Task">Mantenimiento</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Edit maintenance tasks of a specified order.">Edita las tareas de mantenimiento de un pedido específico.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Edit maintenance tasks of a specified order.">Edita las tareas de mantenimiento de un pedido específico.</value>
+  </row>
+  <row id="C7EC328DD5A74FD4943471398D85C7CD" trl="N">
+    <value column="Name" isTrl="Y" original="Employee">Operario</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add employees that took part in the completion of a related work requirement.">Añade los empleados que intervinieron para completar la orden de fabricación relacionada.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add employees that took part in the completion of a related work requirement.">Añade los empleados que intervinieron para completar la orden de fabricación relacionada.</value>
+  </row>
+  <row id="C84F7C83632A49799668484C51228E2B" trl="N">
+    <value column="Name" isTrl="Y" original="Operation">Fase de Orden de Fabricación</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add or edit operations and activities to be performed for the related work requirement.">Añade o edita las operaciones y actividades que requiera la orden de fabricación relacionada.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add or edit operations and activities to be performed for the related work requirement.">Añade o edita las operaciones y actividades que requiera la orden de fabricación relacionada.</value>
+  </row>
+  <row id="C989717928DF441185FF439DE29943C0" trl="N">
+    <value column="Name" isTrl="Y" original="Version">Versión</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create process plans valid for a specified time period.">Crea los planes de los procesos que tengan validez en un período específico de tiempo.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Create process plans valid for a specified time period.">Crea los planes de los procesos que tengan validez en un período específico de tiempo.</value>
+  </row>
+  <row id="CA0E0DE8418A4B07BD808C3146615994" trl="N">
+    <value column="Name" isTrl="Y" original="Product">Producto</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add or edit I/O products to be used for the selected operation of the work requirement.">Añade o edita los productos I/O que van a utilizarse en la operación seleccionada de la orden de fabricación.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add or edit I/O products to be used for the selected operation of the work requirement.">Añade o edita los productos I/O que van a utilizarse en la operación seleccionada de la orden de fabricación.</value>
+  </row>
+  <row id="CF1684EACFC54AAEAD7148AE37BE0C03" trl="N">
+    <value column="Name" isTrl="Y" original="Toolset">Utillajes</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add toolsets to be used for completion of a specified process.">Añade el utillaje necesario para completar un proceso específico.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add toolsets to be used for completion of a specified process.">Añade el utillaje necesario para completar un proceso específico.</value>
+  </row>
+  <row id="D14470452197445CBE1814BBFCEFDBE1" trl="N">
+    <value column="Name" isTrl="Y" original="Indirect Cost">Costo indirecto</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add and edit indirect costs related to a specified completed part of a work requirement.">Añade y edita los costos indirectos generados para completar una parte específica de la orden de fabricación.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add and edit indirect costs related to a specified completed part of a work requirement.">Añade y edita los costos indirectos generados para completar una parte específica de la orden de fabricación.</value>
+  </row>
+  <row id="D42BBA2900934213BEC95404F22DECBE" trl="N">
+    <value column="Name" isTrl="Y" original="Production Run">Parte de fabricación</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add progress details of the specified work requirements.">Añade los detalles de la evolución de las órdenes de fabricación específicas.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add progress details of the specified work requirements.">Añade los detalles de la evolución de las órdenes de fabricación específicas.</value>
+  </row>
+  <row id="D5D875E7939E43E3B35D01D667ED15BE" trl="N">
+    <value column="Name" isTrl="Y" original="Toolset Type">Tipo Utillaje</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create toolset types to group toolsets with similar characteristics.">Crea los tipos de utillaje necesarios para agrupar utillajes de características similares.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Create toolset types to group toolsets with similar characteristics.">Crea los tipos de utillaje necesarios para agrupar utillajes de características similares.</value>
+  </row>
+  <row id="D6F2F26A63874330B68A99BBCE1DB354" trl="N">
+    <value column="Name" isTrl="Y" original="Work Effort">Parte Trabajo</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create a report for the completed work requirement for a desired date and time.">Crea un informe de la orden de fabricación terminada para una fecha y hora deseadas.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Create a report for the completed work requirement for a desired date and time.">Crea un informe de la orden de fabricación terminada para una fecha y hora deseadas.</value>
+  </row>
+  <row id="E3C6318C98664ABCBCAD6D1F2D1A87EA" trl="N">
+    <value column="Name" isTrl="Y" original="Worker">Responsable</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add or edit workers that took part in a specified maintenance part.">Añade o edita los trabajadores que realizaron un mantenimiento específico.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add or edit workers that took part in a specified maintenance part.">Añade o edita los trabajadores que realizaron un mantenimiento específico.</value>
+  </row>
+  <row id="EFF4376F137D43529ACF1037D21E1A1E" trl="N">
+    <value column="Name" isTrl="Y" original="Header">Orden de Fabricación</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create production orders by choosing dates and the previously defined work requirement model.">Crea las órdenes de producción eligiendo las fechas y el modelo de orden de fabricación definido con anterioridad.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Create production orders by choosing dates and the previously defined work requirement model.">Crea las órdenes de producción eligiendo las fechas y el modelo de orden de fabricación definido con anterioridad.</value>
+  </row>
+  <row id="F0757120D2A4498286DC69CA9C49D96A" trl="N">
+    <value column="Name" isTrl="Y" original="Check Point Set">Grupo</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create and edit checkpoints for the related measurement.">Crea y edita los checkpoints para las mediciones relacionadas.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Create and edit checkpoints for the related measurement.">Crea y edita los checkpoints para las mediciones relacionadas.</value>
+  </row>
+  <row id="F47FCF094A724D6FB54F8E467F9773E3" trl="N">
+    <value column="Name" isTrl="Y" original="Employee">Operarios</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Define the employees that can perform a specified process.">Define los empleados que pueden realizar un proceso específico.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Define the employees that can perform a specified process.">Define los empleados que pueden realizar un proceso específico.</value>
+  </row>
+  <row id="F6AB7E7E3C9D4D67A1D7E8B80016D5F1" trl="N">
+    <value column="Name" isTrl="Y" original="Activity">Proceso</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="View the activity related to a selected work center.">Muestra el proceso relacionado con el puesto de trabajo seleccionado.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="View the activity related to a selected work center.">Muestra el proceso relacionado con el puesto de trabajo seleccionado.</value>
+  </row>
+  <row id="F743015BFD184600B383B2B96EAD6BAD" trl="N">
+    <value column="Name" isTrl="Y" original="Indirect Cost">Costo indirecto</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add and edit indirect costs related to a specified completed part of a work requirement.">Añade y edita los costos indirectos generados para completar una parte específica de la orden de fabricación.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add and edit indirect costs related to a specified completed part of a work requirement.">Añade y edita los costos indirectos generados para completar una parte específica de la orden de fabricación.</value>
+  </row>
+  <row id="FBC629364F7A4FE2B123A05FACE30B55" trl="N">
+    <value column="Name" isTrl="Y" original="Machine Station">Máquina Puesto</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add machines to be used in a selected work center.">Añade las máquinas que van a utilizarse en el puesto de trabajo seleccionado.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add machines to be used in a selected work center.">Añade las máquinas que van a utilizarse en el puesto de trabajo seleccionado.</value>
+  </row>
+  <row id="FEA7747E3340465DADCB3B45318FE7EF" trl="N">
+    <value column="Name" isTrl="Y" original="Check Point">Prueba</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add quality tests to be taken for a specified checkpoint.">Añade los tests de calidad que deben realizarse en un checkpoint específico.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add quality tests to be taken for a specified checkpoint.">Añade los tests de calidad que deben realizarse en un checkpoint específico.</value>
+  </row>
+  <row id="FEC46FBACF584458940F21AC2C661CAA" trl="N">
+    <value column="Name" isTrl="Y" original="I/O Products">Productos</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Define input and output products taking part in a specified process.">Define los productos de input y output involucrados en un proceso específico.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Define input and output products taking part in a specified process.">Define los productos de input y output involucrados en un proceso específico.</value>
+  </row>
+</compiereTrl>

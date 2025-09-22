@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
+  <row id="28E3EEDE3344451EB3393505B57ACCDB" trl="Y">
+    <value column="Name" isTrl="Y" original="Survey type list">Lista tipo de encuesta</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="87E3FCD68C8E46539CA946A6D5FF45F3" trl="Y">
+    <value column="Name" isTrl="Y" original="Status list">Lista de estados</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="AD1DCAD3B06D493EB5756B6E4DE45D00" trl="Y">
+    <value column="Name" isTrl="Y" original="Brand list">Lista de marcas</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

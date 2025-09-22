@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_ELEMENT" version="">
+  <row id="02CD79C40DCB4AEDB6D228E47F0927A5" trl="N">
+    <value column="Name" isTrl="Y" original="Level">Nivel</value>
+    <value column="PrintName" isTrl="Y" original="Level">Nivel</value>
+    <value column="Description" isTrl="Y" original="Level">Nivel</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="0E1800E869BD4E4BB727BB63B5DDFF72" trl="N">
+    <value column="Name" isTrl="Y" original="Responsible Signature Balance 2">Responsable Firma Balance 2</value>
+    <value column="PrintName" isTrl="Y" original="Responsible Signature Balance 2">Responsable Firma Balance 2</value>
+    <value column="Description" isTrl="N" original="">Responsable Firma Balance 2</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="2E6AFB1417AF4BEE94919BD88C12B3F5" trl="N">
+    <value column="Name" isTrl="Y" original="SFCBR_DateFrom">Fecha Desde</value>
+    <value column="PrintName" isTrl="Y" original="SFCBR_DateFrom">Fecha Desde</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="4454E116E0944DF5A887EFA38DE3A5A3" trl="N">
+    <value column="Name" isTrl="Y" original="SFCBR_CostCenter">Centro de Costo</value>
+    <value column="PrintName" isTrl="Y" original="SFCBR_CostCenter">Centro de Costo</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="843B0215EF7E432B93918133AEC1287D" trl="N">
+    <value column="Name" isTrl="Y" original="SFCBR_User">Usuario</value>
+    <value column="PrintName" isTrl="Y" original="SFCBR_User">Usuario</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="9FF4D9CBE063437798A2C5B354193654" trl="N">
+    <value column="Name" isTrl="Y" original="SFCBR_AccountLevel">Nivel de Cuenta</value>
+    <value column="PrintName" isTrl="Y" original="SFCBR_AccountLevel">Nivel de Cuenta</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="A74D616847E44F068A1B57F779864E64" trl="N">
+    <value column="Name" isTrl="Y" original="Responsible Signature Balance 1">Responsable Firma Balance 1</value>
+    <value column="PrintName" isTrl="Y" original="Responsible Signature Balance 1">Responsable Firma Balance 1</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="AD0167B6FADB4E4EA81447D68A5D66F2" trl="N">
+    <value column="Name" isTrl="Y" original="Date From">Fecha Desde</value>
+    <value column="PrintName" isTrl="Y" original="Date From">Fecha Desde</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="E0BDC8895A8748ECB145910D3EA30311" trl="N">
+    <value column="Name" isTrl="Y" original="Date To">Fecha Hasta</value>
+    <value column="PrintName" isTrl="Y" original="Date To">Fecha Hasta</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="EF4CF5CC98F04FF5B812C94163616C9A" trl="N">
+    <value column="Name" isTrl="Y" original="SFCBR_DateTo">Fecha Hasta</value>
+    <value column="PrintName" isTrl="Y" original="SFCBR_DateTo">Fecha Hasta</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

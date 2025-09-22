@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="0C89933A2B184C10AE5A64831DE9C80F" trl="Y">
+    <value column="Name" isTrl="Y" original="Detail Generated Overtime">Detalle de Horas Extras Generadas</value>
+    <value column="Description" isTrl="Y" original="Detail Generated Overtime">Detalle de Horas Extras Generadas</value>
+  </row>
+  <row id="2A48535C153447B2A573424142283FEB" trl="N">
+    <value column="Name" isTrl="Y" original="Extra Reason Maintenance">Mantenimiento Motivos Extras</value>
+    <value column="Description" isTrl="Y" original="Extra Reason Maintenance">Mantenimiento Motivos Extras</value>
+  </row>
+  <row id="3094B8851FDC43D584DF6E28FEF3F7D4" trl="Y">
+    <value column="Name" isTrl="Y" original="Analysis Tools">Herramientas de análisis</value>
+    <value column="Description" isTrl="Y" original="Analysis Tools">Herramientas de análisis</value>
+  </row>
+  <row id="3C3306BB371444E081DCB3354F5F8FC9" trl="Y">
+    <value column="Name" isTrl="Y" original="Overtime Detail Employee">Detalle de Horas Extras Empleado</value>
+    <value column="Description" isTrl="Y" original="Overtime Detail Employee">Detalle de Horas Extras Empleado</value>
+  </row>
+  <row id="73FB4C96EC544869B7869D25B3ECBFF8" trl="Y">
+    <value column="Name" isTrl="Y" original="Authorization Overtime">Autorización Horas Extras</value>
+    <value column="Description" isTrl="Y" original="Authorization Overtime">Autorización Horas Extras</value>
+  </row>
+  <row id="90BFD74741534ACDADE58B06F47D989D" trl="N">
+    <value column="Name" isTrl="N" original="Integración Biométrico">Integración Biométrico</value>
+    <value column="Description" isTrl="N" original="Integración Biométrico">Integración Biométrico</value>
+  </row>
+  <row id="9AB5F38740464C51A7C9DE49359CC61D" trl="N">
+    <value column="Name" isTrl="Y" original="Setup">Configuración</value>
+    <value column="Description" isTrl="Y" original="Setup">Configuración</value>
+  </row>
+  <row id="B37C600CCC4D491FBFFE3FB962933C0B" trl="Y">
+    <value column="Name" isTrl="Y" original="Process Biometric  News">Procesar Novedades Biometrico</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="B5FA2398B0D449F29F05D140232C31E8" trl="N">
+    <value column="Name" isTrl="Y" original="Biometric Integration">Integración Biométrico</value>
+    <value column="Description" isTrl="Y" original="Biometric Integration">Integración Biométrico</value>
+  </row>
+  <row id="BD1BEE891E5C4522BEF85686EFC6EABF" trl="Y">
+    <value column="Name" isTrl="Y" original="Type of Overtime">Tipo de Horas Extras</value>
+    <value column="Description" isTrl="Y" original="Type of Overtime">Tipo de Horas Extras</value>
+  </row>
+  <row id="DBBCAC3E82AA49BC8DDAC7F7F78CF2C0" trl="N">
+    <value column="Name" isTrl="N" original="Configuración">Configuración</value>
+    <value column="Description" isTrl="N" original="Configuración">Configuración</value>
+  </row>
+</compiereTrl>

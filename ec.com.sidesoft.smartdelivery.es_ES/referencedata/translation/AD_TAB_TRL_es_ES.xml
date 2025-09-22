@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TAB" version="">
+  <row id="158B735E326A486A93069AF3779E76BD" trl="Y">
+    <value column="Name" isTrl="Y" original="SmartDelivery Configuration">Configuración Urbano</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="1DA0817624AC4AC4AEB9C672159C83B8" trl="Y">
+    <value column="Name" isTrl="Y" original="SmartDelivery Configuration Log">Log Configuración Urbano</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="1F1E89B4BFC648BE923D94E40F4C111F" trl="Y">
+    <value column="Name" isTrl="Y" original="Payment methods not allowed Smartdelivery">Metodos de pago no permitidos Urbano</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="3C0B9D6241EA45178B0E3711D571D78D" trl="N">
+    <value column="Name" isTrl="Y" original="Header">Cabecera</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create a sales order and process it when ready.">Crea un pedido de venta y procéselo cuando esté listo.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="The sales order header allows to create a sales order and process it when ready.">Crea un pedido de venta y procéselo cuando esté listo.</value>
+  </row>
+  <row id="87CB125CE5A44AC18AF29533C92F5584" trl="N">
+    <value column="Name" isTrl="Y" original="Lines">Líneas</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add products to be included in your sales order.  Each product is added by creating a line.">Añade los productos que van a incluirse en su pedido de ventas. Cada producto se añade creando una línea.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Lines tab allows to add the products to be included in your sales order.  Each product is added by creating a line.">Añade los productos que van a incluirse en su pedido de ventas. Cada producto se añade creando una línea.</value>
+  </row>
+  <row id="A025B9C52D0F4FF5AE73F41CA5F20326" trl="Y">
+    <value column="Name" isTrl="Y" original="Logs Reception Smartdelivery">Log Recepción Urbano</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

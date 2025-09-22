@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SSRS_RESUPPLYLINEPOST_TRG">
+    <trigger name="SSRS_RESUPPLYLINEPOST_TRG" table="SSRS_RESUPPLYPOSLINE" fires="before" insert="true" update="true" delete="true" foreach="row">
+      <body><![CDATA[/*
+ * Copyright (C) 2008-2013 Openia S.r.l.
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. 
+ */
+v_status VARCHAR2(60);           
+BEGIN
+ 
+  IF AD_isTriggerEnabled()='N' THEN RETURN;
+  END IF;
+ 
+  IF INSERTING THEN
+  --select * from ssrs_resupplyposline  where ssrs_resupply_pos_id  
+     IF(:NEW.quantityorder=0)THEN
+     	--RAISE_APPLICATION_ERROR(-20000, 'La cantidad de pedido no puede guardarse con el valor de cero.');
+     END IF;
+           
+  ELSIF UPDATING THEN
+  ELSIF DELETING THEN
+  
+	SELECT docstatus 
+		INTO v_status
+	FROM  ssrs_resupply_pos  where ssrs_resupply_pos_id = :OLD.ssrs_resupply_pos_id;
+	
+	IF(v_status<>'DR')THEN
+	     	RAISE_APPLICATION_ERROR(-20000, 'No se puede eliminar esta transaccion porque ya está procesada.');
+	END IF;
+  END IF;
+ 
+ 
+  END SSRS_RESUPPLYLINEPOST_TRG
+]]></body>
+    </trigger>
+  </database>

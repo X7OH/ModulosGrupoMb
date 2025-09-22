@@ -1,0 +1,927 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SSDAH_UPDATE_MOFFER">
+    <function name="SSDAH_UPDATE_MOFFER" type="NULL">
+      <parameter name="p_instance_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[-- Logistice
+    v_ResultStr VARCHAR2(2000):='';
+    v_Message VARCHAR2(2000):='';
+    v_Result NUMBER:=1; -- 0=failure
+    v_Record_ID VARCHAR2(32);
+    v_User_ID VARCHAR2(32):='0';
+	lvl0		VARCHAR(32);
+	lvl1		VARCHAR(32);
+	v_reg NUMBER:=0;
+	v_familytrl NUMBER:=0;
+	v_familyproduct NUMBER:=0;
+	texto		TEXT;
+	Error_prom	TEXT;
+	errorm		TEXT;
+    
+    TYPE RECORD IS REF CURSOR;
+    Cur_Parameter RECORD;
+	Cur_MirrorOffer		RECORD;
+	Cur_Lines		RECORD;
+	Cur_Family		RECORD;
+	
+
+BEGIN
+
+    DBMS_OUTPUT.PUT_LINE('Updating PInstance - Processing ' || P_Instance_ID);
+    v_ResultStr:='PInstanceNotFound';
+    AD_UPDATE_PINSTANCE(P_Instance_ID, NULL, 'Y', NULL, NULL);
+    
+    BEGIN --BODY
+        -- Get Parameters
+        v_ResultStr:='ReadingParameters';
+        FOR Cur_Parameter IN (
+            SELECT i.Record_ID, i.AD_User_ID, p.ParameterName, p.P_String, p.P_Number, p.P_Date
+            FROM AD_PInstance i
+                LEFT JOIN AD_PInstance_Para p ON i.AD_PInstance_ID = p.AD_PInstance_ID
+            WHERE i.AD_PInstance_ID = P_Instance_ID
+            ORDER BY p.SeqNo
+        ) LOOP
+            v_Record_ID := Cur_Parameter.Record_ID;
+            v_User_ID := Cur_Parameter.AD_User_ID;
+        END LOOP; -- Get Parameter
+        	
+			
+			--Actualizamos la Cabecera
+			FOR Cur_MirrorOffer IN(
+				SELECT 
+					ssdah_mirrormo_id, ad_client_id, ad_org_id, isactive, 
+					created, createdby, updated, updatedby, 
+					name, priority, addamt, discount, 
+					fixed, datefrom, dateto, bpartner_selection, 
+					bp_group_selection, product_selection, prod_cat_selection, description, 
+					pricelist_selection, qty_from, qty_to, m_offer_type_id, 
+					apply_next, print_name, org_selection, ismultiple, 
+					multiple, characteristics_selection, ssdah_oc_combofixprice, ssdah_oc_allowinclineprice, 
+					ssdah_od_x, ssdah_od_y, ssdah_od_subtype, ssdah_od_distribute, 
+					ssdah_od_price, ssdah_od_c_currency_id, ssdah_od_upc, ssdah_od_image, 
+					ssdah_od_amt, ssdah_od_percentage, ssdah_od_role_selection, ssdah_od_approval_required, 
+					ssdah_sr_pro_category_id, ssdah_ss_value, ssdah_ds_totalreceipt, ssdah_ds_totalamountdisc, 
+					ssdah_ds_totalpercdisc, ssdah_se_value, ssdah_reforiginalid
+				FROM public.ssdah_mirrormo
+			)LOOP
+			
+			Error_prom:=Cur_MirrorOffer.name;
+				--SI LA CABECERA EXISTIA
+				IF Cur_MirrorOffer.ssdah_reforiginalid IS NOT NULL THEN
+
+					UPDATE public.m_offer
+					SET 
+						ad_client_id=Cur_MirrorOffer.ad_client_id, ad_org_id=Cur_MirrorOffer.ad_org_id, isactive=Cur_MirrorOffer.isactive, 
+						created=Cur_MirrorOffer.created, createdby=Cur_MirrorOffer.createdby, updated=Cur_MirrorOffer.updated, updatedby=Cur_MirrorOffer.updatedby,
+						name=Cur_MirrorOffer.name, priority=Cur_MirrorOffer.priority, addamt=Cur_MirrorOffer.addamt, discount=Cur_MirrorOffer.discount, 
+						fixed=Cur_MirrorOffer.fixed, datefrom=Cur_MirrorOffer.datefrom, dateto=Cur_MirrorOffer.dateto, bpartner_selection=Cur_MirrorOffer.bpartner_selection, 
+						bp_group_selection=Cur_MirrorOffer.bp_group_selection, product_selection=Cur_MirrorOffer.product_selection, prod_cat_selection=Cur_MirrorOffer.prod_cat_selection, description=Cur_MirrorOffer.description, 
+						pricelist_selection=Cur_MirrorOffer.pricelist_selection, qty_from=Cur_MirrorOffer.qty_from, qty_to=Cur_MirrorOffer.qty_to, m_offer_type_id=Cur_MirrorOffer.m_offer_type_id, 
+						apply_next=Cur_MirrorOffer.apply_next, print_name=Cur_MirrorOffer.print_name, org_selection=Cur_MirrorOffer.org_selection, ismultiple=Cur_MirrorOffer.ismultiple, 
+						multiple=Cur_MirrorOffer.multiple, characteristics_selection=Cur_MirrorOffer.characteristics_selection, em_obcombo_combofixprice=Cur_MirrorOffer.ssdah_oc_combofixprice, em_obcombo_allowinclineprice=Cur_MirrorOffer.ssdah_oc_allowinclineprice,
+						em_obdisc_x=Cur_MirrorOffer.ssdah_od_x, em_obdisc_y=Cur_MirrorOffer.ssdah_od_y, em_obdisc_subtype=Cur_MirrorOffer.ssdah_od_subtype, em_obdisc_distribute=Cur_MirrorOffer.ssdah_od_distribute, 
+						em_obdisc_price=Cur_MirrorOffer.ssdah_od_price, em_obdisc_c_currency_id=Cur_MirrorOffer.ssdah_od_c_currency_id, em_obdisc_upc=Cur_MirrorOffer.ssdah_od_upc, em_obdisc_image=Cur_MirrorOffer.ssdah_od_image, 
+						em_obdisc_amt=Cur_MirrorOffer.ssdah_od_amt, em_obdisc_percentage=Cur_MirrorOffer.ssdah_od_percentage, em_obdisc_role_selection=Cur_MirrorOffer.ssdah_od_role_selection, em_obdisc_approval_required=Cur_MirrorOffer.ssdah_od_approval_required, 
+						em_ssrcm_pro_category_id=Cur_MirrorOffer.ssdah_sr_pro_category_id, em_swsoc_value=Cur_MirrorOffer.ssdah_ss_value, em_disct_totalreceipt=Cur_MirrorOffer.ssdah_ds_totalreceipt, em_disct_totalamountdisc=Cur_MirrorOffer.ssdah_ds_totalamountdisc, 
+						em_disct_totalpercdisc=Cur_MirrorOffer.ssdah_ds_totalpercdisc, em_sdelvr_value=Cur_MirrorOffer.ssdah_se_value
+					WHERE m_offer_id = Cur_MirrorOffer.ssdah_reforiginalid;
+
+					delete from m_offer_trl
+					where m_offer_id = Cur_MirrorOffer.ssdah_reforiginalid;
+
+					--Actualizamos Solapa Traduccion
+					FOR Cur_Lines IN(
+						SELECT 
+							ssdah_mirrormo_trl_id, ssdah_mirrormo_id, ad_language, ad_client_id, 
+							ad_org_id, isactive, created, createdby, 
+							updated, updatedby, name, print_name, 
+							istranslated, ssdah_reforiginalid
+						FROM public.ssdah_mirrormo_trl
+						where ssdah_mirrormo_id = Cur_MirrorOffer.ssdah_mirrormo_id
+					)LOOP
+
+						INSERT INTO public.m_offer_trl(
+							m_offer_trl_id, m_offer_id, ad_language, ad_client_id, 
+							ad_org_id, isactive, created, createdby, 
+							updated, updatedby, name, print_name, 
+							istranslated)
+						VALUES (
+							get_uuid(), Cur_MirrorOffer.ssdah_reforiginalid, Cur_Lines.ad_language, Cur_Lines.ad_client_id, 
+							Cur_Lines.ad_org_id, Cur_Lines.isactive, Cur_Lines.created, Cur_Lines.createdby, 
+							Cur_Lines.updated, Cur_Lines.updatedby, Cur_Lines.name, Cur_Lines.print_name, 
+							Cur_Lines.istranslated);
+
+					END LOOP;
+
+					--Actualizamos Solapa Grupo de Terceros
+					delete from m_offer_bp_group
+					where m_offer_id = Cur_MirrorOffer.ssdah_reforiginalid;
+
+					FOR Cur_Lines IN(
+						SELECT 
+							ssdah_mirrormo_bp_group_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby, 
+							ssdah_mirrormo_id, c_bp_group_id, ssdah_reforiginalid
+						FROM public.ssdah_mirrormo_bp_group
+						where ssdah_mirrormo_id = Cur_MirrorOffer.ssdah_mirrormo_id
+					)LOOP
+
+						INSERT INTO public.m_offer_bp_group(
+							m_offer_bp_group_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby, 
+							m_offer_id, c_bp_group_id)
+						VALUES (
+							get_uuid(), Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive, 
+							Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby, 
+							Cur_MirrorOffer.ssdah_reforiginalid, Cur_Lines.c_bp_group_id);
+
+					END LOOP;
+
+					--Actualizamos Solapa Terceros
+					delete from m_offer_bpartner
+					where m_offer_id = Cur_MirrorOffer.ssdah_reforiginalid;
+
+					FOR Cur_Lines IN(
+						SELECT 
+							ssdah_mirrormo_bpartner_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby, 
+							ssdah_mirrormo_id, c_bpartner_id, ssdah_reforiginalid
+						FROM public.ssdah_mirrormo_bpartner
+						where ssdah_mirrormo_id = Cur_MirrorOffer.ssdah_mirrormo_id
+					)LOOP
+
+						INSERT INTO public.m_offer_bpartner(
+							m_offer_bpartner_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby,
+							m_offer_id, c_bpartner_id)
+						VALUES (
+							get_uuid(), Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive, 
+							Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby, 
+							Cur_MirrorOffer.ssdah_reforiginalid, Cur_Lines.c_bpartner_id);
+
+					END LOOP;
+
+					--Actualizamos Solapa Categoria de Producto
+					delete from m_offer_prod_cat
+					where m_offer_id = Cur_MirrorOffer.ssdah_reforiginalid;
+
+					FOR Cur_Lines IN(
+						SELECT 
+							ssdah_mirrormo_prod_cat_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby, 
+							ssdah_mirrormo_id, m_product_category_id, ssdah_reforiginalid
+						FROM public.ssdah_mirrormo_prod_cat
+						where ssdah_mirrormo_id = Cur_MirrorOffer.ssdah_mirrormo_id
+					)LOOP
+
+						INSERT INTO public.m_offer_prod_cat(
+							m_offer_prod_cat_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby, 
+							m_offer_id, m_product_category_id)
+						VALUES (
+							get_uuid(), Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive, 
+							Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby, 
+							Cur_MirrorOffer.ssdah_reforiginalid, Cur_Lines.m_product_category_id);
+
+					END LOOP;
+
+					--Actualizamos Solapa Productos
+					delete from m_offer_product
+					where m_offer_id = Cur_MirrorOffer.ssdah_reforiginalid;
+
+					FOR Cur_Lines IN(
+						SELECT 
+							ssdah_mirrormo_product_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby, 
+							ssdah_mirrormo_id, m_product_id, ssdah_od_is_gift, ssdah_od_qty, 
+							ssdah_od_gifqty, ssdah_reforiginalid
+						FROM public.ssdah_mirrormo_product
+						where ssdah_mirrormo_id = Cur_MirrorOffer.ssdah_mirrormo_id
+					)LOOP
+
+						INSERT INTO public.m_offer_product(
+							m_offer_product_id, ad_client_id, ad_org_id, isactive,
+							created, createdby, updated, updatedby,
+							m_offer_id, m_product_id, em_obdisc_is_gift, em_obdisc_qty,
+							em_obdisc_gifqty)
+						VALUES (
+							get_uuid(), Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive, 
+							Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby, 
+							Cur_MirrorOffer.ssdah_reforiginalid, Cur_Lines.m_product_id, Cur_Lines.ssdah_od_is_gift, Cur_Lines.ssdah_od_qty, 
+							Cur_Lines.ssdah_od_gifqty);
+
+					END LOOP;
+
+					--Actualizamos Solapa Tarifa
+					delete from m_offer_pricelist
+					where m_offer_id = Cur_MirrorOffer.ssdah_reforiginalid;
+
+					FOR Cur_Lines IN(
+						SELECT 
+							ssdah_mirrormo_pricelist_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby, 
+							ssdah_mirrormo_id, m_pricelist_id, ssdah_reforiginalid
+						FROM public.ssdah_mirrormo_pricelist
+						where ssdah_mirrormo_id = Cur_MirrorOffer.ssdah_mirrormo_id
+					)LOOP
+
+						INSERT INTO public.m_offer_pricelist(
+							m_offer_pricelist_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby,
+							m_offer_id, m_pricelist_id)
+						VALUES (
+							get_uuid(), Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive, 
+							Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby, 
+							Cur_MirrorOffer.ssdah_reforiginalid, Cur_Lines.m_pricelist_id);
+
+					END LOOP;
+
+					--Actualizamos Solapa Organizacion
+					delete from m_offer_organization
+					where m_offer_id = Cur_MirrorOffer.ssdah_reforiginalid;
+
+					FOR Cur_Lines IN(
+						SELECT 
+							ssdah_mirrormo_organization_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby, 
+							ssdah_mirrormo_id, ssdah_reforiginalid
+						FROM public.ssdah_mirrormo_organization
+						where ssdah_mirrormo_id = Cur_MirrorOffer.ssdah_mirrormo_id
+					)LOOP
+
+						INSERT INTO public.m_offer_organization(
+							m_offer_organization_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby, 
+							m_offer_id)
+						VALUES (
+							get_uuid(), Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive, 
+							Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby, 
+							Cur_MirrorOffer.ssdah_reforiginalid);
+
+					END LOOP;
+					
+					--Actualizamos Solapa Rol
+					delete from OBDISC_Offer_Role
+					where m_offer_id = Cur_MirrorOffer.ssdah_reforiginalid;
+
+					FOR Cur_Lines IN(
+						SELECT 
+							ssdah_mirror_odo_role_id, ad_client_id, ad_org_id, isactive,
+							created, createdby, updated, updatedby,
+							ssdah_mirrormo_id, ad_role_id, ssdah_reforiginalid
+						FROM public.ssdah_mirror_odo_role
+						where ssdah_mirrormo_id = Cur_MirrorOffer.ssdah_mirrormo_id
+					)LOOP
+
+						INSERT INTO public.obdisc_offer_role(
+							obdisc_offer_role_id, ad_client_id, ad_org_id, isactive,
+							created, createdby, updated, updatedby,
+							m_offer_id, ad_role_id)
+						VALUES (
+							get_uuid(), Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive,
+							Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby,
+							Cur_MirrorOffer.ssdah_reforiginalid, Cur_Lines.ad_role_id);
+
+					END LOOP;
+
+					--Actualizamos Solapa Caracteristicas
+					delete from m_offer_characteristic
+					where m_offer_id = Cur_MirrorOffer.ssdah_reforiginalid;
+
+					FOR Cur_Lines IN(
+						SELECT 
+							ssdah_mirrormo_charac_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby, 
+							ssdah_mirrormo_id, m_characteristic_id, m_ch_value_id, ssdah_reforiginalid
+						FROM public.ssdah_mirrormo_charac
+						where ssdah_mirrormo_id = Cur_MirrorOffer.ssdah_mirrormo_id
+					)LOOP
+
+						INSERT INTO public.m_offer_characteristic(
+							m_offer_characteristic_id, ad_client_id, ad_org_id, isactive,
+							created, createdby, updated, updatedby, 
+							m_offer_id, m_characteristic_id, m_ch_value_id)
+						VALUES (
+							get_uuid(), Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive, 
+							Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby, 
+							Cur_MirrorOffer.ssdah_reforiginalid, Cur_Lines.m_characteristic_id, Cur_Lines.m_ch_value_id);
+
+					END LOOP;
+
+					--Elimianndo Datos Solapa Original Familia
+					--v_reg:=0;
+
+					SELECT 
+						COALESCE(count(OBCOMBO_Family_id),0)
+					into v_reg
+					FROM public.OBCOMBO_Family
+					where m_offer_id = Cur_MirrorOffer.ssdah_reforiginalid;
+
+					if v_reg > 0 then
+
+						FOR Cur_Lines IN(
+							SELECT 
+								obcombo_family_id, ad_client_id, ad_org_id, isactive, 
+								created, createdby, updated, updatedby,
+								m_offer_id, name, discount_type, fixed_price,
+								percentage, quantity, fixed_discount, em_swsoc_main, 
+								em_sdelvr_deliprice
+							FROM public.obcombo_family
+							where m_offer_id = Cur_MirrorOffer.ssdah_reforiginalid
+						)LOOP
+
+							v_familytrl:=0;
+
+							SELECT 
+								COALESCE(count(OBCOMBO_Family_trl_id),0)
+							INTO v_familytrl
+							FROM public.OBCOMBO_Family_trl
+							where OBCOMBO_Family_id = Cur_Lines.obcombo_family_id;
+
+							IF v_familytrl > 0 THEN
+								delete from OBCOMBO_Family_trl
+								where obcombo_family_id = Cur_Lines.obcombo_family_id;
+							END IF;
+
+							SELECT 
+							COALESCE(count(OBCOMBO_Product_id),0)
+							INTO v_familyproduct
+							FROM public.OBCOMBO_Product
+							where OBCOMBO_Family_id = Cur_Lines.obcombo_family_id;
+
+							IF v_familyproduct > 0 THEN
+								delete from OBCOMBO_Product
+								where obcombo_family_id = Cur_Lines.obcombo_family_id;
+							END IF;
+
+						END LOOP;
+
+						delete from obcombo_family
+						where m_offer_id = Cur_MirrorOffer.ssdah_reforiginalid;
+
+					else
+						delete from obcombo_family
+						where m_offer_id = Cur_MirrorOffer.ssdah_reforiginalid;
+					END IF;
+
+					--/*
+
+					--Actualizando Solapa Familia
+
+					FOR Cur_Lines IN(
+						SELECT 
+							ssdah_mmo_oc_family_id, ad_client_id, ad_org_id, isactive,
+							created, createdby, updated, updatedby,
+							ssdah_mirrormo_id, name, discount_type, fixed_price, 
+							percentage, quantity, fixed_discount, ssdah_ss_main, 
+							ssdah_se_deliprice, ssdah_reforiginalid
+						FROM public.ssdah_mmo_oc_family
+						where ssdah_mirrormo_id = Cur_MirrorOffer.ssdah_mirrormo_id
+					)LOOP
+
+						lvl1 = get_uuid();
+
+						INSERT INTO public.obcombo_family(
+							obcombo_family_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby, 
+							m_offer_id, name, discount_type, fixed_price, 
+							percentage, quantity, fixed_discount, em_swsoc_main, 
+							em_sdelvr_deliprice)
+						VALUES (
+							lvl1, Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive,
+							Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby,
+							Cur_MirrorOffer.ssdah_reforiginalid, Cur_Lines.name, Cur_Lines.discount_type, Cur_Lines.fixed_price, 
+							Cur_Lines.percentage, Cur_Lines.quantity, Cur_Lines.fixed_discount, Cur_Lines.ssdah_ss_main, 
+							Cur_Lines.ssdah_se_deliprice);
+
+						--Actualizamos Solapa Familia - Familia TRL
+						FOR Cur_Family in(
+							SELECT 
+								ssdah_moc_family_trl_id, ssdah_mmo_oc_family_id, ad_language, ad_client_id, 
+								ad_org_id, isactive, created, createdby, 
+								updated, updatedby, name, istranslated, 
+								ssdah_reforiginalid
+							FROM public.ssdah_moc_family_trl
+							where ssdah_mmo_oc_family_id = Cur_Lines.ssdah_mmo_oc_family_id
+						)LOOP
+
+							INSERT INTO public.obcombo_family_trl(
+								obcombo_family_trl_id, obcombo_family_id, ad_language, ad_client_id,
+								ad_org_id, isactive, created, createdby,
+								updated, updatedby, name, istranslated)
+							VALUES (
+								get_uuid(), lvl1, Cur_Family.ad_language, Cur_Family.ad_client_id, 
+								Cur_Family.ad_org_id, Cur_Family.isactive, Cur_Family.created, Cur_Family.createdby, 
+								Cur_Family.updated, Cur_Family.updatedby, Cur_Family.name, Cur_Family.istranslated);
+
+						END LOOP;
+
+						--/*
+
+						--Actualizamos Solapa Familia - Producto
+						FOR Cur_Family in(
+							SELECT 
+								ssdah_moc_product_id, ad_client_id, ad_org_id, isactive, 
+								created, createdby, updated, updatedby, 
+								ssdah_mmo_oc_family_id, m_product_id, ssdah_msrb_main, ssdah_msrm_extra_suplement, 
+								ssdah_mssc_domicile, ssdah_msrm_callcenter, ssdah_mslv_default, ssdah_msea_default, 
+								ssdah_reforiginalid
+							FROM public.ssdah_moc_product
+							where ssdah_mmo_oc_family_id = Cur_Lines.ssdah_mmo_oc_family_id
+						)LOOP
+
+							INSERT INTO public.obcombo_product(
+								obcombo_product_id, ad_client_id, ad_org_id, isactive, 
+								created, createdby, updated, updatedby, 
+								obcombo_family_id, m_product_id, em_ssrcb_main, em_ssrcm_extra_suplement, 
+								em_swsoc_domicile, em_ssrcm_callcenter, em_sglovo_default, em_speya_default)
+							VALUES (
+								Cur_Family.ssdah_reforiginalid, Cur_Family.ad_client_id, Cur_Family.ad_org_id, Cur_Family.isactive, 
+								Cur_Family.created, Cur_Family.createdby, Cur_Family.updated, Cur_Family.updatedby, 
+								lvl1, Cur_Family.m_product_id, Cur_Family.ssdah_msrb_main, Cur_Family.ssdah_msrm_extra_suplement, 
+								Cur_Family.ssdah_mssc_domicile, Cur_Family.ssdah_msrm_callcenter, Cur_Family.ssdah_mslv_default, Cur_Family.ssdah_msea_default);
+
+						END LOOP;
+						--*/
+
+					END LOOP;
+						--*/
+						
+					--Actualizamos Solapa Productos Gratis
+					delete from DISCT_FREEPRODUCT
+					where m_offer_id = Cur_MirrorOffer.ssdah_reforiginalid;
+
+					FOR Cur_Lines IN(
+						SELECT 
+							ssdah_mds_freeproduct_id, ad_client_id, ad_org_id, isactive,
+							created, createdby, updated, updatedby,
+							ssdah_mirrormo_id, m_product_id, quantity, ssdah_reforiginalid
+						FROM public.ssdah_mds_freeproduct
+						where ssdah_mirrormo_id = Cur_MirrorOffer.ssdah_mirrormo_id
+					)LOOP
+
+						INSERT INTO public.disct_freeproduct(
+							disct_freeproduct_id, ad_client_id, ad_org_id, isactive,
+							created, createdby, updated, updatedby,
+							m_offer_id, m_product_id, quantity)
+						VALUES (
+							get_uuid(), Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive,
+							Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby,
+							Cur_MirrorOffer.ssdah_reforiginalid, Cur_Lines.m_product_id, Cur_Lines.quantity);
+
+					END LOOP;
+						
+				--SI LA CABECERA ES NUEVA
+				ELSE
+					
+					INSERT INTO public.m_offer(
+						m_offer_id, ad_client_id, ad_org_id, isactive,
+						created, createdby, updated, updatedby,
+						name, priority, addamt, discount, 
+						fixed, datefrom, dateto, bpartner_selection,
+						bp_group_selection, product_selection, prod_cat_selection, description,
+						pricelist_selection, qty_from, qty_to, m_offer_type_id,
+						apply_next, print_name, org_selection, ismultiple,
+						multiple, characteristics_selection, em_obcombo_combofixprice, em_obcombo_allowinclineprice,
+						em_obdisc_x, em_obdisc_y, em_obdisc_subtype, em_obdisc_distribute,
+						em_obdisc_price, em_obdisc_c_currency_id, em_obdisc_upc, em_obdisc_image,
+						em_obdisc_amt, em_obdisc_percentage, em_obdisc_role_selection, em_obdisc_approval_required,
+						em_ssrcm_pro_category_id, em_swsoc_value, em_disct_totalreceipt, em_disct_totalamountdisc,
+						em_disct_totalpercdisc, em_sdelvr_value)
+					VALUES (
+						Cur_MirrorOffer.ssdah_mirrormo_id, Cur_MirrorOffer.ad_client_id, Cur_MirrorOffer.ad_org_id, Cur_MirrorOffer.isactive, 
+						Cur_MirrorOffer.created, Cur_MirrorOffer.createdby, Cur_MirrorOffer.updated, Cur_MirrorOffer.updatedby, 
+						Cur_MirrorOffer.name, Cur_MirrorOffer.priority, Cur_MirrorOffer.addamt, Cur_MirrorOffer.discount, 
+						Cur_MirrorOffer.fixed, Cur_MirrorOffer.datefrom, Cur_MirrorOffer.dateto, Cur_MirrorOffer.bpartner_selection, 
+						Cur_MirrorOffer.bp_group_selection, Cur_MirrorOffer.product_selection, Cur_MirrorOffer.prod_cat_selection, Cur_MirrorOffer.description, 
+						Cur_MirrorOffer.pricelist_selection, Cur_MirrorOffer.qty_from, Cur_MirrorOffer.qty_to, Cur_MirrorOffer.m_offer_type_id, 
+						Cur_MirrorOffer.apply_next, Cur_MirrorOffer.print_name, Cur_MirrorOffer.org_selection, Cur_MirrorOffer.ismultiple, 
+						Cur_MirrorOffer.multiple, Cur_MirrorOffer.characteristics_selection, Cur_MirrorOffer.ssdah_oc_combofixprice, Cur_MirrorOffer.ssdah_oc_allowinclineprice, 
+						Cur_MirrorOffer.ssdah_od_x, Cur_MirrorOffer.ssdah_od_y, Cur_MirrorOffer.ssdah_od_subtype, Cur_MirrorOffer.ssdah_od_distribute, 
+						Cur_MirrorOffer.ssdah_od_price, Cur_MirrorOffer.ssdah_od_c_currency_id, Cur_MirrorOffer.ssdah_od_upc, Cur_MirrorOffer.ssdah_od_image, 
+						Cur_MirrorOffer.ssdah_od_amt, Cur_MirrorOffer.ssdah_od_percentage, Cur_MirrorOffer.ssdah_od_role_selection, Cur_MirrorOffer.ssdah_od_approval_required, 
+						Cur_MirrorOffer.ssdah_sr_pro_category_id, Cur_MirrorOffer.ssdah_ss_value, Cur_MirrorOffer.ssdah_ds_totalreceipt, Cur_MirrorOffer.ssdah_ds_totalamountdisc, 
+						Cur_MirrorOffer.ssdah_ds_totalpercdisc, Cur_MirrorOffer.ssdah_se_value);
+					
+					delete from m_offer_trl
+					where m_offer_id = Cur_MirrorOffer.ssdah_mirrormo_id;
+
+					--Actualizamos Solapa Traduccion
+					FOR Cur_Lines IN(
+						SELECT 
+							ssdah_mirrormo_trl_id, ssdah_mirrormo_id, ad_language, ad_client_id, 
+							ad_org_id, isactive, created, createdby, 
+							updated, updatedby, name, print_name, 
+							istranslated, ssdah_reforiginalid
+						FROM public.ssdah_mirrormo_trl
+						where ssdah_mirrormo_id = Cur_MirrorOffer.ssdah_mirrormo_id
+					)LOOP
+
+						INSERT INTO public.m_offer_trl(
+							m_offer_trl_id, m_offer_id, ad_language, ad_client_id, 
+							ad_org_id, isactive, created, createdby, 
+							updated, updatedby, name, print_name, 
+							istranslated)
+						VALUES (
+							get_uuid(), Cur_MirrorOffer.ssdah_mirrormo_id, Cur_Lines.ad_language, Cur_Lines.ad_client_id, 
+							Cur_Lines.ad_org_id, Cur_Lines.isactive, Cur_Lines.created, Cur_Lines.createdby, 
+							Cur_Lines.updated, Cur_Lines.updatedby, Cur_Lines.name, Cur_Lines.print_name, 
+							Cur_Lines.istranslated);
+
+					END LOOP;
+
+					--Actualizamos Solapa Grupo de Terceros
+					delete from m_offer_bp_group
+					where m_offer_id = Cur_MirrorOffer.ssdah_mirrormo_id;
+
+					FOR Cur_Lines IN(
+						SELECT 
+							ssdah_mirrormo_bp_group_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby, 
+							ssdah_mirrormo_id, c_bp_group_id, ssdah_reforiginalid
+						FROM public.ssdah_mirrormo_bp_group
+						where ssdah_mirrormo_id = Cur_MirrorOffer.ssdah_mirrormo_id
+					)LOOP
+
+						INSERT INTO public.m_offer_bp_group(
+							m_offer_bp_group_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby, 
+							m_offer_id, c_bp_group_id)
+						VALUES (
+							get_uuid(), Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive, 
+							Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby, 
+							Cur_MirrorOffer.ssdah_mirrormo_id, Cur_Lines.c_bp_group_id);
+
+					END LOOP;
+
+					--Actualizamos Solapa Terceros
+					delete from m_offer_bpartner
+					where m_offer_id = Cur_MirrorOffer.ssdah_mirrormo_id;
+
+					FOR Cur_Lines IN(
+						SELECT 
+							ssdah_mirrormo_bpartner_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby, 
+							ssdah_mirrormo_id, c_bpartner_id, ssdah_reforiginalid
+						FROM public.ssdah_mirrormo_bpartner
+						where ssdah_mirrormo_id = Cur_MirrorOffer.ssdah_mirrormo_id
+					)LOOP
+
+						INSERT INTO public.m_offer_bpartner(
+							m_offer_bpartner_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby,
+							m_offer_id, c_bpartner_id)
+						VALUES (
+							get_uuid(), Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive, 
+							Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby, 
+							Cur_MirrorOffer.ssdah_mirrormo_id, Cur_Lines.c_bpartner_id);
+
+					END LOOP;
+
+					--Actualizamos Solapa Categoria de Producto
+					delete from m_offer_prod_cat
+					where m_offer_id = Cur_MirrorOffer.ssdah_mirrormo_id;
+
+					FOR Cur_Lines IN(
+						SELECT 
+							ssdah_mirrormo_prod_cat_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby, 
+							ssdah_mirrormo_id, m_product_category_id, ssdah_reforiginalid
+						FROM public.ssdah_mirrormo_prod_cat
+						where ssdah_mirrormo_id = Cur_MirrorOffer.ssdah_mirrormo_id
+					)LOOP
+
+						INSERT INTO public.m_offer_prod_cat(
+							m_offer_prod_cat_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby, 
+							m_offer_id, m_product_category_id)
+						VALUES (
+							get_uuid(), Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive, 
+							Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby, 
+							Cur_MirrorOffer.ssdah_mirrormo_id, Cur_Lines.m_product_category_id);
+
+					END LOOP;
+
+					--Actualizamos Solapa Productos
+					delete from m_offer_product
+					where m_offer_id = Cur_MirrorOffer.ssdah_mirrormo_id;
+
+					FOR Cur_Lines IN(
+						SELECT 
+							ssdah_mirrormo_product_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby, 
+							ssdah_mirrormo_id, m_product_id, ssdah_od_is_gift, ssdah_od_qty, 
+							ssdah_od_gifqty, ssdah_reforiginalid
+						FROM public.ssdah_mirrormo_product
+						where ssdah_mirrormo_id = Cur_MirrorOffer.ssdah_mirrormo_id
+					)LOOP
+
+						INSERT INTO public.m_offer_product(
+							m_offer_product_id, ad_client_id, ad_org_id, isactive,
+							created, createdby, updated, updatedby,
+							m_offer_id, m_product_id, em_obdisc_is_gift, em_obdisc_qty,
+							em_obdisc_gifqty)
+						VALUES (
+							get_uuid(), Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive, 
+							Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby, 
+							Cur_MirrorOffer.ssdah_mirrormo_id, Cur_Lines.m_product_id, Cur_Lines.ssdah_od_is_gift, Cur_Lines.ssdah_od_qty, 
+							Cur_Lines.ssdah_od_gifqty);
+
+					END LOOP;
+
+					--Actualizamos Solapa Tarifa
+					delete from m_offer_pricelist
+					where m_offer_id = Cur_MirrorOffer.ssdah_mirrormo_id;
+
+					FOR Cur_Lines IN(
+						SELECT 
+							ssdah_mirrormo_pricelist_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby, 
+							ssdah_mirrormo_id, m_pricelist_id, ssdah_reforiginalid
+						FROM public.ssdah_mirrormo_pricelist
+						where ssdah_mirrormo_id = Cur_MirrorOffer.ssdah_mirrormo_id
+					)LOOP
+
+						INSERT INTO public.m_offer_pricelist(
+							m_offer_pricelist_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby,
+							m_offer_id, m_pricelist_id)
+						VALUES (
+							get_uuid(), Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive, 
+							Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby, 
+							Cur_MirrorOffer.ssdah_mirrormo_id, Cur_Lines.m_pricelist_id);
+
+					END LOOP;
+
+					--Actualizamos Solapa Organizacion
+					delete from m_offer_organization
+					where m_offer_id = Cur_MirrorOffer.ssdah_mirrormo_id;
+
+					FOR Cur_Lines IN(
+						SELECT 
+							ssdah_mirrormo_organization_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby, 
+							ssdah_mirrormo_id, ssdah_reforiginalid
+						FROM public.ssdah_mirrormo_organization
+						where ssdah_mirrormo_id = Cur_MirrorOffer.ssdah_mirrormo_id
+					)LOOP
+
+						INSERT INTO public.m_offer_organization(
+							m_offer_organization_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby, 
+							m_offer_id)
+						VALUES (
+							get_uuid(), Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive, 
+							Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby, 
+							Cur_MirrorOffer.ssdah_mirrormo_id);
+
+					END LOOP;
+					
+					--Actualizamos Solapa Rol
+					delete from OBDISC_Offer_Role
+					where m_offer_id = Cur_MirrorOffer.ssdah_mirrormo_id;
+
+					FOR Cur_Lines IN(
+						SELECT 
+							ssdah_mirror_odo_role_id, ad_client_id, ad_org_id, isactive,
+							created, createdby, updated, updatedby,
+							ssdah_mirrormo_id, ad_role_id, ssdah_reforiginalid
+						FROM public.ssdah_mirror_odo_role
+						where ssdah_mirrormo_id = Cur_MirrorOffer.ssdah_mirrormo_id
+					)LOOP
+
+						INSERT INTO public.obdisc_offer_role(
+							obdisc_offer_role_id, ad_client_id, ad_org_id, isactive,
+							created, createdby, updated, updatedby,
+							m_offer_id, ad_role_id)
+						VALUES (
+							get_uuid(), Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive,
+							Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby,
+							Cur_MirrorOffer.ssdah_mirrormo_id, Cur_Lines.ad_role_id);
+
+					END LOOP;
+
+					--Actualizamos Solapa Caracteristicas
+					delete from m_offer_characteristic
+					where m_offer_id = Cur_MirrorOffer.ssdah_mirrormo_id;
+
+					FOR Cur_Lines IN(
+						SELECT 
+							ssdah_mirrormo_charac_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby, 
+							ssdah_mirrormo_id, m_characteristic_id, m_ch_value_id, ssdah_reforiginalid
+						FROM public.ssdah_mirrormo_charac
+						where ssdah_mirrormo_id = Cur_MirrorOffer.ssdah_mirrormo_id
+					)LOOP
+
+						INSERT INTO public.m_offer_characteristic(
+							m_offer_characteristic_id, ad_client_id, ad_org_id, isactive,
+							created, createdby, updated, updatedby, 
+							m_offer_id, m_characteristic_id, m_ch_value_id)
+						VALUES (
+							get_uuid(), Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive, 
+							Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby, 
+							Cur_MirrorOffer.ssdah_mirrormo_id, Cur_Lines.m_characteristic_id, Cur_Lines.m_ch_value_id);
+
+					END LOOP;
+
+					--Elimianndo Datos Solapa Original Familia
+					--v_reg:=0;
+
+					SELECT 
+						COALESCE(count(OBCOMBO_Family_id),0)
+					into v_reg
+					FROM public.OBCOMBO_Family
+					where m_offer_id = Cur_MirrorOffer.ssdah_mirrormo_id;
+
+					if v_reg > 0 then
+
+						FOR Cur_Lines IN(
+							SELECT 
+								obcombo_family_id, ad_client_id, ad_org_id, isactive, 
+								created, createdby, updated, updatedby,
+								m_offer_id, name, discount_type, fixed_price,
+								percentage, quantity, fixed_discount, em_swsoc_main, 
+								em_sdelvr_deliprice
+							FROM public.obcombo_family
+							where m_offer_id = Cur_MirrorOffer.ssdah_mirrormo_id
+						)LOOP
+
+							v_familytrl:=0;
+
+							SELECT 
+								COALESCE(count(OBCOMBO_Family_trl_id),0)
+							INTO v_familytrl
+							FROM public.OBCOMBO_Family_trl
+							where OBCOMBO_Family_id = Cur_Lines.obcombo_family_id;
+
+							IF v_familytrl > 0 THEN
+								delete from OBCOMBO_Family_trl
+								where obcombo_family_id = Cur_Lines.obcombo_family_id;
+							END IF;
+
+							SELECT 
+							COALESCE(count(OBCOMBO_Product_id),0)
+							INTO v_familyproduct
+							FROM public.OBCOMBO_Product
+							where OBCOMBO_Family_id = Cur_Lines.obcombo_family_id;
+
+							IF v_familyproduct > 0 THEN
+								delete from OBCOMBO_Product
+								where obcombo_family_id = Cur_Lines.obcombo_family_id;
+							END IF;
+
+						END LOOP;
+
+						delete from obcombo_family
+						where m_offer_id = Cur_MirrorOffer.ssdah_mirrormo_id;
+
+					else
+						delete from obcombo_family
+						where m_offer_id = Cur_MirrorOffer.ssdah_mirrormo_id;
+					END IF;
+
+					--/*
+
+					--Actualizando Solapa Familia
+
+					FOR Cur_Lines IN(
+						SELECT 
+							ssdah_mmo_oc_family_id, ad_client_id, ad_org_id, isactive,
+							created, createdby, updated, updatedby,
+							ssdah_mirrormo_id, name, discount_type, fixed_price, 
+							percentage, quantity, fixed_discount, ssdah_ss_main, 
+							ssdah_se_deliprice, ssdah_reforiginalid
+						FROM public.ssdah_mmo_oc_family
+						where ssdah_mirrormo_id = Cur_MirrorOffer.ssdah_mirrormo_id
+					)LOOP
+
+						lvl1 = get_uuid();
+
+						INSERT INTO public.obcombo_family(
+							obcombo_family_id, ad_client_id, ad_org_id, isactive, 
+							created, createdby, updated, updatedby, 
+							m_offer_id, name, discount_type, fixed_price, 
+							percentage, quantity, fixed_discount, em_swsoc_main, 
+							em_sdelvr_deliprice)
+						VALUES (
+							lvl1, Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive,
+							Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby,
+							Cur_MirrorOffer.ssdah_mirrormo_id, Cur_Lines.name, Cur_Lines.discount_type, Cur_Lines.fixed_price, 
+							Cur_Lines.percentage, Cur_Lines.quantity, Cur_Lines.fixed_discount, Cur_Lines.ssdah_ss_main, 
+							Cur_Lines.ssdah_se_deliprice);
+
+						--Actualizamos Solapa Familia - Familia TRL
+						FOR Cur_Family in(
+							SELECT 
+								ssdah_moc_family_trl_id, ssdah_mmo_oc_family_id, ad_language, ad_client_id, 
+								ad_org_id, isactive, created, createdby, 
+								updated, updatedby, name, istranslated, 
+								ssdah_reforiginalid
+							FROM public.ssdah_moc_family_trl
+							where ssdah_mmo_oc_family_id = Cur_Lines.ssdah_mmo_oc_family_id
+						)LOOP
+
+							INSERT INTO public.obcombo_family_trl(
+								obcombo_family_trl_id, obcombo_family_id, ad_language, ad_client_id,
+								ad_org_id, isactive, created, createdby,
+								updated, updatedby, name, istranslated)
+							VALUES (
+								get_uuid(), lvl1, Cur_Family.ad_language, Cur_Family.ad_client_id, 
+								Cur_Family.ad_org_id, Cur_Family.isactive, Cur_Family.created, Cur_Family.createdby, 
+								Cur_Family.updated, Cur_Family.updatedby, Cur_Family.name, Cur_Family.istranslated);
+
+						END LOOP;
+
+						--/*
+
+						--Actualizamos Solapa Familia - Producto
+						FOR Cur_Family in(
+							SELECT 
+								ssdah_moc_product_id, ad_client_id, ad_org_id, isactive, 
+								created, createdby, updated, updatedby, 
+								ssdah_mmo_oc_family_id, m_product_id, ssdah_msrb_main, ssdah_msrm_extra_suplement, 
+								ssdah_mssc_domicile, ssdah_msrm_callcenter, ssdah_mslv_default, ssdah_msea_default, 
+								ssdah_reforiginalid
+							FROM public.ssdah_moc_product
+							where ssdah_mmo_oc_family_id = Cur_Lines.ssdah_mmo_oc_family_id
+						)LOOP
+
+							INSERT INTO public.obcombo_product(
+								obcombo_product_id, ad_client_id, ad_org_id, isactive, 
+								created, createdby, updated, updatedby, 
+								obcombo_family_id, m_product_id, em_ssrcb_main, em_ssrcm_extra_suplement, 
+								em_swsoc_domicile, em_ssrcm_callcenter, em_sglovo_default, em_speya_default)
+							VALUES (
+								Cur_Family.ssdah_reforiginalid, Cur_Family.ad_client_id, Cur_Family.ad_org_id, Cur_Family.isactive, 
+								Cur_Family.created, Cur_Family.createdby, Cur_Family.updated, Cur_Family.updatedby, 
+								lvl1, Cur_Family.m_product_id, Cur_Family.ssdah_msrb_main, Cur_Family.ssdah_msrm_extra_suplement, 
+								Cur_Family.ssdah_mssc_domicile, Cur_Family.ssdah_msrm_callcenter, Cur_Family.ssdah_mslv_default, Cur_Family.ssdah_msea_default);
+
+						END LOOP;
+						--*/
+
+					END LOOP;
+					
+					--Actualizamos Solapa Productos Gratis
+					delete from DISCT_FREEPRODUCT
+					where m_offer_id = Cur_MirrorOffer.ssdah_mirrormo_id;
+
+					FOR Cur_Lines IN(
+						SELECT 
+							ssdah_mds_freeproduct_id, ad_client_id, ad_org_id, isactive,
+							created, createdby, updated, updatedby,
+							ssdah_mirrormo_id, m_product_id, quantity, ssdah_reforiginalid
+						FROM public.ssdah_mds_freeproduct
+						where ssdah_mirrormo_id = Cur_MirrorOffer.ssdah_mirrormo_id
+					)LOOP
+
+						INSERT INTO public.disct_freeproduct(
+							disct_freeproduct_id, ad_client_id, ad_org_id, isactive,
+							created, createdby, updated, updatedby,
+							m_offer_id, m_product_id, quantity)
+						VALUES (
+							get_uuid(), Cur_Lines.ad_client_id, Cur_Lines.ad_org_id, Cur_Lines.isactive,
+							Cur_Lines.created, Cur_Lines.createdby, Cur_Lines.updated, Cur_Lines.updatedby,
+							Cur_MirrorOffer.ssdah_mirrormo_id, Cur_Lines.m_product_id, Cur_Lines.quantity);
+
+					END LOOP;
+					
+				END IF;
+			
+			END LOOP;
+		
+
+        DBMS_OUTPUT.PUT_LINE('Updating PInstance - Finished ' || v_Message);
+        AD_UPDATE_PINSTANCE(P_Instance_ID, NULL, 'N', v_Result, v_Message);
+
+        RETURN;
+    END; --BODY
+    
+    EXCEPTION WHEN OTHERS THEN
+        v_ResultStr:= '@ERROR=' || SQLERRM;
+        DBMS_OUTPUT.PUT_LINE( v_ResultStr) ;
+		-- RAISE LOG '%', v_ResultStr ;
+		
+		SELECT SUBSTRING(SQLERRM, 2, LENGTH(SQLERRM) - 2)
+		into errorm;
+		
+		select msgtext 
+		into texto
+		from ad_message_trl
+		where ad_message_id in (select ad_message_id 
+		from ad_message 
+		where value = errorm);
+		IF texto is not null then
+			RAISE texto || ' Producto: '|| Error_prom;
+		ELSE
+			RAISE Error_prom || ' - 'v_ResultStr;
+		END IF;
+		
+        ROLLBACK;
+        AD_UPDATE_PINSTANCE(P_Instance_ID, NULL, 'N', 0, v_ResultStr);
+END SSDAH_UPDATE_MOFFER
+]]></body>
+    </function>
+  </database>

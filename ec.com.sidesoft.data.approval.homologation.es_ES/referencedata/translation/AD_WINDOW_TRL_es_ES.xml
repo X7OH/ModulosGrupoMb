@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_WINDOW" version="">
+  <row id="B023E04548D141F7A5C19E798539B4BD" trl="Y">
+    <value column="Name" isTrl="Y" original="Mirror Offer">MODIFICACIÓN DE PRECIOS NEW</value>
+    <value column="Description" isTrl="Y" original="Mirror Offer">MODIFICACIÓN DE PRECIOS NEW</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

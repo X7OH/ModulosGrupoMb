@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_FIELDGROUP" version="">
+  <row id="06A7796C8D8B42F3BF4530358507ED2A" trl="Y">
+    <value column="Name" isTrl="Y" original="Authorization Method">Metodo Login</value>
+  </row>
+  <row id="07CDE53DC56E41C2AA60DA08DCB5F724" trl="Y">
+    <value column="Name" isTrl="N" original="CallBacks">CallBacks</value>
+  </row>
+  <row id="3D4FE50EF7D04D9EBD68D45D2D4D944E" trl="Y">
+    <value column="Name" isTrl="Y" original="Cancellation">Rechazar</value>
+  </row>
+  <row id="4D7995BCC49648DF99A56CAC3DC9B9F3" trl="Y">
+    <value column="Name" isTrl="Y" original="Speya_UpdateStores">Metodo Abrir/Cerrar Local</value>
+  </row>
+  <row id="4DA01F7E873C476A932B5053CE4D87AB" trl="Y">
+    <value column="Name" isTrl="Y" original="Accept Order Method">Metodo Aceptar Orden</value>
+  </row>
+  <row id="68F16206BE64462CBCF93AF10A67C357" trl="Y">
+    <value column="Name" isTrl="Y" original="SPEYA_Config">Configuración Pedidos YA</value>
+  </row>
+</compiereTrl>

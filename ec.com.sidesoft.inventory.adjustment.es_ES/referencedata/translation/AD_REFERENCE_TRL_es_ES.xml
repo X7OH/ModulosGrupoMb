@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
+  <row id="110ED2A74B6B4BDABE901F01FE53BF82" trl="N">
+    <value column="Name" isTrl="N" original="SIVA Goods Movement Document Type">SIVA Goods Movement Document Type</value>
+    <value column="Description" isTrl="N" original="SIVA Goods Movement Document Type">SIVA Goods Movement Document Type</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="30D72222C1C74916A8F7F19B6DB42ACE" trl="N">
+    <value column="Name" isTrl="N" original="Siva_DocStatus">Siva_DocStatus</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="3383F5CDB3B84BD98C5F1DA33782772F" trl="N">
+    <value column="Name" isTrl="N" original="Siva_M_Locator - Name">Siva_M_Locator - Name</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="79449CC84DE04880A5AA20CC3E19D96E" trl="N">
+    <value column="Name" isTrl="N" original="Siva_C_CostCenter">Siva_C_CostCenter</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

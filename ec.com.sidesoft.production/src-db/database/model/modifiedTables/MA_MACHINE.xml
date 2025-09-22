@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE MA_MACHINE">
+    <table name="MA_MACHINE" primaryKey="MA_MACHINE_KEY">
+      <column name="EM_SSPROD_MACHINE_CAPACITY" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+    </table>
+  </database>

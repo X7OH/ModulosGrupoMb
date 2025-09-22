@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_WINDOW" version="">
+  <row id="06FF7E0E033B49B5BF9EA61F2373A315" trl="N">
+    <value column="Name" isTrl="Y" original="Planner">Planificador</value>
+    <value column="Description" isTrl="Y" original="Define the entity in charge of managing the purchase or production of specific products.">Define la entidad a cargo de la compra o producción de determinados productos.</value>
+    <value column="Help" isTrl="Y" original="Define the entity in charge of managing the purchase or production of specific products.">Define la entidad a cargo de la compra o producción de determinados productos.</value>
+  </row>
+  <row id="837FB05541EF4A88B53F628177F7A77F" trl="N">
+    <value column="Name" isTrl="Y" original="Manufacturing Plan">Planificación de la producción</value>
+    <value column="Description" isTrl="Y" original="Create a comprehensive work requirement in order to request materials over a specified time period.">Crea una orden integral de fabricación a fin de requerir los materiales en un período específico de tiempo.</value>
+    <value column="Help" isTrl="Y" original="Create a comprehensive work requirement in order to request materials over a specified time period.">Crea una orden integral de fabricación a fin de requerir los materiales en un período específico de tiempo.</value>
+  </row>
+  <row id="B70C60CE6A834548892F8677A02372F1" trl="N">
+    <value column="Name" isTrl="Y" original="MRP Forecast">Previsión de ventas</value>
+    <value column="Description" isTrl="Y" original="Create and edit MRP forecasts over a specified time period in order to help plan necessary purchases.">Crea y edita las previsiones de venta para un período específico de tiempo, a fin de ayudar a planear las compras necesarias.</value>
+    <value column="Help" isTrl="Y" original="Create and edit MRP forecasts over a specified time period in order to help plan necessary purchases.">Crea y edita las previsiones de venta para un período específico de tiempo, a fin de ayudar a planear las compras necesarias.</value>
+  </row>
+  <row id="BFF9B72925B3466498E64A5FBA985374" trl="N">
+    <value column="Name" isTrl="Y" original="Planning Method">Método de planificación</value>
+    <value column="Description" isTrl="Y" original="Define how transaction types will be dealt with in the application.">Define cómo se tratarán los tipos de transacción en la aplicación.</value>
+    <value column="Help" isTrl="Y" original="Define how transaction types will be dealt with in the application.">Define cómo se tratarán los tipos de transacción en la aplicación.
+</value>
+  </row>
+  <row id="E8670310C7C14C7E939A35BEA4A56FDB" trl="N">
+    <value column="Name" isTrl="Y" original="Purchasing Plan">Planificación de compras</value>
+    <value column="Description" isTrl="Y" original="Create a comprehensive and organized plan to request purchases over a specified time period.">Crea un plan organizado e integral para efectuar pedidos de compra durante un período específico de tiempo.</value>
+    <value column="Help" isTrl="Y" original="Create a comprehensive and organized plan to request purchases over a specified time period.">Crea un plan organizado e integral para efectuar pedidos de compra durante un período específico de tiempo.</value>
+  </row>
+</compiereTrl>

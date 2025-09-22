@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_ELEMENT" version="">
+  <row id="B8EB42C8A42C477A92CDBAEC7092CCE8" trl="N">
+    <value column="Name" isTrl="N" original="Spfm_Type_Employer_ID">Spfm_Type_Employer_ID</value>
+    <value column="PrintName" isTrl="N" original="Spfm_Type_Employer_ID">Spfm_Type_Employer_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

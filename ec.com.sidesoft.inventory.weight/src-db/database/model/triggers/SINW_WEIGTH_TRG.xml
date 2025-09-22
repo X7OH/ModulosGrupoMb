@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SINW_WEIGTH_TRG">
+    <trigger name="SINW_WEIGTH_TRG" table="M_INOUTLINE" fires="before" insert="true" update="true" delete="false" foreach="row">
+      <body><![CDATA[  v_tara	VARCHAR2(32);      
+  v_docbasetype	    VARCHAR2(60);      
+  v_isreturn	    VARCHAR2(1);      
+  v_issotrx	    VARCHAR2(1);      
+BEGIN
+    
+  IF AD_isTriggerEnabled()='N' THEN RETURN;
+  END IF; 
+
+  IF (INSERTING OR UPDATING) THEN
+
+
+
+  SELECT mi.issotrx, dt.docbasetype, dt.isreturn
+INTO v_issotrx,v_docbasetype, v_isreturn  FROM m_inout mi  
+LEFT JOIN c_doctype dt ON mi.c_doctype_id = dt.c_doctype_id
+WHERE mi.m_inout_id= :new.m_inout_id;
+
+--PARÁMETROS QUE DETERMINAN ALBARÁN (PROVEEDOR).
+IF (v_issotrx='N' AND v_docbasetype ='MMR' AND v_isreturn ='N' )THEN
+
+
+	IF((SELECT em_sinw_weight_record FROM m_product WHERE m_product_id=:new.m_product_id)='Y') THEN
+
+		SELECT coalesce(mp.em_sinw_tares_id,'ND') INTO v_tara FROM m_product mp
+		WHERE mp.m_product_id = :new.m_product_id;
+		
+		IF (v_tara ='ND') THEN
+			RAISE_APPLICATION_ERROR(-20000, '@Sinw_Tare_Not_Set@');
+		END IF;
+	END IF;
+  END IF;
+  END IF;
+  
+
+  END SINW_WEIGTH_TRG
+]]></body>
+    </trigger>
+  </database>

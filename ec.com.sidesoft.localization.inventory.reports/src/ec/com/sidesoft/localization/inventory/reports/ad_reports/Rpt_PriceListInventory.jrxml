@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_PriceListInventory" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="m_product_from_id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="m_product_to_id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="m_product_category_id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="slps_product_category_id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="slps_subcategory_prod_id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select p.value, p.upc, p.name as productname, pc.name as categoriaproducto, spc.name as categoria, sps.name as subcategoria,
+       u.name as unidad, j.pricelist
+from m_product p
+left join m_transaction t on t.m_product_id = p.m_product_id
+left join m_locator l on l.m_locator_id = t.m_locator_id
+left join m_product_category pc on pc.m_product_category_id = p.m_product_category_id
+left join slps_product_category spc on spc.slps_product_category_id = p.em_slps_product_category_id
+left join slps_subcategory_prod sps on sps.slps_subcategory_prod_id = p.em_slps_subcategory_prod_id
+left join c_uom u on u.c_uom_id = p.c_uom_id
+left join m_productprice j ON j.m_product_id = p.m_product_id
+LEFT JOIN m_pricelist_version k ON k.m_pricelist_version_id = j.m_pricelist_version_id
+LEFT JOIN m_pricelist pl ON pl.m_pricelist_id = k.m_pricelist_id
+where pl.isdefault = 'Y' AND pl.issopricelist = 'Y'
+and p.value between (select value from m_product where m_product_id = $P{m_product_from_id}) and (select value from m_product where m_product_id = $P{m_product_to_id})
+and (pc.m_product_category_id =  $P{m_product_category_id} or $P{m_product_category_id} is null)
+and (spc.slps_product_category_id = $P{slps_product_category_id} or $P{slps_product_category_id}  is null)
+and (sps.slps_subcategory_prod_id  =  $P{slps_subcategory_prod_id} or $P{slps_subcategory_prod_id}  is null)
+group by 1,2,3,4,5,6,7,8
+order by   pc.name, p.name,spc.name, sps.name]]>
+	</queryString>
+	<field name="value" class="java.lang.String"/>
+	<field name="upc" class="java.lang.String"/>
+	<field name="productname" class="java.lang.String"/>
+	<field name="categoriaproducto" class="java.lang.String"/>
+	<field name="categoria" class="java.lang.String"/>
+	<field name="subcategoria" class="java.lang.String"/>
+	<field name="unidad" class="java.lang.String"/>
+	<field name="pricelist" class="java.math.BigDecimal"/>
+	<group name="Categoria_producto">
+		<groupExpression><![CDATA[$F{categoriaproducto}]]></groupExpression>
+		<groupHeader>
+			<band height="48">
+				<textField>
+					<reportElement x="121" y="6" width="305" height="12"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{categoriaproducto}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="6" width="110" height="12"/>
+					<textElement/>
+					<text><![CDATA[Categoría Productos]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement key="rectangle" mode="Opaque" x="0" y="24" width="752" height="17" forecolor="#000000" backcolor="#C0C0C0"/>
+					<graphicElement>
+						<pen lineWidth="0.0" lineStyle="Solid"/>
+					</graphicElement>
+				</rectangle>
+				<staticText>
+					<reportElement x="205" y="25" width="100" height="12" forecolor="#000000"/>
+					<textElement/>
+					<text><![CDATA[Identificador]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="305" y="25" width="100" height="12" forecolor="#000000"/>
+					<textElement/>
+					<text><![CDATA[UPC/EAN]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="405" y="25" width="195" height="12" forecolor="#000000"/>
+					<textElement/>
+					<text><![CDATA[Producto]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="600" y="25" width="82" height="12" forecolor="#000000"/>
+					<textElement/>
+					<text><![CDATA[Unidad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="682" y="25" width="70" height="12" forecolor="#000000"/>
+					<textElement/>
+					<text><![CDATA[pricelist]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="25" width="100" height="12" forecolor="#000000"/>
+					<textElement/>
+					<text><![CDATA[Subcategoria]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="100" y="25" width="105" height="12" forecolor="#000000"/>
+					<textElement/>
+					<text><![CDATA[Categoria]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="46" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText" x="135" y="9" width="465" height="30"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Price List]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="205" y="1" width="100" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{value}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="305" y="0" width="100" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{upc}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="405" y="0" width="195" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{productname}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="600" y="1" width="82" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{unidad}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.0000;-###0.0000" isBlankWhenNull="true">
+				<reportElement x="682" y="0" width="70" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{pricelist}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="1" width="100" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{subcategoria}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="100" y="1" width="105" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{categoria}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE OBPOS_APP_PAYMENT_TYPE">
+    <table name="OBPOS_APP_PAYMENT_TYPE" primaryKey="OBPOS_APPPAYTYPE_PK">
+      <column name="EM_SRDFP_CONFIGFIELD" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+    </table>
+  </database>

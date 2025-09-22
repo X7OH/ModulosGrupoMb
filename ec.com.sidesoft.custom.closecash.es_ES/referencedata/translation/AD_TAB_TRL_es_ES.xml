@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TAB" version="">
+  <row id="3EC5BA28381C413390A9B3CEA3190B56" trl="N">
+    <value column="Name" isTrl="Y" original="Lines">Líneas</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="60B6BA2648A3480CAECCB2F17471B5C5" trl="Y">
+    <value column="Name" isTrl="Y" original="Lines">Líneas</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="6D42753DD50B4A56927A399B16B8D31B" trl="Y">
+    <value column="Name" isTrl="Y" original="Payment Method">Método de cobro</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="AF29F97DC5CB4FC2B3CD90672FCC8C03" trl="Y">
+    <value column="Name" isTrl="Y" original="Header">Configuración</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="Setup of close cash - header"/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="C894BC783AEF4272810459B4DA0B5D3D" trl="N">
+    <value column="Name" isTrl="Y" original="Header">Cabecera</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="E8A4F14D7FD94D678CCE89B1A1C52F09" trl="Y">
+    <value column="Name" isTrl="Y" original="Header">Cabecera</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

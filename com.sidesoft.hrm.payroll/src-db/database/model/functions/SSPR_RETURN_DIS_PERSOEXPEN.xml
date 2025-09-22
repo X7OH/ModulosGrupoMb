@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SSPR_RETURN_DIS_PERSOEXPEN">
+    <function name="SSPR_RETURN_DIS_PERSOEXPEN" type="NUMERIC">
+      <parameter name="p_c_year_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <parameter name="p_c_bpartner_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[vMaxPerc NUMBER;
+vCalc NUMBER;
+v_c_year_id VARCHAR2(32);
+v_c_bpartner_id VARCHAR2(32);
+v_basetotal NUMBER;
+v_familyloads NUMBER;
+v_catastrillness VARCHAR(1);
+vtotal_personal_expenses NUMBER;
+v_totaldeducible NUMBER;
+v_sspr_incometax_id VARCHAR2(32);
+v_max_perc_deduct_expenses NUMBER;
+
+TYPE RECORD IS REF CURSOR;
+Cur_IncomeTax RECORD;
+Cur_IncomeT RECORD;
+
+Begin
+	v_c_year_id := p_c_year_id;
+	v_c_bpartner_id := p_c_bpartner_id;
+	
+	-- Retorna valor de gastos deducibles, si no tiene registrado los gastos personales el valor es 0
+	select coalesce((SELECT  COALESCE (B.AMOUNTCOST,0) 
+	into v_totaldeducible
+	FROM SSPR_COSTEMPLOYEE B 
+	WHERE C_BPARTNER_ID = v_c_bpartner_id 
+	AND B.ISACTIVE='Y' 
+	AND B.C_YEAR_ID = v_c_year_id) 
+	, 0) from dual;
+
+	If v_totaldeducible > 0 Then
+			
+			SELECT a.sspr_incometax_id, a.max_perc_deduct_expenses
+			into v_sspr_incometax_id, v_max_perc_deduct_expenses
+			FROM sspr_incometax a 
+			WHERE a.ISACTIVE='Y' AND a.ISACTIVE='Y' AND a.C_YEAR_ID = v_c_year_id;
+			
+			SELECT COALESCE (B.em_spirt_familyloads,0),COALESCE (B.em_spirt_catastr_illness,'N')
+			into v_familyloads, v_catastrillness
+			FROM SSPR_COSTEMPLOYEE B 
+			WHERE C_BPARTNER_ID = v_c_bpartner_id 
+			AND B.ISACTIVE='Y' 
+			AND B.C_YEAR_ID = v_c_year_id;
+			
+			select total_personal_expenses 
+			into vtotal_personal_expenses
+			from spirt_familyload_config
+			where sspr_incometax_id = v_sspr_incometax_id
+			and family_load = (case when v_catastrillness = 'N' Then v_familyloads else 5 end);
+
+			vMaxPerc := CASE WHEN v_max_perc_deduct_expenses > 0 THEN v_max_perc_deduct_expenses / 100 ELSE 0 END;
+			
+			vCalc := CASE WHEN vtotal_personal_expenses <= v_totaldeducible  or v_catastrillness = 'Y' 
+			  			  THEN vtotal_personal_expenses 
+			  			  ELSE v_totaldeducible END;
+						  
+			vCalc :=  vCalc * vMaxPerc;	
+	Else
+		vCalc := v_totaldeducible;
+	End If;
+	Return round(vCalc, 2);
+END SSPR_RETURN_DIS_PERSOEXPEN
+]]></body>
+    </function>
+  </database>

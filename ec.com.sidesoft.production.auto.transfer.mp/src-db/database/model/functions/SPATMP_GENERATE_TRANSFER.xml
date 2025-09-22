@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SPATMP_GENERATE_TRANSFER">
+    <function name="SPATMP_GENERATE_TRANSFER" type="NULL">
+      <parameter name="p_pinstance_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[/*************************************************************************
+* The contents of this file are subject to the Openbravo  Public  License
+* Version  1.1  (the  "License"),  being   the  Mozilla   Public  License
+* Version 1.1  with a permitted attribution clause; you may not  use this
+* file except in compliance with the License. You  may  obtain  a copy of
+* the License at http://www.openbravo.com/legal/license.html
+* Software distributed under the License  is  distributed  on  an "AS IS"
+* basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+* License for the specific  language  governing  rights  and  limitations
+* under the License.
+* The Original Code is Openbravo ERP.
+* The Initial Developer of the Original Code is Openbravo SLU
+* All portions are Copyright (C) 2001-2014 Openbravo SLU
+* All Rights Reserved.
+* Contributor(s):  ______________________________________.
+************************************************************************/
+  --  Logistice
+  v_ResultStr VARCHAR2(2000):='';
+  v_Message VARCHAR2(2000):='';
+  --  Parameter
+  TYPE RECORD IS REF CURSOR;
+    Cur_Parameter RECORD;
+    --
+    v_Record_ID VARCHAR2(32):=NULL;
+    v_User_ID VARCHAR2(32);
+    v_Org_ID VARCHAR2(32);
+    v_Client_ID VARCHAR2(32);
+    v_WrPhase_ID VARCHAR2(32);
+    v_WrPhaseProd_ID VARCHAR2(32);
+    --  Sequences to process
+    Cur_Transfer_line RECORD;
+    --
+    v_m_movement_id VARCHAR2(32);
+    v_m_movementline_id VARCHAR2(32);
+    v_DocumentType_P VARCHAR2(32);
+    v_Quantity NUMBER;
+    v_LaunchDate DATE;
+    V_LineLines NUMBER:= 0;
+  BEGIN
+    --  Process Parameters
+    IF(p_PInstance_ID IS NOT NULL) THEN
+      --  Update AD_PInstance
+      DBMS_OUTPUT.PUT_LINE('Updating PInstance - Processing ' || p_PInstance_ID) ;
+      v_ResultStr:='PInstanceNotFound';
+      AD_UPDATE_PINSTANCE(p_PInstance_ID, NULL, 'Y', NULL, NULL) ;
+      --  Get Parameters
+      v_ResultStr:='ReadingParameters';
+      FOR Cur_Parameter IN
+        (SELECT i.Record_ID,
+          i.AD_User_ID,
+          i.AD_Org_ID,
+          i.AD_Client_ID,
+          p.ParameterName,
+          p.P_String,
+          p.P_Number,
+          p.P_Date
+        FROM AD_PInstance i
+        LEFT JOIN AD_PInstance_Para p
+          ON i.AD_PInstance_ID=p.AD_PInstance_ID
+        WHERE i.AD_PInstance_ID=p_PInstance_ID
+        ORDER BY p.SeqNo
+        )
+      LOOP
+        v_Record_ID:=Cur_Parameter.Record_ID;
+        v_User_ID:=Cur_Parameter.AD_User_ID;
+        v_Client_ID:=Cur_Parameter.AD_Client_ID;
+        v_Org_ID:=Cur_Parameter.AD_Org_ID;
+
+         IF (Cur_Parameter.ParameterName = 'C_DocType_ID') THEN
+		v_DocumentType_P := Cur_Parameter.P_String;      
+	 END IF; 
+	    
+      END LOOP; --  Get Parameter
+    ELSE
+      DBMS_OUTPUT.PUT_LINE('--<<spatmp_generate_transfer>>') ;
+    END IF;
+
+   -- Check if all the required fields are filled
+    v_ResultStr:='CheckingArguments';
+
+    v_m_movement_id := get_uuid();
+
+    --CREA CABECERA DE TRANSFERENCIA
+    INSERT INTO m_movement(
+	m_movement_id, ad_client_id, ad_org_id, isactive, created, createdby, updatedby, updated, 
+	name, description, movementdate, posted, processed, processing, 
+	move_fromto_locator, documentno, 
+	em_ssrs_isresupply, em_ssrs_typeresupply, em_ssrs_c_doctype_id, em_eei_send_to_sri, em_eei_temporalsend, em_smvai_enddateoftransport,EM_Simrq_Request)
+    VALUES( 
+    v_m_movement_id, v_Client_ID, v_Org_ID, 'Y', now(), v_User_ID, v_User_ID, now(), 
+    to_char(now(),'dd-MM-yyyy hh:mm'), 'Generado desde Producción', now(), 'N', 'N', 'N', 
+    'N', (select currentnext from ad_sequence where ad_sequence_id in (select docnosequence_id from c_doctype 
+	  							      where c_doctype_id = v_DocumentType_P)) , 
+    'N', 'N', v_DocumentType_P, 'N', 'N', now(),'RQ');
+		
+
+    FOR Cur_Transfer_line IN (
+        SELECT spatmp_transfer_id,ma_workrequirement_id, documentno, 
+            ma_processplan_id, release_date, startdate, enddate, quantity, 
+            ma_wrphaseproduct_id, code, m_product_id, production_type, component_amount_formula, 
+            c_uom_id, total_amount_recuested, amount_to_pp, hole, moved_to, 
+            sent
+        FROM spatmp_transfer bp 
+        WHERE spatmp_transfer_ID = v_Record_ID
+        AND sent = 'N'
+      )
+      LOOP
+        
+        V_LineLines := V_LineLines + 10;
+        v_m_movementline_id := get_uuid();
+                        	
+	--CREA LINEAS TRANSFERENCIA
+	INSERT INTO m_movementline(
+		m_movementline_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, 
+		m_movement_id, m_locator_id, m_locatorto_id, m_product_id, line, movementqty, 
+		description, c_uom_id)
+	VALUES (v_m_movementline_id, v_Client_ID, v_Org_ID, 'Y', now(), v_User_ID, now(), v_User_ID, 
+		v_m_movement_id, Cur_Transfer_line.hole, Cur_Transfer_line.moved_to, Cur_Transfer_line.m_product_id, V_LineLines, Cur_Transfer_line.quantity, 
+		'descripcion', Cur_Transfer_line.c_uom_id);
+
+	--INSERTA REFERENCIA EN LOS ALMACENES
+	INSERT INTO spatmp_reference_transfer(
+		spatmp_reference_transfer_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+		ma_wrphaseproduct_id, ma_workrequirement_id, total_amount_recuested, 
+		amount_to_pp, m_product_id, c_uom_id, m_movement_line_id)
+	VALUES (GET_UUID(),v_Client_ID, v_Org_ID, 'Y', now(), v_User_ID, now(), v_User_ID,
+	Cur_Transfer_line.ma_wrphaseproduct_id, Cur_Transfer_line.ma_workrequirement_id, Cur_Transfer_line.total_amount_recuested, 
+	Cur_Transfer_line.amount_to_pp, Cur_Transfer_line.m_product_id, Cur_Transfer_line.c_uom_id,v_m_movementline_id);
+
+	--ACTUALIZA ESTADO DE LA TABLA DE TRANSFERENCIA
+	UPDATE spatmp_transfer 
+	set sent = 'Y' 
+	where spatmp_transfer_ID = Cur_Transfer_line.spatmp_transfer_id;
+
+	--ACTUALIZA ESTADO DE LA TRANSFERENCIA
+	UPDATE m_movement 
+	set EM_Simrq_Request = 'RQD' 
+	where m_movement_id = Cur_Transfer_line.spatmp_transfer_id;
+
+      END LOOP;
+
+  RETURN;
+END SPATMP_GENERATE_TRANSFER
+]]></body>
+    </function>
+  </database>

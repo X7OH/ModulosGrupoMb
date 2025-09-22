@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
+  <row id="847B4288EA5B4BD9BCF0C1D0F77DB625" trl="N">
+    <value column="Name" isTrl="Y" original="Process Errors Business Partner">Procesar errores de Terceros</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

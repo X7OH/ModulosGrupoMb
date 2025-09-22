@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MODULE" version="">
+  <row id="52BC84F78C8F4F7ABD9BEC878D637B95" trl="N">
+    <value column="Description" isTrl="N" original="Sidesoft Authorization for reverse POS">Sidesoft Authorization for reverse POS</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="License" isTrl="N" original=""/>
+    <value column="Updateinfo" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

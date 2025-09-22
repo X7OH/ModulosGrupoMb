@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_WINDOW" version="">
+  <row id="32F43BE3E834468EA6E3186BF51F9975" trl="Y">
+    <value column="Name" isTrl="Y" original="Bank deposits">Depósitos Bancarios</value>
+    <value column="Description" isTrl="N" original="">Depósitos Bancarios</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="468FAB3BBBE64CDBAC33C45CE8BCE7FB" trl="Y">
+    <value column="Name" isTrl="Y" original="Bank Deposit Settings">Configuración Depósitos Bancarios</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

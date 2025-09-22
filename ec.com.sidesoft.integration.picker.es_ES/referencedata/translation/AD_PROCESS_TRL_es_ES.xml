@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
+  <row id="6BDD8A2E7589447AA2676A3495CBC4E9" trl="N">
+    <value column="Name" isTrl="N" original="SetWebHook">SetWebHook</value>
+    <value column="Description" isTrl="N" original="SetWebHook">SetWebHook</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

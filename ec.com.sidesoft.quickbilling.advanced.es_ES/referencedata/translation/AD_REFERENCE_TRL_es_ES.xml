@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
+  <row id="232C974253664D6AB4F5642CB856C6F5" trl="N">
+    <value column="Name" isTrl="N" original="Source List">Source List</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="26C914D72DD6416EAF87709C6F17CF16" trl="N">
+    <value column="Name" isTrl="N" original="Table Card">Table Card</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="2A9888BFC01948B29EEC1887A1824299" trl="N">
+    <value column="Name" isTrl="N" original="Product Category QB">Product Category QB</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="308A4F2EC5C943EE8558A4AF623DC58F" trl="Y">
+    <value column="Name" isTrl="Y" original="Payment methods call center list">Lista métodos de pago call center</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="3BDCD0148E73490DA05F874082BA32E2" trl="Y">
+    <value column="Name" isTrl="Y" original="SAQB Order Tipe">SAQB Tipo de Orden</value>
+    <value column="Description" isTrl="Y" original="SAQB Order Tipe">SAQB Tipo de Orden</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="4494657200C94DB4BFC181D8635E7AB8" trl="Y">
+    <value column="Name" isTrl="N" original="M_Offer">M_Offer</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="4A056ABCED6A47CBA71671855264514D" trl="N">
+    <value column="Name" isTrl="N" original="Saqb_Canton">Saqb_Canton</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="5F04F7ABF7A04316A2F233B63855A419" trl="N">
+    <value column="Name" isTrl="N" original="Status Call Center Order">Status Call Center Order</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="8251FCE8E5E046B9B113A1D450C83746" trl="N">
+    <value column="Name" isTrl="N" original="Address Alias">Address Alias</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="8257133339914829A33CF3848297B6A7" trl="N">
+    <value column="Name" isTrl="N" original="BPartrner Location Alias">BPartrner Location Alias</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="9A293E6252E5479580342867C8ECEC15" trl="N">
+    <value column="Name" isTrl="N" original="Call Center Order">Call Center Order</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="9E53BDD29C3740618A1B00478DC46243" trl="N">
+    <value column="Name" isTrl="N" original="Card Type List">Card Type List</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="CC9BD3ED58534AA69D5DD235B4E38B7F" trl="N">
+    <value column="Name" isTrl="Y" original="SAQB_DeliveryStatus">Delivery status</value>
+    <value column="Description" isTrl="Y" original="SAQB_DeliveryStatus">Delivery status</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="F2BDCC0CCE8C496487F572116FD30679" trl="N">
+    <value column="Name" isTrl="N" original="C_Sales_Region">C_Sales_Region</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

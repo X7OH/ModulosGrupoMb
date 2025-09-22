@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+  <vector>
+    <versionInfo version="3.0.33196"/>
+    <columnDataChange tablename="AD_COLUMN" columnname="AD_PROCESS_ID" pkRow="3581">
+      <oldValue><![CDATA[122]]></oldValue>
+      <newValue><![CDATA[D3ED058DE3444DAFB49DB442919A980B]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="AD_VAL_RULE_ID" pkRow="7CDF4E8C752D472A977931889FACD110">
+      <oldValue><![CDATA[766832A3353640DAAD22C35E6E66CC8F]]></oldValue>
+      <newValue><![CDATA[17D32CEF3EFF4515990725777525DB07]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="DISPLAYLOGIC" pkRow="2728">
+      <oldValue><![CDATA[@Processed@='N']]></oldValue>
+      <newValue><![CDATA[@Processed@='N'&@Stat_Trans_Authorization@='Y']]></newValue>
+    </columnDataChange>
+  </vector>

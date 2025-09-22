@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TAB" version="">
+  <row id="282C12F8BEDB409F8F2A997BD74CAD8E" trl="Y">
+    <value column="Name" isTrl="Y" original="Lines">Metodos</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">Metodos</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="885E063DBEC14745950ADC19787008F5" trl="Y">
+    <value column="Name" isTrl="Y" original="Header">Configuracion Justo</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">Configuracion Justo</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="9CE882D5230443DE88099B31BFBA3C59" trl="Y">
+    <value column="Name" isTrl="Y" original="Header">Logs Justo</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">Logs Justo</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="A46BE647D2B948F2AA69C6335047ED39" trl="Y">
+    <value column="Name" isTrl="Y" original="Payment Method">Metodos de Pago</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">Metodos de Pago</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

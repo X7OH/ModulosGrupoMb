@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="16B8F6CD7B6B4C8E869CF43306844500" trl="Y">
+    <value column="Name" isTrl="Y" original="ConfigChannelsAndDelivery">Script Canales y Delivery</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="CD9438F1CF5F46BB8ACD50AE099A709B" trl="N">
+    <value column="Name" isTrl="N" original="Temp">Temp</value>
+    <value column="Description" isTrl="N" original="Temp">Temp</value>
+  </row>
+</compiereTrl>

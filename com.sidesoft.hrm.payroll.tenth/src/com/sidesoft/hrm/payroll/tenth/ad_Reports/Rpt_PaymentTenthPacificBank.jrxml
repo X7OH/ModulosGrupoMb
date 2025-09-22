@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_Payroll_Pacific_Bank" pageWidth="1224" pageHeight="555" orientation="Landscape" columnWidth="1224" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0000000000000098"/>
+	<property name="ireport.x" value="396"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Ad_User_Id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Documentno" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Ssfi_banktransfer_id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+TST.Settlementdate AS "periodo",--fecha_liquidacion
+CASE
+	WHEN BPAR.EM_SSPR_Typeofincome ='D' THEN
+BNKT.Paymentmethod
+end AS "forma_pago",--tipo ingreso
+BNKT.code AS "banco",--codigo
+case when BNKA.BankAccountType='C' then
+	BNKT.Currentcode
+when BNKA.BankAccountType='S' then
+	BNKT.Savingcode
+end as "tip_cta_che",
+BNKA.AccountNo AS "num_cta_che",--Cuenta getnerica
+TSTL.Adjustedamt AS "valor",--valor ajustado
+BPAR.EM_SSPR_DocumentNo AS "identificacion",--NoDocumento
+CASE
+	WHEN BPAR.EM_SSPR_Documenttype = 'NI' then
+							'C'
+	WHEN BPAR.EM_SSPR_Documenttype = 'SRT' then
+							'R'
+	WHEN BPAR.EM_SSPR_Documenttype = 'P' then
+							'P'
+END "tipp_documento",
+BPAR.EM_SSPR_DocumentNo AS "nuc",--NoDocumento
+BPAR.name AS "beneficiario",--nombreComercial
+(select phone
+from C_BPartner_Location pl
+where pl.c_bpartner_id = BPAR.c_bpartner_id
+	and pl.isactive='Y'
+	and pl.created=(select max(created)
+			from C_BPartner_Location pl2
+			where pl2.c_bpartner_id = BPAR.c_bpartner_id
+				and pl2.isactive='Y' )) AS "telefono",
+TST.description AS "referencia",--descripcion
+now() as "fechaimpresion",
+TST.ad_org_id,
+(select coalesce(cb2.name,au.name) from ad_user au left join c_bpartner cb2 on cb2.c_bpartner_id = au.c_bpartner_id where au.ad_user_id='100') as "usuario",
+ORG.name as "org_nombre"
+
+FROM SSPH_Tenth_Settlement TST
+
+	INNER JOIN ssph_tenth_settlement_line TSTL on
+						TSTL.SSPH_Tenth_Settlement_id = TST.SSPH_Tenth_Settlement_id
+	INNER JOIN c_bpartner BPAR on
+						BPAR.c_bpartner_id = TSTL.c_bpartner_id
+	INNER JOIN C_BP_BankAccount BNKA on
+						BNKA.c_bpartner_id = BPAR.c_bpartner_id
+	INNER JOIN ssfi_banktransfer BNKT on
+						BNKA.em_ssfi_banktransfer_id = BNKT.ssfi_banktransfer_id
+	INNER JOIN ad_org ORG on
+						ORG.ad_org_id = TST.ad_org_id
+WHERE TST.documentno=$P{Documentno}
+and BNKT.ssfi_banktransfer_id = $P{Ssfi_banktransfer_id}
+and BPAR.em_sspr_typeofincome = 'D'
+order by  BPAR.name]]>
+	</queryString>
+	<field name="periodo" class="java.sql.Timestamp"/>
+	<field name="forma_pago" class="java.lang.String"/>
+	<field name="banco" class="java.lang.String"/>
+	<field name="tip_cta_che" class="java.math.BigDecimal"/>
+	<field name="num_cta_che" class="java.lang.String"/>
+	<field name="valor" class="java.math.BigDecimal"/>
+	<field name="identificacion" class="java.lang.String"/>
+	<field name="tipp_documento" class="java.lang.String"/>
+	<field name="nuc" class="java.lang.String"/>
+	<field name="beneficiario" class="java.lang.String"/>
+	<field name="telefono" class="java.lang.String"/>
+	<field name="referencia" class="java.lang.String"/>
+	<field name="fechaimpresion" class="java.sql.Timestamp"/>
+	<field name="ad_org_id" class="java.lang.String"/>
+	<field name="usuario" class="java.lang.String"/>
+	<field name="org_nombre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement x="90" y="20" width="1134" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte  Pago Decimos Banco Pacifico]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="90" y="0" width="1134" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{org_nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="963" y="40" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha impresión:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="963" y="60" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuario:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="90" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Periodo:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="90" y="40" width="90" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{periodo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement x="1063" y="60" width="161" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{usuario}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement x="1063" y="40" width="161" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{fechaimpresion}]]></textFieldExpression>
+			</textField>
+			<image scaleImage="RetainShape" hAlign="Left" vAlign="Top" isUsingCache="true">
+				<reportElement key="image-1" x="0" y="0" width="90" height="40"/>
+				<imageExpression class="java.awt.Image"><![CDATA[org.openbravo.erpCommon.utility.Utility.showImageLogo("yourcompanylegal",$F{ad_org_id})]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="90" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Forma Pag/Cob]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="963" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Teléfono]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="0" width="86" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo Cta/Che]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="90" y="0" width="90" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Banco]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1063" y="0" width="161" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Referencia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="606" y="0" width="90" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NUC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="0" width="90" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Identificación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="534" y="0" width="72" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tip. Doc.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="696" y="0" width="267" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Beneficiario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="354" y="0" width="90" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="266" y="0" width="88" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Num. Cta/Che]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="90" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{forma_pago}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="963" y="0" width="100" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{telefono}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="180" y="0" width="86" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{tip_cta_che}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="90" y="0" width="90" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{banco}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1063" y="0" width="161" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{referencia}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="606" y="0" width="90" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nuc}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="444" y="0" width="90" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{identificacion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="534" y="0" width="72" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tipp_documento}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="696" y="0" width="267" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{beneficiario}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="354" y="0" width="90" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="266" y="0" width="88" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{num_cta_che}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_FIELDGROUP" version="">
+  <row id="A336A0EF410B4F26A86EF04D3433502D" trl="N">
+    <value column="Name" isTrl="Y" original="Urbano Integration">Integración Urbano</value>
+  </row>
+</compiereTrl>

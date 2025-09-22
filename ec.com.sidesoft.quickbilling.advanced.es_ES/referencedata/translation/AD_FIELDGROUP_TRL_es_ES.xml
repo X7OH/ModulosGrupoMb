@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_FIELDGROUP" version="">
+  <row id="000AC48553D4427D951461D593AE711F" trl="N">
+    <value column="Name" isTrl="N" original="Address">Address</value>
+  </row>
+  <row id="B8E784CDBCDC486FA3719D35441CA1F3" trl="N">
+    <value column="Name" isTrl="N" original="Partner|">Partner|</value>
+  </row>
+  <row id="D51EB1739FC24D19AE3E3787E2676FBA" trl="N">
+    <value column="Name" isTrl="N" original="Payment Method">Payment Method</value>
+  </row>
+</compiereTrl>

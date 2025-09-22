@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TEXTINTERFACES" version="">
+  <row id="0BDD18B0E2F24697A89FD7F611B2EAAA" trl="N">
+    <value column="Text" isTrl="N" original="Alternative UOM">Alternative UOM</value>
+  </row>
+  <row id="124DCE294DCF4F99983EE92CFE355E38" trl="N">
+    <value column="Text" isTrl="N" original="DP Management">DP Management</value>
+  </row>
+  <row id="130EBFA8B06B444E9F88E8F31C1462C6" trl="N">
+    <value column="Text" isTrl="N" original="Date - Part of Work">Date - Part of Work</value>
+  </row>
+  <row id="1444F32335D94457A86CA34AA6995C66" trl="N">
+    <value column="Text" isTrl="N" original="Autocalculated">Autocalculated</value>
+  </row>
+  <row id="2842F4DD32314FF98B950DE7C06F66FB" trl="N">
+    <value column="Text" isTrl="N" original="Cost Center Version">Cost Center Version</value>
+  </row>
+  <row id="28F116965D3B41C699D06739B40041C2" trl="N">
+    <value column="Text" isTrl="N" original="Inicio - Part of Work">Inicio - Part of Work</value>
+  </row>
+  <row id="2B8D5C1ECDC642309B65F2E43AF0DB16" trl="N">
+    <value column="Text" isTrl="N" original="Conversion">Conversion</value>
+  </row>
+  <row id="543302D717AD45A9BCDE7A16B6DC4278" trl="N">
+    <value column="Text" isTrl="N" original="Create from invoice">Create from invoice</value>
+  </row>
+  <row id="56A9B55FCC0D4CABAF61E7641C10CF0C" trl="N">
+    <value column="Text" isTrl="N" original="Payment Status">Payment Status</value>
+  </row>
+  <row id="5EEA68FE31514979B2ECD2C5DF71C46B" trl="N">
+    <value column="Text" isTrl="N" original="Create from Bank">Create from Bank</value>
+  </row>
+  <row id="6C0D1A1B34C5458A997291423A0CC07D" trl="N">
+    <value column="Text" isTrl="N" original="Create From Settlement">Create From Settlement</value>
+  </row>
+  <row id="6FEEE4EBA8474D4A8DADAB9908776202" trl="N">
+    <value column="Text" isTrl="N" original="Starttime">Starttime</value>
+  </row>
+  <row id="80C631EA435A4F2687C80357FBD1E82D" trl="N">
+    <value column="Text" isTrl="N" original="Documentno - Part of Work">Documentno - Part of Work</value>
+  </row>
+  <row id="8FA7F7549E414C8C90C0CC1223C205D8" trl="N">
+    <value column="Text" isTrl="N" original="Code">Code</value>
+  </row>
+  <row id="954F04F444D44E989B4B1735DDC560BF" trl="N">
+    <value column="Text" isTrl="N" original="Operative Qty">Operative Qty</value>
+  </row>
+  <row id="9E78E6246AD44A51BFBE93184419A317" trl="N">
+    <value column="Text" isTrl="N" original="Quantity in Alternative UOM">Quantity in Alternative UOM</value>
+  </row>
+  <row id="A424BEC6999A4908B2E1B6FC988A19C8" trl="N">
+    <value column="Text" isTrl="N" original="Proposed">Proposed</value>
+  </row>
+  <row id="A69B946D32CE40A5B04AE24E2B407BB8" trl="N">
+    <value column="Text" isTrl="N" original="Only Applied">Only Applied</value>
+  </row>
+  <row id="AFEFCB3D1FB641B2B83C64DD4F0937B7" trl="N">
+    <value column="Text" isTrl="N" original="Refresh">Refresh</value>
+  </row>
+  <row id="B3DAA56829DF4B34BAEB9D1C108819F4" trl="N">
+    <value column="Text" isTrl="N" original="Create from shipment">Create from shipment</value>
+  </row>
+  <row id="C2FC39DBF857443AA5ED35985EC235F8" trl="N">
+    <value column="Text" isTrl="N" original="Status Quality">Status Quality</value>
+  </row>
+  <row id="C3A2535E9688428A94FE5276F43231F4" trl="N">
+    <value column="Text" isTrl="N" original="Proposal date">Proposal date</value>
+  </row>
+  <row id="CA35162ABD3C40E091BAB4A8328CF2DD" trl="N">
+    <value column="Text" isTrl="N" original="Final status">Final status</value>
+  </row>
+  <row id="CEA2665889B042CB9F34575AFA6BD498" trl="N">
+    <value column="Text" isTrl="N" original="Production Line">Production Line</value>
+  </row>
+  <row id="E4BC65283D6F4FBBAFD2F3FCE396FB0E" trl="N">
+    <value column="Text" isTrl="N" original="Documentno">Documentno</value>
+  </row>
+  <row id="F864CC86F7C2466C921942BA54EAB59F" trl="N">
+    <value column="Text" isTrl="N" original="Endtime">Endtime</value>
+  </row>
+  <row id="F92EE86141E743F5AE1754DB1C83C8E9" trl="N">
+    <value column="Text" isTrl="N" original="Fin - Part of Work">Fin - Part of Work</value>
+  </row>
+  <row id="FC13C1D8771747A684B60416EFEB5E38" trl="N">
+    <value column="Text" isTrl="N" original="Alternative UOM">Alternative UOM</value>
+  </row>
+</compiereTrl>

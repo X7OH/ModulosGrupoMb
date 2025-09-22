@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TEXTINTERFACES" version="">
+  <row id="03BE605AEF64448FBC203745B9A133E4" trl="N">
+    <value column="Text" isTrl="N" original="DEPARTAMENTO">DEPARTAMENTO</value>
+  </row>
+  <row id="04D5DBAE104A4D7889702EB20DE9272A" trl="N">
+    <value column="Text" isTrl="N" original="HE50">HE50</value>
+  </row>
+  <row id="1A628BE131B64BD6BAEB336000580665" trl="N">
+    <value column="Text" isTrl="N" original="EMPLEADO">EMPLEADO</value>
+  </row>
+  <row id="291A202966E94884ACBBFEDA37DD3F20" trl="N">
+    <value column="Text" isTrl="N" original="TOTAL ATRASOS">TOTAL ATRASOS</value>
+  </row>
+  <row id="4E2F21F4A6864046B0969E448C7532F1" trl="N">
+    <value column="Text" isTrl="N" original="CIUDAD">CIUDAD</value>
+  </row>
+  <row id="585960C7CD7A414FB600C730CD358608" trl="N">
+    <value column="Text" isTrl="N" original="TOTAL GENERAL">TOTAL GENERAL</value>
+  </row>
+  <row id="5B129DFC4F2D4533818FD5D73B0B861A" trl="N">
+    <value column="Text" isTrl="N" original="HE100">HE100</value>
+  </row>
+  <row id="6FCDCF733B404EADA748B89D654ECBFE" trl="N">
+    <value column="Text" isTrl="N" original="Usuario:">Usuario:</value>
+  </row>
+  <row id="975C74073C894BD0BCAB035B970F67D2" trl="N">
+    <value column="Text" isTrl="N" original="AREA">AREA</value>
+  </row>
+  <row id="C09928DB21EF4BDD950ECD3AAA95E019" trl="N">
+    <value column="Text" isTrl="N" original="CENTRO DE COSTO">CENTRO DE COSTO</value>
+  </row>
+  <row id="E75EA1A58BD941A9A80EF0B11CE546AE" trl="N">
+    <value column="Text" isTrl="N" original="No. EMP">No. EMP</value>
+  </row>
+  <row id="EABD4DF433854BD2B6C09C9C949A2D4F" trl="N">
+    <value column="Text" isTrl="N" original="HE25">HE25</value>
+  </row>
+  <row id="ED9790E4AB7949C7879DD91B4C9F076A" trl="N">
+    <value column="Text" isTrl="N" original="DETALLE DE HORAS EXTRAS GENERADAS">DETALLE DE HORAS EXTRAS GENERADAS</value>
+  </row>
+  <row id="F79144D4B28948EA98E0B151F9DD4F61" trl="N">
+    <value column="Text" isTrl="N" original="CARGO">CARGO</value>
+  </row>
+  <row id="FF7FDA80B507437A92A5FB8F8AEE1B51" trl="N">
+    <value column="Text" isTrl="N" original="Fecha de impresión:">Fecha de impresión:</value>
+  </row>
+</compiereTrl>

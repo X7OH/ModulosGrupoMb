@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
+  <row id="52394AE5894047FEA21F77F44AC8C4A7" trl="Y">
+    <value column="Name" isTrl="Y" original="Update List of Materials">Actualizar Lista de Materiales</value>
+    <value column="Description" isTrl="Y" original="Update List of Materials">Actualizar Lista de Materiales</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="8FB5F936F53B4813ADE59AD585F5564C" trl="Y">
+    <value column="Name" isTrl="Y" original="Charge M_Offer">Cargar Ofertas - Espejo</value>
+    <value column="Description" isTrl="Y" original="Charge M_Offer">Cargar Ofertas - Espejo</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="C6E74A5811C4439BB6E8A7F3F7575582" trl="Y">
+    <value column="Name" isTrl="Y" original="Charge_Prices">Cargar Precios - Espejo</value>
+    <value column="Description" isTrl="Y" original="Charge_Prices">Cargar Precios - Espejo</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="E4A806EE0AB147C3B29C42D6253986EF" trl="Y">
+    <value column="Name" isTrl="N" original="Update Prices">Actualizar Precios</value>
+    <value column="Description" isTrl="N" original="Update Prices">Actualizar Precios</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="EB6886FFD52141DC917E5EFF098490DC" trl="Y">
+    <value column="Name" isTrl="Y" original="Charge_Materialist">Cargar Lista de Materiales - Espejo</value>
+    <value column="Description" isTrl="Y" original="Charge_Materialist">Cargar Lista de Materiales - Espejo</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="FD94833AFA7040A3889BAE5095B67732" trl="Y">
+    <value column="Name" isTrl="Y" original="Update Mirror Offert">Actualizar Modificacion de Precios</value>
+    <value column="Description" isTrl="Y" original="Update Mirror Offert">Actualizar Modificacion de Precios</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

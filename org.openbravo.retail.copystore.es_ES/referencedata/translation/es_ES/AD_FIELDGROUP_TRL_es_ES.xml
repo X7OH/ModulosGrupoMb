@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_FIELDGROUP" version="">
+  <row id="10F206AAF76B4131B56EDD3BFB5A19DF" trl="N">
+    <value column="Name" isTrl="N" original="Location">Localización</value>
+  </row>
+  <row id="6ADE52F42179457381443B4B0042B0DC" trl="N">
+    <value column="Name" isTrl="N" original="POS Terminal Type Default Values">Valores por defecto para Tipo de Terminal TPV</value>
+  </row>
+  <row id="6C8FF7622A894055B5C7926A3482E72D" trl="N">
+    <value column="Name" isTrl="N" original="POS Terminal Type - Payment Method Default Values">Valores por defecto: Tipo de Terminal TPV - Método de pago</value>
+  </row>
+  <row id="7F4792A6D5184CFD9DA56CCD2128F442" trl="N">
+    <value column="Name" isTrl="N" original="Store Information">Información de la tienda</value>
+  </row>
+</compiereTrl>

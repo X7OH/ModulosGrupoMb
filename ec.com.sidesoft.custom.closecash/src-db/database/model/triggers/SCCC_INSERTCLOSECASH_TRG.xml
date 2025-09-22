@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SCCC_INSERTCLOSECASH_TRG">
+    <trigger name="SCCC_INSERTCLOSECASH_TRG" table="SCCC_CASH_CLOUSURELINE" fires="before" insert="true" update="true" delete="true" foreach="row">
+      <body><![CDATA[
+ v_docstatus VARCHAR2(60);
+
+BEGIN
+    
+ IF AD_isTriggerEnabled()='N' THEN RETURN;
+  END IF;
+	
+
+      
+  IF (INSERTING OR UPDATING OR DELETING ) THEN
+
+	IF (DELETING) THEN
+SELECT docstatus into v_docstatus FROM sccc_cash_clousure where sccc_cash_clousure_id = :old.sccc_cash_clousure_ID;
+	ELSE
+    SELECT docstatus into v_docstatus FROM sccc_cash_clousure where sccc_cash_clousure_id = :new.sccc_cash_clousure_ID;
+    END IF;
+
+
+    IF (v_docstatus = 'SCCC_RG' OR v_docstatus = 'SCCC_PR') THEN
+  
+        RAISE_APPLICATION_ERROR(-20000, '@SCCC_NOT_INSERT_LINE@');
+     
+    END IF;
+
+  END IF;
+
+
+  END SCCC_INSERTCLOSECASH_TRG
+]]></body>
+    </trigger>
+  </database>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SSRS_DATESVALIDATE_TRG">
+    <trigger name="SSRS_DATESVALIDATE_TRG" table="SSRS_RESUPPLY_POS" fires="before" insert="true" update="true" delete="false" foreach="row">
+      <body><![CDATA[
+        
+BEGIN
+    
+    IF AD_isTriggerEnabled()='N' THEN RETURN;
+    END IF;
+
+    IF INSERTING OR UPDATING THEN
+
+		IF (:new.docstatus = 'DR') THEN
+		
+			IF((TO_DATE(TO_CHAR(:new.Needbydate,'dd-mm-yyyy')) < TO_DATE(TO_CHAR(now(),'dd-mm-yyyy'))) 
+			OR (TO_DATE(TO_CHAR(:new.Needbydate,'dd-mm-yyyy')) > TO_DATE(TO_CHAR(now(),'dd-mm-yyyy')) + interval '30 days')) THEN
+				RAISE_APPLICATION_ERROR(-20000, '@Ssrs_ErrorNeedByDate@'|| ' ' ||TO_DATE(TO_CHAR(now(),'dd-mm-yyyy')) + interval '30 days') ;
+			END IF;
+
+			IF((TO_DATE(TO_CHAR(:new.Estimateddeliverydate,'dd-mm-yyyy')) < TO_DATE(TO_CHAR(now(),'dd-mm-yyyy')) )
+			OR (TO_DATE(TO_CHAR(:new.Estimateddeliverydate,'dd-mm-yyyy'))  > TO_DATE(TO_CHAR(now(),'dd-mm-yyyy')) + interval '30 days'  )) THEN
+				RAISE_APPLICATION_ERROR(-20000, '@Ssrs_ErrorDeliveryDate@'|| ' ' ||TO_DATE(TO_CHAR(now(),'dd-mm-yyyy')) + interval '30 days') ;
+			END IF;
+			
+		END IF;
+	
+    END IF;
+
+    END SSRS_DATESVALIDATE_TRG
+]]></body>
+    </trigger>
+  </database>

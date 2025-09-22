@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE M_PRODUCT">
+    <table name="M_PRODUCT" primaryKey="M_PRODUCT_KEY">
+      <column name="EM_SLQS_CHECK_QUALITY" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SLQS_MP_PER_CTRL" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="MA_PERIODIC_CONTROL" name="EM_SLQS_MP_PER_CTRL_FK">
+        <reference local="EM_SLQS_MP_PER_CTRL" foreign="MA_PERIODIC_CONTROL_ID"/>
+      </foreign-key>
+    </table>
+  </database>

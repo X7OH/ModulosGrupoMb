@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="477C324F87854A4A88D65D913DF052F7" trl="N">
+    <value column="Name" isTrl="N" original="HQL Query Tool">Herramienta de consultas HQL</value>
+    <value column="Description" isTrl="N" original="Supports entering HQL query through a web interface">Permite hacer consultas HQL desde el interfaz web</value>
+  </row>
+</compiereTrl>

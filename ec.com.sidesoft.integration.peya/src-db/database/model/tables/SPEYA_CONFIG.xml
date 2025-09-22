@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+  <database name="TABLE SPEYA_CONFIG">
+    <table name="SPEYA_CONFIG" primaryKey="SPEYA_CONFIG_KEY">
+      <column name="SPEYA_CONFIG_ID" primaryKey="true" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_CLIENT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_ORG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="PYLOGIN_USERNAME" primaryKey="false" required="false" type="VARCHAR" size="120" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="PYLOGIN_PASSWORD" primaryKey="false" required="false" type="VARCHAR" size="120" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="PYLOGIN_URL" primaryKey="false" required="false" type="VARCHAR" size="120" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="PYLOGIN_TOKEN" primaryKey="false" required="false" type="CLOB" size="4000" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="PYACEPTORDER_URL" primaryKey="false" required="false" type="VARCHAR" size="120" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="PYACEPTORDER_TOKEN" primaryKey="false" required="false" type="CLOB" size="4000" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISACTIVE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="PYUPDATESTORE_URL" primaryKey="false" required="false" type="VARCHAR" size="120" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="PYUPDATESTORE_TOKEN" primaryKey="false" required="false" type="CLOB" size="4000" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="AD_CLIENT" name="SPEYA_CONFIG_CLIENT">
+        <reference local="AD_CLIENT_ID" foreign="AD_CLIENT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_ORG" name="SPEYA_CONFIG_ORG">
+        <reference local="AD_ORG_ID" foreign="AD_ORG_ID"/>
+      </foreign-key>
+      <check name="SPEYA_CONFIG_ISACTIVE"><![CDATA[ISACTIVE IN ('Y', 'N')]]></check>
+    </table>
+  </database>

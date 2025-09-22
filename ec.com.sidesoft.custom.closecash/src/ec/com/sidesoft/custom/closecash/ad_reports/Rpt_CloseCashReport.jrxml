@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_CloseCashReport" pageWidth="221" pageHeight="500" orientation="Landscape" columnWidth="221" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="3.1384283767210643"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="sccc_cash_clousure_id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="BASE_WEB" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT 	org.ad_org_id as "ad_org_id",
+	org.name as "organization",
+	cc.description as "nombrecierre",
+	userc.name as "creadopor",
+	to_char(cc.created,'dd') || ' de ' || to_char(cc.created,'TMMonth') || ' del '||to_char(cc.created,'yyyy HH24:MI:SS') as "creacionfecha",
+	useru.name as "actualizadopor",
+	to_char(cc.updated,'dd') || ' de ' || to_char(cc.updated,'TMMonth') || ' del '||to_char(cc.updated,'yyyy HH24:MI:SS') as "actualizacion"
+FROM sccc_cash_clousure cc
+LEFT JOIN ad_user userc ON userc.ad_user_id = cc.createdby
+LEFT JOIN ad_user useru ON useru.ad_user_id = cc.updatedby
+LEFT JOIN ad_org org On org.ad_org_id = cc.ad_org_id
+WHERE cc.sccc_cash_clousure_id = $P{sccc_cash_clousure_id}]]>
+	</queryString>
+	<field name="ad_org_id" class="java.lang.String"/>
+	<field name="organization" class="java.lang.String"/>
+	<field name="nombrecierre" class="java.lang.String"/>
+	<field name="creadopor" class="java.lang.String"/>
+	<field name="creacionfecha" class="java.lang.String"/>
+	<field name="actualizadopor" class="java.lang.String"/>
+	<field name="actualizacion" class="java.lang.String"/>
+	<title>
+		<band height="64" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="3" width="221" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cierre de Caja]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="39" width="221" height="10"/>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{organization}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement x="0" y="15" width="221" height="10"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{creadopor} +" "+ $F{creacionfecha}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement x="0" y="27" width="221" height="10"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{actualizadopor} +" "+ $F{actualizacion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="51" width="221" height="10"/>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombrecierre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<summary>
+		<band height="68" splitType="Stretch">
+			<subreport>
+				<reportElement positionType="Float" x="0" y="2" width="221" height="12"/>
+				<subreportParameter name="sccc_cash_clousure_id">
+					<subreportParameterExpression><![CDATA[$P{sccc_cash_clousure_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{BASE_WEB}.replace("web","src-loc/design")+"/ec/com/sidesoft/custom/closecash/ad_reports/SubRpt_RetailTransactions.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport runToBottom="false">
+				<reportElement positionType="Float" x="0" y="26" width="221" height="12"/>
+				<subreportParameter name="sccc_cash_clousure_id">
+					<subreportParameterExpression><![CDATA[$P{sccc_cash_clousure_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{BASE_WEB}.replace("web","src-loc/design")+"/ec/com/sidesoft/custom/closecash/ad_reports/SubRpt_CountAmount.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="48" width="221" height="11"/>
+				<subreportParameter name="sccc_cash_clousure_id">
+					<subreportParameterExpression><![CDATA[$P{sccc_cash_clousure_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{BASE_WEB}.replace("web","src-loc/design")+"/ec/com/sidesoft/custom/closecash/ad_reports/SubRpt_TotalDeposit.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="14" width="221" height="12"/>
+				<subreportParameter name="sccc_cash_clousure_id">
+					<subreportParameterExpression><![CDATA[$P{sccc_cash_clousure_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{BASE_WEB}.replace("web","src-loc/design")+"/ec/com/sidesoft/custom/closecash/ad_reports/SubRpt_ExpectedAmount.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="38" width="221" height="10"/>
+				<subreportParameter name="sccc_cash_clousure_id">
+					<subreportParameterExpression><![CDATA[$P{sccc_cash_clousure_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{BASE_WEB}.replace("web","src-loc/design")+"/ec/com/sidesoft/custom/closecash/ad_reports/SubRpt_Differences.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

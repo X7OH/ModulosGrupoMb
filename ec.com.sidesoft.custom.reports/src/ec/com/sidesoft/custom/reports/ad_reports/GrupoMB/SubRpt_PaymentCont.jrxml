@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubRpt_PaymentCont" pageWidth="595" pageHeight="150" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="3.630000000000048"/>
+	<property name="ireport.x" value="1184"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="DOCUMENT_ID" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+to_char(A.acctvalue ||'-'|| A.acctdescription) as "cuenta_cont",
+to_char(A.description) as "detalle_cont",
+A.amtacctdr as "debito_cont",
+A.amtacctcr as "credito_cont"
+from fin_payment P
+INNER JOIN ad_org ORG ON ORG.ad_org_id = P.ad_org_id
+LEFT JOIN c_doctype D on D.c_doctype_id = P.c_doctype_id
+LEFT JOIN c_bpartner B on B.c_bpartner_id = P.c_bpartner_id
+LEFT JOIN fin_financial_account F on F.fin_financial_account_id = P.fin_financial_account_id
+LEFT JOIN fact_acct A on A.record_id = P.fin_payment_id
+LEFT JOIN c_elementvalue E on E.c_elementvalue_id = A.account_id
+WHERE P.fin_payment_id = $P{DOCUMENT_ID} and A.ad_table_id ='D1A97202E832470285C9B1EB026D54E2']]>
+	</queryString>
+	<field name="cuenta_cont" class="java.lang.String"/>
+	<field name="detalle_cont" class="java.lang.String"/>
+	<field name="debito_cont" class="java.math.BigDecimal"/>
+	<field name="credito_cont" class="java.math.BigDecimal"/>
+	<variable name="sumaDebito" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{debito_cont}]]></variableExpression>
+	</variable>
+	<variable name="sumaCredito" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{credito_cont}]]></variableExpression>
+	</variable>
+	<group name="organization">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="CategoryGroup">
+		<groupHeader>
+			<band height="32">
+				<staticText>
+					<reportElement x="412" y="16" width="70" height="16"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[DEBITO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="178" y="16" width="234" height="16"/>
+					<box leftPadding="0">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[DETALLE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="16" width="178" height="16"/>
+					<box topPadding="0" leftPadding="2">
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CUENTA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="482" y="16" width="73" height="16"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CREDITO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="0" width="78" height="13"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CONTABILIDAD:]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="10" splitType="Stretch">
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="178" y="0" width="234" height="10"/>
+				<box topPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{detalle_cont}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="178" height="10"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cuenta_cont}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="412" y="0" width="70" height="10"/>
+				<box topPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{debito_cont}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="482" y="0" width="73" height="10"/>
+				<box topPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{credito_cont}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="23" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="1" width="555" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="412" y="2" width="70" height="11"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sumaDebito}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="482" y="2" width="70" height="11"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sumaCredito}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

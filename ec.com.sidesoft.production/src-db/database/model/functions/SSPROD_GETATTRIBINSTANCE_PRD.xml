@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SSPROD_GETATTRIBINSTANCE_PRD">
+    <function name="SSPROD_GETATTRIBINSTANCE_PRD" type="VARCHAR">
+      <parameter name="p_product_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <parameter name="p_locator_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <parameter name="p_attrinst" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <parameter name="p_process" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[v_AttInstanceID varchar2(32);
+    v_Acum NUMBER; --OBTG:NUMBER--
+
+   -- Parameter
+  TYPE RECORD IS REF CURSOR;
+    Cur_Product RECORD;
+begin
+	v_Acum:=0;
+	v_AttInstanceID:='ND';
+
+	IF (COALESCE(p_attrInst, 'ND')='ND') THEN
+			FOR Cur_Product IN(
+				SELECT 
+				m_storage_detail_id
+				FROM ssprod_product_lot_v
+				WHERE M_PRODUCT_ID = p_product_id
+				AND M_LOCATOR_ID =  p_locator_id
+				AND m_storage_detail_id <> COALESCE(p_attrInst,'ND')
+				and m_attributesetinstance_id not in  (select attibuteinstance from ssprod_prod_att where product = p_product_id and p_instance = p_process)				
+				ORDER BY m_product_id, guaranteedate,  STOCK  ASC
+			) LOOP
+				IF (v_Acum=0) then
+					v_Acum:=v_Acum+1;
+					v_AttInstanceID:= Cur_Product.m_storage_detail_id;
+				END  IF;
+			END LOOP;
+	ELSE
+			FOR Cur_Product IN(
+				SELECT 
+				m_storage_detail_id
+				FROM ssprod_product_lot_v
+				WHERE M_PRODUCT_ID = p_product_id
+				AND M_LOCATOR_ID =  p_locator_id
+				AND m_storage_detail_id <> COALESCE(p_attrInst,'ND')
+				and m_attributesetinstance_id not in  (select attibuteinstance from ssprod_prod_att where product = p_product_id and p_instance = p_process)
+				ORDER BY m_product_id, guaranteedate,  STOCK  ASC
+			) LOOP
+				IF (v_Acum=0) then
+					v_Acum:=v_Acum+1;
+					v_AttInstanceID:= Cur_Product.m_storage_detail_id;
+				END  IF;
+			END LOOP;
+	END IF;
+	RETURN v_AttInstanceID;
+END SSPROD_GETATTRIBINSTANCE_PRD
+]]></body>
+    </function>
+  </database>

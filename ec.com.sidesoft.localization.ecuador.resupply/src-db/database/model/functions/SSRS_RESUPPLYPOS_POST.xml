@@ -1,0 +1,348 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SSRS_RESUPPLYPOS_POST">
+    <function name="SSRS_RESUPPLYPOS_POST" type="NULL">
+      <parameter name="p_pinstance_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[/*************************************************************************
+* The contents of this file are subject to the Openbravo  Public  License
+* Version  1.1  (the  "License"),  being   the  Mozilla   Public  License
+* Version 1.1  with a permitted attribution clause; you may not  use this
+* file except in compliance with the License. You  may  obtain  a copy of
+* the License at http://www.openbravo.com/legal/license.html
+* Software distributed under the License  is  distributed  on  an "AS IS"
+* basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+* License for the specific  language  governing  rights  and  limitations
+* under the License.
+* The Original Code is Openbravo ERP.
+* The Initial Developer of the Original Code is Openbravo SLU
+* All portions are Copyright (C) 2001-2013 Openbravo SLU
+* All Rights Reserved.
+* Contributor(s):  ______________________________________.
+************************************************************************/
+  -- Logistice
+  v_ResultStr VARCHAR2(2000):='';     
+  v_Message VARCHAR2(2000):='';       
+  v_Result NUMBER:=1;                -- 0=failure
+  v_Record_ID VARCHAR2(32);           
+  v_User_ID VARCHAR2(32):='0';        
+  v_DocAction VARCHAR2(60);           
+  v_DocStatus VARCHAR2(60);           
+  v_Aux NUMBER;
+  v_bpartner VARCHAR2(32);            
+  v_bpartner_blocked VARCHAR2(1):='N';
+  v_inOutBlocking VARCHAR2(1):='N';   
+  v_bpartner_name c_bpartner.name%TYPE;
+  v_productname m_product.name%TYPE;
+  v_Org_ID VARCHAR2(32);              
+  v_em_ssrs_timeto DATE;
+  v_created DATE;
+  V_RESUPPLY_ID VARCHAR2(32);         
+  V_CURRENTNEXT NUMBER;
+  V_AD_SEQUENCE_ID VARCHAR2(32);         
+
+  --  Parameter
+  TYPE RECORD IS REF CURSOR;
+    Cur_Parameter RECORD;
+    Cur_ResupplyLine RECORD;
+    Cur_ResupplyPos RECORD;
+    Cur_ResupplyPosLine RECORD;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Updating PInstance - Processing ' || p_PInstance_ID) ;
+  v_ResultStr:='PInstanceNotFound';
+  AD_UPDATE_PINSTANCE(p_PInstance_ID, NULL, 'Y', NULL, NULL) ;
+
+  BEGIN --BODY
+    -- Get Parameters
+    v_ResultStr:='ReadingParameters';
+    FOR Cur_Parameter IN
+      (SELECT i.Record_ID, i.AD_User_ID, i.AD_Client_ID, i.AD_Org_ID,
+        p.ParameterName, p.P_String, p.P_Number, p.P_Date
+      FROM AD_PInstance i
+      LEFT JOIN AD_PInstance_Para p
+        ON i.AD_PInstance_ID=p.AD_PInstance_ID
+      WHERE i.AD_PInstance_ID=p_PInstance_ID
+      ORDER BY p.SeqNo) LOOP
+      v_Record_ID:=Cur_Parameter.Record_ID;
+      v_User_ID:=Cur_Parameter.AD_User_ID;
+    END LOOP; -- Get Parameter
+
+
+	DELETE FROM ssrs_resupplyposline  where quantityorder  =0
+	AND ssrs_resupply_pos_id  =v_Record_ID;
+
+	
+	--Sacar variables de registro
+	SELECT DocAction, DocStatus , c_bpartner_id,ad_org_id ,created 
+		INTO v_DocAction, v_DocStatus, v_bpartner, v_Org_ID, v_created
+	FROM SSRS_RESUPPLY_POS
+	WHERE SSRS_RESUPPLY_POS_ID = v_Record_ID;
+
+	--Si el documento está completado y exista tercero en el
+	IF (v_DocAction = 'CO' AND v_bpartner IS NOT NULL) THEN
+
+		--registro con el tercero con ese tercero
+		SELECT  vendor_blocking , po_order_blocking, name  
+			INTO v_bpartner_blocked, v_inOutBlocking, v_bpartner_name
+		FROM SSRS_RESUPPLY_pos m, C_BPartner bp
+		where m.c_bpartner_id = bp.c_bpartner_id
+			and m.SSRS_RESUPPLY_pos_id = v_Record_ID
+			AND m.C_BPARTNER_ID    = v_bpartner;
+
+		--Sí este usuaro esta bloqueado o en bloqueo
+		IF (v_bpartner_blocked = 'Y' AND v_inOutBlocking = 'Y')THEN
+			RAISE_APPLICATION_ERROR(-20000,'@ThebusinessPartner@'||' '|| v_bpartner_name ||' '||'@BusinessPartnerBlocked@');
+		END IF;
+
+	--Si el registro está en completado
+	ELSIF (v_DocAction = 'CO') THEN
+
+		--Recoger datos de las lineas de la transaccion
+		FOR Cur_ResupplyLine IN (
+					SELECT 
+						SSRS_RESUPPLYPOSline_id--id_line
+						,c_bpartner_id--Tercero
+					FROM SSRS_RESUPPLYPOSline
+					WHERE SSRS_RESUPPLY_POS_id = v_Record_ID
+		)LOOP
+			--Si existe un tercero en las lineas
+			IF (Cur_ResupplyLine.c_bpartner_id IS NOT NULL) THEN
+
+				--almacena datos del tercero asociado al registro
+				SELECT  vendor_blocking , po_order_blocking, name  
+					INTO v_bpartner_blocked, v_inOutBlocking, v_bpartner_name
+				FROM SSRS_RESUPPLYPOSline m, C_BPartner bp
+				WHERE m.c_bpartner_id=bp.c_bpartner_id
+					AND m.SSRS_RESUPPLYPOSline_id = Cur_ResupplyLine.SSRS_RESUPPLYPOSline_id
+					AND m.C_BPARTNER_ID = Cur_ResupplyLine.c_bpartner_id;
+
+				--Sí el usuario está bloqueado o en bloqueo
+				IF (v_bpartner_blocked = 'Y' AND v_inOutBlocking = 'Y')THEN
+					RAISE_APPLICATION_ERROR(-20000,'@ThebusinessPartner@'||' '|| v_bpartner_name ||' '||'@BusinessPartnerBlocked@');
+				END IF;	
+			END IF;
+			
+		END LOOP; 
+	END IF;
+
+	v_ResultStr := 'SSRS_RESUPPLY_POS ' || v_Record_ID || ', DocAction=' || v_DocAction || ', DocStatus=' || v_DocStatus || ', Org=' || v_Org_ID ;
+
+	/**
+	* Check if resupply has lines
+	*/
+	IF (v_DocAction = 'CO') THEN
+    
+		SELECT COUNT(*)
+			INTO v_Aux
+		FROM SSRS_RESUPPLYPOSline 
+		WHERE SSRS_RESUPPLY_POS_id = v_Record_ID;
+		
+		IF v_Aux=0 THEN
+			RAISE_APPLICATION_ERROR(-20000, '@RequisitionWithoutLines@');
+		END IF;
+	END IF;
+
+	--Cuenta que los productos de la linea sean genericos
+	SELECT count(*) 
+		INTO v_aux
+	FROM dual
+	WHERE EXISTS (
+			SELECT 1
+			FROM SSRS_RESUPPLYPOSline rl 
+			JOIN m_product p ON rl.m_product_id = p.m_product_id
+			WHERE p.isgeneric = 'Y');
+				
+	IF (v_aux > 0) THEN
+	
+		SELECT max(p.name) 
+			INTO v_productname
+		FROM SSRS_RESUPPLYPOSline  rl 
+		JOIN m_product p ON rl.m_product_id = p.m_product_id
+		WHERE rl.SSRS_RESUPPLY_POS_id = v_record_id
+			AND p.isgeneric = 'Y';
+			
+		RAISE_APPLICATION_ERROR(-20000, '@CannotUseGenericProduct@ ' || v_productName);
+	END IF;
+
+	SELECT em_ssrs_timeto 
+		INTO v_em_ssrs_timeto
+	FROM AD_ORG
+	WHERE AD_ORG_ID = v_Org_ID;
+	/**
+	* Order Closed, Voided or Reversed - No action possible
+	*/
+    IF(v_DocStatus IN('CL', 'VO', 'RE')) THEN
+    
+	RAISE_APPLICATION_ERROR(-20000, '@AlreadyPosted@') ;
+      
+    ELSIF (v_DocStatus = 'DR') THEN
+    
+	IF(v_created::time <= v_em_ssrs_timeto::time AND v_em_ssrs_timeto IS NOT NULL)THEN
+		IF (v_DocAction = 'CO') THEN
+			v_ResultStr := 'Complete the requisition: ' || v_Record_ID;
+			UPDATE SSRS_RESUPPLY_POS
+			SET DocStatus = 'CO',
+				DocAction = 'CL',
+				Updated=now(),
+				UpdatedBy=v_User_ID
+			WHERE SSRS_RESUPPLY_POS_id = v_Record_ID;
+	
+			FOR Cur_ResupplyPos IN (
+						SELECT 
+							A.ad_client_id
+							,A.ad_org_id
+							,A.isactive
+							,now()
+							,A.createdby
+							,now()
+							,A.updatedby
+							,A.description
+							,documentno 
+							,A.c_bpartner_id
+							,createpo
+							,docstatus 
+							,docaction
+							,processed
+							,ad_user_id
+							,A.processing
+							,A.needbydate
+							,ad_org_id_req
+							,estimateddeliverydate
+							,C.EM_Ssrs_M_Warehouse_ID
+							,A.ssrs_resupply_pos_id 
+						FROM SSRS_RESUPPLY_POS A
+							left join SSRS_RESUPPLYPOSLINE B ON A.SSRS_RESUPPLY_POS_ID = B.SSRS_RESUPPLY_POS_ID
+							LEFT JOIN M_PRODUCT C ON B.M_PRODUCT_ID = C.M_PRODUCT_ID
+						WHERE A.SSRS_RESUPPLY_POS_id = v_Record_ID
+						GROUP BY A.ad_client_id,A.ad_org_id,A.isactive,A.createdby,A.updatedby,A.description,documentno ,
+							A.c_bpartner_id,createpo,docstatus ,docaction,processed,ad_user_id,A.processing,A.needbydate,ad_org_id_req, estimateddeliverydate,
+							C.EM_Ssrs_M_Warehouse_ID ,A.SSRS_RESUPPLY_POS_id
+			)LOOP
+				V_RESUPPLY_ID = GET_UUID();
+
+				SELECT CURRENTNEXT, AD_SEQUENCE_ID 
+					INTO V_CURRENTNEXT,V_AD_SEQUENCE_ID 
+				FROM AD_SEQUENCE 
+				WHERE NAME = 'DocumentNo_ssrs_resupply';
+		
+				INSERT INTO SSRS_RESUPPLY (
+					SSRS_RESUPPLY_ID,ad_client_id,ad_org_id,isactive,created,
+					createdby,updated,updatedby,description,documentno,
+					c_bpartner_id,createpo,docstatus ,docaction,processed,
+					ad_user_id,processing,needbydate,ad_org_id_req,estimateddeliverydate,
+					m_warehouse_id,ssrs_resupply_pos_id)
+				VALUES(V_RESUPPLY_ID,Cur_ResupplyPos.ad_client_id,Cur_ResupplyPos.ad_org_id,Cur_ResupplyPos.isactive,now(),
+					Cur_ResupplyPos.createdby,now(),Cur_ResupplyPos.updatedby,Cur_ResupplyPos.description,V_CURRENTNEXT,
+					Cur_ResupplyPos.c_bpartner_id,Cur_ResupplyPos.createpo,'DR','CO','N',
+					Cur_ResupplyPos.ad_user_id,'N',Cur_ResupplyPos.needbydate,Cur_ResupplyPos.ad_org_id_req,Cur_ResupplyPos.estimateddeliverydate,
+					Cur_ResupplyPos.EM_Ssrs_M_Warehouse_ID,Cur_ResupplyPos.ssrs_resupply_pos_id );
+     
+				UPDATE AD_SEQUENCE SET 
+							CURRENTNEXT = V_CURRENTNEXT+1
+				WHERE AD_SEQUENCE_ID = V_AD_SEQUENCE_ID;
+				
+				FOR Cur_ResupplyPosLine IN(
+							SELECT 
+								B.ad_client_id
+								,B.ad_org_id
+								,B.isactive
+								,now()
+								,B.createdby
+								,now()
+								,B.updatedby
+								,B.description
+								,documentno
+								,A.c_bpartner_id
+								,createpo
+								,docstatus
+								,docaction
+								,processed
+								,ad_user_id
+								,A.processing
+								,A.needbydate
+								,ad_org_id_req
+								,estimateddeliverydate
+								,C.EM_Ssrs_M_Warehouse_ID
+								,qty
+								,quantityorder
+								,reqstatus
+								,orderedqty
+								,b.needbydate
+								,b.value
+								,c_aum
+								,line
+								,b.c_uom_id
+								,b.m_product_id
+								,B.Secqtyuom as Secqtyuom
+							FROM SSRS_RESUPPLY_POS A
+								left join SSRS_RESUPPLYPOSLINE B ON 
+												A.SSRS_RESUPPLY_POS_ID = B.SSRS_RESUPPLY_POS_ID
+								LEFT JOIN M_PRODUCT C ON 
+												B.M_PRODUCT_ID = C.M_PRODUCT_ID
+							WHERE A.SSRS_RESUPPLY_POS_id = v_Record_ID
+								AND C.EM_Ssrs_M_Warehouse_ID = Cur_ResupplyPos.EM_Ssrs_M_Warehouse_ID
+					
+				)LOOP
+		
+					INSERT INTO SSRS_RESUPPLYLINE (
+						SSRS_RESUPPLYLINE_ID,ad_client_id,ad_org_id,isactive,created ,
+						createdby,updated,updatedby,qty,quantityorder,
+						reqstatus,orderedqty,needbydate,line,value,
+						c_aum,c_uom_id,SSRS_RESUPPLY_ID,m_product_id,Secqtyuom)
+					VALUES(
+						GET_UUID(),Cur_ResupplyPosLine.ad_client_id,Cur_ResupplyPosLine.ad_org_id,Cur_ResupplyPosLine.isactive,now(),
+						Cur_ResupplyPosLine.createdby,now(),Cur_ResupplyPosLine.updatedby,Cur_ResupplyPosLine.qty,Cur_ResupplyPosLine.quantityorder,
+						Cur_ResupplyPosLine.reqstatus,Cur_ResupplyPosLine.orderedqty,Cur_ResupplyPosLine.needbydate,Cur_ResupplyPosLine.line,Cur_ResupplyPosLine.value,
+						Cur_ResupplyPosLine.c_aum,Cur_ResupplyPosLine.c_uom_id,V_RESUPPLY_ID,Cur_ResupplyPosLine.m_product_id,Cur_ResupplyPosLine.Secqtyuom);
+		
+				END LOOP;		
+			END LOOP;
+		ELSE 
+
+			RAISE_APPLICATION_ERROR(-20000, '@ActionNotAllowedHere@');
+			
+		END IF;
+		
+	ELSE
+
+		RAISE_APPLICATION_ERROR(-20000, '@SSRS_ActionNoCompleteTime@');
+
+	END IF;
+	
+	ELSIF (v_DocStatus = 'CO') THEN
+		IF (v_DocAction = 'CL') THEN
+			v_ResultStr := 'Close requisition lines';
+			FOR Cur_ResupplyLine IN (
+						SELECT 
+							SSRS_RESUPPLYPOSline_id
+						FROM SSRS_RESUPPLYPOSline 
+						WHERE SSRS_RESUPPLY_POS_id  = v_Record_ID
+							AND ReqStatus = 'O'
+			)LOOP
+			 SSRS_RESUPPLYLINE_STATUS(NULL, Cur_ResupplyLine.SSRS_RESUPPLYPOSline_ID, v_User_ID);
+			END LOOP;
+		ELSIF (v_DocAction = 'RE' ) THEN
+			v_ResultStr := 'Reactivate the requisition: ' || v_Record_ID;
+			UPDATE SSRS_RESUPPLY_POS SET 
+						DocStatus = 'DR',
+						DocAction = 'CO',
+						Updated=now(),
+						UpdatedBy=v_User_ID
+			WHERE SSRS_RESUPPLY_POS_id = v_Record_ID;
+		ELSE
+			RAISE_APPLICATION_ERROR(-20000, '@ActionNotAllowedHere@');
+		END IF;
+	END IF;
+  END; --BODY
+  AD_UPDATE_PINSTANCE(p_PInstance_ID, NULL, 'N', v_Result, v_Message) ;
+EXCEPTION
+WHEN OTHERS THEN
+  DBMS_OUTPUT.PUT_LINE('M_RequisitionLine_Post error: ' || v_ResultStr);
+  v_ResultStr:= '@ERROR=' || SQLERRM;
+  DBMS_OUTPUT.PUT_LINE(v_ResultStr) ;
+  ROLLBACK;
+  AD_UPDATE_PINSTANCE(p_PInstance_ID, NULL, 'N', 0, v_ResultStr);
+END SSRS_RESUPPLYPOS_POST
+]]></body>
+    </function>
+  </database>

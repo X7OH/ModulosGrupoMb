@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
+  <row id="039DE4E88A2A4A3D8D021A7C7351FF59" trl="N">
+    <value column="Name" isTrl="N" original="Payment In Cash up">Pago entrante en Cierre de Caja</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="1CFCF0C9BA35496FBEE9043168AF3662" trl="N">
+    <value column="Name" isTrl="N" original="POS Order Type">Tipo de Orden TPV</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="20A228A295C844C68B4451622057A893" trl="N">
+    <value column="Name" isTrl="Y" original="Types of data to be synchronized in Web POS">Tipos de datos a sincronizar en TPV Web</value>
+    <value column="Description" isTrl="Y" original="List of the different types of data which are synchronized by Web POS.">Lista de los diferentes tipos de datos que son soncronizados en TPV Web.</value>
+    <value column="Help" isTrl="Y" original="List of the different types of data which are synchronized by Web POS.">Lista de los diferentes tipos de datos que son soncronizados en TPV Web.</value>
+  </row>
+  <row id="236251DE1F5D40CCBCE9D84ABD974476" trl="N">
+    <value column="Name" isTrl="Y" original="Cash Up">Cierre de caja</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="2608B8E3EEF742DB89397A4793E2BA6B" trl="N">
+    <value column="Name" isTrl="N" original="OBPOS Approval Reason Selection">OBTPV Selección de Razón de Aprobación</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="32F0EE53F18B48DE949759131B972039" trl="N">
+    <value column="Name" isTrl="N" original="Product Search Filter Types">Tipos de Filtros de Buscar Producto</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="358AD6F66FB94E2DAD0D237F877525F1" trl="N">
+    <value column="Name" isTrl="Y" original="Web POS default tab">Pestaña por defecto de TPV Web</value>
+    <value column="Description" isTrl="Y" original="Default tab for Web POS point of sale window">Pestaña por defecto de del TPV Web punto de venta</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="38DC73A4EAE94F36924C2D3A012A7466" trl="N">
+    <value column="Name" isTrl="N" original="C_DocTypeRet_ID">C_DocTypeRet_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="3EE17009109C44FA88FE7CF9E6EE7AB5" trl="N">
+    <value column="Name" isTrl="N" original="Warehouse types list">Lista de tipos de Almacén</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="457A2EC9BDF445BAB22636CDD12B4F55" trl="N">
+    <value column="Name" isTrl="N" original="Payment Method Status Cashup">Estado de Método de Pago en Cierre de Caja</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="4833B0098D2649BA8802D1E6D0FD266E" trl="N">
+    <value column="Name" isTrl="N" original="Organization tree">Árbol de Organización</value>
+    <value column="Description" isTrl="N" original="Creates a selector with tree view">Crear un selector con la vista de árbol</value>
+    <value column="Help" isTrl="N" original="Creates a selector with tree view">Crear un selector con la vista de árbol</value>
+  </row>
+  <row id="6176112D123148AA8B8BDD5FFF007AED" trl="N">
+    <value column="Name" isTrl="N" original="Cash up Approval type">Tipo de Aprobación de Cierre de caja</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="6E6A751F4AB24EC391AA9A6DD6B1F624" trl="N">
+    <value column="Name" isTrl="Y" original="Email Status">Estado del Email</value>
+    <value column="Description" isTrl="Y" original="List with status of sending email.">Listado de estado de los emails procesados.</value>
+    <value column="Help" isTrl="Y" original="The Email Status indicates the status of sending email.">Listado de estado de los emails procesados.</value>
+  </row>
+  <row id="740A8AF6393F4345ABBF13F84A8553B4" trl="N">
+    <value column="Name" isTrl="Y" original="Cashup">Cierre de caja</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="A64C98EEC3DA45A4B784A3E28B4FAC3E" trl="N">
+    <value column="Name" isTrl="Y" original="OBPOS_PrintTemplates">Imprimir Plantillas</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="A8BB7B5A513E4A76A98F51FEF33676B2" trl="N">
+    <value column="Name" isTrl="Y" original="Refund Provider">Proveedor de reembolso</value>
+    <value column="Description" isTrl="Y" original="External payment provider who processes this kind of refund types.">Proveedor de pago externo que procesa este tipo de reembolsos.</value>
+    <value column="Help" isTrl="Y" original="External payment provider who processes this kind of refund types.">Proveedor de pago externo que procesa este tipo de reembolsos.</value>
+  </row>
+  <row id="A9E2A8508FC8467183D3660AEB199E13" trl="N">
+    <value column="Name" isTrl="N" original="Choose warehouse">Escoger almacén</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="AF0F6F326155451B9B0060DF965E5E91" trl="N">
+    <value column="Name" isTrl="Y" original="Order status">Estado del pedido</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="AF6067BC66F14BAF9CB686115D145C48" trl="N">
+    <value column="Name" isTrl="Y" original="Document type">Tipo de documento</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="BDA324CB4B8847C3A1D2318E978BA08A" trl="N">
+    <value column="Name" isTrl="Y" original="OBPOS_PrintTemaplate">Imprimir Plantilla</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="C4832B2197944359BFEDD98C0FBDC906" trl="N">
+    <value column="Name" isTrl="N" original="M_Warehouse All">Todos los M_Warehouse</value>
+    <value column="Description" isTrl="N" original="All the warehouses">Todos los Almacenes</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="D1AF83D12C92458788CCE972F0C0730F" trl="N">
+    <value column="Name" isTrl="N" original="Services Proposal Type">Tipo de Servicios Propuestos</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="E485C4A7B8B04444A52B6932A23CE70C" trl="N">
+    <value column="Name" isTrl="N" original="Ad_org all without order">Todos los Ad_org sin orden</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="F523B357A94B43F68C414707BA45C785" trl="N">
+    <value column="Name" isTrl="Y" original="POS Terminal">TPV</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="FC7059F88CBB4EAB8162A4D3B8089C00" trl="N">
+    <value column="Name" isTrl="Y" original="Payment Provider">Proveedor de pago</value>
+    <value column="Description" isTrl="Y" original="External payment provider who processes this kind of payment types.">Proveedor de pago externo que procesa este tipo de reembolsos.</value>
+    <value column="Help" isTrl="Y" original="External payment provider who processes this kind of payment types.">Proveedor de pago externo que procesa este tipo de reembolsos.</value>
+  </row>
+  <row id="FF8081813321447901332148312C0010" trl="N">
+    <value column="Name" isTrl="N" original="OBPOS_Product Parent">OBPOS_Product Padre</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
+  <row id="07E58E016DF94D02B1955E1FBC5A9BCA" trl="N">
+    <value column="Name" isTrl="Y" original="Generate Control">Generar Control</value>
+    <value column="Description" isTrl="Y" original="Generate Control">Generar Control</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="0D50EEB844B0495793D8D27E16B25D0E" trl="N">
+    <value column="Name" isTrl="Y" original="Transfer">Transferir</value>
+    <value column="Description" isTrl="Y" original="Transfer">Transferir</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="CCB65AAF5E254BF59FB527153C79B412" trl="N">
+    <value column="Name" isTrl="Y" original="Approved Quality">Aprobar Calidad</value>
+    <value column="Description" isTrl="Y" original="Approved Quality">Aprobar Calidad</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="ED8E13BB2F2D49C9AC48A2AB381F0A4A" trl="N">
+    <value column="Name" isTrl="Y" original="Complete">Completar</value>
+    <value column="Description" isTrl="Y" original="Complete">Completar</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

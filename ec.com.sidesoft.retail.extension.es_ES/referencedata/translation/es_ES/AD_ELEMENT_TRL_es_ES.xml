@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_ELEMENT" version="">
+  <row id="1DFE11F355DE4BF991D333D47591F311" trl="N">
+    <value column="Name" isTrl="N" original="EM_Sspos_Owneracc">EM_Sspos_Owneracc</value>
+    <value column="PrintName" isTrl="N" original="EM_Sspos_Owneracc">EM_Sspos_Owneracc</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="842911F040C24F029AD8AC38B39A6993" trl="N">
+    <value column="Name" isTrl="N" original="EM_Sspos_Noaccount">EM_Sspos_Noaccount</value>
+    <value column="PrintName" isTrl="N" original="EM_Sspos_Noaccount">EM_Sspos_Noaccount</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="A237BD90E5E2467C9C1EC9D116C02BCF" trl="N">
+    <value column="Name" isTrl="N" original="EM_Sspos_Bank">EM_Sspos_Bank</value>
+    <value column="PrintName" isTrl="N" original="EM_Sspos_Bank">EM_Sspos_Bank</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="B38527C5269D48DAA708F1E2471BB645" trl="N">
+    <value column="Name" isTrl="N" original="EM_Sspos_Phoneno">EM_Sspos_Phoneno</value>
+    <value column="PrintName" isTrl="N" original="EM_Sspos_Phoneno">EM_Sspos_Phoneno</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="CB091E12866948CF9FCF64501B58DAA1" trl="N">
+    <value column="Name" isTrl="N" original="EM_Sspos_Expiredate">EM_Sspos_Expiredate</value>
+    <value column="PrintName" isTrl="N" original="EM_Sspos_Expiredate">EM_Sspos_Expiredate</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

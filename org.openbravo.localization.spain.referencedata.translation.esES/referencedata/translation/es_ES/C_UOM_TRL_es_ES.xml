@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="C_UOM" version="">
+  <row id="023A83E2F6FB41F3A76A822078AE9F72" trl="N">
+    <value column="Name" isTrl="N" original="Litre">Litre</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="N" original="l  ">l  </value>
+  </row>
+  <row id="03A1ED8702974DE68E44C5771229D750" trl="N">
+    <value column="Name" isTrl="N" original="Square Centimeter">Square Centimeter</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="N" original="cm²">cm²</value>
+  </row>
+  <row id="100" trl="Y">
+    <value column="Name" isTrl="Y" original="Unit">Unidad</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="Y" original="Ud ">Un </value>
+  </row>
+  <row id="101" trl="Y">
+    <value column="Name" isTrl="Y" original="Hour">Hora</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="N" original="h  ">h  </value>
+  </row>
+  <row id="102" trl="Y">
+    <value column="Name" isTrl="Y" original="Day">Día</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="N" original="d  ">d  </value>
+  </row>
+  <row id="103" trl="Y">
+    <value column="Name" isTrl="Y" original="Minutes">Minutos</value>
+    <value column="Description" isTrl="Y" original="(lowest unit for resorce assigments)">(unidad menor para asignación de recursos)</value>
+    <value column="UOMSymbol" isTrl="N" original="min">min</value>
+  </row>
+  <row id="104" trl="Y">
+    <value column="Name" isTrl="Y" original="Labour day">Día laborable</value>
+    <value column="Description" isTrl="Y" original="8 hours">8 horas</value>
+    <value column="UOMSymbol" isTrl="N" original="D  ">D  </value>
+  </row>
+  <row id="105" trl="Y">
+    <value column="Name" isTrl="Y" original="Week">Semana</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="Y" original="w  ">s  </value>
+  </row>
+  <row id="106" trl="Y">
+    <value column="Name" isTrl="Y" original="Month">Mes</value>
+    <value column="Description" isTrl="Y" original="30 days">30 días</value>
+    <value column="UOMSymbol" isTrl="N" original="m  ">m  </value>
+  </row>
+  <row id="107" trl="Y">
+    <value column="Name" isTrl="Y" original="Labour month">Mes laborable</value>
+    <value column="Description" isTrl="Y" original="20 days">20 días</value>
+    <value column="UOMSymbol" isTrl="Y" original="M  ">m  </value>
+  </row>
+  <row id="108" trl="Y">
+    <value column="Name" isTrl="Y" original="Year">Año</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="Y" original="Y  ">A  </value>
+  </row>
+  <row id="2EBC93C05D75431E9EEFB29CEC76F244" trl="N">
+    <value column="Name" isTrl="N" original="Ounce">Ounce</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="N" original="oz ">oz </value>
+  </row>
+  <row id="40B0E154EF704F839D5A7DEFD721D41A" trl="N">
+    <value column="Name" isTrl="N" original="Square Inch">Square Inch</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="N" original="in²">in²</value>
+  </row>
+  <row id="53E0B852279845AE8DA2879F18E9B3D9" trl="N">
+    <value column="Name" isTrl="N" original="Yard">Yard</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="N" original="yd ">yd </value>
+  </row>
+  <row id="54E1CF8449474628BEA191E0532EEC3E" trl="N">
+    <value column="Name" isTrl="N" original="Meter">Meter</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="N" original="M  ">M  </value>
+  </row>
+  <row id="6B3B437CB42D452FA04E098D52138888" trl="N">
+    <value column="Name" isTrl="N" original="Cubic Meter">Cubic Meter</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="N" original="m³ ">m³ </value>
+  </row>
+  <row id="6CB1469F8167467BABD40DABE043D829" trl="N">
+    <value column="Name" isTrl="N" original="Gallon (US)">Gallon (US)</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="N" original="gl ">gl </value>
+  </row>
+  <row id="6FA87C4EE1FD4C86940A5F2E47C429DA" trl="N">
+    <value column="Name" isTrl="N" original="Pound">Pound</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="N" original="Lb ">Lb </value>
+  </row>
+  <row id="72BA247D31F745F3AF11F74A5E2CCBEF" trl="N">
+    <value column="Name" isTrl="N" original="Kilogram">Kilogram</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="N" original="kg ">kg </value>
+  </row>
+  <row id="72C8EB9E3001414D901DE48C985163CF" trl="N">
+    <value column="Name" isTrl="N" original="Metric Ton">Metric Ton</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="N" original="T  ">T  </value>
+  </row>
+  <row id="A8AE303C482B454081EC39ED47377398" trl="N">
+    <value column="Name" isTrl="N" original="Kilometer">Kilometer</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="N" original="km ">km </value>
+  </row>
+  <row id="ADF850C3E6E9413B9F9EEA5C87456073" trl="N">
+    <value column="Name" isTrl="N" original="Centimeter">Centimeter</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="N" original="cm ">cm </value>
+  </row>
+  <row id="B648C32ED9304B4A87C5997CB69D7B72" trl="N">
+    <value column="Name" isTrl="N" original="Millimeter">Millimeter</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="N" original="mm ">mm </value>
+  </row>
+  <row id="BB118F8584D64FCBB5F897A2EBE56AE8" trl="N">
+    <value column="Name" isTrl="N" original="Square Foot">Square Foot</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="N" original="f² ">f² </value>
+  </row>
+  <row id="BCC599A13E0640A6823A0CF9ED3CDB9E" trl="N">
+    <value column="Name" isTrl="N" original="Cubic Centimeter">Cubic Centimeter</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="N" original="cm³">cm³</value>
+  </row>
+  <row id="BD53EA48AAD04ADB8361B374367E42EB" trl="N">
+    <value column="Name" isTrl="N" original="Gram">Gram</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="N" original="g  ">g  </value>
+  </row>
+  <row id="D492A98D34814D1C85568C4D1CE12B55" trl="N">
+    <value column="Name" isTrl="N" original="Cubic Foot">Cubic Foot</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="N" original="f³ ">f³ </value>
+  </row>
+  <row id="E2DFB5559E414F85BC7C800BF0DD4E14" trl="N">
+    <value column="Name" isTrl="N" original="Mile">Mile</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="N" original="mi ">mi </value>
+  </row>
+  <row id="F59613ADEC7F404E8142FC7477B7C04D" trl="N">
+    <value column="Name" isTrl="N" original="Foot">Foot</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="N" original="ft ">ft </value>
+  </row>
+  <row id="F9AD53BEDA3D4A32BECF44030C281EF2" trl="N">
+    <value column="Name" isTrl="N" original="Inch">Inch</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="N" original="in ">in </value>
+  </row>
+  <row id="FDFFCA35AB8041F6957989FA93F8C3ED" trl="N">
+    <value column="Name" isTrl="N" original="Square Meter">Square Meter</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="UOMSymbol" isTrl="N" original="m² ">m² </value>
+  </row>
+</compiereTrl>

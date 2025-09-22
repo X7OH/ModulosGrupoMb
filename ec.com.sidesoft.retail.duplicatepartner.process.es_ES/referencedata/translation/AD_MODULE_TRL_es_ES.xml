@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MODULE" version="">
+  <row id="C484A7A50D2D4353993E8272E26C5502" trl="N">
+    <value column="Description" isTrl="N" original="Sidesoft Process Errors Business Partner">Sidesoft Process Errors Business Partner</value>
+    <value column="Help" isTrl="Y" original="* Paso de errores de terceros (Error in OrderLoader: No row with the given identifier exists: [BusinessPartner) en la tabla obpos_errors &#10;* Paso de errores de terceros duplicados (ERROR: duplicate key value violates unique constraint &quot;em_sswh_unique_taxid&quot;) en la tabla obpos_errors &#10;* Paso de errores de terceros (java.lang.NullPointerException) en la tabla obpos_errors ">* Paso de errores de terceros (Error in OrderLoader: No row with the given identifier exists: [BusinessPartner) en la tabla obpos_errors </value>
+    <value column="License" isTrl="N" original=""/>
+    <value column="Updateinfo" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

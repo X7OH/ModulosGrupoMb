@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_ELEMENT" version="">
+  <row id="0AE326060A8449DAA27B45E738234010" trl="Y">
+    <value column="Name" isTrl="Y" original="EM_Sinw_Weight_Record">Registro de peso</value>
+    <value column="PrintName" isTrl="Y" original="Weight record">Registro de peso</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="2F7FB222BF5A462DBD38286554412E43" trl="Y">
+    <value column="Name" isTrl="Y" original="EM_Sinw_Was_Printed">Fue impreso</value>
+    <value column="PrintName" isTrl="Y" original="Was printed">Fue impreso</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="69FC2A5F7A764027ADA2DA34133D2B90" trl="N">
+    <value column="Name" isTrl="Y" original="Tare">Tara</value>
+    <value column="PrintName" isTrl="Y" original="Sinw_Tares_ID">Tara</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="701444FF574742CCB8ED13E2DE3ABFB7" trl="Y">
+    <value column="Name" isTrl="Y" original="Total_Weight">Peso total</value>
+    <value column="PrintName" isTrl="Y" original="Total weight">Peso total</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="742171FECB154F2EBAB352B51B2A8FC3" trl="Y">
+    <value column="Name" isTrl="Y" original="Weights">Pesos</value>
+    <value column="PrintName" isTrl="Y" original="Weights">Pesos</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="9CC7E9B571AF43DBA8B0F09046ABDE65" trl="Y">
+    <value column="Name" isTrl="Y" original="Weight_With_Tare">Peso con tara</value>
+    <value column="PrintName" isTrl="Y" original="Weight with tare">Weight</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="BFB4C2BE50544D5A813EF7573F2495EC" trl="Y">
+    <value column="Name" isTrl="Y" original="Weight_Tare">Peso de tara</value>
+    <value column="PrintName" isTrl="Y" original="Weight tare">Peso de tara</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="EFB026D8DDF14E4BBF5CA251B9C21330" trl="N">
+    <value column="Name" isTrl="Y" original="Net_Weight">Peso neto</value>
+    <value column="PrintName" isTrl="Y" original="Net Weight">Peso neto</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

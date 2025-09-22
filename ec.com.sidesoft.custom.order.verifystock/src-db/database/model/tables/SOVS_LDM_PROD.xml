@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+  <database name="TABLE SOVS_LDM_PROD">
+    <table name="SOVS_LDM_PROD" primaryKey="SOVS_LDM_PROD_KEY">
+      <column name="SOVS_LDM_PROD_ID" primaryKey="true" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_CLIENT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_ORG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISACTIVE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="TYPE" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="M_PRODUCT_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="M_WAREHOUSE_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="STOCK" primaryKey="false" required="false" type="DECIMAL" size="25,6" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="QTY_NECESSARY" primaryKey="false" required="false" type="DECIMAL" size="25,6" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="DIFFERENCES" primaryKey="false" required="false" type="DECIMAL" size="25,6" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="PRODUCTORIGIN" primaryKey="false" required="false" type="VARCHAR" size="200" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="M_LOCATOR_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_ORDER_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="AD_CLIENT" name="SOVS_LDMPROD_AD_CLIENT">
+        <reference local="AD_CLIENT_ID" foreign="AD_CLIENT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_ORG" name="SOVS_LDMPROD_AD_ORG">
+        <reference local="AD_ORG_ID" foreign="AD_ORG_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_ORDER" name="SOVS_LDMPROD_C_ORDER">
+        <reference local="C_ORDER_ID" foreign="C_ORDER_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_LOCATOR" name="SOVS_LDMPROD_M_LOCATOR">
+        <reference local="M_LOCATOR_ID" foreign="M_LOCATOR_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_PRODUCT" name="SOVS_LDMPROD_M_PRODUCT">
+        <reference local="M_PRODUCT_ID" foreign="M_PRODUCT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_WAREHOUSE" name="SOVS_LDMPROD_M_WAREHOUSE">
+        <reference local="M_WAREHOUSE_ID" foreign="M_WAREHOUSE_ID"/>
+      </foreign-key>
+      <check name="SOVS_LDM_IN_ISACTIVE_CHECK"><![CDATA[ISACTIVE IN ('Y', 'N')]]></check>
+    </table>
+  </database>

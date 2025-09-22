@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="06F398305CB1494DA18B83E24EAD4CF1" trl="N">
+    <value column="MsgText" isTrl="Y" original="X and Y units fields are mandatory using this discount type">Los campos unidades X e Y son obligatorios con este tipo de descuento</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="388E32202ECA4E72B5E9908B740EBE3B" trl="N">
+    <value column="MsgText" isTrl="Y" original="You must define a quantity greater than 0.">Debe definir una cantidad mayor que 0.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="4E6353FCCB4E468887A4F4CF322B792B" trl="N">
+    <value column="MsgText" isTrl="Y" original="Currency field is mandatory.">El campo Moneda es obligatorio.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="4F5D509B5EF446EFA3B3BAE9688E24F0" trl="N">
+    <value column="MsgText" isTrl="Y" original="There was a misconfiguration in the tax of at least one of the products in the pack. Please, review you configuration.">Falta configurar impuesto de al menos uno de los productos del paquete. Por favor, revisa tu configuración.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="59E92E43EBC2441C8C4F74259DDE28B9" trl="N">
+    <value column="MsgText" isTrl="Y" original="The pack price is a mandatory field">El campo Precio del paquete es obligatorio</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="5E93F1C12B5345FFA18682333C7C35EF" trl="N">
+    <value column="MsgText" isTrl="Y" original="It is not possible to include in a pack, a service configured as linked to product">No es posible incluir en un paquete, un servicio configurado como enlazado a producto</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="7EF55187858149578C54B1FD0A493DA7" trl="N">
+    <value column="MsgText" isTrl="Y" original="Adding %0 extra %1, %2 discount can be applied">Añadiendo %0 extra %1, se puede aplicar el descuento %2</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="81F8CB0AF15543DC9EE3E37FDB5AB98F" trl="N">
+    <value column="MsgText" isTrl="Y" original="Percentage field is mandatory.">El campo Porcentaje es obligatorio.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="A489F5457EDE43968A56F88E0FB47F74" trl="N">
+    <value column="MsgText" isTrl="Y" original="Amount field is mandatory.">El campo Importe es obligatorio.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="AEEE1CC09911480D85EC2DA39BD06969" trl="N">
+    <value column="MsgText" isTrl="Y" original="The pack must be composed by some products.">El paquete debe estar compuesto por algunos productos.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="C78ECEA720F9447A894C5023E261B52B" trl="N">
+    <value column="MsgText" isTrl="Y" original="Promotion %0 (buy X, gift Y) doesn't define gift qty for gift product %1">Promoción %0 (compra X, regalo Y) no define la cantidad a regalar para el producto regalo %1</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="CE05C10E1546475DAD7FD946D3F0BDE5" trl="N">
+    <value column="MsgText" isTrl="Y" original="The products of the pack %0 have been added succesfully.">Los productos del paquete %0 se han añadido con éxito.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="D9D82286E54F400D813A1FA52F7AFD71" trl="N">
+    <value column="MsgText" isTrl="Y" original="Promotions that affect to multiple lines are not allowed to continue cascade. Set &quot;Apply Next Discounts&quot; to false.">Las promociones que afectan a varias lineas no pueden continuar en cascada. Establece "Aplicar los siguientes descuentos" a falso o deshabilitado.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="DE8D920D22FF4203B8344E94F2445339" trl="N">
+    <value column="MsgText" isTrl="Y" original="Please set either Discount Percentage or Discount Amount. Both cannot be set">Please set either Discount Percentage or Discount Amount. Both cannot be set</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

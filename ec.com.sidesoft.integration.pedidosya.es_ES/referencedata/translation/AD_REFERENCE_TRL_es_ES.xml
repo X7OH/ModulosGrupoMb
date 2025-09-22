@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
+  <row id="0625EB292D424E9EB8F4CDE02DB48B94" trl="Y">
+    <value column="Name" isTrl="Y" original="Brand for MB">Marca para MB</value>
+    <value column="Description" isTrl="Y" original="Brand for MB">Marca para MB</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="28228D2B075F4DE096AE4A49F6303698" trl="N">
+    <value column="Name" isTrl="N" original="JustoLogStatus">JustoLogStatus</value>
+    <value column="Description" isTrl="N" original="JustoLogStatus">JustoLogStatus</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

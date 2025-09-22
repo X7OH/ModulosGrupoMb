@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<SqlClass name="CreateFromLocatorData" package="ec.com.sidesoft.localization.quality.assurement.ad_actionbutton">
+  <SqlMethod name="selectFromLoc" type="preparedStatement" return="multiple">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        SELECT ML.M_LOCATOR_ID AS ID, Ad_Column_Identifier(to_char('M_LOCATOR_ID'), to_char(ML.M_LOCATOR_ID), to_char(?)) AS NAME 
+        FROM M_LOCATOR ML
+        WHERE ML.ISACTIVE= ?
+        ORDER BY NAME
+      ]]>
+    </Sql>
+    <Field name="rownum" value="count"/>
+    <Parameter name="adLanguage"/>
+    <Parameter name="isactive"/>
+  </SqlMethod>
+</SqlClass>

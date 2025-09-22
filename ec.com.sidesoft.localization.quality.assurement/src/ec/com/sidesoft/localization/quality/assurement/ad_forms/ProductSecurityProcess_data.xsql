@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *************************************************************************
+ * The contents of this file are subject to the Openbravo  Public  License
+ * Version  1.1  (the  "License"),  being   the  Mozilla   Public  License
+ * Version 1.1  with a permitted attribution clause; you may not  use this
+ * file except in compliance with the License. You  may  obtain  a copy of
+ * the License at http://www.openbravo.com/legal/license.html 
+ * Software distributed under the License  is  distributed  on  an "AS IS"
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+ * License for the specific  language  governing  rights  and  limitations
+ * under the License. 
+ * The Original Code is Openbravo ERP. 
+ * The Initial Developer of the Original Code is Openbravo SLU 
+ * All portions are Copyright (C) 2008-2012 Openbravo SLU 
+ * All Rights Reserved. 
+ * Contributor(s):  ______________________________________.
+ ************************************************************************
+-->
+
+<SqlClass name="ProductSecurityProcessData" package="ec.com.sidesoft.localization.quality.assurement.ad_forms">
+  <SqlClassComment></SqlClassComment>
+  <SqlMethod name="select" type="preparedStatement" return="multiple">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+
+            select    
+            '' AS SLQS_PRD_SAFETY_V_ID
+            ,'' AS AD_ORG_ID
+            ,'' AS AD_CLIENT_ID
+            ,'' AS M_PRODUCT_ID
+            ,'' AS CODE
+            ,'' AS C_UOM_ID
+            ,'' AS M_ATTRIBUTESETINSTANCE_ID
+            ,'' AS M_PRODUCTIONPLAN_ID
+            ,'' AS MA_COSTCENTER_VERSION_ID
+            ,0 AS MOVEMENTQTY
+            ,'' AS STARTTIME
+            ,'' AS ENDTIME
+            ,'' AS M_PRODUCTION_ID
+            ,'' AS DATE_PART_WORK
+            ,'' AS START_PART_WORK
+            ,'' AS END_PART_WORK
+            ,'' AS M_LOCATOR_ID
+            ,'' AS EM_SLQS_STATUS
+            ,'' AS M_PRODUCTIONLINE_ID
+            ,'' AS MA_PERIODIC_CONTROL_ID
+            , '' as DESCRIPTION  
+            ,0 AS QTYINVOICED
+            , '' AS C_INVOICE_ID
+            , '' AS GRANDTOTAL
+            , '' AS DISCOUNT
+            , '' AS TAX
+            , '' AS CUSTOMER_ID
+            , '' AS M_PRICELIST_ID
+            , '' AS PRICELISTID
+            , '' AS ORG
+            , '' AS PAYMENTRULE
+            , '' AS C_PAYMENTTERM_ID
+            ,'' AS FIN_PAYMENTMETHOD_ID 
+            ,'' AS DOC_PART_WORK             
+            from DUAL
+      ]]></Sql>
+    <Field name="rownum" value="count"/>
+  </SqlMethod>
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment></SqlMethodComment>
+      <Sql></Sql>
+  </SqlMethod>
+  <SqlMethod name="selectLines" type="preparedStatement" return="multiple">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+    select SLQS_PRD_SAFETY_V_ID
+    ,AD_COLUMN_IDENTIFIER(to_char('AD_ORG'), to_char(sps.AD_ORG_ID), ?) AS AD_ORG_ID
+    ,AD_COLUMN_IDENTIFIER(to_char('AD_CLIENT'), to_char(sps.AD_CLIENT_ID), ?) AS AD_CLIENT_ID
+    ,AD_COLUMN_IDENTIFIER(to_char('M_PRODUCT'), to_char(sps.M_PRODUCT_ID), ?) AS M_PRODUCT_ID
+    ,CODE
+    ,AD_COLUMN_IDENTIFIER(to_char('C_UOM'), to_char(sps.C_UOM_ID), ?) AS C_UOM_ID
+    ,AD_COLUMN_IDENTIFIER(to_char('M_ATTRIBUTESETINSTANCE'), to_char(sps.M_ATTRIBUTESETINSTANCE_ID), ?) AS M_ATTRIBUTESETINSTANCE_ID
+    ,AD_COLUMN_IDENTIFIER(to_char('M_PRODUCTIONPLAN'), to_char(sps.M_PRODUCTIONPLAN_ID), ?) AS M_PRODUCTIONPLAN_ID
+    ,AD_COLUMN_IDENTIFIER(to_char('MA_COSTCENTER_VERSION'), to_char(sps.MA_COSTCENTER_VERSION_ID), ?) AS MA_COSTCENTER_VERSION_ID
+    ,MOVEMENTQTY
+    ,STARTTIME
+    ,ENDTIME
+    ,AD_COLUMN_IDENTIFIER(to_char('M_PRODUCTION'), to_char(sps.M_PRODUCTION_ID), ?) AS M_PRODUCTION_ID
+    ,DATE_PART_WORK
+    ,START_PART_WORK
+    ,END_PART_WORK
+    ,AD_COLUMN_IDENTIFIER(to_char('M_LOCATOR'), to_char(sps.M_LOCATOR_ID), ?) AS M_LOCATOR_ID
+    ,sub.name as EM_SLQS_STATUS
+    ,AD_COLUMN_IDENTIFIER(to_char('M_PRODUCTIONLINE'), to_char(sps.M_PRODUCTIONLINE_ID), ?) AS M_PRODUCTIONLINE_ID
+    ,DOC_PART_WORK  
+    from slqs_prd_safety_v sps
+    left join (
+    select adrlt.name, arl.value
+    from ad_reference ar
+    join ad_ref_list arl on ar.ad_reference_id = arl.ad_reference_id
+    join ad_ref_list_trl adrlt on adrlt.ad_ref_list_id = arl.ad_ref_list_id
+    where ar.ad_reference_id = 'C4EDFC20013D401B8C03789EC74B408A'
+    and adrlt.ad_language = 'es_ES') sub on sub.value = sps.EM_SLQS_STATUS
+    where (sps.DOC_PART_WORK like ? or ? is null)     
+    and (sps.CODE like ? or ? is null)   
+    and (sps.M_PRODUCT_ID = ? or ? is null)   
+    and (to_date(to_char(sps.DATE_PART_WORK,'dd-MM-yyyy')) between ? and ?)   
+      ]]></Sql>
+    <Field name="rownum" value="count"/>
+    <Parameter name="language"/>
+    <Parameter name="language"/>
+    <Parameter name="language"/>
+    <Parameter name="language"/>
+    <Parameter name="language"/>
+    <Parameter name="language"/>
+    <Parameter name="language"/>
+    <Parameter name="language"/>
+    <Parameter name="language"/>
+    <Parameter name="language"/>
+    <Parameter name="documentno"/>
+    <Parameter name="documentno"/>
+    <Parameter name="code"/>
+    <Parameter name="code"/>
+    <Parameter name="productid"/>
+    <Parameter name="productid"/>
+    <Parameter name="startdate"/>
+    <Parameter name="enddate"/>    
+   </SqlMethod>
+  <SqlMethod name="selectSelected" type="preparedStatement" return="Multiple">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+    select SLQS_PRD_SAFETY_V_ID
+    ,AD_COLUMN_IDENTIFIER(to_char('AD_ORG'), to_char(sps.AD_ORG_ID), ?) AS AD_ORG_ID
+    ,AD_COLUMN_IDENTIFIER(to_char('AD_CLIENT'), to_char(sps.AD_CLIENT_ID), ?) AS AD_CLIENT_ID
+    ,AD_COLUMN_IDENTIFIER(to_char('M_PRODUCT'), to_char(sps.M_PRODUCT_ID), ?) AS M_PRODUCT_ID
+    ,CODE
+    ,AD_COLUMN_IDENTIFIER(to_char('C_UOM'), to_char(sps.C_UOM_ID), ?) AS C_UOM_ID
+    ,AD_COLUMN_IDENTIFIER(to_char('M_ATTRIBUTESETINSTANCE'), to_char(sps.M_ATTRIBUTESETINSTANCE_ID), ?) AS M_ATTRIBUTESETINSTANCE_ID
+    ,AD_COLUMN_IDENTIFIER(to_char('M_PRODUCTIONPLAN'), to_char(sps.M_PRODUCTIONPLAN_ID), ?) AS M_PRODUCTIONPLAN_ID
+    ,AD_COLUMN_IDENTIFIER(to_char('MA_COSTCENTER_VERSION'), to_char(sps.MA_COSTCENTER_VERSION_ID), ?) AS MA_COSTCENTER_VERSION_ID
+    ,MOVEMENTQTY
+    ,STARTTIME
+    ,ENDTIME
+    ,AD_COLUMN_IDENTIFIER(to_char('M_PRODUCTION'), to_char(sps.M_PRODUCTION_ID), ?) AS M_PRODUCTION_ID
+    ,DATE_PART_WORK
+    ,START_PART_WORK
+    ,END_PART_WORK
+    ,AD_COLUMN_IDENTIFIER(to_char('M_LOCATOR'), to_char(sps.M_LOCATOR_ID), ?) AS M_LOCATOR_ID
+    ,sub.name as EM_SLQS_STATUS
+    ,AD_COLUMN_IDENTIFIER(to_char('M_PRODUCTIONLINE'), to_char(sps.M_PRODUCTIONLINE_ID), ?) AS M_PRODUCTIONLINE_ID
+    , DOC_PART_WORK    
+    from slqs_prd_safety_v sps
+    left join (
+    select adrlt.name, arl.value
+    from ad_reference ar
+    join ad_ref_list arl on ar.ad_reference_id = arl.ad_reference_id
+    join ad_ref_list_trl adrlt on adrlt.ad_ref_list_id = arl.ad_ref_list_id
+    where ar.ad_reference_id = 'C4EDFC20013D401B8C03789EC74B408A'
+    and adrlt.ad_language = 'es_ES') sub on sub.value = sps.EM_SLQS_STATUS  
+        ]]></Sql>
+    <Field name="rownum" value="count"/>
+    <Parameter name="language"/>
+    <Parameter name="language"/>
+    <Parameter name="language"/>
+    <Parameter name="language"/>
+    <Parameter name="language"/>
+    <Parameter name="language"/>
+    <Parameter name="language"/>
+    <Parameter name="language"/>
+    <Parameter name="language"/>
+    <Parameter name="language"/>
+  </SqlMethod>
+  
+  <SqlMethod name="select" type="preparedStatement" return="Multiple">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+   
+            select 
+             SLQS_PRD_SAFETY_V_ID
+            ,  AD_ORG_ID
+            ,  AD_CLIENT_ID
+            ,  M_PRODUCT_ID
+            ,  CODE
+            ,  C_UOM_ID
+            ,  M_ATTRIBUTESETINSTANCE_ID
+            ,  M_PRODUCTIONPLAN_ID
+            ,  MA_COSTCENTER_VERSION_ID
+            ,MOVEMENTQTY
+            ,  STARTTIME
+            ,  ENDTIME
+            ,  M_PRODUCTION_ID
+            ,  DATE_PART_WORK
+            ,  START_PART_WORK
+            ,  END_PART_WORK
+            ,  M_LOCATOR_ID
+            ,  EM_SLQS_STATUS
+            ,  M_PRODUCTIONLINE_ID
+            ,  MA_PERIODIC_CONTROL_ID
+            ,  DOC_PART_WORK   
+            from slqs_prd_safety_v
+            where slqs_prd_safety_v_id = ?      
+            and M_PRODUCTIONLINE_ID IS NULL   
+        ]]></Sql>
+    <Parameter name="slqs_prd_safety_v_id"/>
+  </SqlMethod>
+  <SqlMethod name="selectDoctype" type="preparedStatement" return="string">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        SELECT C_DOCTYPE_ID   
+        FROM C_DOCTYPE   
+        WHERE AD_TABLE_ID = ? AND  docbasetype= ?
+      ]]>
+    </Sql>
+    <Parameter name="adTableId"/>
+    <Parameter name="docbase"/>
+  </SqlMethod>
+  <SqlMethod name="linesToInvoice" type="preparedStatement" return="Multiple">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        SELECT mp.M_PRODUCT_ID,
+               mp.C_UOM_ID,
+               mp.M_ATTRIBUTESETINSTANCE_ID,
+               ci.DESCRIPTION,
+               0  AS QTYINVOICED,
+               ci.C_INVOICE_ID,
+               (GRANDTOTAL - EM_SSWH_TOTALWITHHOLDINGINCOME - EM_SSWH_TOTALWITHHOLDINGVAT) AS GRANDTOTAL,
+               0 AS DISCOUNT,
+               C_GetTax(mp.M_PRODUCT_ID, to_date(?), ?, ?, ?, ?, null, 'N') AS TAX
+        FROM C_INVOICE ci left join c_invoiceline cil on cil.c_invoice_id = ci.c_invoice_id  
+             LEFT JOIN M_PRODUCT mp ON mp.M_PRODUCT_ID = cil.M_PRODUCT_ID
+        WHERE 1=1
+              AND ci.AD_CLIENT_ID = cil.AD_CLIENT_ID
+              AND ci.AD_ORG_ID = cil.AD_ORG_ID
+        ORDER BY DOCUMENTNO
+        ]]></Sql>
+    <Field name="rownum" value="count"/>
+    
+    <Parameter name="invoicedate"/>
+    <Parameter name="org"/>
+    <Parameter name="warehouse"/>
+    <Parameter name="billto"/>
+    <Parameter name="shipto"/>
+    
+    <Parameter name="parRefundLines" optional="true" type="argument" after="WHERE 1=1" text=" AND C_INVOICE_ID IN"/>
+  </SqlMethod>
+  <SqlMethod name="selectCustomer" type="preparedStatement" return="Multiple">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+      SELECT DISTINCT C_BPARTNER_ID AS CUSTOMER_ID
+      FROM C_INVOICE
+      WHERE C_BPARTNER_ID IS NOT NULL
+        AND 1=1
+      ]]></Sql>
+    <Parameter name="parRefundLines" optional="true" type="argument" after="AND 1=1" text="AND C_INVOICE_ID IN"/>
+  </SqlMethod>
+  <SqlMethod name="selectPriceList" type="preparedStatement" return="Multiple">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        SELECT DISTINCT C_BPARTNER.M_PRICELIST_ID,
+          AD_COLUMN_IDENTIFIER(to_char('M_PriceList'), to_char(C_BPARTNER.M_PRICELIST_ID), ?) AS PRICELISTID
+        FROM C_INVOICE, C_BPARTNER
+        WHERE 1=1
+          ]]></Sql>
+    <Parameter name="language"/>
+    <Parameter name="parRefundLines" optional="true" type="argument" after="1=1" text=" C_INVOICE_ID IN"/>
+  </SqlMethod>
+  <SqlMethod name="selectOrg" type="preparedStatement" return="Multiple">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        SELECT DISTINCT AD_ORG_ID,
+          AD_COLUMN_IDENTIFIER(to_char('AD_Org'), to_char(AD_ORG_ID), ?) AS ORG
+        FROM C_INVOICE
+        WHERE 1=1
+          ]]></Sql>
+    <Parameter name="language"/>
+    <Parameter name="parRefundLines" optional="true" type="argument" after="WHERE 1=1" text="AND C_INVOICE_ID IN"/>
+  </SqlMethod>
+  <SqlMethod name="selectCustomerData" type="preparedStatement" return="multiple">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+      SELECT PaymentRule, C_PaymentTerm_ID, FIN_PaymentMethod_ID
+      FROM C_BPartner
+      WHERE C_BPartner_ID = ?
+      ]]>
+    </Sql>
+    <Parameter name="cBpartnerId"/>
+  </SqlMethod>
+  <SqlMethod name="bPartnerDescription" type="preparedStatement" return="string">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        SELECT AD_COLUMN_IDENTIFIER(to_char('C_BPartner'), to_char(?), to_char(?)) AS CUSTOMER
+        FROM DUAL
+        ]]></Sql>
+    <Parameter name="partnerid"/>
+    <Parameter name="language"/>
+  </SqlMethod>
+  <SqlMethod name="getPricelistVersion" type="preparedStatement" return="string">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        SELECT M_GET_PRICELIST_VERSION(?, to_date(?)) AS PRICELISTID
+        FROM DUAL
+        ]]></Sql>
+    <Parameter name="pricelist"/>
+    <Parameter name="invoicedate"/>
+  </SqlMethod>
+  <SqlMethod name="treeOrg" type="preparedStatement" return="string">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        SELECT AD_TREE_ORG_ID FROM AD_CLIENTINFO
+        WHERE AD_CLIENT_ID = ?
+        ]]></Sql>
+    <Parameter name="client"/>
+  </SqlMethod>
+  <SqlMethod name="cDoctypeTarget" type="preparedStatement" return="string" default="">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        SELECT AD_GET_DOCTYPE(?, ?, 'ARI', null) FROM DUAL
+      ]]>
+    </Sql>
+    <Parameter name="adClientId"/>
+    <Parameter name="adOrgId"/>
+  </SqlMethod>
+  <SqlMethod name="cBPartnerLocationId" type="preparedStatement" return="string">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        SELECT MAX(C_BPARTNER_LOCATION_ID) FROM C_BPARTNER_LOCATION
+        WHERE C_BPARTNER_ID = ?
+        AND C_BPartner_Location.IsActive='Y'
+      ]]>
+    </Sql>
+    <Parameter name="cBpartnerId"/>
+  </SqlMethod>
+  <SqlMethod name="billto" type="preparedStatement" return="string">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        SELECT MAX(C_BPARTNER_LOCATION_ID) FROM C_BPARTNER_LOCATION
+        WHERE  C_BPartner_Location.IsBillTo='Y'
+        AND C_BPartner_Location.IsActive='Y'
+        AND C_BPARTNER_ID = ?
+      ]]>
+    </Sql>
+    <Parameter name="cBpartnerId"/>
+  </SqlMethod>
+  <SqlMethod name="selectCurrency" type="preparedStatement" return="string">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        SELECT C_CURRENCY_ID
+        FROM M_PRICELIST
+        WHERE  M_PRICELIST_ID = ?
+      ]]>
+    </Sql>
+    <Parameter name="mPricelistId"/>
+  </SqlMethod>
+  <SqlMethod name="unlock" type="preparedStatement" return="rowCount">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        UPDATE C_INVOICE  
+        SET isactive ='Y'  
+        WHERE C_INVOICE_ID IN ('1')
+      ]]>
+    </Sql>
+    <Parameter name="refundlines" type="replace" optional="true" after="C_INVOICE_ID IN " text="('1')"/>
+  </SqlMethod>
+  <SqlMethod name="lock" type="preparedStatement"  return="rowCount">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        UPDATE C_INVOICE  
+        SET isactive ='Y'  
+        WHERE C_INVOICE_ID IN ('1')
+      ]]>
+    </Sql>
+    <Parameter name="refundlines" type="replace" optional="true" after="C_INVOICE_ID IN " text="('1')"/>
+  </SqlMethod>
+  <SqlMethod name="insertMaPcCase" type="preparedStatement" connection="true" return="rowCount">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+
+    INSERT INTO MA_PC_CASE(MA_PC_CASE_ID, AD_CLIENT_ID, AD_ORG_ID, ISACTIVE, CREATED, CREATEDBY, UPDATED, UPDATEDBY,
+               MA_PERIODIC_CONTROL_ID, M_PRODUCT_ID, M_ATTRIBUTESETINSTANCE_ID, NAME, STARTDATE, ENDDATE, LAUNCHED, EM_SLQS_UOM_ID,
+               EM_SLQS_M_PROD_LINE_ID, EM_SLQS_DOCUMENT_TYPE, EM_SLQS_DOCUMENTNO, EM_SLQS_STATUS, EM_SLQS_PROCESSED)
+            VALUES(?, ?, ?, 'Y', now(), ?, now(), ?,
+               ?, ?, ?, ?, now(), now(), ?, ?,
+               ?,  ?, ?, null, 'N');   
+               
+      ]]>
+    </Sql>
+    <Parameter name="maPcCaseId"/>
+    <Parameter name="adClientId"/>
+    <Parameter name="adOrgId"/>
+    <Parameter name="user"/>
+    <Parameter name="user"/>
+    <Parameter name="control"/>
+    <Parameter name="productId"/>
+    <Parameter name="attributeId"/>
+    <Parameter name="name"/>
+    <Parameter name="launched"/>
+    <Parameter name="uomId"/>
+    <Parameter name="referenceId"/>
+    <Parameter name="DocTypeId"/>
+    <Parameter name="documentno"/>
+  </SqlMethod>
+  <SqlMethod name="insertCInvoice" type="preparedStatement" connection="true" return="rowCount">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        INSERT INTO C_INVOICE (C_INVOICE_ID, AD_CLIENT_ID, AD_ORG_ID, CREATED, CREATEDBY, UPDATED, UPDATEDBY, DOCUMENTNO,
+        DOCSTATUS, DOCACTION, C_DOCTYPE_ID, C_DOCTYPETARGET_ID,
+        DATEINVOICED, DATEACCT, C_BPARTNER_ID, C_BPARTNER_LOCATION_ID, C_CURRENCY_ID, 
+        PAYMENTRULE, C_PAYMENTTERM_ID, M_PRICELIST_ID, 
+        C_PROJECT_ID, C_ACTIVITY_ID, C_CAMPAIGN_ID, ISSOTRX,
+        FIN_PAYMENTMETHOD_ID)
+        VALUES (?,?,?,now(),?,now(),?,?,?,?,?,?,TO_DATE(?),TO_DATE(?),?,?,?,?,?,?,?,?,?,'Y',?)
+      ]]>
+    </Sql>
+    <Parameter name="cInvoiceId"/>
+    <Parameter name="adClientId"/>
+    <Parameter name="adOrgId"/>
+    <Parameter name="user"/>
+    <Parameter name="user"/>
+    <Parameter name="documentNo"/>
+    <Parameter name="docStatus"/>
+    <Parameter name="docAction"/>
+    <Parameter name="cDoctypeId"/>
+    <Parameter name="cDoctypetargetId"/>
+    <Parameter name="dateinvoiced"/>
+    <Parameter name="dateacct"/>
+    <Parameter name="cBpartnerId"/>
+    <Parameter name="cBpartnerLocationId"/>
+    <Parameter name="cCurrencyId"/>
+    <Parameter name="paymentrule"/>
+    <Parameter name="cPaymenttermId"/>
+    <Parameter name="mPricelistId"/>
+    <Parameter name="cProjectId"/>
+    <Parameter name="cActivityId"/>
+    <Parameter name="cCampaignId"/>
+    <Parameter name="finPaymentMethodId"/>   
+  </SqlMethod>
+  <SqlMethod name="insertCInvoiceline" type="preparedStatement" connection="true" return="rowCount">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        INSERT INTO C_INVOICELINE (C_INVOICELINE_ID, AD_CLIENT_ID, AD_ORG_ID, CREATED, CREATEDBY, UPDATED, UPDATEDBY,
+        C_INVOICE_ID, LINE, C_BPARTNER_ID, DESCRIPTION, 
+        M_PRODUCT_ID, M_ATTRIBUTESETINSTANCE_ID,
+        C_UOM_ID, QTYINVOICED, PRICELIST, 
+        PRICEACTUAL, 
+        LINENETAMT,
+        TAXAMT,
+        TAXBASEAMT, PRICELIMIT, C_TAX_ID, S_RESOURCEASSIGNMENT_ID, PRICESTD)
+        VALUES (?,?,?,now(),?,now(),?,
+        ?,TO_NUMBER(?),?,?,
+        ?,?,
+        ?,TO_NUMBER(?),TO_NUMBER(?),
+        TO_NUMBER(?), 
+        TO_NUMBER(?),
+        TO_NUMBER(?), 
+        TO_NUMBER(?), TO_NUMBER(?),?,?,TO_NUMBER(?))
+      ]]>
+    </Sql>
+    <Parameter name="cInvoicelineId"/>
+    <Parameter name="adClientId"/>
+    <Parameter name="adOrgId"/>
+    <Parameter name="user"/>
+    <Parameter name="user"/>
+    <Parameter name="cInvoiceId"/>
+    <Parameter name="line"/>
+    <Parameter name="cBpartnerId"/>
+    <Parameter name="description"/>
+    <Parameter name="mProductId"/>
+    <Parameter name="mAttributeSetInstanceId"/>
+    <Parameter name="cUomId"/>
+    <Parameter name="qtyinvoiced"/>
+    <Parameter name="pricelist"/>
+    <Parameter name="priceactual"/>
+    <Parameter name="linenetamt"/>
+    <Parameter name="taxamt"/>
+    <Parameter name="taxbaseamt"/>
+    <Parameter name="pricelimit"/>
+    <Parameter name="cTaxId"/>
+    <Parameter name="sResourceassignmentId"/>
+    <Parameter name="pricestd"/>
+  </SqlMethod>
+  <SqlMethod name="cInvoicePost0" connection="true" type="callableStatement" return="object" object="ProductSecurityProcessData">
+      <SqlMethodComment></SqlMethodComment>
+      <Sql><![CDATA[
+        CALL C_Invoice_Post0(?)
+      ]]></Sql>
+      <Parameter name="adPinstanceId"></Parameter>
+   </SqlMethod>
+   <SqlMethod name="refunded" type="preparedStatement" connection="true" return="rowCount">
+      <SqlMethodComment></SqlMethodComment>
+      <Sql><![CDATA[
+        UPDATE C_Invoice
+        SET isactive = 'Y',
+            Updated = TO_DATE(NOW()),
+            UpdatedBy = ?
+            WHERE C_Invoice_ID = ?
+      ]]></Sql>
+      <Parameter name="userId"></Parameter>
+      <Parameter name="cInvoiceId"></Parameter>      
+   </SqlMethod>
+</SqlClass>

@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptR_Refund" pageWidth="1728" pageHeight="771" orientation="Landscape" columnWidth="1728" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.1435888100000025"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Date_From" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Date_To" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="AD_ORG_ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+CI.DOCUMENTNO AS CODIGO_COMPRA,
+SL.VALUE AS TIPO_COMP_REEMB,
+CASE RI.TAXIDTYPE
+WHEN 'R' THEN '01'
+WHEN 'D' THEN 'O2'
+WHEN 'P' THEN '03'
+END AS TIPO_IDENTIFICADOR,
+RI.TAXIDRUC AS IDENTIFICADOR_PROVEEDOR,
+RI.Stablishment AS ESTABLECIMIENTO,
+RI.SHELL AS PUNTO_EMISION,
+SUBSTR(RI.POREFERENCE,length(RI.POREFERENCE)-8,length(RI.POREFERENCE))  AS SECUENCIAL,
+TO_CHAR(RI.DATEEMISSION, 'DD/MM/YYYY') AS FECHA_EMISION,
+COALESCE(RI.Withholdingauthorization,'9999999999') AS W_AUTHORIZATION,
+RI.TAXBASEAMT AS BASE_IMP_GRABADA,
+RI.TAXBASEREFUND AS BASE_IMP_GRAB_REEM,
+RI.UNTAXED_BASIS AS BASE_NO_GRAB_IVA,
+RI.TAXICE AS MONTO_ICE,
+RI.TAXAMT AS MONTO_RET_IVA,
+RI.EXEMPTBASE AS BASE_EXENTA
+FROM SSRE_REFUNDINVOICE RI
+LEFT JOIN C_INVOICE CI ON CI.C_INVOICE_ID = RI.C_INVOICE_ID
+LEFT JOIN Sswh_Livelihoodt SL ON SL.Sswh_Livelihoodt_ID =  RI.Sswh_Livelihoodt_ID
+WHERE
+(CI.DATEACCT BETWEEN $P{Date_From} AND  $P{Date_To})
+AND (ri.ad_org_id = $P{AD_ORG_ID} OR $P{AD_ORG_ID} IS NULL)
+AND CI.DOCSTATUS='CO']]>
+	</queryString>
+	<field name="CODIGO_COMPRA" class="java.lang.String"/>
+	<field name="TIPO_COMP_REEMB" class="java.lang.String"/>
+	<field name="TIPO_IDENTIFICADOR" class="java.lang.String"/>
+	<field name="IDENTIFICADOR_PROVEEDOR" class="java.lang.String"/>
+	<field name="ESTABLECIMIENTO" class="java.lang.String"/>
+	<field name="PUNTO_EMISION" class="java.lang.String"/>
+	<field name="SECUENCIAL" class="java.lang.String"/>
+	<field name="FECHA_EMISION" class="java.lang.String"/>
+	<field name="W_AUTHORIZATION" class="java.lang.String"/>
+	<field name="BASE_IMP_GRABADA" class="java.math.BigDecimal"/>
+	<field name="BASE_IMP_GRAB_REEM" class="java.math.BigDecimal"/>
+	<field name="BASE_NO_GRAB_IVA" class="java.math.BigDecimal"/>
+	<field name="MONTO_ICE" class="java.math.BigDecimal"/>
+	<field name="MONTO_RET_IVA" class="java.math.BigDecimal"/>
+	<field name="BASE_EXENTA" class="java.math.BigDecimal"/>
+	<pageHeader>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="1728" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE REEMBOLSOS]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="46" splitType="Stretch">
+			<staticText>
+				<reportElement x="86" y="0" width="100" height="46" forecolor="#000000" backcolor="#000000"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIPO DE COMPROBANTE DE REEMBOLSO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="286" y="0" width="100" height="46" forecolor="#000000" backcolor="#000000"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NUMERO IDENTIFICACIÓN DEL PROVEEDOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="186" y="0" width="100" height="46" forecolor="#000000" backcolor="#000000"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIPO IDENTIFICACIÓN  DEL PROVEEDOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="386" y="0" width="114" height="46" forecolor="#000000" backcolor="#000000"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTABLECIMIENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="500" y="0" width="100" height="46" forecolor="#000000" backcolor="#000000"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PUNTO DE EMISION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="600" y="0" width="100" height="46" forecolor="#000000" backcolor="#000000"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[SECUENCIAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="700" y="0" width="100" height="46" forecolor="#000000" backcolor="#000000"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA DE EMISION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="800" y="0" width="326" height="46" forecolor="#000000" backcolor="#000000"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[AUTORIZACIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1126" y="0" width="100" height="46" forecolor="#000000" backcolor="#000000"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[BASE IMPONIBLE GRABADA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1226" y="0" width="100" height="46" forecolor="#000000" backcolor="#000000"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[BASE IMPONIBLE GRABADA REEMBOLSO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1326" y="0" width="100" height="46" forecolor="#000000" backcolor="#000000"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[BASE NO GRABA IVA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1526" y="0" width="100" height="46" forecolor="#000000" backcolor="#000000"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[MONTO ICE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1626" y="0" width="102" height="46" forecolor="#000000" backcolor="#000000"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[MONTO RETENCIÓN IVA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="86" height="46" forecolor="#000000" backcolor="#000000"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CODIGO DE COMPRA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1426" y="0" width="100" height="46" forecolor="#000000" backcolor="#000000"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[BASE EXENTA]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="86" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CODIGO_COMPRA}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="86" y="0" width="100" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TIPO_COMP_REEMB}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="286" y="0" width="100" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{IDENTIFICADOR_PROVEEDOR}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="186" y="0" width="100" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TIPO_IDENTIFICADOR}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="386" y="0" width="114" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ESTABLECIMIENTO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="500" y="0" width="100" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PUNTO_EMISION}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="600" y="0" width="100" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SECUENCIAL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="700" y="0" width="100" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{FECHA_EMISION}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="800" y="0" width="326" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{W_AUTHORIZATION}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="1126" y="0" width="100" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{BASE_IMP_GRABADA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="1226" y="0" width="100" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{BASE_IMP_GRAB_REEM}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="1326" y="0" width="100" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{BASE_NO_GRAB_IVA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="1526" y="0" width="100" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{MONTO_ICE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="1626" y="0" width="102" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{MONTO_RET_IVA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="1426" y="0" width="100" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{BASE_EXENTA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

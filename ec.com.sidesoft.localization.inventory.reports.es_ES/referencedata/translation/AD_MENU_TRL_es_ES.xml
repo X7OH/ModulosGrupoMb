@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="30021290C414472AB2A3AB5BCF9E34DD" trl="N">
+    <value column="Name" isTrl="N" original="Stock General Report">Reporte de Stock General</value>
+    <value column="Description" isTrl="N" original="Stock General Report">Reporte de Stock General</value>
+  </row>
+  <row id="359F03BC5AA74437AA22A99E8CBFA893" trl="N">
+    <value column="Name" isTrl="N" original="Price List Inventory">Inventario - Lista de Precios</value>
+    <value column="Description" isTrl="N" original="Price List">Lista de Precios</value>
+  </row>
+  <row id="70F06618D2EC439EA6B7F82FFE38E405" trl="N">
+    <value column="Name" isTrl="N" original="Stock Valoration">Valoración de Stock</value>
+    <value column="Description" isTrl="N" original="Stock Valoration">Valoración de Stock</value>
+  </row>
+</compiereTrl>

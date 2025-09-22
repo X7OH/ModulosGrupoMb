@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SSIPDV_VALIDINVENTORY_TRG">
+    <trigger name="SSIPDV_VALIDINVENTORY_TRG" table="M_INVENTORY" fires="before" insert="false" update="true" delete="false" foreach="row">
+      <body><![CDATA[
+    v_DateNull DATE := TO_DATE('31-12-9999','DD-MM-YYYY');
+    v_Requires_Authorization VARCHAR(2);
+    v_DocTypeID VARCHAR(32);
+    v_Code_Authorization VARCHAR(6);
+    p_Authorization_code VARCHAR(6);
+    v_statusKey VARCHAR(6);
+    v_Minute_from NUMBER;
+    v_errormsg_time VARCHAR(600);
+    v_errormsg_comparer VARCHAR(600);
+    v_errormsg_generate VARCHAR(600);
+    v_Create_Code_Date DATE;
+    
+BEGIN
+    
+    IF AD_isTriggerEnabled()='N' THEN RETURN;
+    END IF;
+
+	IF(UPDATING) THEN
+
+		v_errormsg_time:='Contraseña de autorización del supervisor ha expirado. No se puede completar la transacción.';
+		v_errormsg_comparer:='Contraseña de autorización del supervisor no es correcta. No se puede completar la transacción.';
+		v_errormsg_generate:='No se ha enviado la contraseña al supervisor';
+
+
+		v_DocTypeID := coalesce(:new.em_ssin_doctype_id,to_char('ND'));
+		v_Code_Authorization:= coalesce(:new.em_ssipdv_key,to_char('ND'));
+		p_Authorization_code:= coalesce(:new.em_ssipdv_key_auth,to_char('ND'));
+		v_statusKey:= coalesce(:new.EM_Ssipdv_Status_Key,to_char('ND'));
+
+		IF (v_statusKey='WC' AND p_Authorization_code='ND' AND (coalesce(to_char(:new.EM_Ssipdv_Date_Key),'ND'))='ND') THEN
+
+			:new.EM_Ssipdv_Date_Key=NOW();
+		ELSE
+
+		SELECT COALESCE(
+		(select em_stat_trans_authorization from c_doctype where c_doctype_id = v_DocTypeID),TO_CHAR('ND'))
+		INTO v_Requires_Authorization
+		FROM DUAL;
+
+		--raise exception '%' , 'error: ' ||  v_Code_Authorization || ' - status: '  || v_statusKey || ' - Auth: '  || p_Authorization_code;
+
+		
+		IF (v_Requires_Authorization = 'Y' and (v_statusKey<>'ND' AND v_statusKey='WC' AND v_statusKey<>'KA' ) and p_Authorization_code<>'ND' and v_Code_Authorization<>'ND') THEN
+
+			IF((v_Code_Authorization is not null or v_Code_Authorization != '') AND v_Code_Authorization<>'ND') THEN
+
+
+				IF(v_Code_Authorization = p_Authorization_code) THEN
+
+				v_Create_Code_Date:= :new.EM_Ssipdv_Date_Key;
+
+				--Valida el año 
+					IF((extract(year from  v_Create_Code_Date))=(extract(year from  now())))THEN
+					--Valida mes
+						IF((extract(month from  v_Create_Code_Date))=(extract(month from  now())))THEN
+						--Valida dia
+							IF((extract(day from  v_Create_Code_Date))=(extract(day from  now())))THEN
+							--Valida hora
+								IF((extract(hour from  v_Create_Code_Date))=(extract(hour from  now())))THEN
+								--Almacena el minuto actual con el minuto original
+									v_Minute_from:= ((extract(minute from  now()))-(extract(minute from  v_Create_Code_Date)));
+
+									IF(v_Minute_from<7)THEN
+										:new.EM_Ssipdv_Status_Key='KA';
+									ELSE
+										RAISE_APPLICATION_ERROR(-20000, v_errormsg_time) ;
+									END IF;
+								ELSE
+									RAISE_APPLICATION_ERROR(-20000, v_errormsg_time) ;
+								END IF;
+							ELSE
+								RAISE_APPLICATION_ERROR(-20000, v_errormsg_time) ;
+							END IF;
+						ELSE
+							RAISE_APPLICATION_ERROR(-20000, v_errormsg_time) ;
+						END IF;
+					ELSE
+						RAISE_APPLICATION_ERROR(-20000, v_errormsg_time) ;
+					END IF;
+				ELSE
+					RAISE_APPLICATION_ERROR(-20000, v_errormsg_comparer) ;
+				END IF;
+			ELSE
+				RAISE_APPLICATION_ERROR(-20000, v_errormsg_generate) ;
+			END IF;
+
+		END IF;
+
+		END IF;
+
+
+
+		
+	END IF;
+ 
+		END SSIPDV_VALIDINVENTORY_TRG
+]]></body>
+    </trigger>
+  </database>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="0B00ADD7EC2A4EA79E4C952DB36FD980" trl="N">
+    <value column="Name" isTrl="Y" original="POS Terminal Type">Tipo de TPV</value>
+    <value column="Description" isTrl="Y" original="Defines Terminal Properties">Define las propiedades del terminal</value>
+  </row>
+  <row id="42CEE92A82C8437CBDBCF5EDF2F416EF" trl="N">
+    <value column="Name" isTrl="Y" original="Generate Product Images">Generar Imágenes de Productos</value>
+    <value column="Description" isTrl="Y" original="Generate Product Images">Generar Imágenes de Productos</value>
+  </row>
+  <row id="43C3800F26D64496A8FA114D37903B30" trl="N">
+    <value column="Name" isTrl="Y" original="POS Payment Method Categories">TPV Categorías de métodos de pago</value>
+    <value column="Description" isTrl="Y" original="POS Payment Method Categories">TPV Categorías de métodos de pago</value>
+  </row>
+  <row id="7487256494804D1DAEC6A63BAAC09403" trl="N">
+    <value column="Name" isTrl="N" original="Hardware Manager">Administrador de Hardware</value>
+    <value column="Description" isTrl="N" original="List of Hardware Manager servers that can be used by POS terminals">Lista servidores de Administradores de Hardware que pueden ser usado por las terminales TPV</value>
+  </row>
+  <row id="896AC285FD8F4C25A869689D4A98DD8E" trl="N">
+    <value column="Name" isTrl="Y" original="Point of Sale">Punto de venta</value>
+    <value column="Description" isTrl="Y" original="Point of Sale configuration settings">Configuración del punto de venta</value>
+  </row>
+  <row id="97603A8F68CA4AFFB33A1DEF9AF0D88E" trl="N">
+    <value column="Name" isTrl="Y" original="Errors While Importing POS Data">Errores al importar pedidos desde el TPV</value>
+    <value column="Description" isTrl="Y" original="Errors While Importing POS Data">Errores al importar pedidos desde el TPV</value>
+  </row>
+  <row id="B6DAC78AC9964AAEB1FB3A09639A9E5E" trl="N">
+    <value column="Name" isTrl="N" original="POS Approval Reason">Razón de Aprobación TPV</value>
+    <value column="Description" isTrl="N" original="POS Approval Reason">Razón de Aprobación TPV</value>
+  </row>
+  <row id="D2FA389651F34386A37419F305EA5D5C" trl="N">
+    <value column="Name" isTrl="Y" original="POS Print Templates">Plantillas de impresión en TPV</value>
+    <value column="Description" isTrl="Y" original="Defines print templates to be used from Web POS">Define las plantillas de impresión usadas desde el TPV</value>
+  </row>
+  <row id="FF8081813363FD710133640958F8001D" trl="N">
+    <value column="Name" isTrl="Y" original="POS Terminal">Terminal Punto de Venta</value>
+    <value column="Description" isTrl="Y" original="POS Terminal">Terminal Punto de Venta</value>
+  </row>
+</compiereTrl>

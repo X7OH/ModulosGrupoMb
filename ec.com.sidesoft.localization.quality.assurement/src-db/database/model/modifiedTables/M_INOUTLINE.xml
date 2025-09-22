@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE M_INOUTLINE">
+    <table name="M_INOUTLINE" primaryKey="M_INOUTLINE_KEY">
+      <column name="EM_SLQS_MA_PER_CTRL_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SLQS_EVAL_QUALITY" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SLQS_CHECK_QUALITY" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="MA_PERIODIC_CONTROL" name="EM_SLQS_INOUTLINE_PER_CTRL">
+        <reference local="EM_SLQS_MA_PER_CTRL_ID" foreign="MA_PERIODIC_CONTROL_ID"/>
+      </foreign-key>
+    </table>
+  </database>

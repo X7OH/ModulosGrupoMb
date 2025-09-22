@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
+  <row id="4CAF606B2FE643A6876477592FCCE54A" trl="N">
+    <value column="Name" isTrl="N" original="em_spatmp_locator">em_spatmp_locator</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="680922998DB049C78EBF5D60620E3B33" trl="N">
+    <value column="Name" isTrl="N" original="Product Code">Product Code</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="91CC15559EA64593ABEAB289A6435B40" trl="N">
+    <value column="Name" isTrl="N" original="Generate Transfer">Generate Transfer</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="98425EA04D424F35A25BCC2DA0F61F87" trl="N">
+    <value column="Name" isTrl="N" original="WRPhaseProduct Transfer">WRPhaseProduct Transfer</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="B2D7D7E992F646378944316FC25DF3B3" trl="N">
+    <value column="Name" isTrl="N" original="Warehouse Production">Warehouse Production</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

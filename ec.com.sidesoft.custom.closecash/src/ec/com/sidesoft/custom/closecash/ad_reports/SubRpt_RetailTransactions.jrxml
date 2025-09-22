@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubRpt_RetailTransactions" pageWidth="221" pageHeight="127" orientation="Landscape" columnWidth="221" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="3.797498335832487"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="17"/>
+	<parameter name="sccc_cash_clousure_id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT COALESCE((SELECT SUM(co.totalLines) FROM c_order co WHERE co.issotrx = 'Y'AND co.docstatus = 'CO'
+	AND to_char( co.dateordered ,'yyyy-MM-dd') = to_char( cc.closingdate ,'yyyy-MM-dd')
+	AND co.c_doctypetarget_id = postype.c_doctype_id),0) as "ventasnetas",
+	COALESCE((SELECT SUM(cotax.taxamt) FROM c_order co
+		LEFT JOIN c_ordertax cotax ON cotax.c_order_id = co.c_order_id
+		LEFT JOIN c_tax tax ON tax.c_tax_id = cotax.c_tax_id
+		WHERE co.issotrx = 'Y'AND co.docstatus = 'CO'
+		AND to_char( co.dateordered ,'yyyy-MM-dd') = to_char( cc.closingdate ,'yyyy-MM-dd')
+		AND co.c_doctypetarget_id = postype.c_doctype_id AND tax.rate = 0),0)as "iva0",
+	COALESCE((SELECT SUM(cotax.taxamt) FROM c_order co
+		LEFT JOIN c_ordertax cotax ON cotax.c_order_id = co.c_order_id
+		LEFT JOIN c_tax tax ON tax.c_tax_id = cotax.c_tax_id
+		WHERE co.issotrx = 'Y'AND co.docstatus = 'CO'
+		AND to_char( co.dateordered ,'yyyy-MM-dd') = to_char( cc.closingdate ,'yyyy-MM-dd')
+		AND co.c_doctypetarget_id = postype.c_doctype_id AND tax.rate = 12),0)as "iva12",
+	COALESCE((SELECT SUM(co.totalLines) FROM c_order co WHERE co.issotrx = 'Y'
+		AND to_char( co.dateordered ,'yyyy-MM-dd') = to_char( cc.closingdate ,'yyyy-MM-dd')
+		AND co.c_doctypetarget_id = postype.c_doctyperet_id),0) as "devonetas",
+	COALESCE((SELECT SUM(co.grandtotal) FROM c_order co WHERE co.issotrx = 'Y'
+		AND to_char( co.dateordered ,'yyyy-MM-dd') = to_char( cc.closingdate ,'yyyy-MM-dd')
+		AND co.c_doctypetarget_id = postype.c_doctyperet_id),0) as "devobrutas"
+FROM sccc_cash_clousure cc
+LEFT JOIN ad_org org On org.ad_org_id = cc.ad_org_id
+LEFT JOIN sccc_setup setup ON setup.ad_org_id = org.ad_org_id
+LEFT JOIN obpos_applications pos ON pos.obpos_applications_id = setup.em_scccd_posterminal
+LEFT JOIN obpos_terminaltype postype ON postype.obpos_terminaltype_id = pos.obpos_terminaltype_id
+WHERE cc.sccc_cash_clousure_id = $P{sccc_cash_clousure_id}]]>
+	</queryString>
+	<field name="ventasnetas" class="java.math.BigDecimal"/>
+	<field name="iva0" class="java.math.BigDecimal"/>
+	<field name="iva12" class="java.math.BigDecimal"/>
+	<field name="devonetas" class="java.math.BigDecimal"/>
+	<field name="devobrutas" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="114">
+			<staticText>
+				<reportElement x="0" y="0" width="166" height="10"/>
+				<box leftPadding="5">
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Ventas Netas]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="166" y="0" width="55" height="10"/>
+				<box rightPadding="5">
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{ventasnetas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="166" y="10" width="55" height="10"/>
+				<box rightPadding="5">
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{iva0}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="10" width="166" height="10"/>
+				<box leftPadding="5">
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[IVA 0%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="166" height="10"/>
+				<box leftPadding="5">
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[IVA 12% 01/02/2014]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="30" width="166" height="10"/>
+				<box leftPadding="5">
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ventas Brutas]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="166" y="20" width="55" height="10"/>
+				<box rightPadding="5">
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{iva12}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="166" y="30" width="55" height="10"/>
+				<box rightPadding="5">
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[($F{ventasnetas}.add( $F{iva0} )).add($F{iva12})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="166" y="61" width="55" height="10"/>
+				<box rightPadding="5">
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{devobrutas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="166" y="51" width="55" height="10"/>
+				<box rightPadding="5">
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{devonetas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="61" width="166" height="10"/>
+				<box leftPadding="5">
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Devoluciones Brutas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="51" width="166" height="10"/>
+				<box leftPadding="5">
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Devoluciones Netas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="85" width="166" height="10"/>
+				<box leftPadding="5">
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[TOTAL DE TRASACCIONES MINORISTAS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="166" y="85" width="55" height="10"/>
+				<box rightPadding="5">
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[(($F{ventasnetas}.add( $F{iva0} )).add($F{iva12})).add($F{devobrutas})]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<SqlClass name="DocLineWithholdingSaleData" package="ec.com.sidesoft.localization.ecuador.withholdingssales.accounting">
+  <SqlClassComment></SqlClassComment>
+  <SqlMethod name="select" type="preparedStatement" return="multiple">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        SELECT WSL.SSWS_WITHHOLDINGSALELINE_ID, WSL.AD_ORG_ID, WSL.LINE, WSL.DESCRIPTION, 
+               COALESCE(WSL.WHRENTALAMT + WSL.WHIVAAMT, 0) AS AMOUNT, WS.C_CURRENCY_ID,
+               TAXAC.T_DUE_ACCT AS CUSTOMER_TAX_ACCT_ID, TAXAC.T_CREDIT_ACCT AS VENDOR_TAX_ACCT_ID,
+               WS.WITHHOLDINGTYPE, WS.PAIDINVOICE, WS.C_GLITEM_ID, GL.GLITEM_CREDIT_ACCT
+        FROM SSWS_WITHHOLDINGSALELINE WSL
+        JOIN SSWS_WITHHOLDINGSALE WS ON WS.SSWS_WITHHOLDINGSALE_ID = WSL.SSWS_WITHHOLDINGSALE_ID
+        JOIN C_TAX TAX ON TAX.C_TAX_ID = WSL.C_TAX_ID
+        LEFT JOIN C_TAX_ACCT TAXAC ON TAXAC.C_TAX_ID = TAX.C_TAX_ID
+        LEFT JOIN C_GLITEM_ACCT GL ON GL.C_GLITEM_ID = WS.C_GLITEM_ID
+        WHERE (WSL.ISRENTAL = 'Y' AND COALESCE(WSL.WHRENTALAMT, 0) <> 0 OR WSL.ISRENTAL = 'N' AND COALESCE(WSL.WHIVAAMT, 0) <> 0) 
+        AND   WS.SSWS_WITHHOLDINGSALE_ID = ?
+        ORDER BY Line
+      ]]>
+    </Sql>
+    <Parameter name="certificate"/>
+  </SqlMethod>
+</SqlClass>

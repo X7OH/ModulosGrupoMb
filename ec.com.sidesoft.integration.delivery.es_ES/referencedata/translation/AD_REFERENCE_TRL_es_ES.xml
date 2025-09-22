@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
+  <row id="066463470447432F92B6E0F56A06E3FE" trl="Y">
+    <value column="Name" isTrl="Y" original="SDELVR_DeliveryType">Lista Tipo de Delivery</value>
+    <value column="Description" isTrl="Y" original="Delivery Type">Lista Tipo de Delivery</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="91D6155E6F25480D96A566D5207E75E3" trl="N">
+    <value column="Name" isTrl="N" original="SDELVR_Taxpayer">SDELVR_Taxpayer</value>
+    <value column="Description" isTrl="N" original="Taxpayer">Taxpayer</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

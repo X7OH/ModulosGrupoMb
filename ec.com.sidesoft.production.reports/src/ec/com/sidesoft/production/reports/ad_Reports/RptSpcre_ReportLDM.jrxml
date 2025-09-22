@@ -1,0 +1,2083 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptSpcre_ReportLDM" pageWidth="2399" pageHeight="595" orientation="Landscape" columnWidth="2359" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0263162364614147"/>
+	<property name="ireport.x" value="30"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="M_PRODUCT_ID" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="M_LOCATOR_ID" class="java.lang.String"/>
+	<parameter name="DATE_FROM" class="java.util.Date"/>
+	<parameter name="DATE_TO" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT
+	ml.value as bodega
+	,categoria_prod
+	,producto as producto
+	,ldm.ad_org_id
+	,num_prod
+	,cant_max
+	,cant_min
+	,cantidad_s
+	,costo_s
+	,cantidad_compra
+	,costo_compra
+	,cantidad_tp
+	,costo_tp
+	,cantidad_tn
+	,costo_tn
+	,cantidad_v
+	,costo_v
+	,cantidad_f
+	,costo_f
+	,cantidad_ldm
+	,costo_ldm
+	,cantidad_rect
+	,costo_rec
+	FROM m_product mp
+	join
+	(
+
+
+
+	SELECT
+	mp.M_PRODUCT_ID
+	,ml.M_LOCATOR_ID as "bodega"
+	,mp.name as "producto"
+	,to_number(1) as "num_prod"
+	,mpc.name as categoria_prod
+	,coalesce(c_max.cant_max,0) as "cant_max"
+	,coalesce(c_min.cant_min,0) as "cant_min"
+	,coalesce(saldo.cantidad_s,0) as "cantidad_s"
+	,coalesce(saldo.costo_s,0) as "costo_s"
+	,coalesce(compra.cantidad_compra,0) as "cantidad_compra"
+	,coalesce(compra.costo_compra,0) as "costo_compra"
+	,coalesce(tr_p.cantidad_tp,0) as "cantidad_tp"
+	,coalesce(tr_p.costo_tp,0) as "costo_tp"
+	,coalesce(tr_n.cantidad_tn,0) as "cantidad_tn"
+	,coalesce(tr_n.costo_tn,0) as "costo_tn"
+	,coalesce(venta.cantidad_v,0) as "cantidad_v"
+	,coalesce(venta.costo_v,0) as "costo_v"
+	,coalesce(invf.cantidad_f,0) as "cantidad_f"
+	,coalesce(invf.costo_f,0) as "costo_f"
+	,coalesce(consumo.cantidad_ldm,0) as "cantidad_ldm"
+	,coalesce(consumo.costo_ldm,0) as "costo_ldm"
+	,to_number(0) as "cantidad_rect"
+	,to_number(0)  as "costo_rec"
+	,mp.ad_org_id
+	FROM m_product mp
+	left join
+	(
+	SELECT MT.M_PRODUCT_ID, MP.NAME AS PRODUCTO,MT.M_LOCATOR_ID
+	FROM M_PRODUCT MP
+	LEFT JOIN M_TRANSACTION MT ON MP.M_PRODUCT_ID = MT.M_PRODUCT_ID
+	where mt.movementdate  between  $P{DATE_FROM}  and   $P{DATE_TO}
+	and isbom='Y'
+	GROUP BY MT.M_PRODUCT_ID, MP.NAME,MT.M_LOCATOR_ID
+	) m_t on m_t.M_PRODUCT_ID = mp.m_product_id
+	left join
+	(
+	select
+		m_locator_id
+		,m_product_id
+		,max(costo) as cant_max
+		from
+		(select m_locator_id, m_product_id, case when movementqty<>0 and transactioncost<>0 then transactioncost/movementqty else 0 end costo
+		from m_transaction mt
+		where
+		mt.movementdate  between  $P{DATE_FROM}  and   $P{DATE_TO}  and
+		mt. movementtype  in ('V+','V-')
+		) cmaxi
+		group by 1,2
+
+	) c_max on c_max.m_product_id = m_t.m_product_id and c_max.m_locator_id = m_t.m_locator_id
+	left join
+	(
+
+		select
+		m_locator_id
+		,m_product_id
+		,min(costo) as cant_min
+		from
+		(select m_locator_id, m_product_id, case when movementqty<>0 and transactioncost<>0 then transactioncost/movementqty else 0 end costo
+		from m_transaction mt
+		where
+		mt.movementdate  between  $P{DATE_FROM}  and   $P{DATE_TO}  and
+		mt. movementtype  in ('V+','V-')
+		and mt.movementqty>0
+		) cmaxi
+		group by 1,2
+	) c_min on c_min.m_product_id = m_t.m_product_id and c_min.m_locator_id = m_t.m_locator_id
+	left join
+	(
+
+	SELECT
+	costo.m_product_id
+	,costo.m_locator_id
+	,stock as cantidad_s
+	,(case when stock > 0 Then CASE iscostcalculated WHEN 'Y' THEN total_cost / stock ELSE NULL END else  0 end ) AS costo_s
+	FROM
+	(
+
+	select  t.m_locator_id,t.m_product_id,sum(t.movementqty) as stock,     round( (C_CURRENCY_CONVERT_PRECISION (sum(CASE WHEN t.MOVEMENTQTY < 0 THEN - tc.trxcost ELSE tc.trxcost END)
+	,tc.c_currency_id,tc.c_currency_id, $P{DATE_FROM},NULL,mp.AD_CLIENT_ID,mp.ad_org_id,'C')),2)
+		AS TOTAL_COST,t.iscostcalculated
+	from m_transaction t
+	left join m_product mp on mp.m_product_id = t.m_product_id
+	LEFT JOIN (SELECT sum(cost) AS trxcost, m_transaction_id, c_currency_id
+				       FROM M_TRANSACTION_COST
+					 GROUP BY m_transaction_id, c_currency_id) tc ON t.m_transaction_id = tc.m_transaction_id
+	where  t.movementdate <  $P{DATE_FROM}
+	and  mp.m_product_id = t.m_product_id
+	group by 1,2, tc.c_currency_id, mp.AD_CLIENT_ID, mp.ad_org_id,t.iscostcalculated
+	) costo
+	) saldo on saldo.m_product_id = m_t.m_product_id  and saldo.m_locator_id = m_t.m_locator_id
+	left join
+	(
+
+
+	select
+	sum(cantidad_compra) as cantidad_compra,
+	sum(costo_compra) as costo_compra,
+	m_product_id,
+	m_locator_id
+	from
+	(
+	 select (movementqty) as cantidad_compra, (transactioncost) * (case when  (movementqty) <0 then -1 else 1 end) as costo_compra,m_product_id,mt.m_locator_id
+	from m_transaction mt
+	where mt.movementdate  between  $P{DATE_FROM}  and  $P{DATE_TO}
+	and movementtype in ('V+','V-')
+	) comp
+	group by  comp.m_product_id, comp.m_locator_id
+	) compra on compra.m_product_id = m_t.m_product_id and compra.m_locator_id = m_t.m_locator_id
+	left join
+	(
+	select sum(movementqty) as cantidad_tp, sum(transactioncost) as costo_tp,m_product_id,mt.m_locator_id
+	from m_transaction mt
+	where mt.movementdate  between  $P{DATE_FROM}  and  $P{DATE_TO}
+	and movementtype not in ('V+','V-')
+	and movementqty>0
+	group by mt.m_product_id,mt.m_locator_id
+	) tr_p on tr_p.m_product_id = m_t.m_product_id and tr_p.m_locator_id = m_t.m_locator_id
+	left join
+	(
+	select abs(sum(movementqty)) as cantidad_tn, sum(transactioncost) as costo_tn,m_product_id,mt.m_locator_id
+	from m_transaction mt
+	where mt.movementdate  between  $P{DATE_FROM}  and  $P{DATE_TO}
+	and movementtype not in ('C+','C-','V+')
+	and movementqty<0
+	group by mt.m_product_id,mt.m_locator_id
+	) tr_n on tr_n.m_product_id = m_t.m_product_id  and tr_n.m_locator_id = m_t.m_locator_id
+	left join (
+	select abs(sum(movementqty)) as cantidad_v, sum(transactioncost) as costo_v,m_product_id,mt.m_locator_id
+	from m_transaction mt
+	where mt.movementdate  between  $P{DATE_FROM}  and  $P{DATE_TO}
+	and movementtype  in ('C+','C-')
+	group by mt.m_product_id,mt.m_locator_id
+	) venta on venta.m_product_id = m_t.m_product_id and venta.m_locator_id = m_t.m_locator_id
+	left join
+	(
+
+	SELECT
+	invent_f.m_product_id
+	,invent_f.m_locator_id
+	,stock as cantidad_f
+	,(case when stock > 0 Then CASE iscostcalculated WHEN 'Y' THEN total_cost / stock ELSE NULL END else  0 end ) AS costo_f
+	FROM
+	(
+
+	select  t.m_locator_id,t.m_product_id,sum(t.movementqty) as stock,     round( (C_CURRENCY_CONVERT_PRECISION (sum(CASE WHEN t.MOVEMENTQTY < 0 THEN - tc.trxcost ELSE tc.trxcost END)
+	,tc.c_currency_id,tc.c_currency_id,$P{DATE_TO},NULL,mp.AD_CLIENT_ID,mp.ad_org_id,'C')),2)
+		AS TOTAL_COST,t.iscostcalculated
+	from m_transaction t
+	left join m_product mp on mp.m_product_id = t.m_product_id
+	LEFT JOIN (SELECT sum(cost) AS trxcost, m_transaction_id, c_currency_id
+				       FROM M_TRANSACTION_COST
+					 GROUP BY m_transaction_id, c_currency_id) tc ON t.m_transaction_id = tc.m_transaction_id
+	where  t.movementdate <= $P{DATE_TO}
+	and  mp.m_product_id = t.m_product_id
+	group by 1,2, tc.c_currency_id, mp.AD_CLIENT_ID, mp.ad_org_id,t.iscostcalculated
+	) invent_f
+	) invf on invf.m_product_id = m_t.m_product_id  and invf.m_locator_id = m_t.m_locator_id
+	left join (
+	select abs(sum(movementqty)) as cantidad_ldm, sum(transactioncost) as costo_ldm,m_product_id, mt.m_locator_id
+	from m_transaction mt
+	where mt.movementdate  between  $P{DATE_FROM}  and  $P{DATE_TO}
+	and movementtype  in ('P+')
+	group by mt.m_product_id, mt.m_locator_id
+	) consumo on consumo.m_product_id = m_t.m_product_id and consumo.m_locator_id = m_t.m_locator_id
+	left join
+	(
+	select
+	rec.cantidad_p * mpb.bomqty as cantidad_rect
+	,costo_p
+	,mpb.m_productbom_id
+	,mpb.M_PRODUCT_ID
+	,mpb.bomqty as cantidad_bom
+	,m_locator_id
+	from
+	(select abs(sum(movementqty)) as cantidad_p, sum(transactioncost) as costo_p, mt.m_product_id , mp.name
+	,mt.m_locator_id
+	from m_transaction mt
+	join m_product mp on mp.m_product_id = mt.m_product_id
+	where mt.movementdate  between  $P{DATE_FROM}  and  $P{DATE_TO}
+	and movementtype  in ('P+')
+	and mp.isbom = 'Y'
+	group by mt.m_product_id,mp.name,mt.m_locator_id
+	) rec
+	left join m_product_bom mpb on mpb.m_product_id = rec.m_product_id
+	) receta on receta.m_productbom_id =  m_t.m_product_id and receta.m_locator_id = m_t.m_locator_id
+	left join m_locator ml on ml.m_locator_id = m_t.m_locator_id
+	left join m_product_category mpc on mpc.m_product_category_id =  mp.m_product_category_id
+	where mp.isbom ='Y'
+	union all
+
+
+
+
+	select
+
+	M_PRODUCT_MAT_ID
+	,bodega as bodega
+	,producto as "producto"
+	,num_prod as "num_prod"
+	,categoria_prod as "categoria_prod"
+	,sum(cant_max) as "cant_max"
+	,sum(cant_min) as "cant_min"
+	,sum(cantidad_s) as "cantidad_s"
+	,sum(costo_s) as "costo_s"
+	,sum(cantidad_compra) as "cantidad_compra"
+	,sum(costo_compra) as "costo_compra"
+	,sum(cantidad_tp) as "cantidad_tp"
+	,sum(costo_tp) as "costo_tp"
+	,sum(cantidad_tn) as "cantidad_tn"
+	,sum(costo_tn) as "costo_tn"
+	,sum(cantidad_v) as "cantidad_v"
+	,sum(costo_v) as "costo_v"
+	,sum(cantidad_f) as "cantidad_f"
+	,sum(costo_f) as "costo_f"
+	,sum(cantidad_ldm) as "cantidad_ldm"
+	,sum(costo_ldm) as "costo_ldm"
+	,sum(coalesce(receta.cantidad_rect,0)) as "cantidad_rect"
+	,sum(coalesce(case
+		      when coalesce(cantidad_ldm,0)>0 and coalesce(costo_ldm,0)>0
+		      then (coalesce(costo_ldm,0)/coalesce(cantidad_ldm,0))*coalesce(receta.cantidad_rect,0)
+		      else 0
+		  end,0)) as "costo_rec"
+	,material.ad_org_id
+	from
+
+	(
+	SELECT
+
+	m_t.M_PRODUCT_MAT_ID
+	,ml.m_locator_id as bodega
+	,m_t.m_locator_id
+	,m_t.m_product_id
+	,producto as "producto"
+	,to_number(2) as num_prod
+	,mpc.name as categoria_prod
+	,coalesce(c_max.cant_max,0) as "cant_max"
+	,coalesce(c_min.cant_min,0) as "cant_min"
+	,coalesce(saldo.cantidad_s,0) as "cantidad_s"
+	,coalesce(saldo.costo_s,0) as "costo_s"
+	,coalesce(compra.cantidad_compra,0) as "cantidad_compra"
+	,coalesce(compra.costo_compra,0) as "costo_compra"
+	,coalesce(tr_p.cantidad_tp,0) as "cantidad_tp"
+	,coalesce(tr_p.costo_tp,0) as "costo_tp"
+	,coalesce(tr_n.cantidad_tn,0) as "cantidad_tn"
+	,coalesce(tr_n.costo_tn,0) as "costo_tn"
+	,coalesce(venta.cantidad_v,0) as "cantidad_v"
+	,coalesce(venta.costo_v,0) as "costo_v"
+	,coalesce(invf.cantidad_f,0) as "cantidad_f"
+	,coalesce(invf.costo_f,0) as "costo_f"
+	,coalesce(consumo.cantidad_ldm,0) as "cantidad_ldm"
+	,coalesce(consumo.costo_ldm,0) as "costo_ldm"
+	,m_t.ad_org_id
+	FROM
+	(
+
+	SELECT MPB.M_PRODUCT_ID AS M_PRODUCT_MAT_ID , mp2.name as prod
+	,msd.m_locator_id
+	,MT.M_PRODUCT_ID,
+	 MP.name AS PRODUCTO,l.m_locator_id as locator_bom,mp.ad_org_id
+	FROM M_PRODUCT_BOM MPB
+	LEFT JOIN M_PRODUCT MP ON MP.M_PRODUCT_ID = MPB.M_PRODUCTBOM_ID
+	left join m_product mp2 on mp2.m_product_id = MPB.M_PRODUCT_ID
+	LEFT JOIN M_TRANSACTION MT ON MT.M_PRODUCT_ID = MPB.M_PRODUCTBOM_ID
+	left join m_locator l on l.m_locator_id  = mt.m_locator_id
+	left join m_storage_detail msd on msd.m_product_id = MPB.M_PRODUCT_ID
+	where mt.movementdate  between  $P{DATE_FROM}  and  $P{DATE_TO}
+	and msd.qtyonhand >0
+	GROUP BY MT.M_PRODUCT_ID,MP.m_product_id,MPB.M_PRODUCT_ID,l.m_locator_id,mp.ad_org_id
+	 ,mp2.name
+	,msd.m_locator_id
+	ORDER BY 1
+
+	) m_t
+
+	left join
+	(
+		select
+		m_locator_id
+		,m_product_id
+		,abs(max(costo)) as cant_max
+		from
+		(select m_locator_id, m_product_id, case when movementqty<>0 and transactioncost<>0 then transactioncost/movementqty else 0 end costo
+		from m_transaction mt
+		join (
+		select m_productbom_id from m_product_bom
+		group by m_productbom_id
+		)  mat on mat.m_productbom_id  = mt.m_product_id
+		where
+		mt.movementdate  between  $P{DATE_FROM}  and   $P{DATE_TO}  and
+		mt. movementtype  in ('V+','V-')
+		) cmaxi
+		group by 1,2
+	) c_max on c_max.m_product_id = m_t.m_product_id and c_max.m_locator_id = m_t.m_locator_id
+
+	left join
+	(
+
+select
+		m_locator_id
+		,m_product_id
+		,min(costo) as cant_min
+		from
+		(select m_locator_id, m_product_id, case when movementqty<>0 and transactioncost<>0 then transactioncost/movementqty else 0 end costo
+		from m_transaction mt
+		join (
+		select m_productbom_id from m_product_bom
+		group by m_productbom_id
+		)  mat on mat.m_productbom_id  = mt.m_product_id
+		where
+		mt.movementdate  between  $P{DATE_FROM}  and   $P{DATE_TO}  and
+		mt. movementtype  in ('V+','V-')
+		and mt.movementqty>0
+		) cmin
+		group by 1,2
+	) c_min on c_min.m_product_id = m_t.m_product_id  and c_min.m_locator_id = m_t.m_locator_id
+	left join
+	(
+
+	SELECT
+	costo.m_product_id
+	,costo.m_locator_id
+	,stock as cantidad_s
+	,(case when stock > 0 Then CASE iscostcalculated WHEN 'Y' THEN total_cost / stock ELSE NULL END else  0 end ) AS costo_s
+	FROM
+	(
+
+	select  t.m_locator_id,t.m_product_id,sum(t.movementqty) as stock,     round( (C_CURRENCY_CONVERT_PRECISION (sum(CASE WHEN t.MOVEMENTQTY < 0 THEN - tc.trxcost ELSE tc.trxcost END)
+	,tc.c_currency_id,tc.c_currency_id, $P{DATE_FROM},NULL,mp.AD_CLIENT_ID,mp.ad_org_id,'C')),2)
+		AS TOTAL_COST,t.iscostcalculated
+	from m_transaction t
+	left join m_product mp on mp.m_product_id = t.m_product_id
+	LEFT JOIN (SELECT sum(cost) AS trxcost, m_transaction_id, c_currency_id
+				       FROM M_TRANSACTION_COST
+					 GROUP BY m_transaction_id, c_currency_id) tc ON t.m_transaction_id = tc.m_transaction_id
+	where  t.movementdate <  $P{DATE_FROM}
+	and  mp.m_product_id = t.m_product_id
+	group by 1,2, tc.c_currency_id, mp.AD_CLIENT_ID, mp.ad_org_id,t.iscostcalculated
+	) costo
+
+	) saldo on saldo.m_product_id = m_t.m_product_id  and saldo.m_locator_id = m_t.m_locator_id
+	left join
+	(
+
+
+	select
+	sum(cantidad_compra) as cantidad_compra,
+	sum(costo_compra) as costo_compra,
+	m_product_id,
+	m_locator_id
+	from
+	(
+	 select (movementqty) as cantidad_compra, (transactioncost) * (case when  (movementqty) <0 then -1 else 1 end) as costo_compra,m_product_id,mt.m_locator_id
+	from m_transaction mt
+	where mt.movementdate  between  $P{DATE_FROM}  and  $P{DATE_TO}
+	and movementtype in ('V+','V-')
+	) comp
+	group by  comp.m_product_id, comp.m_locator_id
+	) compra on compra.m_product_id = m_t.m_product_id and compra.m_locator_id = m_t.m_locator_id
+
+
+	left join
+	(
+	select sum(movementqty) as cantidad_tp, sum(transactioncost) as costo_tp,m_product_id,mt.m_locator_id
+	from m_transaction mt
+	where mt.movementdate  between  $P{DATE_FROM}  and  $P{DATE_TO}
+	and movementtype not in ('V+','V-')
+	and movementqty>0
+	group by mt.m_product_id,mt.m_locator_id
+	) tr_p on tr_p.m_product_id = m_t.m_product_id and tr_p.m_locator_id = m_t.m_locator_id
+	left join
+	(
+	select abs(sum(movementqty)) as cantidad_tn, sum(transactioncost) as costo_tn,m_product_id,mt.m_locator_id
+	from m_transaction mt
+	where mt.movementdate  between  $P{DATE_FROM}  and  $P{DATE_TO}
+	and movementtype not in ('C+','C-','V+')
+	and movementqty<0
+	group by mt.m_product_id,mt.m_locator_id
+
+	) tr_n on tr_n.m_product_id = m_t.m_product_id and tr_n.m_locator_id = m_t.m_locator_id
+	left join (
+	select abs(sum(movementqty)) as cantidad_v, sum(transactioncost) as costo_v,m_product_id,mt.m_locator_id
+	from m_transaction mt
+	where mt.movementdate  between  $P{DATE_FROM}  and  $P{DATE_TO}
+	and movementtype  in ('C+','C-')
+	group by mt.m_product_id,mt.m_locator_id
+	) venta on venta.m_product_id = m_t.m_product_id and venta.m_locator_id = m_t.m_locator_id
+
+	left join
+	(
+
+	SELECT
+	invent_f.m_product_id
+	,invent_f.m_locator_id
+	,stock as cantidad_f
+	,(case when stock > 0 Then CASE iscostcalculated WHEN 'Y' THEN total_cost / stock ELSE NULL END else  0 end ) AS costo_f
+	FROM
+	(
+
+	select  t.m_locator_id,t.m_product_id,sum(t.movementqty) as stock,     round( (C_CURRENCY_CONVERT_PRECISION (sum(CASE WHEN t.MOVEMENTQTY < 0 THEN - tc.trxcost ELSE tc.trxcost END)
+	,tc.c_currency_id,tc.c_currency_id,$P{DATE_TO},NULL,mp.AD_CLIENT_ID,mp.ad_org_id,'C')),2)
+		AS TOTAL_COST,t.iscostcalculated
+	from m_transaction t
+	left join m_product mp on mp.m_product_id = t.m_product_id
+	LEFT JOIN (SELECT sum(cost) AS trxcost, m_transaction_id, c_currency_id
+				       FROM M_TRANSACTION_COST
+					 GROUP BY m_transaction_id, c_currency_id) tc ON t.m_transaction_id = tc.m_transaction_id
+	where  t.movementdate <= $P{DATE_TO}
+	and  mp.m_product_id = t.m_product_id
+	group by 1,2, tc.c_currency_id, mp.AD_CLIENT_ID, mp.ad_org_id,t.iscostcalculated
+	) invent_f
+
+	) invf on invf.m_product_id = m_t.m_product_id and invf.m_locator_id = m_t.m_locator_id
+	left join (
+	select abs(sum(movementqty)) as cantidad_ldm, sum(transactioncost) as costo_ldm,m_product_id,mt.m_locator_id
+	from m_transaction mt
+	where mt.movementdate  between  $P{DATE_FROM}  and  $P{DATE_TO}
+	and movementtype  in ('P+')
+	group by mt.m_product_id,mt.m_locator_id
+	) consumo on consumo.m_product_id = m_t.m_product_id  and consumo.m_locator_id = m_t.m_locator_id
+	left join m_locator ml on ml.m_locator_id = m_t.m_locator_id
+	left join m_product mp on mp.m_product_id = M_T.M_PRODUCT_ID
+	LEFT JOIN m_product mp2 on mp2.m_product_id = M_T.M_PRODUCT_MAT_ID
+	left join m_product_category mpc on mpc.m_product_category_id =  mp.m_product_category_id
+	order by 1,2,4
+	) material
+	left join
+	(
+		select
+
+		sum(cant_uso_mat) as cantidad_rect
+		,m_productbom_id
+		,m_locator_id
+		from
+		(
+
+		SELECT
+		abs(mt.movementqty) as   cant_uso_mat
+		,REC.m_productbom_id
+		,MT.M_LOCATOR_ID
+		from m_transaction mt
+		JOIN
+		(
+		SELECT
+		mpb.m_productbom_id
+		from m_product_bom mpb
+		group by m_productbom_id
+		) REC ON mt.M_PRODUCT_ID = REC.m_productbom_id
+		where
+		movementdate  between  $P{DATE_FROM}  and   $P{DATE_TO}  and
+		movementtype  in ('P+')
+		 ) recetas
+		 group by 2,3
+
+	) receta on receta.m_productbom_id =  material.m_product_id and receta.m_locator_id = material.m_locator_id
+	group by 1,2,3,4,5,material.ad_org_id
+
+
+	) LDM ON ldm.m_product_id = MP.m_product_id
+	left join m_locator ml on ml.m_locator_id = ldm.bodega
+	join (
+	select t.m_product_id
+	from m_transaction t
+	join m_product mp on mp.m_product_id = t.m_product_id
+	where t.movementdate between $P{DATE_FROM}   and  $P{DATE_TO}
+	and mp.isbom ='Y'
+	group by t.m_product_id
+	) mt on mt.m_product_id = ldm.m_product_id
+	WHERE MP.ISBOM='Y'
+	and ldm.m_product_id = mp.m_product_id
+	and ldm.m_product_id in (select m_product_id from m_product where isactive= 'Y')
+        and (ml.m_locator_id =$P{M_LOCATOR_ID} or $P{M_LOCATOR_ID} is null )
+	AND COALESCE(TRIM(BODEGA),'ND')<>'ND'
+	group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23
+	order by
+	 bodega,categoria_prod,producto]]>
+	</queryString>
+	<field name="bodega" class="java.lang.String"/>
+	<field name="categoria_prod" class="java.lang.String"/>
+	<field name="producto" class="java.lang.String"/>
+	<field name="ad_org_id" class="java.lang.String"/>
+	<field name="num_prod" class="java.math.BigDecimal"/>
+	<field name="cant_max" class="java.math.BigDecimal"/>
+	<field name="cant_min" class="java.math.BigDecimal"/>
+	<field name="cantidad_s" class="java.math.BigDecimal"/>
+	<field name="costo_s" class="java.math.BigDecimal"/>
+	<field name="cantidad_compra" class="java.math.BigDecimal"/>
+	<field name="costo_compra" class="java.math.BigDecimal"/>
+	<field name="cantidad_tp" class="java.math.BigDecimal"/>
+	<field name="costo_tp" class="java.math.BigDecimal"/>
+	<field name="cantidad_tn" class="java.math.BigDecimal"/>
+	<field name="costo_tn" class="java.math.BigDecimal"/>
+	<field name="cantidad_v" class="java.math.BigDecimal"/>
+	<field name="costo_v" class="java.math.BigDecimal"/>
+	<field name="cantidad_f" class="java.math.BigDecimal"/>
+	<field name="costo_f" class="java.math.BigDecimal"/>
+	<field name="cantidad_ldm" class="java.math.BigDecimal"/>
+	<field name="costo_ldm" class="java.math.BigDecimal"/>
+	<field name="cantidad_rect" class="java.math.BigDecimal"/>
+	<field name="costo_rec" class="java.math.BigDecimal"/>
+	<variable name="v_subcosto_rec" class="java.math.BigDecimal" resetType="Group" resetGroup="CATEGORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{costo_rec}]]></variableExpression>
+	</variable>
+	<variable name="v_subCantMax" class="java.math.BigDecimal" resetType="Group" resetGroup="CATEGORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{cant_max}]]></variableExpression>
+	</variable>
+	<variable name="v_subCantMin" class="java.math.BigDecimal" resetType="Group" resetGroup="CATEGORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{cant_min}]]></variableExpression>
+	</variable>
+	<variable name="v_subCantidad_S" class="java.math.BigDecimal" resetType="Group" resetGroup="CATEGORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{cantidad_s}]]></variableExpression>
+	</variable>
+	<variable name="v_subCosto_S" class="java.math.BigDecimal" resetType="Group" resetGroup="CATEGORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{costo_s}]]></variableExpression>
+	</variable>
+	<variable name="v_subCantidad_Compra" class="java.math.BigDecimal" resetType="Group" resetGroup="CATEGORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{cantidad_compra}]]></variableExpression>
+	</variable>
+	<variable name="v_subCosto_Compra" class="java.math.BigDecimal" resetType="Group" resetGroup="CATEGORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{costo_compra}]]></variableExpression>
+	</variable>
+	<variable name="v_subCantidad_Tp" class="java.math.BigDecimal" resetType="Group" resetGroup="CATEGORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{cantidad_tp}]]></variableExpression>
+	</variable>
+	<variable name="v_subCosto_Tp" class="java.math.BigDecimal" resetType="Group" resetGroup="CATEGORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{costo_tp}]]></variableExpression>
+	</variable>
+	<variable name="v_subCantidad_Tn" class="java.math.BigDecimal" resetType="Group" resetGroup="CATEGORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{cantidad_tn}]]></variableExpression>
+	</variable>
+	<variable name="v_subCosto_Tn" class="java.math.BigDecimal" resetType="Group" resetGroup="CATEGORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{costo_tn}]]></variableExpression>
+	</variable>
+	<variable name="v_subCantidad_v" class="java.math.BigDecimal" resetType="Group" resetGroup="CATEGORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{cantidad_v}]]></variableExpression>
+	</variable>
+	<variable name="v_subCosto_v" class="java.math.BigDecimal" resetType="Group" resetGroup="CATEGORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{costo_v}]]></variableExpression>
+	</variable>
+	<variable name="v_subCantidad_f" class="java.math.BigDecimal" resetType="Group" resetGroup="CATEGORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{cantidad_f}]]></variableExpression>
+	</variable>
+	<variable name="v_subCosto_f" class="java.math.BigDecimal" resetType="Group" resetGroup="CATEGORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{costo_f}]]></variableExpression>
+	</variable>
+	<variable name="v_subCantidad_ldm" class="java.math.BigDecimal" resetType="Group" resetGroup="CATEGORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{cantidad_ldm}]]></variableExpression>
+	</variable>
+	<variable name="v_subCosto_ldm" class="java.math.BigDecimal" resetType="Group" resetGroup="CATEGORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{costo_ldm}]]></variableExpression>
+	</variable>
+	<variable name="v_subCantidad_rec" class="java.math.BigDecimal" resetType="Group" resetGroup="CATEGORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{cantidad_rect}]]></variableExpression>
+	</variable>
+	<variable name="v_linecosto_sob" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{costo_ldm}.subtract($F{costo_rec})]]></variableExpression>
+	</variable>
+	<variable name="v_linecantidad_sob" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{cantidad_ldm}.subtract($F{cantidad_rect})]]></variableExpression>
+	</variable>
+	<variable name="v_sub_costo_sobfal" class="java.math.BigDecimal" resetType="Group" resetGroup="CATEGORIA" calculation="Sum">
+		<variableExpression><![CDATA[$V{v_linecosto_sob}]]></variableExpression>
+	</variable>
+	<variable name="v_sub_cantidad_sobfal" class="java.math.BigDecimal" resetType="Group" resetGroup="CATEGORIA" calculation="Sum">
+		<variableExpression><![CDATA[$V{v_linecantidad_sob}]]></variableExpression>
+	</variable>
+	<variable name="v_totcosto_rec" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{costo_rec}]]></variableExpression>
+	</variable>
+	<variable name="v_totCantMax" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{cant_max}]]></variableExpression>
+	</variable>
+	<variable name="v_totCantMin" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{cant_min}]]></variableExpression>
+	</variable>
+	<variable name="v_totCantidad_S" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{cantidad_s}]]></variableExpression>
+	</variable>
+	<variable name="v_totCosto_S" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{costo_s}]]></variableExpression>
+	</variable>
+	<variable name="v_totCantidad_Compra" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{cantidad_compra}]]></variableExpression>
+	</variable>
+	<variable name="v_totCosto_Compra" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{costo_compra}]]></variableExpression>
+	</variable>
+	<variable name="v_totCantidad_Tp" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{cantidad_tp}]]></variableExpression>
+	</variable>
+	<variable name="v_totCosto_Tp" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{costo_tp}]]></variableExpression>
+	</variable>
+	<variable name="v_totCantidad_Tn" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{cantidad_tn}]]></variableExpression>
+	</variable>
+	<variable name="v_totCosto_Tn" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{costo_tn}]]></variableExpression>
+	</variable>
+	<variable name="v_totCantidad_v" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{cantidad_v}]]></variableExpression>
+	</variable>
+	<variable name="v_totCosto_v" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{costo_v}]]></variableExpression>
+	</variable>
+	<variable name="v_totCantidad_f" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{cantidad_f}]]></variableExpression>
+	</variable>
+	<variable name="v_totCosto_f" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{costo_f}]]></variableExpression>
+	</variable>
+	<variable name="v_totCantidad_ldm" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{cantidad_ldm}]]></variableExpression>
+	</variable>
+	<variable name="v_totCosto_ldm" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{costo_ldm}]]></variableExpression>
+	</variable>
+	<variable name="v_totCantidad_rec" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{cantidad_rect}]]></variableExpression>
+	</variable>
+	<variable name="v_linecosto_sob_1" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{costo_ldm}.subtract($F{costo_rec})]]></variableExpression>
+	</variable>
+	<variable name="v_linecantidad_sob_1" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{cantidad_ldm}.subtract($F{cantidad_rect})]]></variableExpression>
+	</variable>
+	<variable name="v_tot_costo_sobfal" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$V{v_linecosto_sob}]]></variableExpression>
+	</variable>
+	<variable name="v_tot_cantidad_sobfal" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$V{v_linecantidad_sob}]]></variableExpression>
+	</variable>
+	<group name="bodega">
+		<groupExpression><![CDATA[$F{bodega}]]></groupExpression>
+		<groupHeader>
+			<band height="72">
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="0" width="736" height="32" forecolor="#010101"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="17" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{bodega}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="436" y="52" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[COSTO MIN.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="336" y="52" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[COSTO MAX]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="141" y="52" width="195" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[PRODUCTO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="52" width="141" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CATEGORÍA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="536" y="52" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[COSTO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="636" y="52" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CANTIDAD]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="736" y="52" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[COSTO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="836" y="52" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CANTIDAD]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="936" y="52" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[COSTO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1036" y="52" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CANTIDAD]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1136" y="52" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[COSTO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1236" y="52" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CANTIDAD]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1336" y="52" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[COSTO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1436" y="52" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CANTIDAD]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1536" y="52" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[COSTO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1636" y="52" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CANTIDAD]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1736" y="52" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[COSTO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1936" y="52" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[COSTO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="2036" y="52" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CANTIDAD]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1836" y="52" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CANTIDAD]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="336" y="32" width="200" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[COSTO ITEM]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="536" y="32" width="200" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[INV. INICIAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="736" y="32" width="200" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[COMPRAS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="936" y="32" width="200" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TRANS. +]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1136" y="32" width="200" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TRANS. -]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1336" y="32" width="200" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[VENTAS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1536" y="32" width="200" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[INV. FINAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1736" y="32" width="200" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[USO/COSUMO LDM]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="2236" y="52" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CANTIDAD]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="2136" y="52" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[COSTO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1936" y="32" width="200" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[V. RECETA USO I.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="2136" y="32" width="200" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[SOBRANTE / FALTANTE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="32" width="336" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[     ]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="CATEGORIA">
+		<groupExpression><![CDATA[$F{categoria_prod}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="20">
+				<textField pattern="#,##0.000" isBlankWhenNull="true">
+					<reportElement x="1936" y="0" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_subcosto_rec}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.000" isBlankWhenNull="true">
+					<reportElement x="336" y="0" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_subCantMax}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.000" isBlankWhenNull="true">
+					<reportElement x="436" y="0" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_subCantMin}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.000" isBlankWhenNull="true">
+					<reportElement x="636" y="0" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_subCantidad_S}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.000" isBlankWhenNull="true">
+					<reportElement x="536" y="0" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_subCosto_S}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.000" isBlankWhenNull="true">
+					<reportElement x="836" y="0" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_subCantidad_Compra}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.000" isBlankWhenNull="true">
+					<reportElement x="736" y="0" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_subCosto_Compra}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.000" isBlankWhenNull="true">
+					<reportElement x="936" y="0" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_subCosto_Tp}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.000" isBlankWhenNull="true">
+					<reportElement x="1236" y="0" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_subCantidad_Tn}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.000" isBlankWhenNull="true">
+					<reportElement x="1136" y="0" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_subCosto_Tn}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.000" isBlankWhenNull="true">
+					<reportElement x="1336" y="0" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_subCosto_v}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.000" isBlankWhenNull="true">
+					<reportElement x="1636" y="0" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_subCantidad_f}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.000" isBlankWhenNull="true">
+					<reportElement x="1836" y="0" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_subCantidad_ldm}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.000" isBlankWhenNull="true">
+					<reportElement x="1736" y="0" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_subCosto_ldm}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.000" isBlankWhenNull="true">
+					<reportElement x="1036" y="0" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_subCantidad_Tp}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.000" isBlankWhenNull="true">
+					<reportElement x="1436" y="0" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_subCantidad_v}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.000" isBlankWhenNull="true">
+					<reportElement x="1536" y="0" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_subCosto_f}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.000" isBlankWhenNull="true">
+					<reportElement x="2036" y="0" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_subCantidad_rec}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.000" isBlankWhenNull="true">
+					<reportElement x="2136" y="0" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_sub_costo_sobfal}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.000" isBlankWhenNull="true">
+					<reportElement x="2236" y="0" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_sub_cantidad_sobfal}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="141" y="0" width="195" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TOTAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="0" width="141" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[     ]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="material">
+		<groupExpression><![CDATA[$F{num_prod}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="0" y="0" width="228" height="79"/>
+				<imageExpression class="java.lang.String"><![CDATA[org.openbravo.erpCommon.utility.Utility.showImageLogo("yourcompanylegal",  $F{ad_org_id})]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="891" y="0" width="635" height="49"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="23" isBold="true"/>
+				</textElement>
+				<text><![CDATA[USO Y CONSUMOS]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="1136" y="49" width="75" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{DATE_FROM}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="1231" y="49" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{DATE_TO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1211" y="49" width="20" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[AL ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1110" y="49" width="26" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DEL]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="2236" y="59" width="108" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2036" y="59" width="200" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA DE EMISIÓN: ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="141" y="0" width="195" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{producto}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.000" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="336" y="0" width="100" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{cant_max}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.000" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="436" y="0" width="100" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{cant_min}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.000" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="636" y="0" width="100" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{cantidad_s}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.000" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="536" y="0" width="100" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{costo_s}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.000" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="836" y="0" width="100" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{cantidad_compra}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.000" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="736" y="0" width="100" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{costo_compra}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.000" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1036" y="0" width="100" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{cantidad_tp}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.000" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="936" y="0" width="100" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{costo_tp}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.000" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1236" y="0" width="100" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{cantidad_tn}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.000" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1136" y="0" width="100" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{costo_tn}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.000" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1436" y="0" width="100" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{cantidad_v}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.000" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1336" y="0" width="100" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{costo_v}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.000" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1636" y="0" width="100" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{cantidad_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.000" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1536" y="0" width="100" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{costo_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.000" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1836" y="0" width="100" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{cantidad_ldm}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.000" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="2036" y="0" width="100" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{cantidad_rect}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.000" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1937" y="0" width="99" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{costo_rec}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.000" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1736" y="0" width="100" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{costo_ldm}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.000" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="2136" y="0" width="100" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_linecosto_sob}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.000" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="2236" y="0" width="100" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_linecantidad_sob}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="141" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{categoria_prod}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="25" splitType="Stretch">
+			<textField pattern="###0.000" isBlankWhenNull="true">
+				<reportElement x="336" y="0" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_totCantMax}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000" isBlankWhenNull="true">
+				<reportElement x="436" y="0" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_totCantMin}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000" isBlankWhenNull="true">
+				<reportElement x="636" y="0" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_totCantidad_S}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000" isBlankWhenNull="true">
+				<reportElement x="536" y="0" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_totCosto_S}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000" isBlankWhenNull="true">
+				<reportElement x="836" y="0" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_totCantidad_Compra}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000" isBlankWhenNull="true">
+				<reportElement x="736" y="0" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_totCosto_Compra}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000" isBlankWhenNull="true">
+				<reportElement x="1036" y="0" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_subCantidad_Tp}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000" isBlankWhenNull="true">
+				<reportElement x="936" y="0" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_subCosto_Tp}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000" isBlankWhenNull="true">
+				<reportElement x="1236" y="0" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_subCantidad_Tn}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000" isBlankWhenNull="true">
+				<reportElement x="1136" y="0" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_subCosto_Tn}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000" isBlankWhenNull="true">
+				<reportElement x="1436" y="0" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_subCantidad_v}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000" isBlankWhenNull="true">
+				<reportElement x="1336" y="0" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_totCosto_v}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000" isBlankWhenNull="true">
+				<reportElement x="1636" y="0" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_totCantidad_f}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000" isBlankWhenNull="true">
+				<reportElement x="1536" y="1" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_totCosto_f}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000" isBlankWhenNull="true">
+				<reportElement x="1836" y="0" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_totCantidad_ldm}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000" isBlankWhenNull="true">
+				<reportElement x="1736" y="0" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_totCosto_ldm}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000" isBlankWhenNull="true">
+				<reportElement x="2036" y="0" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_totCantidad_rec}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000" isBlankWhenNull="true">
+				<reportElement x="2136" y="0" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_tot_costo_sobfal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000" isBlankWhenNull="true">
+				<reportElement x="2236" y="0" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_tot_cantidad_sobfal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000" isBlankWhenNull="true">
+				<reportElement x="1937" y="0" width="99" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_totcosto_rec}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="141" y="1" width="195" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GRAN TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1" width="141" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[     ]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportPayments" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.1566298682886091"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="253"/>
+	<parameter name="DOCUMENT_ID" class="java.lang.String"/>
+	<parameter name="SUBREP_SubRpt_PaymentDetail" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="SUBREP_SubRpt_PaymentCont" class="net.sf.jasperreports.engine.JasperReport"/>
+	<queryString>
+		<![CDATA[select
+ORG.ad_org_id as "organizationid",
+ORG.name AS "nombre_empresa",
+to_char(F.NAME) as "depositar_en",
+(CASE WHEN F.genericaccountno IS NULL THEN '' ELSE F.genericaccountno END) AS "cta_corriente",
+to_char(P.documentno) as documento,
+to_char('PROCESADO') as "estado",
+to_char(P.referenceno) as "referencia_no",
+to_char(B.NAME) as "pagar_a",
+to_char(P.paymentdate,'dd-TMMON-yyyy HH24:MI AM') as "fecha_cabecera",
+to_char(P.paymentdate,'yyyy/TMMONTH/dd') as "fecha_footer",
+to_char(P.paymentdate,'dd-TMMON-yyyy') as "fecha_recibo",
+to_char(P.paymentdate,'dd/MM/yyyy HH24:MI:SS') as "fecha_pago",
+P.amount as "importe",
+SESCR_convert_numbertoletters(P.amount) AS "monto_letras",
+(CASE WHEN P.description IS NULL THEN '' ELSE P.description END) AS "concepto"
+from fin_payment P
+INNER JOIN ad_org ORG ON ORG.ad_org_id = P.ad_org_id
+LEFT JOIN c_doctype D on D.c_doctype_id = P.c_doctype_id
+LEFT JOIN c_bpartner B on B.c_bpartner_id = P.c_bpartner_id
+LEFT JOIN fin_financial_account F on F.fin_financial_account_id = P.fin_financial_account_id
+WHERE P.fin_payment_id = $P{DOCUMENT_ID}
+AND P.posted = 'Y'::text
+AND P.status IN('PPM'::text,'PWNC'::text)]]>
+	</queryString>
+	<field name="organizationid" class="java.lang.String"/>
+	<field name="nombre_empresa" class="java.lang.String"/>
+	<field name="depositar_en" class="java.lang.String"/>
+	<field name="cta_corriente" class="java.lang.String"/>
+	<field name="documento" class="java.lang.String"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="referencia_no" class="java.lang.String"/>
+	<field name="pagar_a" class="java.lang.String"/>
+	<field name="fecha_cabecera" class="java.lang.String"/>
+	<field name="fecha_footer" class="java.lang.String"/>
+	<field name="fecha_recibo" class="java.lang.String"/>
+	<field name="fecha_pago" class="java.lang.String"/>
+	<field name="importe" class="java.math.BigDecimal"/>
+	<field name="monto_letras" class="java.lang.String"/>
+	<field name="concepto" class="java.lang.String"/>
+	<group name="organization">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="CategoryGroup">
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="553" splitType="Stretch">
+			<textField>
+				<reportElement x="3" y="158" width="331" height="32"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre_empresa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="375" y="158" width="100" height="14"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMPROBANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="375" y="172" width="100" height="14"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DE EGRESO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="362" y="186" width="130" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["N° " + $F{documento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="248" width="555" height="20"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HE RECIBIDO CONFORME EL CHEQUE GIRADO POR LOS CONCEPTOS ABAJO DETALLADOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="235" width="40" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BANCO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="40" y="235" width="203" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{depositar_en}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="243" y="235" width="48" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CTA. CTE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="291" y="235" width="109" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cta_corriente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="401" y="235" width="66" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CHEQUE N°:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="467" y="235" width="88" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{referencia_no}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="401" y="221" width="66" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTADO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="467" y="221" width="88" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="0" y="268" width="400" height="68"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="268" width="77" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BENEFICIARIO:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="400" y="268" width="155" height="68"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="286" width="77" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="304" width="77" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONCEPTO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="79" y="268" width="321" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{pagar_a}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="79" y="304" width="321" height="32"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{concepto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="238" y="286" width="37" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="286" width="158" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha_recibo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="275" y="286" width="125" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{importe}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="403" y="318" width="49" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[C.I/RUC:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="403" y="299" width="49" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FIRMA:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="459" y="331" width="80" height="1"/>
+			</line>
+			<line>
+				<reportElement x="460" y="312" width="80" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="40" y="16" width="387" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{pagar_a}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="3" width="555" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha_cabecera}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="427" y="16" width="128" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{importe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="38" width="515" height="32"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{monto_letras} + " x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="3" y="74" width="37" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[QUITO,]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="42" y="74" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha_footer}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band height="61" splitType="Stretch">
+			<subreport>
+				<reportElement positionType="Float" x="-18" y="-112" width="593" height="100"/>
+				<subreportParameter name="DOCUMENT_ID">
+					<subreportParameterExpression><![CDATA[$P{DOCUMENT_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREP_SubRpt_PaymentCont}]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="-18" y="-212" width="593" height="100"/>
+				<subreportParameter name="DOCUMENT_ID">
+					<subreportParameterExpression><![CDATA[$P{DOCUMENT_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREP_SubRpt_PaymentDetail}]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="15" width="148" height="38"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="291" y="15" width="128" height="38"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="291" y="3" width="128" height="12"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REVISADO POR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="419" y="15" width="136" height="38"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="148" y="3" width="143" height="12"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONTABILIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="3" width="148" height="12"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ELABORADO POR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="148" y="15" width="143" height="38"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="419" y="3" width="136" height="12"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[APROBADO]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

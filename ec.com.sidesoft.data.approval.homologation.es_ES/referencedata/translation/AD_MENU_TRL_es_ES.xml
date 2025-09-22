@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="6A259C8D986F439BA7019E1FA136E6B5" trl="Y">
+    <value column="Name" isTrl="Y" original="Mirror Offer">MODIFICACIÓN DE PRECIOS NEW</value>
+    <value column="Description" isTrl="Y" original="Mirror Offer">MODIFICACIÓN DE PRECIOS NEW</value>
+  </row>
+</compiereTrl>

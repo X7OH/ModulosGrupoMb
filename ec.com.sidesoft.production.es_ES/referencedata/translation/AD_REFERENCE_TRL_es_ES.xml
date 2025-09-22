@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
+  <row id="4A9371AFD3B1444095A83FF3C4818CE7" trl="N">
+    <value column="Name" isTrl="Y" original="Ssprod_m_warehouse -name">Ssprod_m_warehouse -Nombre</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="8ED3E790EE29490E9CBBDB2480024EF0" trl="N">
+    <value column="Name" isTrl="N" original="Ssprod_m_Locator ">Ssprod_m_Locator </value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="B78E21D150894BEF81F06C17340237FB" trl="N">
+    <value column="Name" isTrl="N" original="SSprod_M_Product">SSprod_M_Product</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="E3BA3C3F239F4E24BB34BF518EAED48B" trl="N">
+    <value column="Name" isTrl="N" original="Ssprod_Without_Location ">Ssprod_Without_Location </value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_FIELDGROUP" version="">
+  <row id="B5EE878F8EEB4757A8889E0C4141C666" trl="Y">
+    <value column="Name" isTrl="Y" original="Picker Integration">Integracion Picker</value>
+  </row>
+</compiereTrl>

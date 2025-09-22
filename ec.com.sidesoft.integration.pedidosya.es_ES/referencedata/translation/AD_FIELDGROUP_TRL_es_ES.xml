@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_FIELDGROUP" version="">
+  <row id="BB5016DA007A48109DC4FE6CFF1378C1" trl="Y">
+    <value column="Name" isTrl="Y" original="Other Urls">Otras URLs</value>
+  </row>
+</compiereTrl>

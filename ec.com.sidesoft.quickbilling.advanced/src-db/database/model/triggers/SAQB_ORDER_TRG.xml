@@ -1,0 +1,249 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SAQB_ORDER_TRG">
+    <trigger name="SAQB_ORDER_TRG" table="SAQB_ORDER" fires="before" insert="true" update="true" delete="false" foreach="row">
+      <body><![CDATA[
+     v_new_address CHAR(1);
+     v_address1_alias VARCHAR(60); --OBTG:varchar2;
+     v_email VARCHAR(60); --OBTG:varchar2;
+     v_position NUMBER;
+     v_point NUMBER;
+     v_address1 VARCHAR(300); --OBTG:varchar2;
+     v_Module NUMBER;
+     v_pymtd_call_center VARCHAR(60); --OBTG:varchar2;
+     v_isagreement CHAR(1);
+     v_Sql VARCHAR(5000); --OBTG:varchar2;
+     v_Counter NUMBER:=0;
+     v_parentnew VARCHAR(32); --OBTG:varchar2;
+     v_sonnew VARCHAR(32); --OBTG:varchar2;
+     v_parentcombo VARCHAR(32); --OBTG:varchar2;
+     v_soncombo VARCHAR(32); --OBTG:varchar2;
+     v_bandera CHAR(1):='N';
+     v_c_bpartner_id VARCHAR(32); --OBTG:varchar2;
+     v_email2 VARCHAR(60); --OBTG:varchar2;
+     v_name VARCHAR(60); --OBTG:varchar2;
+     
+     TYPE RECORD IS REF CURSOR;
+     Cur_ProductsOrder RECORD;
+     TYPE RECORD IS REF CURSOR;
+     Cur_Combos RECORD;
+     TYPE RECORD IS REF CURSOR;
+     Cur_ProductsAssorment RECORD;
+     TYPE RECORD IS REF CURSOR;
+     Cur_Combos2 RECORD;
+     v_taxidvalidate TEXT;
+BEGIN
+ 
+  IF AD_isTriggerEnabled()='N' THEN RETURN;
+  END IF;
+ 
+  IF INSERTING OR  UPDATING  THEN
+       
+     --  Create Translation Row
+     v_new_address:=:new.new_address;
+     v_address1_alias:=:new.address1_alias;
+     v_address1:=:new.address1;
+     v_email:=:new.email;
+     -- MISMA ORG
+   --  new.ad_org_id = new.ad_org_region_id;
+
+     --TAXID VALIDATE
+     SELECT sswh_taxidvalidate(:new.sswh_taxidtype,:new.cif_nif) INTO v_taxidvalidate from dual;
+
+     IF (v_taxidvalidate IS NOT NULL) THEN 
+	RAISE_APPLICATION_ERROR(-20000,v_taxidvalidate);
+     END IF; 
+
+     IF(:new.cif_nif ='9999999999') THEN
+	SELECT c_bpartner_id, em_eei_email, name
+	INTO v_c_bpartner_id, v_email2,v_name
+	FROM c_bpartner where taxid='9999999999';
+
+	     :new.c_bpartner_id = v_c_bpartner_id;
+	     :new.email = v_email2;
+	     :new.name_partner = v_name;
+     END IF;
+     
+     --VALIDA CORREO
+     v_position = coalesce((select instr(v_email,'@') from dual),0) ;
+     v_point = coalesce((select instr(v_email,'.') from dual ),0);
+     IF ((v_position = 0 OR v_point=0 ) AND :new.cif_nif <>'9999999999') THEN 
+	RAISE_APPLICATION_ERROR(-20000,'@Saqb_InvalidEmail@');
+     END IF;
+ 
+     --VALIDA DIRECCION EXISTENTE 
+     IF (v_new_address='N' AND :new.address1_alias_ref IS NULL AND :new.cif_nif <>'9999999999') THEN
+	RAISE_APPLICATION_ERROR(-20000,'@Saqb_AddressNotSelected@');
+     END IF;
+     --VALIDA DIRECCION COMPLETA
+     IF (:new.address_complete IS NULL) THEN
+	RAISE_APPLICATION_ERROR(-20000,'@Saqb_CompleteAddress@');
+     END IF;
+     --VALIDA REFERENCIA
+     IF (v_address1 IS NULL) THEN 
+	RAISE_APPLICATION_ERROR(-20000,'@Saqb_ReferenceReq@');
+     END IF;
+     --VALIDA ALIAS
+     IF (v_address1_alias IS NULL) THEN 
+	RAISE_APPLICATION_ERROR(-20000,'@Saqb_AliasReq@');
+     END IF;
+
+
+
+     IF UPDATING  THEN
+	--VALIDACIÓN CAMBIO DE ORGANIZACIÓN
+	IF (:new.ad_org_region_id <> :old.ad_org_region_id AND (SELECT COUNT(*) FROM saqb_orderline where saqb_order_id=:new.saqb_order_id AND ISdefault='N')<>0) THEN
+ 
+	--VALIDACIÓN CAMBIO DE ORGANIZACIÓN PRODUCTOS
+	FOR Cur_ProductsOrder IN (SELECT m_product_id FROM saqb_orderline ol 
+	WHERE  ol.saqb_order_id = :new.saqb_order_id 
+	AND ol.m_offer_id IS NULL
+	AND ol.isdefault='N' ORDER BY ol.m_product_id ASC)
+	LOOP
+	v_Counter:=0;
+		FOR Cur_ProductsAssorment IN 
+		(SELECT PP.M_PRODUCT_ID FROM AD_ORG AO INNER JOIN OBRETCO_ProductList PL ON AO.EM_OBRETCO_Productlist_ID= PL.OBRETCO_Productlist_ID
+		INNER JOIN OBRETCO_Prol_Product PP ON PP.OBRETCO_Productlist_ID = PL.OBRETCO_Productlist_ID
+		INNER JOIN m_product MP ON PP.m_product_id = MP.m_product_id 
+		 WHERE MP.EM_SAQB_HOME_DELIVERY='Y' AND AO.AD_ORG_ID = :new.ad_org_region_id
+		 ORDER BY PP.m_product_id ASC)
+		LOOP
+
+			IF (Cur_ProductsOrder.m_product_id = Cur_ProductsAssorment.m_product_id) THEN
+				v_Counter:= v_Counter+1;
+			END IF;
+			
+		END LOOP;
+
+		IF(v_Counter=0) THEN
+			RAISE_APPLICATION_ERROR(-20000,'No se puede cambiar de organización si existen líneas con productos que no se encuentra en el surtido de la organización actual.');
+		END IF;
+
+	END LOOP;
+
+
+	--VALIDACIÓN CAMBIO DE ORGANIZACIÓN COMBOS (CUSTOMIZADO PARA GRUPO MB DOS GRUPOS DE ORGS)	
+	SELECT  ad_parent_org_id,ad_org_id
+	  into v_parentnew,v_sonnew
+	FROM ad_org_tree where ad_org_id=:new.ad_org_region_id and levelno=2
+	AND (SELECT count(levelno) FROM ad_org_tree where ad_org_id=:new.ad_org_region_id)=4;
+	
+	--SI NUEVA ORG ES PADRE
+	IF (v_parentnew IS NULL OR v_sonnew IS NULL) THEN
+
+
+		
+		FOR Cur_Combos2 IN (
+		SELECT  ad_org_id
+		FROM ad_org_tree where ad_parent_org_id=:new.ad_org_region_id and levelno=2)
+		LOOP
+			FOR Cur_Combos IN (
+
+			SELECT MO1.ad_org_id FROM m_offer MO1
+			WHERE MO1.m_offer_id IN(
+			SELECT distinct(ol.m_offer_id) FROM saqb_orderline ol 
+			WHERE  ol.saqb_order_id = :new.saqb_order_id 
+			AND ol.m_offer_id IS NOT NULL
+			)
+			)
+			LOOP
+					IF (Cur_Combos2.ad_org_id=Cur_Combos.ad_org_id) THEN
+						v_bandera='Y';
+					END IF;
+			END LOOP;
+
+		END LOOP;
+
+
+			FOR Cur_Combos IN (
+
+			SELECT MO1.ad_org_id FROM m_offer MO1
+			WHERE MO1.m_offer_id IN(
+			SELECT distinct(ol.m_offer_id) FROM saqb_orderline ol 
+			WHERE  ol.saqb_order_id = :new.saqb_order_id 
+			AND ol.m_offer_id IS NOT NULL 
+			)
+			)
+			LOOP
+					IF (:new.ad_org_region_id=Cur_Combos.ad_org_id) THEN
+						v_bandera='Y';
+					END IF;
+			END LOOP;
+
+		IF(v_bandera<>'Y') THEN	
+			RAISE_APPLICATION_ERROR(-20000,'No se puede cambiar de zona de venta, existen combos de otro grupo de organizaciones.');
+		END IF;
+
+	--SI NUEVA ORG ES HIJA	
+	ELSE
+
+		FOR Cur_Combos IN (
+
+		SELECT MO1.ad_org_id FROM m_offer MO1
+		WHERE MO1.m_offer_id IN(
+		SELECT distinct(ol.m_offer_id) FROM saqb_orderline ol 
+		WHERE  ol.saqb_order_id =  :new.saqb_order_id 
+		AND ol.m_offer_id IS NOT NULL
+		--ORDER BY ol.line ASC
+		)
+		)
+		LOOP
+
+			SELECT  ad_parent_org_id,ad_org_id
+			INTO v_parentcombo,v_soncombo
+			FROM ad_org_tree where ad_org_id=Cur_Combos.ad_org_id and levelno=2
+			AND
+			(SELECT count(levelno) 
+			FROM ad_org_tree where ad_org_id=Cur_Combos.ad_org_id)=4;
+
+
+			IF (v_parentcombo IS NULL OR v_soncombo IS NULL) THEN
+
+				FOR Cur_Combos2 IN (
+				SELECT  ad_org_id
+				FROM ad_org_tree where ad_parent_org_id=Cur_Combos.ad_org_id and levelno=2)
+				LOOP
+					IF(v_sonnew=Cur_Combos2.ad_org_id)THEN
+						v_bandera='Y';
+					END IF;
+				END LOOP;
+
+				IF(v_bandera<>'Y') THEN	
+					RAISE_APPLICATION_ERROR(-20000,'No se puede cambiar de zona de venta, existen combos de otro grupo de organizaciones.');
+				END IF;
+
+			ELSIF(v_parentcombo <> v_parentnew) THEN	
+				RAISE_APPLICATION_ERROR(-20000,'No se puede cambiar de zona de venta, existen combos de otro grupo de organizaciones.');
+			
+			END IF;
+
+
+				
+
+
+	  
+		END LOOP;
+
+
+		--RAISE COALESCE(v_parentnew,'')||' - '||COALESCE(v_sonnew,'');
+
+		
+	END IF;--v_parentnew IS NULL OR v_sonnew IS NULL
+	END IF;
+
+     END IF;	
+	
+
+     
+  END IF;
+
+  IF DELETING THEN
+ RAISE NO_DATA_FOUND;
+	IF(:old.docstatus ='CO') THEN
+	     	 RAISE_APPLICATION_ERROR(-20000,'No se puede eliminar un pedido en estado completado.');
+	END IF;
+  END IF;
+
+  END SAQB_ORDER_TRG
+]]></body>
+    </trigger>
+  </database>

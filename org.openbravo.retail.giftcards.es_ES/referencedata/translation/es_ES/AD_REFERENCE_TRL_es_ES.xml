@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
+  <row id="03A85444FDE7486CB8BCD6EB88D48C47" trl="N">
+    <value column="Name" isTrl="Y" original="Gift card status">Estados de una tarjeta regalo</value>
+    <value column="Description" isTrl="Y" original="List the different gift card instance status">Diferentes estados de una tarjeta de regalo</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="25C0CA33FCA54B0FB79CB0E4ABC18EFA" trl="N">
+    <value column="Name" isTrl="Y" original="Sales Order for Gift Cards">Pedidos de venta para tarjetas regalo</value>
+    <value column="Description" isTrl="Y" original="Sales Order for Gift Cards">Pedidos de venta para tarjetas regalo</value>
+    <value column="Help" isTrl="Y" original="Sales Order for Gift Cards">Pedidos de venta para tarjetas regalo</value>
+  </row>
+  <row id="36F1D3F18FC24EF589CB589BA7A19134" trl="N">
+    <value column="Name" isTrl="Y" original="No gift card product">Este producto no es una tarjeta regalo</value>
+    <value column="Description" isTrl="Y" original="No gift card product">Este producto no es una tarjeta regalo</value>
+    <value column="Help" isTrl="Y" original="No gift card product">Este producto no es una tarjeta regalo</value>
+  </row>
+  <row id="BFDEB652012441FEAE2505667FC7E43A" trl="N">
+    <value column="Name" isTrl="Y" original="Gift card types">Tipos de tarjeta regalo</value>
+    <value column="Description" isTrl="Y" original="List of the different types of gift cards.">Listado de los diferentes tipos de tarjeta regalo</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="D8B3D373444D4678B3F330991F073EDF" trl="N">
+    <value column="Name" isTrl="Y" original="Gift card product">Este producto es tarjeta regalo</value>
+    <value column="Description" isTrl="Y" original="Gift card product">Este producto es tarjeta regalo</value>
+    <value column="Help" isTrl="Y" original="Gift card product">Este producto es tarjeta regalo</value>
+  </row>
+</compiereTrl>

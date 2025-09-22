@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptC_Sales" pageWidth="1408" pageHeight="1161" orientation="Landscape" columnWidth="1348" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.1269722013523664"/>
+	<property name="ireport.x" value="493"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="Datefrom" class="java.util.Date"/>
+	<parameter name="Dateto" class="java.util.Date"/>
+	<parameter name="Docstatus" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+                CASE c.em_sswh_taxidtype
+                    WHEN 'R' THEN '04'
+                    WHEN 'P' THEN '06'
+                    WHEN 'D' THEN '05'
+                    WHEN 'C' THEN '07'
+                    ELSE NULL
+                END AS tipo_identificador,
+                CASE c.em_sswh_taxidtype
+                    WHEN 'C' THEN TO_CHAR('9999999999999')
+                    ELSE c.taxid
+                END AS identif_cliente,
+                CASE c.em_sswh_taxidtype
+                    WHEN 'C' THEN TO_CHAR('CF')
+                    ELSE TO_CHAR(c.name)
+                END AS nombre_cliente,
+   		'18' AS cod_tipo_comprobante, g.name AS doctype, count(DISTINCT a.c_invoice_id) AS count, sum(
+                CASE f.istaxundeductable
+                    WHEN 'Y'THEN
+                    CASE f.rate
+                        WHEN 0 THEN e.taxbaseamt
+                        ELSE 0.00
+                    END
+                    ELSE 0.00
+                END) AS base_no_iva, sum(
+                CASE f.istaxdeductable
+                    WHEN 'Y'THEN
+                    CASE f.rate
+                        WHEN 0 THEN e.taxbaseamt
+                        ELSE 0.00
+                    END
+                    ELSE 0.00
+                END) AS base_iva_cero, sum(
+                CASE f.istaxdeductable
+                    WHEN 'Y'THEN
+                    CASE
+                        WHEN f.rate <> 0 THEN e.taxbaseamt
+                        ELSE 0.00
+                    END
+                    ELSE 0.00
+                END) AS base_iva_doce, sum(
+                CASE f.istaxdeductable
+                    WHEN 'Y'THEN
+                    CASE WHEN f.rate <> 0 THEN e.taxamt
+                        ELSE 0.00
+                    END
+                    ELSE 0.00
+                END) AS monto_iva, sum(
+                CASE f.em_sswh_ats_iva
+                    WHEN 'Y'THEN e.taxamt * (-1)
+                    ELSE 0.00
+                END) AS monto_ret_iva, sum(
+                CASE f.em_sswh_ats_source
+                    WHEN 'Y'THEN e.taxamt * (-1)
+                    ELSE 0.00
+                END) AS monto_ret_renta
+           FROM c_invoice a
+      LEFT JOIN c_bpartner c ON a.c_bpartner_id = c.c_bpartner_id
+   LEFT JOIN c_invoicetax e ON a.c_invoice_id = e.c_invoice_id
+   LEFT JOIN c_tax f ON e.c_tax_id = f.c_tax_id
+   LEFT JOIN c_doctype g ON a.c_doctype_id = g.c_doctype_id
+  WHERE a.issotrx = 'Y'
+    AND (A.DATEACCT BETWEEN $P{Datefrom} AND $P{Dateto} )
+AND a.processed = 'Y'AND a.docstatus <> 'VO' AND g.em_sswh_implementautoriza = 'Y'AND g.isreversal = 'N'AND g.docbasetype = 'ARI'
+and ('Y' = (case when $P{Docstatus} = 'Y' THEN case when posted = 'Y' then 'Y' else 'N'  end ELSE case when posted <> 'Y' then 'Y' else 'N' end END) or $P{Docstatus} is null)
+  GROUP BY c.em_sswh_taxidtype, c.taxid,c.name, g.name
+UNION ALL
+         SELECT
+                CASE c.em_sswh_taxidtype
+                    WHEN 'R' THEN '04'
+                    WHEN 'P' THEN '06'
+                    WHEN 'D' THEN '05'
+                    WHEN 'C' THEN '07'
+                    ELSE NULL
+                END AS tipo_identificador,
+                CASE c.em_sswh_taxidtype
+                    WHEN 'C' THEN TO_CHAR('9999999999999')
+                    ELSE c.taxid
+                END AS identif_cliente,
+		CASE c.em_sswh_taxidtype
+                    WHEN 'C' THEN TO_CHAR('CF')
+                    ELSE TO_CHAR(c.name)
+                END AS nombre_cliente,
+		'04' AS cod_tipo_comprobante, g.name AS doctype, count(DISTINCT a.c_invoice_id) AS count, sum(
+                CASE f.istaxundeductable
+                    WHEN 'Y'THEN
+                    CASE f.rate
+                        WHEN 0 THEN e.taxbaseamt
+                        ELSE 0.00
+                    END
+                    ELSE 0.00
+                END) AS base_no_iva, sum(
+                CASE f.istaxdeductable
+                    WHEN 'Y'THEN
+                    CASE f.rate
+                        WHEN 0 THEN e.taxbaseamt
+                        ELSE 0.00
+                    END
+                    ELSE 0.00
+                END) AS base_iva_cero, sum(
+                CASE f.istaxdeductable
+                    WHEN 'Y'THEN
+                    CASE WHEN f.rate <> 0 THEN e.taxbaseamt
+                        ELSE 0.00
+                    END
+                    ELSE 0.00
+                END) AS base_iva_doce, sum(
+                CASE f.istaxdeductable
+                    WHEN 'Y'THEN
+                    CASE WHEN f.rate <> 0 THEN e.taxamt
+                        ELSE 0.00
+                    END
+                    ELSE 0.00
+                END) AS monto_iva, sum(
+                CASE f.em_sswh_ats_iva
+                    WHEN 'Y'THEN e.taxamt
+                    ELSE 0.00
+                END) AS monto_ret_iva, sum(
+                CASE f.em_sswh_ats_source
+                    WHEN 'Y'THEN e.taxamt
+                    ELSE 0.00
+                END) AS monto_ret_renta
+           FROM c_invoice a
+      LEFT JOIN c_bpartner c ON a.c_bpartner_id = c.c_bpartner_id
+   LEFT JOIN c_invoicetax e ON a.c_invoice_id = e.c_invoice_id
+   LEFT JOIN c_tax f ON e.c_tax_id = f.c_tax_id
+   LEFT JOIN c_doctype g ON a.c_doctype_id = g.c_doctype_id
+  WHERE a.issotrx = 'Y'
+  AND (A.DATEACCT BETWEEN $P{Datefrom} AND $P{Dateto} )
+  AND a.processed = 'Y'AND a.docstatus <> 'VO' AND g.em_sswh_implementautoriza = 'Y'AND
+(g.isreversal = 'Y' OR g.docbasetype IN ('ARC','ARI_RM'))
+and ('Y' = (case when $P{Docstatus} = 'Y' THEN case when posted = 'Y' then 'Y' else 'N'  end ELSE case when posted <> 'Y' then 'Y' else 'N' end END) or $P{Docstatus} is null)
+  GROUP BY c.em_sswh_taxidtype, c.taxid, c.name,g.name
+  ORDER BY 2]]>
+	</queryString>
+	<field name="tipo_identificador" class="java.lang.String"/>
+	<field name="identif_cliente" class="java.lang.String"/>
+	<field name="nombre_cliente" class="java.lang.String"/>
+	<field name="cod_tipo_comprobante" class="java.lang.String"/>
+	<field name="doctype" class="java.lang.String"/>
+	<field name="count" class="java.lang.Long"/>
+	<field name="base_no_iva" class="java.math.BigDecimal"/>
+	<field name="base_iva_cero" class="java.math.BigDecimal"/>
+	<field name="base_iva_doce" class="java.math.BigDecimal"/>
+	<field name="monto_iva" class="java.math.BigDecimal"/>
+	<field name="monto_ret_iva" class="java.math.BigDecimal"/>
+	<field name="monto_ret_renta" class="java.math.BigDecimal"/>
+	<variable name="v_totalcomprobantes" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$F{count}]]></variableExpression>
+	</variable>
+	<variable name="v_totalbaseivadoce" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{base_iva_doce}]]></variableExpression>
+	</variable>
+	<variable name="v_totalmontoiva" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{monto_iva}]]></variableExpression>
+	</variable>
+	<variable name="v_totalbaseivacero" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{base_iva_cero}]]></variableExpression>
+	</variable>
+	<variable name="v_totalbasenovia" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{base_no_iva}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-12" x="0" y="10" width="451" height="21"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[CUADRE DECLARACION IVA VENTAS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-1" x="0" y="0" width="100" height="19"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Identificador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-2" x="100" y="0" width="345" height="19"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Nombre Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-3" x="445" y="0" width="323" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Tipo Documento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-8" x="968" y="0" width="99" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Total IVA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-9" x="1067" y="0" width="100" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Base Tarifa 0]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-10" x="1167" y="0" width="100" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Base NO IVA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-11" x="868" y="0" width="100" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Base Impon Grav.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-14" x="768" y="0" width="100" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[#Comprobantes]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="10" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="0" y="0" width="100" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{identif_cliente}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="100" y="0" width="345" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre_cliente}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="445" y="0" width="323" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{doctype}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="968" y="0" width="99" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{monto_iva}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="1067" y="0" width="100" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{base_iva_cero}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="1167" y="0" width="100" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{base_no_iva}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="868" y="0" width="100" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{base_iva_doce}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="768" y="0" width="100" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$F{count}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="30" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="50" splitType="Stretch"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="50" splitType="Stretch"/>
+	</lastPageFooter>
+	<summary>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="768" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL   ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="768" y="0" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$V{v_totalcomprobantes}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement x="868" y="0" width="100" height="20"/>
+				<textElement textAlignment="Left">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_totalbaseivadoce}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement x="968" y="0" width="99" height="20"/>
+				<textElement textAlignment="Left">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_totalmontoiva}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement x="1067" y="0" width="100" height="20"/>
+				<textElement textAlignment="Left">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_totalbaseivacero}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement x="1167" y="0" width="100" height="20"/>
+				<textElement textAlignment="Left">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{v_totalbasenovia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

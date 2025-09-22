@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_FIELD" version="">
+  <row id="31571CC400C740A4A222CC592FA74F06" trl="N">
+    <value column="Name" isTrl="N" original="Quantity">Cantidad</value>
+    <value column="Description" isTrl="N" original="Number of items required to consider the family as complete">Número de unidades necesarias para considerar la familia completa</value>
+    <value column="Help" isTrl="N" original="Number of items required to consider the family as complete, in case the family is composed by different products, this quantity is satisfied when it is reached by summing the number of items of any of the involved products.">Número de unidades necesarias para considerar la familia completa para el caso de que la familia este compuesta por diferentes productos. Esta cantidad se alcanza con la suma de elementos de cualquier producto involucrado</value>
+  </row>
+  <row id="992550191ACA46699C58D224AB9EE110" trl="N">
+    <value column="Name" isTrl="N" original="Percentage">Porcentaje</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original="Percentage that will be discounted from each of the units of each product in the family when the combo is applied.">Porcentaje a descontar a cada unidad de cada producto de la familia cuando se aplica el combo</value>
+  </row>
+  <row id="A8AD6CA69CDD44E38C349DEC918F3323" trl="N">
+    <value column="Name" isTrl="N" original="Name">Nombre</value>
+    <value column="Description" isTrl="N" original="Family Name">Nombre de la familia</value>
+    <value column="Help" isTrl="N" original="Family Name. It is used in WebPOS Combo selector to identify the family.">Nombre de la familia. Se usa en el selector de combo Web POS para identificar las familias.</value>
+  </row>
+</compiereTrl>

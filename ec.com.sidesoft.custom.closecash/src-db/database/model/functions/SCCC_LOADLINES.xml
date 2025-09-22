@@ -1,0 +1,229 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SCCC_LOADLINES">
+    <function name="SCCC_LOADLINES" type="NULL">
+      <parameter name="pinstance_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[TYPE RECORD IS REF CURSOR;
+Cur_Parameter RECORD;
+  Cur_PaymentMethod RECORD;
+  Cur_OrderPartialPayment RECORD;
+
+
+  v_User_ID VARCHAR2(32) ;
+  v_ClosingDate DATE;
+  v_ResultStr VARCHAR2(2000) := '';
+  v_Concept_ID VARCHAR2(32);
+  v_LoadLines VARCHAR2(60);
+  v_RecordId VARCHAR2(32);
+  v_OrganizationId VARCHAR2(32);
+v_Contador NUMBER:=0; 
+v_TotalIncome NUMBER:=0; 
+v_TotalExpenses NUMBER:=0; 
+ v_Docstatus VARCHAR2(60); 
+v_PeriodStatus  VARCHAR(60);--OBTG:VARCHAR2--
+v_ContadorLineas NUMBER:=0;
+
+  -- VARIABLES PARA VALIDACIONES STOCK Y PAGOS PARCIALES CIERRE DE CAJA 
+  V_Posterminal_Validate VARCHAR2(32);
+  v_CountStock NUMBER:=0;  
+  APRM_OrderIsPaid NUMBER:=0; --OBTG:VARCHAR2--
+  -- VARIABLES PARA VALIDACIONES STOCK Y PAGOS PARCIALES CIERRE DE CAJA 
+
+BEGIN
+
+  --  Update AD_PInstance
+  DBMS_OUTPUT.PUT_LINE('Updating PInstance - Processing ' || PInstance_ID) ;
+  v_ResultStr := 'PInstanceNotFound';
+  AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'Y', NULL, NULL) ;
+
+  BEGIN --BODY
+ 
+-- GET:    
+    FOR Cur_Parameter IN
+      (SELECT i.Record_ID,
+        p.ParameterName,
+        p.P_String,
+        p.P_Number,
+        p.P_Date,
+        p.AD_Client_ID,
+        p.AD_Org_ID,
+        p.CreatedBy        
+      FROM AD_PInstance i
+      LEFT JOIN AD_PInstance_Para p
+           ON i.AD_PInstance_ID = p.AD_PInstance_ID
+      WHERE i.AD_PInstance_ID = pinstance_id
+      ORDER BY p.SeqNo
+      )
+    LOOP
+        v_RecordId := Cur_Parameter.Record_ID;
+
+      IF (Cur_Parameter.ParameterName = 'Ad_User_ID') THEN
+        v_User_ID := Cur_Parameter.P_String;      
+      END IF;    
+        
+    END LOOP;  
+
+SELECT loadlines,ad_org_id,closingdate,docstatus INTO v_LoadLines,v_OrganizationId,v_ClosingDate,v_Docstatus FROM sccc_cash_clousure where sccc_cash_clousure_id= v_RecordId;
+
+--SE COMPRUEBA SI EL PERÍODO ESTÁ CERRADO
+	SELECT openclose INTO v_PeriodStatus FROM c_period WHERE v_ClosingDate>=startdate AND v_ClosingDate <= enddate;
+	IF ( v_PeriodStatus='O')THEN
+	 AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 0, '@PeriodNotAvailable@') ;
+		RETURN;
+	END IF;
+
+  -- INICIO VALIDACIONES FALTA DE STOCK Y PEDIDOS PAGADOS PARCIALMENTE
+  --OBTENGO LA FORMA DE PAGO Y EL TIPO DE DOCUMENTO DE LA ORGANIZACION DEL CIERRE DE CAJA
+  SELECT  postype.c_doctype_id
+  INTO V_Posterminal_Validate
+  FROM fin_paymentmethod fpm
+  LEFT JOIN sccc_cash_clousureline ccl ON ccl.fin_paymentmethod_id = fpm.fin_paymentmethod_id
+  LEFT JOIN sccc_cash_clousure cclo ON cclo.sccc_cash_clousure_id = ccl.sccc_cash_clousure_id
+  LEFT JOIN ad_org org ON org.ad_org_id = cclo.ad_org_id
+  LEFT JOIN c_costcenter cc ON cc.c_costcenter_id = org.em_scmba_costcenter_id
+  LEFT JOIN sccc_setup setup ON setup.ad_org_id = org.ad_org_id
+  LEFT JOIN obpos_applications pos ON pos.obpos_applications_id = setup.em_scccd_posterminal
+  LEFT JOIN obpos_terminaltype postype ON postype.obpos_terminaltype_id = pos.obpos_terminaltype_id
+  LEFT JOIN c_doctype cdt ON cdt.c_doctype_id = postype.c_doctype_id
+  WHERE fpm.em_saqb_type_call_center = 'EFE'
+  AND to_char( cclo.closingdate ,'yyyy-MM-dd') = to_char( v_ClosingDate ,'yyyy-MM-dd')
+  AND ccl.sccc_cash_clousure_id = v_RecordId;
+
+  -- SE COMPRUEBA QUE NO EXISTAN PEDIDOS EN ESTADO FALTA DE STOCK PARA LA FECHA DEL CIERRE DE CAJA
+  SELECT COUNT(co.c_order_id)
+  INTO v_CountStock
+  FROM c_order co
+  LEFT JOIN fin_payment_sched_ord_v psh ON psh.c_order_id = co.c_order_id
+  LEFT JOIN fin_payment_detail_v pdet ON pdet.fin_payment_sched_ord_v_id = psh.fin_payment_sched_ord_v_id 
+  WHERE co.issotrx = 'Y'
+  AND to_char( co.dateordered ,'yyyy-MM-dd') = to_char( v_ClosingDate ,'yyyy-MM-dd') -- FECHA FACTURA IGUAL A FECHA DE CIERRE CAJA
+  AND co.em_scccd_conciliate = 'N' -- ESTADO CONCILIADO = 'N'
+  AND co.c_doctypetarget_id = V_Posterminal_Validate --VENTAS PARA TIPO DE DOCUMENTO DEL POS TERMINAL 
+  AND co.docstatus = 'SAQB_LS';--PEDIDOS EN ESTADO FALTA DE STOCK    
+
+  IF (v_CountStock > 0)THEN
+    AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 0, '@SCCCD_STOCK_ORDER@') ;
+    RETURN;
+  END IF;
+
+  -- SE COMPRUEBA QUE NO EXISTAN PEDIDOS CON PAGOS PARCIALES
+  -- RECORRO LAS ORDENES CON FECHA DEL CIERRE DE CAJA Y CON EL TIPO DE DOCUMENTO DEL CIERRE DE CAJA
+  FOR Cur_OrderPartialPayment IN(
+            SELECT DISTINCT co.c_order_id
+            FROM c_order co
+              LEFT JOIN fin_payment_sched_ord_v psh ON psh.c_order_id = co.c_order_id
+              LEFT JOIN fin_payment_detail_v pdet ON pdet.fin_payment_sched_ord_v_id = psh.fin_payment_sched_ord_v_id 
+            WHERE co.issotrx = 'Y'
+            AND to_char( co.dateordered ,'yyyy-MM-dd') = to_char( v_ClosingDate ,'yyyy-MM-dd') -- FECHA FACTURA IGUAL A FECHA DE CIERRE CAJA
+            AND co.em_scccd_conciliate = 'N' -- ESTADO CONCILIADO = 'N'
+            AND co.c_doctypetarget_id = V_Posterminal_Validate --VENTAS PARA TIPO DE DOCUMENTO DEL POS TERMINAL 
+  )LOOP
+
+    select ps.outstandingamt
+    Into APRM_OrderIsPaid
+    from fin_payment_scheduledetail fpsd
+    join fin_payment_detail fpd on fpsd.fin_payment_detail_id=fpd.fin_payment_detail_id
+    join fin_payment fp on fpd.fin_payment_id=fp.fin_payment_id
+    join fin_payment_schedule ps ON ps.fin_payment_schedule_id = fpsd.fin_payment_schedule_order
+    join c_order co on co.c_order_id= ps.c_order_id
+    WHERE ps.c_order_id = Cur_OrderPartialPayment.c_order_id 
+    AND to_number(aprm_seqnumberpaymentstatus(fp.status)) >= 40
+    group by co.GrandTotal, ps.outstandingamt, ps.c_order_id;
+
+    -- SE COMPRUEBA QUE NO EXISTAN PEDIDOS CON PAGOS PARCIALES
+    IF (APRM_OrderIsPaid > 0 )THEN
+      AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 0, '@SCCCD_STOCK_PARTIAL_PAYMENT@') ;
+      RETURN;
+    END IF;
+      
+  END LOOP;   
+  -- FIN VALIDACIONES FALTA DE STOCK Y PEDIDOS PAGADOS PARCIALMENTE  
+
+     	IF(v_LoadLines ='SCCC_LL') THEN
+
+SELECT count(*) into v_Contador from sccc_payment_method pm
+      INNER JOIN sccc_setup st ON st.sccc_setup_id = pm.sccc_setup_id
+	WHERE st.ad_org_id= v_OrganizationId;
+
+	IF (v_Contador =0) THEN
+
+	 AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 0, '@SCCC_ORG_NOT_FOUND@') ;
+		RETURN;
+	END IF;
+	
+	    FOR Cur_PaymentMethod IN
+      (SELECT pm.fin_paymentmethod_id,order_number,typeaccount from sccc_payment_method pm
+      INNER JOIN sccc_setup st ON st.sccc_setup_id = pm.sccc_setup_id
+	WHERE st.ad_org_id= v_OrganizationId
+       order by order_number)
+    LOOP
+
+	INSERT INTO sccc_cash_clousureline(
+            sccc_cash_clousureline_id, ad_client_id, ad_org_id, ad_user_id, 
+            isactive, created, createdby, updated, updatedby, fin_paymentmethod_id, order_number,typeaccount,sccc_cash_clousure_id)
+	VALUES (get_uuid(),(select ad_client_id from sccc_cash_clousure where sccc_cash_clousure_id= v_RecordId ),
+	   (select ad_org_id from sccc_cash_clousure where sccc_cash_clousure_id= v_RecordId ), 
+	   (select ad_user_id from sccc_cash_clousure where sccc_cash_clousure_id= v_RecordId ), 
+            'Y', now(), v_User_ID, now(), v_User_ID, Cur_PaymentMethod.fin_paymentmethod_id,Cur_PaymentMethod.order_number,Cur_PaymentMethod.typeaccount, v_RecordId);
+
+	UPDATE sccc_cash_clousure SET loadlines='SCCC_RE' WHERE sccc_cash_clousure_ID= v_RecordId;
+    END LOOP;  
+
+    ELSE 
+    IF(v_LoadLines ='SCCC_RE') THEN
+    
+SELECT count(*) INTO v_ContadorLineas FROM sccc_cash_clousureline WHERE sccc_cash_clousure_ID= v_RecordId ;
+	IF (v_ContadorLineas=0) THEN  
+
+		UPDATE sccc_cash_clousure SET docstatus='DR' WHERE sccc_cash_clousure_ID= v_RecordId;
+		
+	        UPDATE sccc_cash_clousure SET loadlines='SCCC_LL' WHERE sccc_cash_clousure_ID= v_RecordId;
+	 AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 0, '@SCCC_LINES_NOT_FOUND@') ;
+		RETURN;
+	END IF;
+    
+
+	
+	SELECT coalesce(sum(amount),0) INTO v_TotalIncome FROM sccc_cash_clousureline 
+	WHERE sccc_cash_clousure_ID= v_RecordId AND Typeaccount='INC';
+
+
+
+	SELECT coalesce(sum(amount),0) INTO v_TotalExpenses FROM sccc_cash_clousureline
+	WHERE sccc_cash_clousure_ID= v_RecordId AND Typeaccount='EXP';
+
+        IF ((v_TotalIncome+v_TotalExpenses)=0) THEN
+
+		DBMS_OUTPUT.PUT_LINE('@SCCC_TOTAL_ZERO@') ;
+	 AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 0, '@SCCC_TOTAL_ZERO@') ;
+		RETURN;
+	END IF;
+
+	UPDATE sccc_cash_clousure SET docstatus='SCCC_RG' WHERE sccc_cash_clousure_ID= v_RecordId;
+	UPDATE sccc_cash_clousure SET totalincome= v_TotalIncome , totalexpenses= v_TotalExpenses , totalsales = v_TotalIncome WHERE sccc_cash_clousure_ID= v_RecordId ;
+	UPDATE sccc_cash_clousure SET loadlines='RE' WHERE sccc_cash_clousure_ID= v_RecordId;
+
+    ELSE
+    IF(v_LoadLines ='RE' AND v_Docstatus='SCCC_RG') THEN
+	UPDATE sccc_cash_clousure SET docstatus='DR' WHERE sccc_cash_clousure_ID= v_RecordId;
+	UPDATE sccc_cash_clousure SET loadlines='SCCC_RE' WHERE sccc_cash_clousure_ID= v_RecordId;
+END IF;
+    END IF;
+END IF;
+
+ AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 1, '@Success@') ;
+    RETURN;
+
+    
+  END; --BODY
+  EXCEPTION
+  WHEN OTHERS THEN
+    v_ResultStr:= '@ERROR=' || SQLERRM;
+    DBMS_OUTPUT.PUT_LINE(v_ResultStr) ;
+    AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 0, v_ResultStr) ;
+    RETURN;
+END SCCC_LOADLINES
+]]></body>
+    </function>
+  </database>

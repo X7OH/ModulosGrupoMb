@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
+  <row id="9F809A2A1634406DB59DEC4297301D89" trl="N">
+    <value column="Name" isTrl="Y" original="SSRCM PROCESS ORDER">Proceso pedido</value>
+    <value column="Description" isTrl="Y" original="PROCESS ORDER">Proceso pedido</value>
+    <value column="Help" isTrl="Y" original="PROCESS ORDER">Proceso pedido</value>
+  </row>
+</compiereTrl>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE C_SALESREGION">
+    <table name="C_SALESREGION" primaryKey="C_SALESREGION_KEY">
+      <column name="EM_SAQB_CANTON_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+    </table>
+  </database>

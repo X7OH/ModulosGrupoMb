@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="c_customer_accounting_status"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="1366"
+		 pageHeight="1406"
+		 columnWidth="1326"
+		 columnSpacing="0"
+		 leftMargin="20"
+		 rightMargin="20"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.zoom" value="1.0" />
+	<property name="ireport.x" value="232" />
+	<property name="ireport.y" value="0" />
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<style 
+		name="Detail_Header"
+		isDefault="false"
+		mode="Opaque"
+		forecolor="#FFFFFF"
+		backcolor="#5D5D5D"
+		vAlign="Middle"
+		fontName="SansSerif"
+		fontSize="10"
+		isBold="true"
+	>
+	</style>
+
+	<parameter name="C_BPartner_ID_FROM" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="C_BPartner_ID_END" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="NUMBERFORMAT" isForPrompting="false" class="java.text.DecimalFormat"/>
+	<parameter name="USER_CLIENT" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="USER_ORG" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="LANGUAGE" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["en_US"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DateTo" isForPrompting="true" class="java.util.Date"/>
+	<parameter name="AD_Org_ID" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT
+	ps.ad_client_id,
+	ps.ad_org_id as organization,
+	(select name from ad_org where ad_org_id = ps.ad_org_id) as OrgName,
+	b.value as Code,
+	b.name as NamePartner,
+	(select iso_code from c_currency where c_currency_id = ps.c_currency_id) as currency_inv,
+	sum(ps.amount) AS GrandTotal,
+	sum(case when ps.c_currency_id ='100' then ps.amount else ps.amount * ((select multiplyrate from C_Conversion_Rate where c_currency_id = (select c_currency_id from m_pricelist where m_pricelist_id =(select m_pricelist_id from c_invoice where c_invoice_id = ps.c_invoice_id))and c_currency_id_to = '100' and ((select dateinvoiced from c_invoice where c_invoice_id = ps.c_invoice_id) >= validfrom  and  (select dateinvoiced from c_invoice where c_invoice_id = ps.c_invoice_id) <=validto))) end )as GrandTotalConvert,
+	sum(ps.paidamt * -1) as TotalPaid,
+        sum(case when ps.c_currency_id ='100' then ps.paidamt * -1 else (ps.paidamt * -1) *  ((select multiplyrate from C_Conversion_Rate where c_currency_id = (select c_currency_id from m_pricelist where m_pricelist_id =(select m_pricelist_id from c_invoice where c_invoice_id = ps.c_invoice_id))and c_currency_id_to = '100' and ((select dateinvoiced from c_invoice where c_invoice_id = ps.c_invoice_id) >= validfrom  and  (select dateinvoiced from c_invoice where c_invoice_id = ps.c_invoice_id) <=validto))) end) as TotalPaidConvert,
+	0.00 as Credit,
+	sum(ps.outstandingamt) as outstandingamt
+FROM fin_payment_schedule ps
+left join c_invoice i on ps.c_invoice_id = i.c_invoice_id
+left join c_bpartner b on i.c_bpartner_id = b.c_bpartner_id
+where ps.outstandingamt<>0
+and ((select issotrx from c_invoice where c_invoice_id = ps.c_invoice_id)='Y')
+and( ((select c_bpartner_id from c_invoice where c_invoice_id = ps.c_invoice_id) between $P{C_BPartner_ID_FROM} and $P{C_BPartner_ID_END}) or ($P{C_BPartner_ID_FROM} is null and $P{C_BPartner_ID_END} is null))
+and ((select dateinvoiced from c_invoice where c_invoice_id = ps.c_invoice_id)  <= $P{DateTo})
+and (ps.ad_org_id = $P{AD_Org_ID} or $P{AD_Org_ID} is null)
+group by ps.ad_client_id,ps.ad_org_id,b.value,b.name, ps.c_currency_id
+--order by 1,2,5
+union all
+SELECT
+	ps.ad_client_id,
+	ps.ad_org_id as organization,
+	(select name from ad_org where ad_org_id = ps.ad_org_id) as OrgName,
+	(select value from c_bpartner where c_bpartner_id = ps.c_bpartner_id) as Code,
+	(select name from c_bpartner where c_bpartner_id = ps.c_bpartner_id) as NamePartner,
+	(select iso_code from c_currency where c_currency_id = ps.c_currency_id) as currency_inv,
+	ps.finacc_txn_amount * -1 AS GrandTotal,
+	case when ps.c_currency_id = '100' then ps.finacc_txn_amount  * -1
+       else ps.amount * ((select multiplyrate from C_Conversion_Rate
+                          where c_currency_id = ps.c_currency_id
+                                                  and c_currency_id_to = '100'
+                                                  and ( $P{DateTo} between validfrom
+                                                  and  validto )))  * -1
+  end as GrandTotalConvert,
+	0.00 as TotalPaid,
+	 0.00 as TotalPaidConvert,
+	 0.00 as Credit,
+	 0.00 as outstandingamt
+   FROM fin_payment ps
+   left join ssfi_fin_payment_detail_v b on ps.fin_payment_id = b.fin_payment_id
+   left join fin_payment_detail c on ps.fin_payment_id = c.fin_payment_id
+   where ps.finacc_txn_amount<>0 and
+   ps.status ='PWNC'and
+   b.glitemname is null and
+   ps.isReceipt='Y' and
+   c.isprepayment='Y' and
+   to_char(coalesce((select fin_payment_id_used from fin_payment_credit d where d.fin_payment_id_used = ps.fin_payment_id ),'ND')) =to_char('ND')
+and ((ps.c_bpartner_id between $P{C_BPartner_ID_FROM} and $P{C_BPartner_ID_END}) or ($P{C_BPartner_ID_FROM} is null and $P{C_BPartner_ID_END} is null))
+and ps.paymentdate <= $P{DateTo}
+and (ps.ad_org_id = $P{AD_Org_ID} OR $P{AD_Org_ID} is null)
+group by ps.ad_client_id,ps.ad_org_id,ps.c_bpartner_id, ps.c_currency_id,ps.finacc_txn_amount,ps.amount
+order by 1,2,5]]></queryString>
+
+	<field name="ad_client_id" class="java.lang.String"/>
+	<field name="organization" class="java.lang.String"/>
+	<field name="orgname" class="java.lang.String"/>
+	<field name="code" class="java.lang.String"/>
+	<field name="namepartner" class="java.lang.String"/>
+	<field name="currency_inv" class="java.lang.String"/>
+	<field name="grandtotal" class="java.math.BigDecimal"/>
+	<field name="grandtotalconvert" class="java.math.BigDecimal"/>
+	<field name="totalpaid" class="java.math.BigDecimal"/>
+	<field name="totalpaidconvert" class="java.math.BigDecimal"/>
+	<field name="credit" class="java.math.BigDecimal"/>
+	<field name="outstandingamt" class="java.math.BigDecimal"/>
+
+	<sortField name="code" />
+
+	<variable name="SubTotalGrand" class="java.math.BigDecimal" resetType="Group" resetGroup="c_bpartner" calculation="Sum">
+		<variableExpression><![CDATA[$F{grandtotal}]]></variableExpression>
+	</variable>
+	<variable name="OrgTotalGrand" class="java.math.BigDecimal" resetType="Group" resetGroup="organization" calculation="Sum">
+		<variableExpression><![CDATA[$F{grandtotal}]]></variableExpression>
+	</variable>
+	<variable name="SubTotalPaid" class="java.math.BigDecimal" resetType="Group" resetGroup="c_bpartner" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalpaid}]]></variableExpression>
+	</variable>
+	<variable name="P_SubGrand" class="java.math.BigDecimal" resetType="Group" resetGroup="c_bpartner" calculation="Sum">
+		<variableExpression><![CDATA[$F{grandtotal}]]></variableExpression>
+	</variable>
+	<variable name="P_SubPaid" class="java.math.BigDecimal" resetType="Group" resetGroup="c_bpartner" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalpaid}]]></variableExpression>
+	</variable>
+	<variable name="Org.TotalPaid" class="java.math.BigDecimal" resetType="Group" resetGroup="organization" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalpaid}]]></variableExpression>
+	</variable>
+	<variable name="SubTotalGrandUSD" class="java.math.BigDecimal" resetType="Group" resetGroup="c_bpartner" calculation="Sum">
+		<variableExpression><![CDATA[$F{grandtotalconvert}]]></variableExpression>
+	</variable>
+	<variable name="P_SubGrandUSD" class="java.math.BigDecimal" resetType="Group" resetGroup="c_bpartner" calculation="Sum">
+		<variableExpression><![CDATA[$F{grandtotalconvert}]]></variableExpression>
+	</variable>
+	<variable name="OrgTotalGrandUSD" class="java.math.BigDecimal" resetType="Group" resetGroup="organization" calculation="Sum">
+		<variableExpression><![CDATA[$F{grandtotalconvert}]]></variableExpression>
+	</variable>
+	<variable name="SubTotalPaidUSD" class="java.math.BigDecimal" resetType="Group" resetGroup="c_bpartner" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalpaidconvert}]]></variableExpression>
+	</variable>
+	<variable name="P_SubPaidUSD" class="java.math.BigDecimal" resetType="Group" resetGroup="c_bpartner" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalpaidconvert}]]></variableExpression>
+	</variable>
+	<variable name="Org.TotalPaidUSD" class="java.math.BigDecimal" resetType="Group" resetGroup="organization" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalpaidconvert}]]></variableExpression>
+	</variable>
+
+		<group  name="organization" >
+			<groupExpression><![CDATA[$F{organization}]]></groupExpression>
+			<groupHeader>
+			<band height="25"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="4"
+						y="3"
+						width="109"
+						height="20"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{orgname}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="25"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="222"
+						y="3"
+						width="346"
+						height="20"
+						forecolor="#FFFFFF"
+						backcolor="#666666"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{orgname} + " Totals: "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00;-###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="744"
+						y="3"
+						width="98"
+						height="20"
+						key="textField-10"/>
+					<box leftPadding="5" topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{OrgTotalGrandUSD}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00;-###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="842"
+						y="3"
+						width="98"
+						height="20"
+						key="textField-11"/>
+					<box leftPadding="5" topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{Org.TotalPaid}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00;-###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="940"
+						y="3"
+						width="97"
+						height="20"
+						key="textField-12"/>
+					<box leftPadding="5" topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{Org.TotalPaidUSD}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00;-###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1037"
+						y="3"
+						width="86"
+						height="20"
+						key="textField-13"/>
+					<box leftPadding="5" topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{OrgTotalGrandUSD}.add($V{Org.TotalPaidUSD})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="644"
+						y="3"
+						width="100"
+						height="20"
+						key="textField"/>
+					<box leftPadding="5" topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{OrgTotalGrand}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupFooter>
+		</group>
+		<group  name="c_bpartner" >
+			<groupExpression><![CDATA[$F{code}]]></groupExpression>
+			<groupHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="24"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="222"
+						y="2"
+						width="346"
+						height="20"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="SansSerif"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{namepartner}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="113"
+						y="2"
+						width="109"
+						height="20"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="SansSerif"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{code}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="568"
+						y="2"
+						width="76"
+						height="20"
+						key="textField-3"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="SansSerif"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{currency_inv}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00;-###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="644"
+						y="2"
+						width="100"
+						height="20"
+						key="textField-4"/>
+					<box leftPadding="5" topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{SubTotalGrand}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00;-###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="842"
+						y="2"
+						width="98"
+						height="20"
+						key="textField-5"/>
+					<box leftPadding="5" topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{SubTotalPaid}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00;-###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="744"
+						y="2"
+						width="98"
+						height="20"
+						key="textField-6"/>
+					<box leftPadding="5" topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{SubTotalGrandUSD}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00;-###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="940"
+						y="2"
+						width="97"
+						height="20"
+						key="textField-7"/>
+					<box leftPadding="5" topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{SubTotalPaidUSD}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00;-###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1037"
+						y="2"
+						width="86"
+						height="20"
+						key="textField-8"/>
+					<box leftPadding="5" topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{SubTotalGrandUSD}.add($V{SubTotalPaidUSD})]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="56"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						style="Detail_Header"
+						x="222"
+						y="13"
+						width="346"
+						height="28"
+						key="staticText"/>
+					<box leftPadding="5" topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font fontName="SansSerif" size="18" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Customer Account Status]]></text>
+				</staticText>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="25"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						style="Detail_Header"
+						x="113"
+						y="3"
+						width="109"
+						height="20"
+						key="staticText"/>
+					<box leftPadding="5" topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="SansSerif" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Customer]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="Detail_Header"
+						x="222"
+						y="3"
+						width="346"
+						height="20"
+						key="staticText"/>
+					<box leftPadding="5" topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="SansSerif" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Name]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="Detail_Header"
+						x="4"
+						y="3"
+						width="109"
+						height="20"
+						key="staticText"/>
+					<box leftPadding="5" topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+				<text><![CDATA[Organization]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="Detail_Header"
+						x="568"
+						y="3"
+						width="76"
+						height="20"
+						key="staticText-1"/>
+					<box leftPadding="5" topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="SansSerif" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Currency Trx.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="Detail_Header"
+						x="644"
+						y="3"
+						width="100"
+						height="20"
+						key="staticText-2"/>
+					<box leftPadding="5" topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Amount Trx.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="Detail_Header"
+						x="744"
+						y="3"
+						width="98"
+						height="20"
+						key="staticText-3"/>
+					<box leftPadding="5" topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Amount USD]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="Detail_Header"
+						x="842"
+						y="3"
+						width="98"
+						height="20"
+						key="staticText-4"/>
+					<box leftPadding="5" topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Payment Trx.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="Detail_Header"
+						x="940"
+						y="3"
+						width="97"
+						height="20"
+						key="staticText-5"/>
+					<box leftPadding="5" topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Payment USD]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="Detail_Header"
+						x="1037"
+						y="3"
+						width="86"
+						height="20"
+						key="staticText-6"/>
+					<box leftPadding="5" topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Balance USD]]></text>
+				</staticText>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="5"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="61"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="222"
+						y="40"
+						width="346"
+						height="19"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Page " + $V{PAGE_NUMBER} + " of "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="568"
+						y="40"
+						width="76"
+						height="19"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom" rotation="None" lineSpacing="Single">
+						<font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["" + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="42"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

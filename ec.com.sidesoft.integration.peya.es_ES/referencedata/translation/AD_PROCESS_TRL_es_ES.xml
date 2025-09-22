@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
+  <row id="060F6B637F9E43F89947A7A29053A605" trl="Y">
+    <value column="Name" isTrl="Y" original="Speya_Process">Procesar</value>
+    <value column="Description" isTrl="Y" original="Speya_Process">Procesar</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="0AF94607F22E420CB0FB6FAC6A66AF1E" trl="Y">
+    <value column="Name" isTrl="Y" original="EM_Speya_Pickuporder">Orden Recogida</value>
+    <value column="Description" isTrl="Y" original="EM_Speya_Pickuporder">Orden Recogida</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="0FC3C0EFF5DD4914A784693CB0A45FF1" trl="Y">
+    <value column="Name" isTrl="Y" original="Create Orders Pedidos YA">Proceso Background Crear Ordenes Integración Pedidos YA</value>
+    <value column="Description" isTrl="N" original="">Proceso Background Crear Ordenes Integración Pedidos YA</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="11F0F66D1E31440FB16B45F8EBFAEE8D" trl="Y">
+    <value column="Name" isTrl="Y" original="EM_Speya_Cancellorder">Rechazar Pedido</value>
+    <value column="Description" isTrl="Y" original="EM_Speya_Cancellorder">Rechazar Pedido</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="230DE529A8A64E559AB79ADCE0F7F97A" trl="Y">
+    <value column="Name" isTrl="Y" original="EM_Speya_Orderready">Orden Lista</value>
+    <value column="Description" isTrl="Y" original="EM_Speya_Orderready">Orden Lista</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

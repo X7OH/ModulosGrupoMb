@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TEXTINTERFACES" version="">
+  <row id="0CAD1BBFD84646429975E308F7A50CD2" trl="N">
+    <value column="Text" isTrl="N" original="Fecha Desde:">Fecha Desde:</value>
+  </row>
+  <row id="16E2D3A03FF84A149470F5486F518C9E" trl="N">
+    <value column="Text" isTrl="N" original="Total General">Total General</value>
+  </row>
+  <row id="19AE3BFD76F24903A9BD5B46C1F4CDFD" trl="N">
+    <value column="Text" isTrl="N" original="Terminal">Terminal</value>
+  </row>
+  <row id="1EE026AEB7F245CC9EA06AD6DC3E01DC" trl="N">
+    <value column="Text" isTrl="N" original="Organización">Organización</value>
+  </row>
+  <row id="2382C1E61DB94BD69E6447A972A03D26" trl="N">
+    <value column="Text" isTrl="N" original="Organización">Organización</value>
+  </row>
+  <row id="2AA391DF89DB4812A4E0E82A550A1DA8" trl="N">
+    <value column="Text" isTrl="N" original="Fecha Hasta:">Fecha Hasta:</value>
+  </row>
+  <row id="2DE0FA4428D948D3B2C703C6EABD21D4" trl="N">
+    <value column="Text" isTrl="N" original="DEPÓSITOS BANCARIOS PUNTO DE VENTA">DEPÓSITOS BANCARIOS PUNTO DE VENTA</value>
+  </row>
+  <row id="3C65FC7A55B541E894729EC8F23F1316" trl="N">
+    <value column="Text" isTrl="N" original="No. Depósito">No. Depósito</value>
+  </row>
+  <row id="469F07AB3F8B42ABBE8C2E0AA513FF34" trl="N">
+    <value column="Text" isTrl="N" original="Banco de Depósito">Banco de Depósito</value>
+  </row>
+  <row id="600F2E6A111F4AE5B948A6C136DDF843" trl="N">
+    <value column="Text" isTrl="N" original="Fecha Desde:">Fecha Desde:</value>
+  </row>
+  <row id="670CC77BE38A4494BCBD331874A1612B" trl="N">
+    <value column="Text" isTrl="N" original="Fecha Venta">Fecha Venta</value>
+  </row>
+  <row id="6C503F47ADEC4F38B3A2E1DDF09DA669" trl="N">
+    <value column="Text" isTrl="N" original="Valor Depósito">Valor Depósito</value>
+  </row>
+  <row id="75A6A6B638A542A4BD44DB53981FFD53" trl="N">
+    <value column="Text" isTrl="N" original="Fecha Venta">Fecha Venta</value>
+  </row>
+  <row id="7DF19BFA19C7484B98B873733B804575" trl="N">
+    <value column="Text" isTrl="N" original="Total General">Total General</value>
+  </row>
+  <row id="98E6EC9E5305439FA9637CA20051B8C3" trl="N">
+    <value column="Text" isTrl="N" original="No. Depósito">No. Depósito</value>
+  </row>
+  <row id="A6EB552CB4E54D84A784649BAAA604D8" trl="N">
+    <value column="Text" isTrl="N" original="Terminal">Terminal</value>
+  </row>
+  <row id="C0EBD644E0CF43C7A4702CE4B7F6B5D5" trl="N">
+    <value column="Text" isTrl="N" original="Diferencia">Diferencia</value>
+  </row>
+  <row id="CEF60CCA3B13438F97DAC8776B0646AC" trl="N">
+    <value column="Text" isTrl="N" original="Valor Cierre">Valor Cierre</value>
+  </row>
+  <row id="D616617ED4B4416B8A7D85E39D6F7027" trl="N">
+    <value column="Text" isTrl="N" original="Valor Cierre">Valor Cierre</value>
+  </row>
+  <row id="DF074F59B73446F9BF5BB0FC2A81244E" trl="N">
+    <value column="Text" isTrl="N" original="Diferencia">Diferencia</value>
+  </row>
+  <row id="F3CBC52CA6EB4496BA7866BB7AC3203F" trl="N">
+    <value column="Text" isTrl="N" original="Banco de Depósito">Banco de Depósito</value>
+  </row>
+  <row id="F7BF74B80F764F0FB11DC9F43D3FD415" trl="N">
+    <value column="Text" isTrl="N" original="Valor Depósito">Valor Depósito</value>
+  </row>
+  <row id="FC7E25F0FB7B46EDAF21EBFC748DB0D7" trl="N">
+    <value column="Text" isTrl="N" original="Fecha Hasta:">Fecha Hasta:</value>
+  </row>
+  <row id="FDA443B3E8DB42FD88AB1367EEC341BA" trl="N">
+    <value column="Text" isTrl="N" original="DEPÓSITOS BANCARIOS PUNTO DE VENTA">DEPÓSITOS BANCARIOS PUNTO DE VENTA</value>
+  </row>
+</compiereTrl>

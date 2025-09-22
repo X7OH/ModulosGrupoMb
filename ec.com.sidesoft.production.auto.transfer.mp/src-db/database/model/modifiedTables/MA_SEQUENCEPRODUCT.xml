@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE MA_SEQUENCEPRODUCT">
+    <table name="MA_SEQUENCEPRODUCT" primaryKey="MA_SEQUENCEPRODUCT_KEY">
+      <column name="EM_SPATMP_INVENTORY_LOCATION" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+    </table>
+  </database>

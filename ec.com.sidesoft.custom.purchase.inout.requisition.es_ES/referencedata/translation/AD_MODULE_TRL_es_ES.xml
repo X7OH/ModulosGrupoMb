@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MODULE" version="">
+  <row id="457B1BDAE1BE46619AE0737456F2D3BE" trl="N">
+    <value column="Description" isTrl="Y" original="This module allows you to close an order automatically when processing the purchase order">Este módulo pérmite cerrar un pedido de forma automatica al procesar el albarán de compra</value>
+    <value column="Help" isTrl="Y" original="This module allows you to close an order automatically when processing the purchase order">Este módulo pérmite cerrar un pedido de forma automatica al procesar el albarán de compra</value>
+    <value column="License" isTrl="N" original=""/>
+    <value column="Updateinfo" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

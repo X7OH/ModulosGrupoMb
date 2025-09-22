@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SIVA_DELETE_PROCESSED_TRG">
+    <trigger name="SIVA_DELETE_PROCESSED_TRG" table="SIVA_PHYSICAL_INVENTORY" fires="before" insert="false" update="false" delete="true" foreach="row">
+      <body><![CDATA[
+   V_RVE_ID VARCHAR(32); 	--OBTG:VARCHAR2--
+   V_PROCESSED VARCHAR(1);	--OBTG:VARCHAR2--
+   V_STATUS VARCHAR(60);	--OBTG:VARCHAR2--
+   V_COUNT NUMBER;		--OBTG:NUMBER--
+   
+BEGIN
+    
+    
+   IF AD_isTriggerEnabled()='N' THEN RETURN;
+  END IF; 
+
+  IF (DELETING) THEN
+
+    IF (:OLD.Docstatus = 'PR') THEN
+      RAISE_APPLICATION_ERROR(-20000, 'Documento ya procesado.') ;
+    END IF;
+
+  END IF;
+
+  END SIVA_DELETE_PROCESSED_TRG
+]]></body>
+    </trigger>
+  </database>

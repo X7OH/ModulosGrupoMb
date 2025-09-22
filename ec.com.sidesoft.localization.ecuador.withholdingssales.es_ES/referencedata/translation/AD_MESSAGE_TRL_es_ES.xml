@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="11E6D4D9F13748EABB13B2978E3640B9" trl="N">
+    <value column="MsgText" isTrl="Y" original="There are no records in the Withholdings Configuration">No existen registros en la configuración de retenciones.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="4606FE9233634AF2AEEF268731469F22" trl="N">
+    <value column="MsgText" isTrl="N" original="Can not unpost the invoice while the withholding sale is present">Can not unpost the invoice while the withholding sale is present</value>
+    <value column="MsgTip" isTrl="N" original="First try deleting the withholding sale">First try deleting the withholding sale</value>
+  </row>
+  <row id="4A0F92A07FE74B53AE7537F72B0F4646" trl="N">
+    <value column="MsgText" isTrl="Y" original="There is no period created for the retention date &#10;">No existe periodo creado para la fecha de retención </value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="61030F139BC64624ABCBB734E372F50E" trl="N">
+    <value column="MsgText" isTrl="N" original="There is not withholding amount">There is not withholding amount</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="872F17E01EE5424CBC40233E74AECDE9" trl="N">
+    <value column="MsgText" isTrl="N" original="Withholding Configuration Error">Withholding Configuration Error</value>
+    <value column="MsgTip" isTrl="N" original="Check the Withholding Configuration">Check the Withholding Configuration</value>
+  </row>
+  <row id="9125B0627D2D44608D9F040F79E066C2" trl="N">
+    <value column="MsgText" isTrl="Y" original="Period ">El período </value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="A1C88BAC29C449F3AB805A3D19CBE3D0" trl="N">
+    <value column="MsgText" isTrl="Y" original=" is not open for the retention date "> no se encuentra abierto para la fecha de retención </value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="B1CCDB36C51D4891BD4759A2A699E1D6" trl="N">
+    <value column="MsgText" isTrl="N" original="Insufficient pending amount to apply the withholding">Insufficient pending amount to apply the withholding</value>
+    <value column="MsgTip" isTrl="N" original="Check the invoice payment schedule pending amount">Check the invoice payment schedule pending amount</value>
+  </row>
+</compiereTrl>

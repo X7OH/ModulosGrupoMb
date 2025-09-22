@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SSCMB_SET_ATTRIBUTES_TRG">
+    <trigger name="SSCMB_SET_ATTRIBUTES_TRG" table="M_INOUTLINE" fires="before" insert="true" update="true" delete="false" foreach="row">
+      <body><![CDATA[  v_documentno	VARCHAR2(32);      
+  v_description	VARCHAR2(300);      
+  v_docbasetype	    VARCHAR2(60);      
+  v_isreturn	    VARCHAR2(1);      
+  v_issotrx	    VARCHAR2(1);      
+BEGIN
+    
+  IF AD_isTriggerEnabled()='N' THEN RETURN;
+  END IF; 
+
+  IF (INSERTING OR UPDATING) THEN
+
+
+  SELECT mi.issotrx, dt.docbasetype, dt.isreturn
+INTO v_issotrx,v_docbasetype, v_isreturn  FROM m_inout mi  
+LEFT JOIN c_doctype dt ON mi.c_doctype_id = dt.c_doctype_id
+WHERE mi.m_inout_id= :new.m_inout_id;
+
+--PARÁMETROS QUE DETERMINAN ALBARÁN (PROVEEDOR).
+IF (v_issotrx='N' AND v_docbasetype ='MMR' AND v_isreturn ='N' )THEN
+
+	IF ((SELECT m_attributeset_id FROM m_product WHERE m_product_id = :new.m_product_id) IS NOT NULL  )THEN
+		
+
+		IF (:new.m_attributesetinstance_id  IS  NULL) THEN
+		 		 RAISE_APPLICATION_ERROR(-20000,'Valor de atributos no definidos para la línea '||:new.line ||'.');
+		END IF;
+IF ((SELECT em_sscmb_concat_documentno FROM m_product mp
+		INNER JOIN m_attributeset ab ON  mp.m_attributeset_id =ab.m_attributeset_id WHERE mp.m_product_id = :new.m_product_id) ='Y')THEN
+	SELECT coalesce(documentno,'') INTO v_documentno FROM m_inout WHERE m_inout_id = :new.m_inout_id;
+	IF( (	SELECT count(*) FROM m_attributesetinstance WHERE m_attributesetinstance_id = :new.m_attributesetinstance_id AND description LIKE '%'||v_documentno||'%' ) =0) THEN
+	
+	SELECT description into v_description FROM m_attributesetinstance WHERE m_attributesetinstance_id = :new.m_attributesetinstance_id;
+	UPDATE m_attributesetinstance SET description= v_documentno||'_'||v_description WHERE m_attributesetinstance_id = :new.m_attributesetinstance_id;
+	END IF;
+	END IF;
+	END IF;
+
+				
+  END IF;
+  END IF;
+
+  END SSCMB_SET_ATTRIBUTES_TRG
+]]></body>
+    </trigger>
+  </database>

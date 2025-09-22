@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_ELEMENT" version="">
+  <row id="9FA6EA7835664226AC8EACA236981E60" trl="N">
+    <value column="Name" isTrl="N" original="Manage negative stock at organization level">Manage negative stock at organization level</value>
+    <value column="PrintName" isTrl="N" original="Manage negative stock at organization level">Manage negative stock at organization level</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="DB8A80DABD05411E93903B6647644CA0" trl="N">
+    <value column="Name" isTrl="N" original="Allow Negative Stock">Allow Negative Stock</value>
+    <value column="PrintName" isTrl="N" original="Allow Negative Stock">Allow Negative Stock</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

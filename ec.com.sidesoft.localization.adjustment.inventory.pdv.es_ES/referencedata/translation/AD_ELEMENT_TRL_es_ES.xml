@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_ELEMENT" version="">
+  <row id="25215C65F7E04AFB9D4BCBC46BA2C4C9" trl="N">
+    <value column="Name" isTrl="Y" original="Date Key">Fecha de Clave</value>
+    <value column="PrintName" isTrl="Y" original="Date Key">Fecha de Clave</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="3C2B7CEEC0B7422CB52CF8CDBDDCC34C" trl="N">
+    <value column="Name" isTrl="Y" original="Warehouse">Almacén</value>
+    <value column="PrintName" isTrl="Y" original="Warehouse">Almacén</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="65AA555612284EFABA58B079452BC075" trl="N">
+    <value column="Name" isTrl="Y" original="Status Key">Estado Clave</value>
+    <value column="PrintName" isTrl="Y" original="Status Key">Estado Clave</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="7875DACA43A449AB9D3A51BC1D7AB6F7" trl="N">
+    <value column="Name" isTrl="Y" original="Documents">Documentos</value>
+    <value column="PrintName" isTrl="Y" original="Documents">Documentos</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="90A4C1510E404D03B9AD8C940DD401B6" trl="N">
+    <value column="Name" isTrl="Y" original="Generate Key">Generar Clave</value>
+    <value column="PrintName" isTrl="Y" original="Generate Key">Generar Clave</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="D0D7CE0FAFA94DB7AA1E90EEB6CDB633" trl="N">
+    <value column="Name" isTrl="Y" original="Authorization Key">Cleve de Autorización</value>
+    <value column="PrintName" isTrl="Y" original="Authorization Key">Cleve de Autorización</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="F191EFEDD47B4F839C9FD27492AD8664" trl="N">
+    <value column="Name" isTrl="Y" original="Access Key">Clave de Acceso</value>
+    <value column="PrintName" isTrl="Y" original="Access Key">Clave de Acceso</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

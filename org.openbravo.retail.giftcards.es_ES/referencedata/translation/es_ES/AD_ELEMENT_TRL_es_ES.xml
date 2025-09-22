@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_ELEMENT" version="">
+  <row id="032D042C88904A929826E8DE614C8CE1" trl="N">
+    <value column="Name" isTrl="N" original="Gcnv_Giftcard_Inst_ID">Gcnv_Giftcard_Inst_ID</value>
+    <value column="PrintName" isTrl="N" original="Gcnv_Giftcard_Inst_ID">Gcnv_Giftcard_Inst_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="208C25B7441F44579D8D9196A27AFC75" trl="N">
+    <value column="Name" isTrl="Y" original="Initial balance">Balance inicial</value>
+    <value column="PrintName" isTrl="Y" original="Initial balance">Balance inicial</value>
+    <value column="Description" isTrl="Y" original="Initial balance">Balance inicial</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="2BE02D1DEF5A4DF2A7B1FFC9AC1C2BEF" trl="N">
+    <value column="Name" isTrl="N" original="Gcnv_Giftcard_Summary_ID">Gcnv_Giftcard_Summary_ID</value>
+    <value column="PrintName" isTrl="N" original="Gcnv_Giftcard_Summary_ID">Gcnv_Giftcard_Summary_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="2CB899A6948A4D6B930797E01C7AA8F3" trl="N">
+    <value column="Name" isTrl="Y" original="Cancelled">Cancelado</value>
+    <value column="PrintName" isTrl="Y" original="Cancelled">Cancelado</value>
+    <value column="Description" isTrl="Y" original="Cancelled">Cancelado</value>
+    <value column="Help" isTrl="Y" original="Indicates the gift card or gift voucher has been cancelled.">Indica que la tarjeta regalo ha sido cancelada.</value>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="3FBFC29E71E145B28982743F305E2C3D" trl="N">
+    <value column="Name" isTrl="Y" original="Status">Estado</value>
+    <value column="PrintName" isTrl="Y" original="Status">Estado</value>
+    <value column="Description" isTrl="Y" original="Status">Estado</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="40572F7FC35E481B8032223FC787DF85" trl="N">
+    <value column="Name" isTrl="Y" original="Gift card type">Tipo de tarjeta regalo</value>
+    <value column="PrintName" isTrl="Y" original="Gift card type">Tipo de tarjeta regalo</value>
+    <value column="Description" isTrl="Y" original="Defines whether this product is a gift card product and its type.">Tipo de tarjeta regalo</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="6237EFD0617947E5A16D72DDA000A787" trl="N">
+    <value column="Name" isTrl="Y" original="Initial quantity">Cantidad inicial</value>
+    <value column="PrintName" isTrl="Y" original="Initial quantity">Cantidad inicial</value>
+    <value column="Description" isTrl="Y" original="Initial quantity">Cantidad inicial</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="6F851DA4E1114D40B24329DCCE587C9B" trl="N">
+    <value column="Name" isTrl="Y" original="Current Quantity">Cantidad actual</value>
+    <value column="PrintName" isTrl="Y" original="Current Quantity">Cantidad actual</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="76202FBAE8FE49A0AD0512E36498703A" trl="N">
+    <value column="Name" isTrl="N" original="Gcnv_Product_Summary_ID">Gcnv_Product_Summary_ID</value>
+    <value column="PrintName" isTrl="N" original="Gcnv_Product_Summary_ID">Gcnv_Product_Summary_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="76EF41174F1B4E95A96C7D25C79AAF8E" trl="N">
+    <value column="Name" isTrl="Y" original="Allow partial return">Permitir devolución parcial</value>
+    <value column="PrintName" isTrl="Y" original="Allow partial return">Permitir devolución parcial</value>
+    <value column="Description" isTrl="Y" original="Allow partial return">Permitir devolución parcial</value>
+    <value column="Help" isTrl="Y" original="This indicates whether the gift card can be returned even if it has been partially consumed.">Indica si se puede devolver la tarjeta regalo incluso si se ha consumido parcialmente.</value>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="81D8C77FB3534D8B8C2A6B5FBEE1DC40" trl="N">
+    <value column="Name" isTrl="N" original="Gcnv_Giftcard_Trans_ID">Gcnv_Giftcard_Trans_ID</value>
+    <value column="PrintName" isTrl="N" original="Gcnv_Giftcard_Trans_ID">Gcnv_Giftcard_Trans_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="C4A02A7BD51945ACB1E50697947CBAB6" trl="N">
+    <value column="Name" isTrl="N" original="M_Incproduct_ID">M_Incproduct_ID</value>
+    <value column="PrintName" isTrl="N" original="M_Incproduct_ID">M_Incproduct_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="D6FA1B9BC5174294B1D37C233FE639C4" trl="N">
+    <value column="Name" isTrl="Y" original="Current balance">Balance actual</value>
+    <value column="PrintName" isTrl="Y" original="Current balance">Balance actual</value>
+    <value column="Description" isTrl="Y" original="Current balance">Balance actual</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="F8C4F76677BD4F8CB6E6E1D178CD7199" trl="N">
+    <value column="Name" isTrl="Y" original="Gift card initial amount">Valor inicial de la tarjeta regalo</value>
+    <value column="PrintName" isTrl="Y" original="Gift card amount">Valor inicial de la tarjeta regalo</value>
+    <value column="Description" isTrl="Y" original="Amount is worth this gift card.">Valor inicial de la tarjeta regalo.</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

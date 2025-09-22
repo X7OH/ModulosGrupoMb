@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+  <database name="TABLE SAEQ_SEQUENCELINE">
+    <table name="SAEQ_SEQUENCELINE" primaryKey="SAEQ_SEQUENCEL_KEY">
+      <column name="SAEQ_SEQUENCELINE_ID" primaryKey="true" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_CLIENT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_ORG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISACTIVE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="NAME" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="DOCUMENTNO_REPEAT" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="DOCUMENTNO_ACTUAL" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="SAEQ_SEQUENCE_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_INVOICE_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="OBPOS_APPLICATIONS_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ECSDS_COMPRO_TYPE_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="ECSDS_COMPRO_TYPE" name="SAEQ_SEQ_ECSDS_COMTYPE">
+        <reference local="ECSDS_COMPRO_TYPE_ID" foreign="ECSDS_COMPRO_TYPE_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="OBPOS_APPLICATIONS" name="SAEQ_SEQ_OBPOS_APPS">
+        <reference local="OBPOS_APPLICATIONS_ID" foreign="OBPOS_APPLICATIONS_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_CLIENT" name="SAEQ_SEQUENCEL_AD_CLI">
+        <reference local="AD_CLIENT_ID" foreign="AD_CLIENT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_ORG" name="SAEQ_SEQUENCEL_AD_ORG">
+        <reference local="AD_ORG_ID" foreign="AD_ORG_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_INVOICE" name="SAEQ_SEQUENCEL_INV">
+        <reference local="C_INVOICE_ID" foreign="C_INVOICE_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="SAEQ_SEQUENCE" name="SAEQ_SEQUENCEL_SEQ">
+        <reference local="SAEQ_SEQUENCE_ID" foreign="SAEQ_SEQUENCE_ID"/>
+      </foreign-key>
+    </table>
+  </database>

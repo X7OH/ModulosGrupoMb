@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_ELEMENT" version="">
+  <row id="07AA2D98176C4482908B1AC7F4AA5FF4" trl="N">
+    <value column="Name" isTrl="N" original="M_Locator_ID">M_Locator_ID</value>
+    <value column="PrintName" isTrl="N" original="M_Locator_ID">M_Locator_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="16559DF7943F47A48D7CA05D475861BF" trl="N">
+    <value column="Name" isTrl="Y" original="Document Type Waste">Tipo de Documento Despacho</value>
+    <value column="PrintName" isTrl="Y" original="Document Type Waste">Tipo de Documento Despacho</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="1EE3AABD496B46EC8585FD02A863C305" trl="N">
+    <value column="Name" isTrl="N" original="Instanceid">Instanceid</value>
+    <value column="PrintName" isTrl="N" original="Instanceid">Instanceid</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="499BE496D5AA4835B046BEBAC925529F" trl="N">
+    <value column="Name" isTrl="Y" original="Setup Document Type Returns">Configuración Tipos de Documentos Devolución</value>
+    <value column="PrintName" isTrl="Y" original="Setup Document Type Returns">Configuración Tipos de Documentos Devolución</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="711259C533384556A652A4BF8A5E3A9C" trl="N">
+    <value column="Name" isTrl="N" original="M_Product_ID">M_Product_ID</value>
+    <value column="PrintName" isTrl="N" original="M_Product_ID">M_Product_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="8BB4429381314080928DFF307EBADD11" trl="N">
+    <value column="Name" isTrl="N" original="Active">Active</value>
+    <value column="PrintName" isTrl="N" original="Active">Active</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="A63CB0FA6D2C4593B41A4BCA9463784E" trl="N">
+    <value column="Name" isTrl="N" original="Slrldm_Returns_Rawmat_ID">Slrldm_Returns_Rawmat_ID</value>
+    <value column="PrintName" isTrl="N" original="Slrldm_Returns_Rawmat_ID">Slrldm_Returns_Rawmat_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="A9E9E8C9FB2B4D8CBB39F1D74B6BBF46" trl="N">
+    <value column="Name" isTrl="Y" original="Return Stock">Devolver Stock</value>
+    <value column="PrintName" isTrl="Y" original="Return Stock">Devolver Stock</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="AECFB4D2B9FF4CCA879B2CF563709913" trl="N">
+    <value column="Name" isTrl="N" original="Qtyreturn">Qtyreturn</value>
+    <value column="PrintName" isTrl="N" original="Qtyreturn">Qtyreturn</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="B8DB4B535F1041B2BDF2BD1EBE79B5F7" trl="N">
+    <value column="Name" isTrl="Y" original="Waste">Desperdicio</value>
+    <value column="PrintName" isTrl="Y" original="Waste">Desperdicio</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="BBAE36FC365446438A3FA0E3959796D7" trl="N">
+    <value column="Name" isTrl="Y" original="Document Type Return">Tipo de Documento Devolución</value>
+    <value column="PrintName" isTrl="Y" original="Document Type Return">Tipo de Documento Devolución</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_FIELD" version="">
+  <row id="00C58779FA00437B80B0A766BEA1DEDD" trl="N">
+    <value column="Name" isTrl="Y" original="Quantity">Cantidad</value>
+    <value column="Description" isTrl="Y" original="The number of a certain item.">Número de un ítem determinado.</value>
+    <value column="Help" isTrl="Y" original="Indicates the quantity of product needed to process one time the sequence.">Indica la cantidad de producto que se utiliza para procesar una vez la secuencia.</value>
+  </row>
+  <row id="326363357AA54CDCAD02CED08BFC477F" trl="N">
+    <value column="Name" isTrl="Y" original="Completed Quantity">Cant.producción</value>
+    <value column="Description" isTrl="Y" original="Quantity of products to produce">Cantidad de la producción</value>
+    <value column="Help" isTrl="Y" original="The Production Quantity identifies the number of products to produce">Indica el número de&amp;nbsp;unidades que se desea producir del producto seleccionado. </value>
+  </row>
+  <row id="40F85ECA01594B5182BE1EE29D6BB84B" trl="N">
+    <value column="Name" isTrl="Y" original="Production Quantity">Cant.producción</value>
+    <value column="Description" isTrl="Y" original="Quantity of products to produce">Cantidad de la producción</value>
+    <value column="Help" isTrl="Y" original="The Production Quantity identifies the number of products to produce">Indica el número de&amp;nbsp;unidades que se desea producir del producto seleccionado. </value>
+  </row>
+  <row id="7FD4E0B5B12F4307B518554FEA53E1F2" trl="N">
+    <value column="Name" isTrl="Y" original="Quantity">Cantidad</value>
+    <value column="Description" isTrl="Y" original="The number of a certain item.">Número de un ítem determinado.</value>
+    <value column="Help" isTrl="Y" original="Indicates the quantity of product needed to process one time the sequence.">Indica la cantidad de producto que se utiliza para procesar una vez la secuencia.</value>
+  </row>
+  <row id="D2713719699547918EB5A4A7BBD5C2D4" trl="N">
+    <value column="Name" isTrl="Y" original="Attribute use">Atributo usado</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="E2C35ABD7C324476AC8F47581BA2D8FB" trl="N">
+    <value column="Name" isTrl="Y" original="Processed">Procesado</value>
+    <value column="Description" isTrl="Y" original="A confirmation that the associated documents or requests are processed.">Confirmación de que los documentos o peticiones asociadas están en proceso.</value>
+    <value column="Help" isTrl="Y" original="The Processed checkbox indicates that a document has been processed.">El checkbox indica si el documento o petición ha sido procesado. </value>
+  </row>
+  <row id="E97175941EAA45BA84B0AC3B4B88FD07" trl="N">
+    <value column="Name" isTrl="Y" original="Quantity">Cant. movida</value>
+    <value column="Description" isTrl="Y" original="The number of items being moved from one location to another.">Cantidad de ítems que se mueven de una ubicación a otra.</value>
+    <value column="Help" isTrl="Y" original="The Movement Quantity indicates the quantity of a product that has been moved.">Indica la cantidad que ha sido movida de un producto.</value>
+  </row>
+  <row id="EEC67E51F1DD4B84AA29BAB2B83AF3B5" trl="Y">
+    <value column="Name" isTrl="Y" original="Explode Measure Shift">Explotar PCC turno</value>
+    <value column="Description" isTrl="Y" original="Explode Measure Shift">Explotar PCC turno</value>
+    <value column="Help" isTrl="Y" original="Explode Measure Shift">Explotar PCC turno</value>
+  </row>
+  <row id="FB43EB18949D44BD816ACF759F5B948E" trl="Y">
+    <value column="Name" isTrl="Y" original="Create from Maintenance Part">Crear desde un parte de mantenimiento</value>
+    <value column="Description" isTrl="Y" original="Create from Maintenance Part">Crear desde un parte de mantenimiento</value>
+    <value column="Help" isTrl="Y" original="Create from Maintenance Part">Crear desde un parte de mantenimiento</value>
+  </row>
+</compiereTrl>

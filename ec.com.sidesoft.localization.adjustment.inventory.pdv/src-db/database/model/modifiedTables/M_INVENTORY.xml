@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE M_INVENTORY">
+    <table name="M_INVENTORY" primaryKey="M_INVENTORY_KEY">
+      <column name="EM_SSIPDV_KEY" primaryKey="false" required="false" type="VARCHAR" size="6" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SSIPDV_KEY_AUTH" primaryKey="false" required="false" type="VARCHAR" size="6" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SSIPDV_GENERATE_KEY" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SSIPDV_DATE_KEY" primaryKey="false" required="false" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SSIPDV_STATUS_KEY" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+    </table>
+  </database>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
+  <row id="423644F561C443E1B536D1A339E39F5A" trl="N">
+    <value column="Name" isTrl="N" original="Combo Category">Combo Category</value>
+    <value column="Description" isTrl="N" original="Combo Category">Combo Category</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

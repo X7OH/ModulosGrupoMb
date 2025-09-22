@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_WINDOW" version="">
+  <row id="60782DC7ED1E4B879734244CF97193A7" trl="N">
+    <value column="Name" isTrl="Y" original="Sales Order WS Log">Log WS Pedido de Venta</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="848E501CCC6E4B379BC2C0B9A4436264" trl="N">
+    <value column="Name" isTrl="N" original="Homologation Offer">Homologation Offer</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="940E9ABC88E549589EF927781D6BA4AC" trl="N">
+    <value column="Name" isTrl="N" original="Homologation Products">Homologation Products</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="F09C0AD74B9E403C98EBA7703FFEADC5" trl="N">
+    <value column="Name" isTrl="N" original="Sales Order WS Configuration">Sales Order WS Configuration</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="FE452BD83F3040E69A53551BECEBF5A3" trl="N">
+    <value column="Name" isTrl="N" original="Homologation Offer Alternative">Homologation Offer Alternative</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

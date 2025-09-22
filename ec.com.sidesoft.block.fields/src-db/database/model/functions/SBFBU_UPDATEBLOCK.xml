@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SBFBU_UPDATEBLOCK">
+    <function name="SBFBU_UPDATEBLOCK" type="NULL">
+      <parameter name="p_pinstance_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[TYPE RECORD IS REF CURSOR;
+Cur_QueryBlock RECORD;
+Cur_CreateUpdate RECORD;
+
+  -- Logistics
+  v_ResultStr VARCHAR2(2000):='';
+  v_Message VARCHAR2(2000):='';
+  v_Record_ID VARCHAR2(32);
+  v_User VARCHAR2(32);
+  v_IsProcessing CHAR(1) ;
+  v_IsProcessed VARCHAR(60) ;
+  v_Result NUMBER:=0; -- Success
+  p_PInstance_ID VARCHAR2(32);
+  PInstance_ID VARCHAR2(32);
+
+  -- Block Fields
+  v_Prefix VARCHAR2(10);
+  v_HideField VARCHAR2(60);
+  v_QueryAuxInput VARCHAR2(2000):='';
+  v_BolckFieldID VARCHAR2(32);
+  v_ModuleID VARCHAR2(32);
+  v_ReadOnlyLogyComplete VARCHAR2(2000):='';
+  v_ReadOC VARCHAR2(1000);
+  
+  v_CountInput NUMBER:=0; -- OBTG:NUMBER--
+  v_SQLInsert VARCHAR2(2000):='';
+  
+  
+  BEGIN
+
+      --p_PInstance_ID:= get_UUid();
+      PInstance_ID:=p_PInstance_ID;
+      --  Update AD_PInstance
+      DBMS_OUTPUT.PUT_LINE('Updating PInstance - Processing ' || p_PInstance_ID) ;
+      v_ResultStr:='PInstanceNotFound';
+      AD_UPDATE_PINSTANCE(p_PInstance_ID, NULL, 'Y', NULL, NULL) ;
+
+      	update ad_module set isindevelopment = 'Y' where  ad_module_id in ('291AC851D2C842FD952A7BA0305465D6','7ABC77531C224E9A904197CCF906CD24');
+
+
+  BEGIN --BODY
+
+  v_Result:=0;
+
+	update ad_module set isindevelopment = 'Y' where  ad_module_id in ('291AC851D2C842FD952A7BA0305465D6','7ABC77531C224E9A904197CCF906CD24');
+	
+
+	For Cur_QueryBlock IN (
+	SELECT sbfbu_block_field_ID 
+	FROM sbfbu_block_field
+	)LOOP
+
+	 v_BolckFieldID:= Cur_QueryBlock.sbfbu_block_field_ID;
+
+
+		FOR Cur_CreateUpdate IN(					
+				select 
+				(case when modulo ='0' then prefijo || '_' else '' end) || ocultar_campo as ocultar_campo
+				, pestania
+				, consulta
+				, modulo
+				,cabecera
+				, substr(('Sbfbu_' || ocultar_campo),1,40) as auxinput
+				,columnid
+				,prefijo || '_' as prefijo
+				from 
+				(
+				select 
+				lower(atbl.name || '_' || ac.columnname) as ocultar_campo
+				,atab.ad_tab_id as pestania
+				,'@SQL=select field_hide from sbfbu_block_field_v where usuario = @#AD_USER_ID@ and field_hide =' as consulta
+				,ap.ad_module_id as modulo
+				, sbf.sbfbu_block_field_id as cabecera
+				, lower(adp.name) as prefijo
+				, ac.ad_column_id as columnid
+				from sbfbu_block_field sbf
+				join ad_tab atab on atab.ad_tab_id = sbf.ad_tab_id
+				join ad_field af on af.ad_tab_id = atab.ad_tab_id
+				join ad_table atbl on atbl.ad_table_id = atab.ad_table_id
+				join ad_column ac on ac.ad_column_id = af.ad_column_id
+				left join (
+				select 
+				sbf.sbfbu_block_field_id as fblock,field_option as foption
+				,au.ad_user_id as usuario
+				from ad_user au
+				left join AD_User_Roles adr on adr.ad_user_id = au.ad_user_id
+				left join ad_role ar on ar.ad_role_id = adr.ad_role_id
+				join sbfbu_block_field sbf on sbf.ad_role_id = adr.ad_role_id
+				group by sbf.sbfbu_block_field_id
+				,ar.name,au.ad_user_id,field_option
+				) opciones on opciones.fblock = sbf.sbfbu_block_field_id
+				join  ad_package ap on ap.ad_package_id  = atbl.ad_package_id
+				join ad_module_dbprefix adp on adp.ad_module_id = ap.ad_module_id
+				group by 1,2,3,4,5,6,7
+				
+				) bloquear 
+				where   cabecera = v_BolckFieldID
+				order by 5,1
+			
+		)LOOP
+
+		  v_ModuleID:= Cur_CreateUpdate.modulo;
+
+		  update ad_module set isindevelopment = 'Y' where ad_module_id=v_ModuleID;
+
+		  v_Prefix:= 'Sbfbu_';
+		  v_HideField:= Cur_CreateUpdate.ocultar_campo;
+	          v_QueryAuxInput:=TO_CHAR(Cur_CreateUpdate.consulta || '''' ||  v_HideField || '''') ;
+
+	          SELECT
+	          COALESCE((SELECT COUNT(*)
+	          FROM AD_AUXILIARINPUT
+	          WHERE NAME = Cur_CreateUpdate.auxinput
+		  ),0)
+	          INTO v_CountInput
+	          FROM DUAL;
+
+		  IF v_CountInput = 0 THEN
+
+		  	  v_Result:=v_Result +1;
+
+			  --INSERT INTO ad_auxiliarinput(
+			--	ad_auxiliarinput_id, ad_client_id, ad_org_id, isactive,created,createdby,updated,updatedby,
+			--	ad_tab_id,name,code,ad_module_id)
+			--  VALUES(get_uuid(),0,0,'Y',now(),0,now(),0,
+			--  Cur_CreateUpdate.pestania,Cur_CreateUpdate.auxinput,v_QueryAuxInput,'291AC851D2C842FD952A7BA0305465D6');
+
+			  v_SQLInsert := 'INSERT INTO ad_auxiliarinput( ' ||
+			   ' ad_auxiliarinput_id, ad_client_id, ad_org_id, isactive,created,createdby,updated,updatedby, ' ||
+			   ' ad_tab_id,name,code,ad_module_id) ' ||
+			   'VALUES(get_uuid(),0,0,' || ''''  ||'Y' || ''',now(),0,now(),0,' ||
+			  '''' || Cur_CreateUpdate.pestania || ''',' || '''' ||
+			   Cur_CreateUpdate.auxinput || ''',' || '''' || Cur_CreateUpdate.consulta|| ''''|| ''''|| '''' || '''' ||  v_HideField || ''''|| ''''|| ''',' ||
+			   ''''|| '291AC851D2C842FD952A7BA0305465D6' || ''')';
+
+			   EXECUTE IMMEDIATE v_SQLInsert;
+
+			  SELECT 
+			  COALESCE((select readonlylogic 
+			  from ad_column where ad_column_id =  Cur_CreateUpdate.columnid
+			  ),'')
+			  INTO v_ReadOC
+			  FROM dual;
+
+			  v_ReadOnlyLogyComplete:= (CASE WHEN length(v_ReadOC)>0 THEN ('(' || v_ReadOC || ')' || ' | ' || '@' || Cur_CreateUpdate.auxinput || '@=''' || v_HideField || '''')
+				ELSE  ('@' || Cur_CreateUpdate.auxinput || '@='''|| v_HideField || '''') END); 
+
+			  UPDATE ad_column SET readonlylogic = v_ReadOnlyLogyComplete WHERE ad_column_id = Cur_CreateUpdate.columnid;
+							
+
+		  END IF;
+
+		END LOOP;
+
+		UPDATE ad_module SET isindevelopment = 'N' WHERE ad_module_id=v_ModuleID;
+		v_ModuleID:='';
+	
+
+	END LOOP;
+
+	UPDATE ad_auxiliarinput SET code = replace(code,'''' || '''', '''') WHERE ad_module_id = '291AC851D2C842FD952A7BA0305465D6';
+
+
+  	UPDATE ad_module SET isindevelopment = 'N' WHERE  ad_module_id IN ('291AC851D2C842FD952A7BA0305465D6','7ABC77531C224E9A904197CCF906CD24');
+
+
+
+    v_Message := '@RowsInserted@: ' || v_Result;
+    DBMS_OUTPUT.PUT_LINE('Updating PInstance - Finished ' || v_Message) ;
+    AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 1, v_Message) ;
+
+    RETURN;
+    
+  END; --BODY
+  
+	EXCEPTION
+	WHEN OTHERS THEN
+	v_ResultStr:= '@ERROR=' || SQLERRM;
+	DBMS_OUTPUT.PUT_LINE(v_ResultStr) ;
+	AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 0, v_ResultStr) ;
+
+  RETURN;
+END SBFBU_UPDATEBLOCK
+]]></body>
+    </function>
+  </database>

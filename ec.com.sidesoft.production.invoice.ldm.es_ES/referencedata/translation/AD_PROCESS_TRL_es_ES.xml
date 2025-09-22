@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
+  <row id="7A473BA5BDD44371B53ABA2CD2B44BD3" trl="N">
+    <value column="Name" isTrl="Y" original="Load Sales Invoice">Cargar Factura de Venta</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="E0439B18AA344099BAEC08FF982BBF7C" trl="N">
+    <value column="Name" isTrl="Y" original="MP requirements for point of sale production">Faltantes de MP para producción de punto de Venta  </value>
+    <value column="Description" isTrl="N" original="">Faltantes de MP para producción de punto de Venta  </value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

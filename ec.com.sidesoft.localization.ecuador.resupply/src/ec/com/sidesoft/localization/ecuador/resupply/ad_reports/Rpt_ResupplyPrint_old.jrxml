@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_ResupplyPrint" pageWidth="696" pageHeight="842" columnWidth="656" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="378"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="DOCUMENT_ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="AD_USER_ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+ad_org_id as "ad_org_id"
+	,name as "name"
+	,fecha_estimada as"fecha_estimada"
+	,fecha_necesidad as "fecha_necesidad"
+	,ress_documentno as "ress_documentno"
+	,ressp_documentno as "ressp_documentno"
+	,almacen as "almacen"
+	,codigo as "codigo"
+	,producto as "producto"
+	,unidad as "unidad"
+	,cantidad_pedido as "cantidad_pedido"
+	,categoria as "categoria"
+	,usuario as "usuario"
+	,fechaimpresion as  "fechaimpresion"
+	,lote as "lote"
+, qty_lot  as "qty_lot"
+from
+( SELECT
+
+
+	to_char('') as ad_org_id
+	,to_char('') as name
+	,now() as fecha_estimada
+	,now() as fecha_necesidad
+	,to_char('') as ress_documentno
+	,to_char('') as ressp_documentno
+	,to_char('') as almacen
+	,to_char('') as codigo
+	,to_char('') as producto
+	,to_char('') as unidad
+	,0 as cantidad_pedido
+	,to_char('') as categoria
+	,to_char('') AS usuario
+	,now() as  fechaimpresion
+	,to_char('') as lote
+, 0  as qty_lot , case when (ssrs_view_lot_details(m_product_id, sr.m_warehouse_id,ssrs_resupplyline_id, quantityorder))<>'' then 10  else 10 end as process
+ FROM ssrs_resupply  sr
+ join ssrs_resupplyline srl on sr.ssrs_resupply_id = srl.ssrs_resupply_id
+ where sr.ssrs_resupply_pos_id = (select ssrs_resupply_pos_id from ssrs_resupply where ssrs_resupply_id = $P{DOCUMENT_ID}
+	)
+	group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17
+union all
+select
+	org.ad_org_id
+	,org.name
+	,ress.estimateddeliverydate as fecha_estimada
+	,ress.needbydate as fecha_necesidad
+	,ress.documentno as ress_documentno
+	,ressp.documentno as ressp_documentno
+	,war.name as almacen
+	,pro.value as codigo
+	,pro.name as producto
+	,coalesce(uomt.name,uom.name) as unidad
+	,ressl.Quantityorder as cantidad_pedido
+	,cat.name as categoria,
+(SELECT COALESCE(CB.NAME,AU.NAME) FROM AD_USER AU LEFT JOIN C_BPARTNER CB ON CB.C_BPARTNER_ID = AU.C_BPARTNER_ID WHERE AU.AD_USER_ID=  $P{AD_USER_ID}
+) AS usuario,
+	NOW() 			AS fechaimpresion
+, COALESCE(coalesce(mattsi.description,mattsi.lot),
+(case when ((select count(*) from ssrs_detail_lots where recordid = ressl.ssrs_resupplyline_id))>0 and coalesce(TRIM(sdl.m_attributesetinstance_id),'ND')<>'ND' then NULL
+ else
+TO_CHAR('NO EXISTE STOCK') end) ) as lote
+, coalesce(sdl.qtyonhand,ressl.Quantityorder)  as qty_lot
+,20 as process
+from ssrs_resupply  ress
+inner join ad_org org on org.ad_org_id = ress.ad_org_id
+left join ssrs_resupply_pos ressp on ressp.ssrs_resupply_pos_id = ress.ssrs_resupply_pos_id
+left join m_warehouse war on war.m_warehouse_id = ress.m_warehouse_id
+
+inner join ssrs_resupplyline ressl on ressl.ssrs_resupply_id = ress.ssrs_resupply_id
+inner join m_product pro on pro.m_product_id = ressl.m_product_id
+inner join c_uom uom on uom.c_uom_id = pro.c_uom_id
+left join c_uom_trl uomt on uomt.c_uom_id = uom.c_uom_id and ad_language = 'es_ES'
+inner join m_product_category cat on cat.m_product_category_id = pro.m_product_category_id
+LEFT join ssrs_detail_lots sdl on sdl.recordid = ressl.ssrs_resupplyline_id
+left join m_attributesetinstance mattsi on mattsi.m_attributesetinstance_id = sdl.m_attributesetinstance_id
+	where ress.ssrs_resupply_pos_id = (select ssrs_resupply_pos_id from ssrs_resupply where ssrs_resupply_id = $P{DOCUMENT_ID}
+	)
+order by 17,7,12
+) rep
+where process>10]]>
+	</queryString>
+	<field name="ad_org_id" class="java.lang.String"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="fecha_estimada" class="java.sql.Timestamp"/>
+	<field name="fecha_necesidad" class="java.sql.Timestamp"/>
+	<field name="ress_documentno" class="java.lang.String"/>
+	<field name="ressp_documentno" class="java.lang.String"/>
+	<field name="almacen" class="java.lang.String"/>
+	<field name="codigo" class="java.lang.String"/>
+	<field name="producto" class="java.lang.String"/>
+	<field name="unidad" class="java.lang.String"/>
+	<field name="cantidad_pedido" class="java.math.BigDecimal"/>
+	<field name="categoria" class="java.lang.String"/>
+	<field name="usuario" class="java.lang.String"/>
+	<field name="fechaimpresion" class="java.sql.Timestamp"/>
+	<field name="lote" class="java.lang.String"/>
+	<field name="qty_lot" class="java.math.BigDecimal"/>
+	<group name="Almcenes">
+		<groupExpression><![CDATA[$F{almacen}]]></groupExpression>
+		<groupHeader>
+			<band height="132">
+				<textField>
+					<reportElement x="82" y="121" width="573" height="10"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Serif" size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{almacen}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="38" width="655" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="DejaVu Serif" isBold="true"/>
+					</textElement>
+					<text><![CDATA[LISTA DE PIKING]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="72" width="82" height="15"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Serif" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha necesidad:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="240" y="72" width="91" height="15"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Serif" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha estimada:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="331" y="72" width="324" height="15"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Serif" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{fecha_necesidad}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="82" y="72" width="158" height="15"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Serif" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{fecha_necesidad}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="121" width="82" height="10"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Serif" size="7" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[Almacén:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="88" width="82" height="15"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Serif" size="7" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[Documento No. :]]></text>
+				</staticText>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="82" y="88" width="158" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="DejaVu Serif" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{ress_documentno}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="331" y="88" width="324" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="DejaVu Serif" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{ressp_documentno}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="240" y="88" width="91" height="15"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Serif" size="7" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[PDV Documento No.:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="440" y="0" width="115" height="12"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Serif" size="7" isItalic="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["/ "+$F{usuario}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy / HH:mm:ss">
+					<reportElement x="0" y="0" width="440" height="12"/>
+					<box rightPadding="3"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="DejaVu Serif" size="7" isBold="false" isItalic="true"/>
+					</textElement>
+					<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{fechaimpresion}]]></textFieldExpression>
+				</textField>
+				<image>
+					<reportElement x="0" y="0" width="153" height="65"/>
+					<imageExpression class="java.awt.Image"><![CDATA[org.openbravo.erpCommon.utility.Utility.showImageLogo("yourcompanylegal",$F{ad_org_id})]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement x="0" y="103" width="85" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="DejaVu Serif" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CANTIDAD PEDIDA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="85" y="103" width="60" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="DejaVu Serif" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[UNIDAD]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="498" y="103" width="86" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="DejaVu Serif" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[LOTE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="584" y="103" width="72" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="DejaVu Serif" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[DISPONIBLE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="145" y="103" width="272" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="DejaVu Serif" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[NOMBRE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="417" y="103" width="81" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="DejaVu Serif" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CODIGO]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="153" y="18" width="503" height="15"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Serif" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{name}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="2"/>
+		</groupFooter>
+	</group>
+	<group name="Categoria">
+		<groupExpression><![CDATA[$F{categoria}]]></groupExpression>
+		<groupHeader>
+			<band height="10">
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="82" y="0" width="573" height="10" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="DejaVu Serif" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{categoria}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="82" height="10"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Serif" size="7" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[Categoría:]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="10"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="1" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="1" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="1" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="10" splitType="Stretch">
+			<textField>
+				<reportElement x="417" y="0" width="82" height="10"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="0" y="0" width="85" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{cantidad_pedido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="85" y="0" width="60" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{unidad}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="498" y="0" width="86" height="10"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{lote}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="584" y="0" width="71" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{qty_lot}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="0" width="259" height="10"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{producto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="44" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

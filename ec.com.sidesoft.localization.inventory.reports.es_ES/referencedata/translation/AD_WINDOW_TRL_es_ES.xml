@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_WINDOW" version="">
+  <row id="29DF3C380C164BEBB6D851472307B2BF" trl="N">
+    <value column="Name" isTrl="N" original="Stock General Report">Reporte de Stock General</value>
+    <value column="Description" isTrl="N" original="Stock General Report">Reporte de Stock General</value>
+    <value column="Help" isTrl="N" original="Stock General Report View">Reporte de Stock General</value>
+  </row>
+</compiereTrl>

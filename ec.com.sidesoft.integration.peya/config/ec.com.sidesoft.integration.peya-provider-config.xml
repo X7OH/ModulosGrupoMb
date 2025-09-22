@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <provider>
+   <bean>
+       <name>setOrderPeya</name>
+       <class>ec.com.sidesoft.integration.peya.webservices.setorderpeya.OrderPeyaWS</class>
+       <singleton>true</singleton>
+   </bean>
+ </provider>

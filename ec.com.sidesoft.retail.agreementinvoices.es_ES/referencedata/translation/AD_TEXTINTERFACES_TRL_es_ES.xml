@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TEXTINTERFACES" version="">
+  <row id="02EA1ED98ADF4746BF3D95CF5422BE91" trl="N">
+    <value column="Text" isTrl="N" original="LOCAL">LOCAL</value>
+  </row>
+  <row id="0DB3D2D72D874DE2AE18A8DD3FC45ECC" trl="N">
+    <value column="Text" isTrl="N" original="NÚMERO DE PEDIDO">NÚMERO DE PEDIDO</value>
+  </row>
+  <row id="99FD4F4485A543749A35DA4D6BA4CED2" trl="N">
+    <value column="Text" isTrl="N" original="SUBTOTAL">SUBTOTAL</value>
+  </row>
+  <row id="A20E7F04E288497E9A3FACCED6A94E48" trl="N">
+    <value column="Text" isTrl="N" original="EMPRESA">EMPRESA</value>
+  </row>
+  <row id="B96A2EA879B24858A69BB51D06E531A8" trl="N">
+    <value column="Text" isTrl="N" original="IVA">IVA</value>
+  </row>
+  <row id="D7D582255F6947E697F422E604D54663" trl="N">
+    <value column="Text" isTrl="N" original="VENTAS CONVENIO">VENTAS CONVENIO</value>
+  </row>
+  <row id="D7F6A829EF5A4058B0924486EDF6DA48" trl="N">
+    <value column="Text" isTrl="N" original="FECHA">FECHA</value>
+  </row>
+  <row id="E849EA8025DA43C59079357BEF5B01AD" trl="N">
+    <value column="Text" isTrl="N" original="RUC">RUC</value>
+  </row>
+</compiereTrl>

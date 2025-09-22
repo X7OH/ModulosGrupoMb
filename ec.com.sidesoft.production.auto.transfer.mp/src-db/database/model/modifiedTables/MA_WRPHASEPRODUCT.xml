@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE MA_WRPHASEPRODUCT">
+    <table name="MA_WRPHASEPRODUCT" primaryKey="MA_WRPHASEPRODUCT_KEY">
+      <column name="EM_SPATMP_INVENTORY_LOCATION" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="M_LOCATOR" name="EM_SPATMP_INVENTORYLOC_WP_FK">
+        <reference local="EM_SPATMP_INVENTORY_LOCATION" foreign="M_LOCATOR_ID"/>
+      </foreign-key>
+    </table>
+  </database>

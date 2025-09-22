@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MODULE" version="">
+  <row id="CFE05A3BCCB2431F9864618F98D3EBE8" trl="N">
+    <value column="Description" isTrl="N" original="Sidesoft Retail Bank Deposits">Sidesoft Retail Bank Deposits</value>
+    <value column="Help" isTrl="N" original="- Retail Bank Deposits&#10;- Ticket 9468 - 7. Desarrollo Ventana de ingreso de depositos en el PDV.&#10;- Tener un registro de los depósitos realizados por caja y emitir diariamente un reporte de las cajas que no tenga valores de cierre o que cuyo valor no cuadre con el reportado en el cierre de caja correspondiente.&#10;- Sin dependencias">- Retail Bank Deposits
+- Ticket 9468 - 7. Desarrollo Ventana de ingreso de depositos en el PDV.
+- Tener un registro de los depósitos realizados por caja y emitir diariamente un reporte de las cajas que no tenga valores de cierre o que cuyo valor no cuadre con el reportado en el cierre de caja correspondiente.
+- Sin dependencias</value>
+    <value column="License" isTrl="N" original=""/>
+    <value column="Updateinfo" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

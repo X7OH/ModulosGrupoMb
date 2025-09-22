@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE MA_PC_VALUE">
+    <table name="MA_PC_VALUE" primaryKey="MA_PC_VALUE_KEY">
+      <column name="EM_SLQS_TYPE_VALUE" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SLQS_TEXT" primaryKey="false" required="false" type="VARCHAR" size="40" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SLQS_VALUE" primaryKey="false" required="false" type="DECIMAL" size="12,2" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SLQS_TESTING" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+    </table>
+  </database>

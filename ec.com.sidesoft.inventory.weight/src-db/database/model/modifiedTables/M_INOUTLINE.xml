@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE M_INOUTLINE">
+    <table name="M_INOUTLINE" primaryKey="M_INOUTLINE_KEY">
+      <column name="EM_SINW_WAS_PRINTED" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <check name="EM_SINW_WAS_PRINTED_CHECK"><![CDATA[EM_SINW_WAS_PRINTED IN ('Y', 'N')]]></check>
+    </table>
+  </database>

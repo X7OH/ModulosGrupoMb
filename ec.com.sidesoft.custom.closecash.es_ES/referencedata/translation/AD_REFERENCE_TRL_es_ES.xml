@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
+  <row id="8B0A756DDBC1455483443F2D589230A2" trl="Y">
+    <value column="Name" isTrl="Y" original="Type_Account_List">Tipo de cuenta - Lista</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="E97AC0D11DFF4E8188A5D78E9CE8AEB8" trl="N">
+    <value column="Name" isTrl="N" original="Sccc_Cash_Clousure">Sccc_Cash_Clousure</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
+  <row id="698431ED3A79418E93361A4D5DF709C5" trl="N">
+    <value column="Name" isTrl="N" original="Approve Trx">Approve Trx</value>
+    <value column="Description" isTrl="N" original="Approve Trx">Approve Trx</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="D508034AB4D94C948E7B3407DF12D71C" trl="N">
+    <value column="Name" isTrl="Y" original="Call Center Order Post">Completar</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="D747A3C1A3CD479388BFF4EA5E7A605C" trl="Y">
+    <value column="Name" isTrl="Y" original="Process Programing Orders">Procesar Ordenes Programadas</value>
+    <value column="Description" isTrl="Y" original="Process Programing Orders">Procesar Ordenes Programadas</value>
+    <value column="Help" isTrl="N" original="">Procesar Ordenes Programadas</value>
+  </row>
+  <row id="E5F0DC8AF3794BD6AEAEE03ECC2F0BD0" trl="N">
+    <value column="Name" isTrl="N" original="SAQB_RegisterCallCenterFunction">SAQB_RegisterCallCenterFunction</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="ED3A362C13C94379ACB8B3E7F1908975" trl="N">
+    <value column="Name" isTrl="N" original="Approve Tranx">Approve Tranx</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

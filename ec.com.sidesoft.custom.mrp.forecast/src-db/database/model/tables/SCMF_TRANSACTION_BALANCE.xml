@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+  <database name="TABLE SCMF_TRANSACTION_BALANCE">
+    <table name="SCMF_TRANSACTION_BALANCE" primaryKey="SCMF_TRANSACTION_BALANCE_KEY">
+      <column name="SCMF_TRANSACTION_BALANCE_ID" primaryKey="true" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_CLIENT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_ORG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISACTIVE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="MOVEMENTTYPE" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="M_LOCATOR_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="M_PRODUCT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="MOVEMENTDATE" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="MOVEMENTQTY" primaryKey="false" required="true" type="DECIMAL" autoIncrement="false">
+        <default><![CDATA[0]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="M_INVENTORYLINE_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="M_MOVEMENTLINE_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="M_INOUTLINE_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="M_PRODUCTIONLINE_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_PROJECTISSUE_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="M_ATTRIBUTESETINSTANCE_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default><![CDATA[0]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="M_PRODUCT_UOM_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="QUANTITYORDER" primaryKey="false" required="false" type="DECIMAL" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_UOM_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="M_INTERNAL_CONSUMPTIONLINE_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="TRANSACTIONCOST" primaryKey="false" required="false" type="DECIMAL" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="TRXPROCESSDATE" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="M_COSTING_ALGORITHM_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISCOSTCALCULATED" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="C_CURRENCY_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="COSTING_STATUS" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default><![CDATA[NC]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CHECKRESERVEDQTY" primaryKey="false" required="false" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="ISPROCESSED" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CHECKPRICEDIFFERENCE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="MANUALCOSTADJUSTMENT" primaryKey="false" required="false" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="ISCOSTPERMANENT" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="M_INTERNAL_CONSUMPTIONLINE" name="SCMF_INTL_CONSUMP_MTRANSACTION">
+        <reference local="M_INTERNAL_CONSUMPTIONLINE_ID" foreign="M_INTERNAL_CONSUMPTIONLINE_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_INVENTORYLINE" name="SCMF_TRANS_M_INVENTORYLINE">
+        <reference local="M_INVENTORYLINE_ID" foreign="M_INVENTORYLINE_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_CLIENT" name="SCMF_TRANSB_AD_CLIENT">
+        <reference local="AD_CLIENT_ID" foreign="AD_CLIENT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_ORG" name="SCMF_TRANSB_AD_ORG">
+        <reference local="AD_ORG_ID" foreign="AD_ORG_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_UOM" name="SCMF_TRANSB_C_UOM">
+        <reference local="C_UOM_ID" foreign="C_UOM_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_COSTING_ALGORITHM" name="SCMF_TRANSB_COSTINGALGORITHM">
+        <reference local="M_COSTING_ALGORITHM_ID" foreign="M_COSTING_ALGORITHM_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_PROJECTISSUE" name="SCMF_TRANSB_CPROJECTISSUE">
+        <reference local="C_PROJECTISSUE_ID" foreign="C_PROJECTISSUE_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_CURRENCY" name="SCMF_TRANSB_CURRENCY">
+        <reference local="C_CURRENCY_ID" foreign="C_CURRENCY_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_ATTRIBUTESETINSTANCE" name="SCMF_TRANSB_M_ATTRIBUTESETIN">
+        <reference local="M_ATTRIBUTESETINSTANCE_ID" foreign="M_ATTRIBUTESETINSTANCE_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_INOUTLINE" name="SCMF_TRANSB_M_INOUTLINE">
+        <reference local="M_INOUTLINE_ID" foreign="M_INOUTLINE_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_LOCATOR" name="SCMF_TRANSB_M_LOCATOR">
+        <reference local="M_LOCATOR_ID" foreign="M_LOCATOR_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_MOVEMENTLINE" name="SCMF_TRANSB_M_MOVEMENTLINE">
+        <reference local="M_MOVEMENTLINE_ID" foreign="M_MOVEMENTLINE_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_PRODUCTIONLINE" name="SCMF_TRANSB_M_PRODLINE">
+        <reference local="M_PRODUCTIONLINE_ID" foreign="M_PRODUCTIONLINE_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_PRODUCT" name="SCMF_TRANSB_M_PRODUCT">
+        <reference local="M_PRODUCT_ID" foreign="M_PRODUCT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_PRODUCT_UOM" name="SCMF_TRANSB_M_PRODUCT_UOM">
+        <reference local="M_PRODUCT_UOM_ID" foreign="M_PRODUCT_UOM_ID"/>
+      </foreign-key>
+      <index name="SCMF_TRANSB_CALCULATED" unique="false">
+        <index-column name="ISCOSTCALCULATED"/>
+      </index>
+      <index name="SCMF_TRANSB_INOUTLINE" unique="false">
+        <index-column name="M_INOUTLINE_ID"/>
+      </index>
+      <index name="SCMF_TRANSB_INVENTORYLINE" unique="false">
+        <index-column name="M_INVENTORYLINE_ID"/>
+      </index>
+      <index name="SCMF_TRANSB_LOCATOR_IDX" unique="false">
+        <index-column name="M_LOCATOR_ID"/>
+      </index>
+      <index name="SCMF_TRANSB_MOVEMENTDATE" unique="false">
+        <index-column name="MOVEMENTDATE"/>
+      </index>
+      <index name="SCMF_TRANSB_MOVEMENTLINE" unique="false">
+        <index-column name="M_MOVEMENTLINE_ID"/>
+      </index>
+      <index name="SCMF_TRANSB_PROCESSED" unique="false">
+        <index-column name="ISPROCESSED"/>
+      </index>
+      <index name="SCMF_TRANSB_PRODUCTIONLINE" unique="false">
+        <index-column name="M_PRODUCTIONLINE_ID"/>
+      </index>
+      <check name="SCMF_TRANSACB_CURRENCY"><![CDATA[TRANSACTIONCOST IS NULL OR TRANSACTIONCOST IS NOT NULL AND C_CURRENCY_ID IS NOT NULL]]></check>
+      <check name="SCMF_TRANSB_CHECK1"><![CDATA[QUANTITYORDER IS NULL AND M_PRODUCT_UOM_ID IS NULL OR QUANTITYORDER IS NOT NULL AND M_PRODUCT_UOM_ID IS NOT NULL]]></check>
+      <check name="SCMF_TRANSB_CHECKPRICEDIF"><![CDATA[CHECKPRICEDIFFERENCE IN ('Y', 'N')]]></check>
+      <check name="SCMF_TRANSB_COSTPERMANENT"><![CDATA[ISCOSTPERMANENT IN ('Y', 'N')]]></check>
+      <check name="SCMF_TRANSB_ISACTIVE_CHECK"><![CDATA[ISACTIVE IN ('Y', 'N')]]></check>
+      <check name="SCMF_TRANSB_ISCOSTCALC_TRX"><![CDATA[ISCOSTCALCULATED IN ('Y', 'N')]]></check>
+      <check name="SCMF_TRANSB_ISPROCESSED"><![CDATA[ISPROCESSED IN ('Y', 'N')]]></check>
+    </table>
+  </database>

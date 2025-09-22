@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TAB" version="">
+  <row id="5E3F874D65534EC4953058ABFE41CA18" trl="N">
+    <value column="Name" isTrl="Y" original="Stock availability">Disponibilidad de stock</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original="List of materials that lack stock for the order."/>
+  </row>
+</compiereTrl>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE MA_PC_TEST">
+    <table name="MA_PC_TEST" primaryKey="MA_PC_TEST_KEY">
+      <column name="EM_SLQS_TYPE_VALUE" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+    </table>
+  </database>

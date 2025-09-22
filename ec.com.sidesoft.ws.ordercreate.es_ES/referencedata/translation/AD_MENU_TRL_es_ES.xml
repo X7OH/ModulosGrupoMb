@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="07EF60FAF7FE4B8E9EE2FBA026411E01" trl="N">
+    <value column="Name" isTrl="N" original="Homologation Offer Alternative">Homologation Offer Alternative</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="2AA3EB105CB9423D92B4FAE338C70EB3" trl="N">
+    <value column="Name" isTrl="Y" original="Sales Order WS Log">Log WS Pedido de Venta</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="327E806A33544B1EB11A8D1CBD595E1C" trl="N">
+    <value column="Name" isTrl="N" original="Configuración WS Pedido de Venta">Configuración WS Pedido de Venta</value>
+    <value column="Description" isTrl="N" original="Configuración WS Pedido de Venta">Configuración WS Pedido de Venta</value>
+  </row>
+  <row id="BE6B82F1DCF448DC88380B2262387444" trl="N">
+    <value column="Name" isTrl="N" original="Homologation Offer">Homologation Offer</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="FA4CED134A084B6DA3198A212875493D" trl="N">
+    <value column="Name" isTrl="N" original="Homologación Productos">Homologación Productos</value>
+    <value column="Description" isTrl="N" original="Homologación Productos">Homologación Productos</value>
+  </row>
+</compiereTrl>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SSAM_POST_ALIENATE_TRG">
+    <trigger name="SSAM_POST_ALIENATE_TRG" table="SSAM_ALIENATE" fires="before" insert="false" update="false" delete="true" foreach="row">
+      <body><![CDATA[
+
+  v_Count NUMBER;
+  
+BEGIN
+
+  IF AD_isTriggerEnabled()='N' THEN RETURN;
+  END IF;
+    
+  IF DELETING THEN
+
+    IF(:old.processed = 'Y') THEN
+     
+        RAISE_APPLICATION_ERROR(-20000, '@20501@') ;
+        
+    END IF;
+  
+  END IF;
+END SSAM_POST_ALIENATE_TRG
+]]></body>
+    </trigger>
+  </database>

@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_ComplianceProductionProjection" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.8181818181818181"/>
+	<property name="ireport.x" value="272"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="StartDate" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="EndDate" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="MA_Processplan_ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+	documentno  as "documentno"
+	,MAPP.name as "producto"
+	,MAPP.Secondaryunit as "unidad"
+	,MAP.Quantity as "cant_planificada"
+	,MAP.Donequantity as "cat_producida"
+	,to_char(round((MAP.Donequantity*100/
+	(CASE
+		WHEN coalesce(MAP.Quantity,1)<>0 THEN
+			coalesce(MAP.Quantity,1)
+		ELSE 1
+	END)),2))
+	as "cumplimiento"
+,(CASE
+		WHEN MAWR.EndDate>to_date($P{EndDate},'YYYY-MM-DD')THEN
+			to_char('Y')
+		ELSE
+		to_char('N')
+	END) as "desfasado"
+
+,round((MAP.Donequantity*100/
+	(CASE
+		WHEN coalesce(COUNTER.cat_producida,1)<>0 THEN
+			coalesce(COUNTER.cat_producida,1)
+		ELSE 1
+	END)),2) as "total_cat_produc"
+,MAPP.ad_org_id as "organization"
+ FROM (SELECT
+					SUM(MAPc.Donequantity) as "cat_producida"
+				FROM MA_WorkRequirement MAWRc
+					INNER JOIN MA_Processplan MAPPc on
+						MAPPc.MA_Processplan_ID = MAWRc.MA_Processplan_ID
+					INNER JOIN MA_WRPhase MAPc on
+						MAPc.MA_WorkRequirement_id = MAWRc.MA_WorkRequirement_id
+WHERE MAPPc.MA_Processplan_ID = $P{MA_Processplan_ID}
+AND  MAWRc.StartDate BETWEEN $P{StartDate} and $P{EndDate}
+				) COUNTER ,MA_WorkRequirement MAWR
+	INNER JOIN MA_Processplan MAPP on
+					MAPP.MA_Processplan_ID = MAWR.MA_Processplan_ID
+	INNER JOIN MA_WRPhase MAP on MAP.MA_WorkRequirement_id = MAWR.MA_WorkRequirement_id
+WHERE MAPP.MA_Processplan_ID = $P{MA_Processplan_ID}
+AND MAWR.StartDate BETWEEN $P{StartDate} and $P{EndDate}
+order by documentno]]>
+	</queryString>
+	<field name="documentno" class="java.lang.String"/>
+	<field name="producto" class="java.lang.String"/>
+	<field name="unidad" class="java.lang.String"/>
+	<field name="cant_planificada" class="java.math.BigDecimal"/>
+	<field name="cat_producida" class="java.math.BigDecimal"/>
+	<field name="cumplimiento" class="java.lang.String"/>
+	<field name="desfasado" class="java.lang.String"/>
+	<field name="total_cat_produc" class="java.math.BigDecimal"/>
+	<field name="organization" class="java.lang.String"/>
+	<variable name="v_dist_prod" class="java.lang.String"/>
+	<variable name="total_cant_Planif" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{cant_planificada}]]></variableExpression>
+	</variable>
+	<variable name="total_cant_Producida" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{cat_producida}]]></variableExpression>
+	</variable>
+	<variable name="total_cumplimiento" class="java.lang.Double">
+		<variableExpression><![CDATA[Double.valueOf($V{total_cant_Producida}.toString())*100/Double.valueOf($V{total_cant_Planif}.toString())]]></variableExpression>
+	</variable>
+	<variable name="Distrubu_prod" class="java.lang.String">
+		<variableExpression><![CDATA[$F{total_cat_produc}.toString()]]></variableExpression>
+	</variable>
+	<variable name="Total_Dis_prod" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_cat_produc}]]></variableExpression>
+	</variable>
+	<variable name="supertotal_Cumplim" class="java.lang.String">
+		<variableExpression><![CDATA[new DecimalFormat("###,###,##0.00").format($V{total_cumplimiento})]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="51" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="36" width="555" height="15"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cumplimiento de Proyección de Producción]]></text>
+			</staticText>
+			<image>
+				<reportElement x="447" y="0" width="108" height="36"/>
+				<imageExpression class="java.lang.String"><![CDATA[org.openbravo.erpCommon.utility.Utility.showImageLogo("yourcompanylegal",$F{organization})]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="65" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N. Orden de Fabricación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cant. Planificada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="388" y="0" width="59" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[% Cumplimiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="197" y="0" width="33" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Und.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="309" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cant. Producida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="65" y="0" width="132" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="513" y="0" width="42" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desfasado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="447" y="0" width="66" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Distribución de producción %]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="65" height="13"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{documentno}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="230" y="0" width="79" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{cant_planificada}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="197" y="0" width="33" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{unidad}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="309" y="0" width="79" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{cat_producida}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="65" y="0" width="132" height="13"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{producto}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="513" y="0" width="42" height="13" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="SansSerif" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{desfasado}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="388" y="0" width="59" height="13" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="SansSerif" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cumplimiento}+"%"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="447" y="0" width="66" height="13" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="SansSerif" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{Distrubu_prod}+"%"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="1" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="2" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="230" y="0" width="79" height="13" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="SansSerif" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{total_cant_Planif}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="309" y="0" width="79" height="13" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="SansSerif" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{total_cant_Producida}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="447" y="0" width="66" height="13" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="SansSerif" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{Total_Dis_prod}.toString()+"%"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="388" y="0" width="59" height="13" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="SansSerif" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{supertotal_Cumplim}.toString()+"%"]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

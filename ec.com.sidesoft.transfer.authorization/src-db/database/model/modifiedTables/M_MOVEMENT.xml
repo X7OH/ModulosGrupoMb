@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE M_MOVEMENT">
+    <table name="M_MOVEMENT" primaryKey="M_MOVEMENT_KEY">
+      <column name="EM_STAT_GENERATE_CODE" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default><![CDATA[ND]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_STAT_CODE_AUTHORIZATION" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_STAT_CREATE_CODE_DATE" primaryKey="false" required="false" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_STAT_PROCESSING" primaryKey="false" required="false" type="CHAR" size="1" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+    </table>
+  </database>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="039B41962EE54090BD010BF2683056A3" trl="N">
+    <value column="MsgText" isTrl="Y" original="It can not be completed because there are lines with Requested status.">No se puede completar porque existen lineas con estado Solicitado.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="244B69C831A44878A8A3BD670D5CFD11" trl="N">
+    <value column="MsgText" isTrl="Y" original="The selected transaction is not in requested status.">La transacción seleccionada no se encuentra en estado solicitado.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="32C9608ECEDA4810BDB2734C9970F817" trl="N">
+    <value column="MsgText" isTrl="Y" original="It can not be completed because there are lines with an empty state.">No se puede completar porque existen lineas con estado vacio.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="3B993B235DBF4D8CB172358DA411C266" trl="N">
+    <value column="MsgText" isTrl="Y" original="The selected product has not configured the &quot;Periodic Control&quot; field">El producto seleccionado no tiene configurado el campo "Control Periódico".</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="5D2B382AD93C407F87CF4E7F9DA5FF2B" trl="N">
+    <value column="MsgText" isTrl="Y" original="The transaction does not have a product configured.">La transacción no tiene un producto configurado.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="A2C9F9961B6B481B905E94460559ACAD" trl="N">
+    <value column="MsgText" isTrl="Y" original="You must select a warehouse.">Debe seleccionar un almacén.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="C5526AB9DF1442BF9AE51A7BE35F2A4E" trl="N">
+    <value column="MsgText" isTrl="Y" original="This product is already registered on the movement screen between warehouses.">Este producto ya se encuentra registro en la pantalla movimiento entre almacenes.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="DFB601F0604E4E309EA0A74068CFC50D" trl="N">
+    <value column="MsgText" isTrl="Y" original="The line can not be deleted in the Approved / Not Approved state.">No se puede eliminar la linea en estado Aprobado/No Aprobado.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

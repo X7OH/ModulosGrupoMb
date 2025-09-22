@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
+  <row id="4003B981B16B42F3A061644F3970B550" trl="N">
+    <value column="Name" isTrl="Y" original="Cashups Background Process">Proceso Background de Cierre de Cajas</value>
+    <value column="Description" isTrl="Y" original="This process update the cashups, of the orders in status 'Register' and 'In progress'">Este proceso actualiza los cierres de cajas, con las ordenes en estado 'Registrado' y 'En progreso'</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="48D797375D1D421BB9F146AF8546E879" trl="N">
+    <value column="Name" isTrl="N" original="Process Background Cashups">Actualizar Cierre de Caja</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

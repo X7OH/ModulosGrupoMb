@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION CSCPIR_ORDERCOMPLETE">
+    <function name="CSCPIR_ORDERCOMPLETE" type="NULL">
+      <parameter name="p_ep_instance" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[p_message VARCHAR(2000);
+p_record_id VARCHAR(60);
+p_docAction VARCHAR(60);
+p_user VARCHAR(60);
+p_result NUMBER;
+
+v_issotrx VARCHAR2(1); 
+v_grandtotal NUMBER;
+v_ResultStr VARCHAR2(500);
+v_isreturn VARCHAR2(1); 
+v_status   VARCHAR2(60); 
+v_docaction VARCHAR2(60); 
+
+TYPE RECORD IS REF CURSOR;
+Cur_Params RECORD;
+Cur_orderline RECORD;
+
+v_OrderID VARCHAR(32);
+v_countvoided NUMBER;
+v_countvoided2 NUMBER;
+
+BEGIN
+
+  FOR Cur_Params IN (
+    SELECT *
+    FROM ad_ep_instance_para
+    WHERE ad_ep_instance_id = p_ep_instance
+    ) LOOP
+    IF (cur_params.parametername LIKE 'DocAction') THEN
+      p_docaction := Cur_Params.p_string;
+    ELSIF (cur_params.parametername LIKE 'Record_ID') THEN
+      p_record_id := cur_params.p_string;
+    ELSIF (cur_params.parametername LIKE 'User') THEN
+      p_user := cur_params.p_string;
+    ELSIF (cur_params.parametername LIKE 'Message') THEN
+      p_message := cur_params.p_text;
+    ELSIF (cur_params.parametername LIKE 'Result') THEN
+      p_result := cur_params.p_number;
+    END IF;
+  END LOOP;
+
+		
+
+	SELECT count(*) INTO v_countvoided FROM m_inoutline WHERE m_inout_id = p_record_id AND canceled_inoutline_id IS NOT NULL;
+
+	SELECT count(*) INTO v_countvoided2
+	FROM m_inoutline mi
+	INNER JOIN m_inoutline mil ON mi.m_inoutline_id = mil.canceled_inoutline_id
+	WHERE mi.m_inout_id = p_record_id;
+
+	IF (p_docaction ='CO' AND v_countvoided = 0 AND v_countvoided2 = 0) THEN
+
+
+
+		SELECT
+		COALESCE((SELECT C_ORDER_ID
+		FROM M_INOUT 
+		WHERE  M_INOUT_ID = p_record_id
+		AND ISSOTRX='N'
+		--AND DOCACTION NOT IN ('VO','DR')
+		--AND DOCSTATUS = 'CO'
+		),'ND')
+		INTO v_OrderID 
+		FROM DUAL;
+
+		IF (v_OrderID<>'ND') THEN 
+			CSCPIR_ORDER_POST2(NULL, v_OrderID, 'N', 'CL');
+		END IF;
+
+	END IF;
+
+EXCEPTION
+WHEN OTHERS THEN
+v_ResultStr =SQLERRM;
+  DBMS_OUTPUT.PUT_LINE( v_ResultStr);
+  RAISE v_ResultStr;
+END CSCPIR_ORDERCOMPLETE
+]]></body>
+    </function>
+  </database>

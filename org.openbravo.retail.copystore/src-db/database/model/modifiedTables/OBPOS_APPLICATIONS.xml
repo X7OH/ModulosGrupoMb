@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE OBPOS_APPLICATIONS">
+    <table name="OBPOS_APPLICATIONS" primaryKey="OBPOS_APP_PK">
+      <column name="EM_OBPOSCS_COPY_TERMINAL" primaryKey="false" required="false" type="CHAR" size="1" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+    </table>
+  </database>

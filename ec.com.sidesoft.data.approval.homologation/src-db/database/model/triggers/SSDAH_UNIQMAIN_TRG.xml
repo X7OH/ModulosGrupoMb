@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SSDAH_UNIQMAIN_TRG">
+    <trigger name="SSDAH_UNIQMAIN_TRG" table="SSDAH_MOC_PRODUCT" fires="before" insert="true" update="true" delete="false" foreach="row">
+      <body><![CDATA[
+v_count NUMBER:=0;
+
+BEGIN
+
+    IF AD_isTriggerEnabled()='N' THEN RETURN;
+    END IF;
+
+    SELECT count(*) 
+    INTO v_count 
+    FROM ssdah_moc_product cp 
+    WHERE cp.Ssdah_Mmo_Oc_Family_ID = :new.Ssdah_Mmo_Oc_Family_ID 
+    AND cp.Ssdah_Msrb_Main='Y'
+    AND cp.ssdah_moc_product_id NOT IN( :new.ssdah_moc_product_id) ;
+    
+    IF(INSERTING) THEN
+	    IF (v_count>0) THEN
+	      IF(:new.Ssdah_Msrb_Main <> 'N') THEN
+		RAISE_APPLICATION_ERROR(-20000, '@Ssrcb_Only_One_Main@');
+	      END IF;    
+	    END IF;	
+    END IF;
+    	
+    IF(UPDATING) THEN
+	    IF (v_count>0) THEN
+	      IF(:new.Ssdah_Msrb_Main <> :old.Ssdah_Msrb_Main) THEN
+		RAISE_APPLICATION_ERROR(-20000, '@Ssrcb_Only_One_Main@');
+	      END IF;    
+	    END IF;
+    END IF;     		
+
+END SSDAH_UNIQMAIN_TRG
+]]></body>
+    </trigger>
+  </database>

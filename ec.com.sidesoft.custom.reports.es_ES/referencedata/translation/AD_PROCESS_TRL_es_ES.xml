@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
+  <row id="41F848D967D5415E9555037DB8553C0B" trl="N">
+    <value column="Name" isTrl="N" original="GENERIC - PRINT WITHHOLDING">GENERIC - PRINT WITHHOLDING</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="5860C402EFCC489E81DA2F2919F9E161" trl="N">
+    <value column="Name" isTrl="N" original="GENERIC - PRINT GOODS MOVEMENTS">GENERIC - PRINT GOODS MOVEMENTS</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

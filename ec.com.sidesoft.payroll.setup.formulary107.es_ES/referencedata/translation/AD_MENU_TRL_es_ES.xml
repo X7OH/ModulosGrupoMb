@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="3F819DCA02FF41BFB01BF15C43FA9246" trl="Y">
+    <value column="Name" isTrl="Y" original="social_security_entity">Ente de seguridad social</value>
+    <value column="Description" isTrl="Y" original="social_security_entity">Ente de seguridad social</value>
+  </row>
+  <row id="5A49B6E08AEF4152A09EE04D015B1E27" trl="Y">
+    <value column="Name" isTrl="Y" original="Type of employer">Tipo de empleador</value>
+    <value column="Description" isTrl="Y" original="Type of employer">Tipo de empleador</value>
+  </row>
+  <row id="99CDF54AC5034C09821FF7700612E038" trl="Y">
+    <value column="Name" isTrl="Y" original="Setup">Configuración</value>
+    <value column="Description" isTrl="Y" original="Setup">Settings</value>
+  </row>
+</compiereTrl>

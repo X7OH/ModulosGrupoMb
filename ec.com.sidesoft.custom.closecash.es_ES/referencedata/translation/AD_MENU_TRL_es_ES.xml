@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="31D31B3CCA3B493E9DD8FDA2A262F3A1" trl="Y">
+    <value column="Name" isTrl="Y" original="Cash Clousure">Cierre de caja</value>
+    <value column="Description" isTrl="N" original="Cash Clousure"/>
+  </row>
+  <row id="8076507F1C414E45865DA7CF1FB572B9" trl="Y">
+    <value column="Name" isTrl="Y" original="Close Cash">Cierre de caja</value>
+    <value column="Description" isTrl="Y" original="All Windows of Close Cash ">Cierre de caja</value>
+  </row>
+  <row id="B7DEA74532964573BF3C115B7E67451F" trl="Y">
+    <value column="Name" isTrl="Y" original="Cash Clousure - Admin">Cierre de Caja - Administrador</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="F7D7220E08DA4310A4B19025A2895423" trl="Y">
+    <value column="Name" isTrl="Y" original="Setup - Close Cash">Configuración</value>
+    <value column="Description" isTrl="N" original="Setup of close cash"/>
+  </row>
+</compiereTrl>

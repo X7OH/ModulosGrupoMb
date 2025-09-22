@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_FIELD" version="">
+  <row id="29B115FDF18741F0B7F8D14B35CA6010" trl="N">
+    <value column="Name" isTrl="Y" original="Discount">Descuento %</value>
+    <value column="Description" isTrl="Y" original="Discount in percent">Descuento en porcentaje</value>
+    <value column="Help" isTrl="Y" original="The Discount indicates the discount applied as a percentage of the List Price.">Indica el descuento aplicado o recogido como porcentaje de la Lista de Precios.</value>
+  </row>
+  <row id="4AA8686A1E5D474EAF416520A39D258C" trl="N">
+    <value column="Name" isTrl="Y" original="Alternate Taxable Amount">Base imponible alternativa</value>
+    <value column="Description" isTrl="Y" original="The total sum on which taxes are added.">Suma total con impuestos incluídos</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="8BACF01116254AD4B13F84A59F4ADB9A" trl="N">
+    <value column="Name" isTrl="Y" original="Net List Price">Precio tarifa</value>
+    <value column="Description" isTrl="Y" original="The official net price of a product in a specified currency.">El precio oficial neto de un producto en la moneda especificada.</value>
+    <value column="Help" isTrl="Y" original="The Net List Price is the official price stated by the selected pricelist and the currency of the document.">El precio neto de la lista es el precio oficial declarado por la lista de precios seleccionada y la moneda del documento.</value>
+  </row>
+</compiereTrl>

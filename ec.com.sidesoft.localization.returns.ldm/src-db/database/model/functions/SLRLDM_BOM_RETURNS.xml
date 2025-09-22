@@ -1,0 +1,208 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SLRLDM_BOM_RETURNS">
+    <function name="SLRLDM_BOM_RETURNS" type="NUMERIC">
+      <parameter name="p_product_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <parameter name="p_warehouse_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <parameter name="p_locator_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <parameter name="p_qty" type="NUMERIC" mode="in">
+        <default/>
+      </parameter>
+      <parameter name="p_instance_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <parameter name="p_org_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <parameter name="p_client_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <parameter name="p_createdby" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[v_myWarehouse_ID VARCHAR2(32);
+    v_Quantity NUMBER:=99999; -- unlimited
+    v_IsBOM CHAR(1) ;
+    v_IsStocked CHAR(1) ;
+    v_ProductType VARCHAR(60) ;
+    v_ProductQty NUMBER;
+    v_StdPrecision NUMBER;
+    v_QtyBoomNeed NUMBER;
+    v_boomProduct_ID VARCHAR2(32);
+    v_ProductQtyTemp  NUMBER;
+
+    
+    -- Get BOM Product info
+  TYPE RECORD IS REF CURSOR;
+    CUR_BOM RECORD;
+    --
+  BEGIN
+    -- Check Parameters
+    v_myWarehouse_ID:=p_Warehouse_ID;
+     
+    IF(v_myWarehouse_ID IS NULL) THEN
+      IF(p_Locator_ID IS NULL) THEN
+        RETURN 0;
+      ELSE
+        SELECT MAX(M_Warehouse_ID)
+        INTO v_myWarehouse_ID
+        FROM M_LOCATOR
+        WHERE M_Locator_ID=p_Locator_ID;
+      END IF;
+    END IF;
+    IF(v_myWarehouse_ID IS NULL) THEN
+      RETURN 0;
+    END IF;
+
+
+    -- DBMS_OUTPUT.PUT_LINE('Warehouse=' || v_myWarehouse_ID);
+    -- Check, if product exists and if it is stocked
+  BEGIN
+    SELECT IsBOM, ProductType, IsStocked
+    INTO v_IsBOM, v_ProductType, v_IsStocked
+    FROM M_PRODUCT
+    WHERE M_Product_ID=p_Product_ID;
+    --
+  EXCEPTION -- not found
+  WHEN OTHERS THEN
+    RETURN 0;
+  END;
+
+  -- Unimited capacity if no item
+  IF((v_ProductType<>'I' OR(v_IsStocked='N' AND(v_IsBOM='N')))) THEN
+    RETURN v_Quantity;
+    -- Stocked item
+  ELSIF(v_IsStocked='Y') THEN
+    -- Get ProductQty
+    SELECT COALESCE(SUM(QtyOnHand), 0)
+    INTO v_ProductQty
+    FROM M_STORAGE_DETAIL s
+    WHERE M_Product_ID=p_Product_ID  AND EXISTS
+      (SELECT *
+      FROM M_LOCATOR l
+      WHERE s.M_Locator_ID=l.M_Locator_ID  AND l.M_Warehouse_ID=v_myWarehouse_ID
+      )
+      ;
+    --
+    -- DBMS_OUTPUT.PUT_LINE('Qty=' || v_ProductQty);
+    --RETURN v_ProductQty;
+  END IF;
+  -- Go though BOM
+  -- DBMS_OUTPUT.PUT_LINE('BOM');
+  FOR CUR_BOM IN
+    (SELECT b.M_ProductBOM_ID, b.BOMQty, p.IsBOM, p.IsStocked, p.ProductType, p.name as prodname
+    FROM M_PRODUCT_BOM b, M_PRODUCT p 
+    WHERE b.M_ProductBOM_ID=p.M_Product_ID AND b.isactive='Y' 
+    AND b.M_Product_ID=p_Product_ID
+    )
+  LOOP
+
+	v_QtyBoomNeed:= CUR_BOM.BOMQty;
+	--RAISE notice '%',  'receta: ' || CUR_BOM.prodname || ' - devolver: ' || v_QtyBoomNeed;
+	
+    -- Stocked Items "leaf node"
+    IF(CUR_BOM.ProductType='I' AND CUR_BOM.IsBOM='N' AND CUR_BOM.IsStocked = 'Y') THEN
+      -- Get v_ProductQty
+      /*SELECT COALESCE(SUM(QtyOnHand), 0)
+      INTO v_ProductQty
+      FROM M_STORAGE_DETAIL s
+      WHERE M_Product_ID=CUR_BOM.M_ProductBOM_ID 
+      and s.M_Locator_ID = p_locator_id ;*/
+
+      SELECT COALESCE(MAX(u.StdPrecision), 0)
+      INTO v_StdPrecision
+      FROM C_UOM u, M_PRODUCT p
+      WHERE u.C_UOM_ID=p.C_UOM_ID AND p.M_Product_ID=CUR_BOM.M_ProductBOM_ID;
+      
+
+        INSERT INTO SLRLDM_RETURNS_RAWMAT(SLRLDM_RETURNS_RAWMAT_ID,	AD_CLIENT_ID,	AD_ORG_ID,	ISACTIVE,	CREATED,			CREATEDBY,
+					  UPDATED,			UPDATEDBY,	M_PRODUCT_ID,	M_LOCATOR_ID,	QTYRETURN,			INSTANCEID)
+			 	   VALUES(GET_UUID(),			p_client_id,	p_org_id,	'Y',		now(),			p_createdby,
+			 	   	  now(),		p_createdby,	CUR_BOM.M_ProductBOM_ID,	p_locator_id,
+			 	   	  	--ROUND(ABS(v_QtyBoomNeed *  p_qty ), v_StdPrecision)
+			 	   	  	ABS(v_QtyBoomNeed *  p_qty )
+
+			 	   	  , 	p_instance_id
+			 	          );
+
+      DBMS_OUTPUT.PUT_LINE( '	Material: ' || CUR_BOM.prodname || ' - tiene: ' || to_char(v_ProductQty)  || ' - ' || CUR_BOM.M_ProductBOM_ID  || '- Recetacantidad:' || p_qty || ' - Usando:' || v_QtyBoomNeed *  p_qty) ;
+
+ 			 	          
+      -- Get Rounding Precision
+      /*SELECT COALESCE(MAX(u.StdPrecision), 0)
+      INTO v_StdPrecision
+      FROM C_UOM u, M_PRODUCT p
+      WHERE u.C_UOM_ID=p.C_UOM_ID AND p.M_Product_ID=CUR_BOM.M_ProductBOM_ID;
+      -- How much can we make with this product
+      IF COALESCE(CUR_BOM.BOMQty, 0)=0 THEN
+        v_ProductQty:=0;
+      ELSE
+        v_ProductQty:=ROUND(v_ProductQty/CUR_BOM.BOMQty, v_StdPrecision) ;
+      END IF;
+      -- How much can we make overall
+      IF(v_ProductQty<v_Quantity) THEN
+        v_Quantity:=v_ProductQty;
+      END IF;*/
+      -- Another BOM
+    ELSIF(CUR_BOM.IsBOM='Y') THEN
+
+
+	SELECT coalesce((SELECT COALESCE(SUM(QtyOnHand), 0)
+	FROM M_STORAGE_DETAIL s
+	WHERE M_Product_ID=p_Product_ID  AND EXISTS
+	(SELECT *
+	FROM M_LOCATOR l
+	WHERE s.M_Locator_ID=l.M_Locator_ID  AND l.M_Warehouse_ID=v_myWarehouse_ID
+	)),0)
+	INTO v_ProductQtyTemp
+	FROM DUAL;
+
+
+      
+
+      INSERT INTO SLRLDM_RETURNS_RAWMAT(SLRLDM_RETURNS_RAWMAT_ID,	AD_CLIENT_ID,	AD_ORG_ID,	ISACTIVE,	CREATED,			CREATEDBY,
+					UPDATED,			UPDATEDBY,	M_PRODUCT_ID,	M_LOCATOR_ID,	QTYRETURN,			INSTANCEID)
+			 	 VALUES(GET_UUID(),			p_client_id,	p_org_id,	'Y',		now(),			p_createdby,
+			 	   	now(),		p_createdby,	CUR_BOM.M_ProductBOM_ID,	p_locator_id,	abs(CUR_BOM.BOMQty-v_ProductQtyTemp), 	p_instance_id
+			 	        );
+
+      DBMS_OUTPUT.PUT_LINE( '** LDM: ' || CUR_BOM.prodname || '- Recetacantidad:' || p_qty  || ' - Usando:' || TO_CHAR(v_QtyBoomNeed *  p_qty)) ;
+			 	        
+      v_boomProduct_ID:= CUR_BOM.M_ProductBOM_ID;
+
+      SELECT COALESCE((select slrldm_bom_returns(v_boomProduct_ID, v_myWarehouse_ID,p_locator_id, (v_QtyBoomNeed *  p_qty),
+					 p_instance_id,  p_org_id , p_client_id , p_createdby 
+				      ) from dual
+				      ),0)
+      INTO v_ProductQty
+      FROM DUAL;
+				      
+      -- How much can we make overall
+      IF(v_ProductQty<v_Quantity) THEN
+        v_Quantity:=v_ProductQty;
+      END IF;
+      
+    END IF;
+  END LOOP; -- BOM
+  
+  IF(v_Quantity>0) THEN
+    -- Get Rounding Precision for Product
+    SELECT COALESCE(MAX(u.StdPrecision), 0)
+    INTO v_StdPrecision
+    FROM C_UOM u, M_PRODUCT p
+    WHERE u.C_UOM_ID=p.C_UOM_ID AND p.M_Product_ID=p_Product_ID;
+    --
+
+    --RETURN ROUND(v_Quantity, v_StdPrecision) ;
+    RETURN v_Quantity;
+  END IF;
+  RETURN 0;
+END SLRLDM_BOM_RETURNS
+]]></body>
+    </function>
+  </database>

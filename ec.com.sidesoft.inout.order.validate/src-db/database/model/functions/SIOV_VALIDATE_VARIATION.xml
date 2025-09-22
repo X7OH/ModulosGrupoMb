@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SIOV_VALIDATE_VARIATION">
+    <function name="SIOV_VALIDATE_VARIATION" type="NULL">
+      <parameter name="p_ep_instance" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[v_message	    VARCHAR2(999999); 
+p_record_id         VARCHAR2(60);     
+p_docaction         VARCHAR2(60);     
+v_islogistic	    VARCHAR2(1);      
+v_isreturn	    VARCHAR2(1);      
+v_issotrx	    VARCHAR2(1);      
+v_movementtype	    VARCHAR2(60);     
+v_variation_val     VARCHAR2(1);      
+v_percentage_var     NUMBER;
+v_variation          NUMBER;
+
+TYPE RECORD IS REF CURSOR;
+cur_params          RECORD;
+cur_lines           RECORD;
+cur_percentage      RECORD;
+BEGIN
+
+	FOR cur_params IN (
+	  SELECT *
+	  FROM ad_ep_instance_para
+	  WHERE ad_ep_instance_id = p_ep_instance
+	  ) LOOP
+	  IF (cur_params.parametername LIKE 'Record_ID') THEN
+	    p_record_id := cur_params.p_string;
+	  END IF;
+	  IF (cur_params.parametername LIKE 'DocAction') THEN
+	    p_docaction := cur_params.p_string;
+	  END IF;
+	END LOOP;
+	  
+	SELECT mi.issotrx, mi.isLogistic, mi.movementtype,dt.isreturn, dt.em_siov_variation_validate
+	INTO v_issotrx, v_islogistic, v_movementtype, v_isreturn, v_variation_val
+	FROM m_inout mi  
+	LEFT JOIN c_doctype dt ON mi.c_doctype_id = dt.c_doctype_id
+	WHERE mi.m_inout_id= p_record_id;
+
+	IF (p_docaction ='CO' AND v_issotrx='N' AND v_islogistic ='N' AND v_movementtype IN ('V-','V+') AND v_isreturn ='N' AND v_variation_val='Y') THEN
+
+		FOR cur_lines IN (
+			SELECT sum(mi.movementqty) as movementqty, co.qtyordered, mp.name, ml.m_warehouse_id, mw.ad_org_id,mi.ad_client_id, mw.name as bodega, mi.m_product_id
+			FROM m_inoutline mi
+			INNER JOIN c_orderline co ON mi.c_orderline_id = co.c_orderline_id
+			LEFT JOIN m_product mp ON mi.m_product_id = mp.m_product_id
+			LEFT JOIN m_locator ml ON mi.m_locator_id = ml.m_locator_id
+			LEFT JOIN m_warehouse mw ON ml.m_warehouse_id = mw.m_warehouse_id		
+			WHERE mi.m_inout_id = p_record_id and mp.em_siov_validatevariation='Y'
+			GROUP BY co.qtyordered,mp.name, ml.m_warehouse_id, mw.ad_org_id,mi.ad_client_id, mw.name, mi.m_product_id			
+			ORDER BY max(mi.line) asc
+		) LOOP	
+			v_percentage_var:=NULL;
+			FOR cur_percentage IN (
+				SELECT variation_percentage
+				FROM siov_variation_percentage vp 
+				WHERE
+				((cur_lines.m_warehouse_id = vp.m_warehouse_id) OR (AD_ISORGINCLUDED(cur_lines.ad_org_id,vp.ad_org_id,cur_lines.ad_client_id)<>-1 AND vp.m_warehouse_id IS NULL))
+				AND vp.m_product_id = cur_lines.m_product_id
+				ORDER BY AD_ISORGINCLUDED(cur_lines.ad_org_id,vp.ad_org_id,cur_lines.ad_client_id) DESC
+			)LOOP
+				v_percentage_var := cur_percentage.variation_percentage;
+			END LOOP;
+
+			IF (v_percentage_var IS NOT NULL) THEN
+
+				IF (COALESCE(cur_lines.movementqty,0)>=0) THEN
+					v_variation := COALESCE(cur_lines.qtyordered,0) - COALESCE(cur_lines.movementqty,0);
+
+					IF (v_variation<>0) THEN
+						v_variation := (abs(v_variation)*100) / COALESCE(cur_lines.qtyordered,0);		
+						IF (v_variation > v_percentage_var) THEN
+							IF (v_message IS NOT NULL) THEN
+								v_message := v_message||'<br>';
+							END IF;
+							v_message:=COALESCE(v_message,'')||'@Siov_ForTheProduct@'''|| COALESCE(cur_lines.name,'') ||''' @Siov_VariationOutRange@'||' ('||v_percentage_var||'%)';
+						END IF;
+					END IF;
+				END IF;
+			END IF;
+			
+		END LOOP;
+
+		IF(v_message IS NOT NULL) THEN
+			RAISE_APPLICATION_ERROR(-20000,v_message);
+		END IF;
+	END IF;
+
+	
+	
+EXCEPTION
+WHEN OTHERS THEN
+    RAISE;
+END SIOV_VALIDATE_VARIATION
+]]></body>
+    </function>
+  </database>

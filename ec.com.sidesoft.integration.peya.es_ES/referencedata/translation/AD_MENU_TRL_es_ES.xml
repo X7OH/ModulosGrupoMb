@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="13440FAA3C1B48E69022FC99D120150F" trl="N">
+    <value column="Name" isTrl="N" original="PedidosYA">PedidosYA</value>
+    <value column="Description" isTrl="N" original="PedidosYA">PedidosYA</value>
+  </row>
+  <row id="32DF658E29EC47B5B6DE390FC7F684B1" trl="Y">
+    <value column="Name" isTrl="Y" original="PedidosYA Canlcell Reasons">PedidosYA Motivos de Rechazo</value>
+    <value column="Description" isTrl="N" original="">PedidosYA Motivos de Rechazo</value>
+  </row>
+  <row id="A5F4A64A4CF2424992C46793830593F6" trl="Y">
+    <value column="Name" isTrl="Y" original="Pedidos YA Open/Close Stores">PedidosYA Abrir/Cerrar Tiendas</value>
+    <value column="Description" isTrl="N" original="">PedidosYA Abrir/Cerrar Tiendas</value>
+  </row>
+  <row id="FB58291F2BDF43A6B0B6FFBB2537D675" trl="Y">
+    <value column="Name" isTrl="Y" original="PedidosYA Config">PedidosYA Configuracion</value>
+    <value column="Description" isTrl="Y" original="PedidosYA Config">PedidosYA Configuracion</value>
+  </row>
+</compiereTrl>

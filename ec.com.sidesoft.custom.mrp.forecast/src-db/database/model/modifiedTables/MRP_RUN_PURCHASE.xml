@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE MRP_RUN_PURCHASE">
+    <table name="MRP_RUN_PURCHASE" primaryKey="MRP_RUN_PURCHASE_KEY">
+      <column name="EM_SCMF_HISTORYDAYS" primaryKey="false" required="false" type="DECIMAL" size="10,0" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+    </table>
+  </database>

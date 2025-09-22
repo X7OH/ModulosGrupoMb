@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TAB" version="">
+  <row id="1745167797284B539B0BD346424CBCB6" trl="Y">
+    <value column="Name" isTrl="Y" original="Default products">Productos por defecto</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">Productos por defecto</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="38D6ED7D6C114469AAF12AC180909641" trl="Y">
+    <value column="Name" isTrl="Y" original="Payment Term">Tarjetas call center</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="60577A85115F4685BD047375F5AD2133" trl="Y">
+    <value column="Name" isTrl="Y" original="Financial Entity">Entidad financiera</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="769F6792CD6C4E62BCAFE87F0957E22D" trl="N">
+    <value column="Name" isTrl="N" original="Call Center Order Configuration">Call Center Order Configuration</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="784628E7110348BE9D90B1AA280C2AF8" trl="N">
+    <value column="Name" isTrl="N" original="Lines">Lines</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="B5872828CEAE42BEB2A134A535D01F19" trl="N">
+    <value column="Name" isTrl="N" original="Call Center Order">Call Center Order</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

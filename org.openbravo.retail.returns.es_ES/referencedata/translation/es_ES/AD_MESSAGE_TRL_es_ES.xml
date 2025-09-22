@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="2D7379FB65554D0DA2AFF2DA234C8AF7" trl="N">
+    <value column="MsgText" isTrl="Y" original="Rem. Qty">Borrar Cantidad</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="31A4800337384A27AF86F58901854342" trl="N">
+    <value column="MsgText" isTrl="Y" original="Price">Precio</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="4D8FAF09366444539424CA199B7814DC" trl="N">
+    <value column="MsgText" isTrl="Y" original="Verified Returns">Devoluciones verificadas</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="605EEDA168B94D7FA1F790A1867E437C" trl="N">
+    <value column="MsgText" isTrl="Y" original="You cannot change the quantity of a line from original receipt">No se puede modificar la cantidad de una línea del recibo original</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="60647156393D4CC8974A10C4115C44BC" trl="N">
+    <value column="MsgText" isTrl="Y" original="Tot. Qty">Cantidad total</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="75C1414C11A844D788F4D3B9D8AB331E" trl="N">
+    <value column="MsgText" isTrl="Y" original="The return receipt can not be loaded because it has got some line with a product that it is not exists in local database.">El recibo de devolución no se puede cargar porque contiene líneas con un producto que no existe en la base de datos local.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="8A3762BE6E274D38AD6A25C71E7B90C6" trl="N">
+    <value column="MsgText" isTrl="Y" original="Qty">Cantidad</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="9CF0D207EBB0493ABCCF24C176989D8E" trl="N">
+    <value column="MsgText" isTrl="Y" original="Attribute">Atributo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="AD718FC097D64644981C0DF27CDC7C87" trl="N">
+    <value column="MsgText" isTrl="Y" original="The overdue days to return the following services have expired:%0">Los días atrasados para devolver el siguiente servicio ha expirado:%0</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="C16139CA3A94417BBD9F6F6CED3B2C9E" trl="N">
+    <value column="MsgText" isTrl="Y" original="Please scan the attributes to validate with order.">Por favor escanee el atributo para válidar con la orden.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="C4A9EC3ECD6C4E4586E438B4AD7AF2BC" trl="N">
+    <value column="MsgText" isTrl="Y" original="Product Name">Producto</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="D262C859B1AF4D128D63FB3A785F7D2F" trl="N">
+    <value column="MsgText" isTrl="Y" original="Not returnable">No retornable</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="DA41610886784A27B5C40E2D4581D63C" trl="N">
+    <value column="MsgText" isTrl="Y" original="Information">Información</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="DBFB1CC76D4A4ED4B69767598DC7758A" trl="N">
+    <value column="MsgText" isTrl="Y" original="Fully Returned">Devolver completamente</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="E52B28ABDB924EA3BF32B1B94459252F" trl="N">
+    <value column="MsgText" isTrl="Y" original="Original Receipt:">Recibo original:</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="F5FAD13937AE42D99394AC9DA9CBD6D0" trl="N">
+    <value column="MsgText" isTrl="Y" original="The returned quantity exceeds the order quantity for products">La cantidad devuelta excede la cantidad de productos del pedido</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

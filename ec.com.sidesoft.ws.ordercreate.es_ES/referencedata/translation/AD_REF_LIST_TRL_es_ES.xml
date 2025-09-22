@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REF_LIST" version="">
+  <row id="41F545CDF50D49F68BD185A87EA941F7" trl="N">
+    <value column="Name" isTrl="N" original="CHATBOT">CHATBOT</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="54BE95CD888143378FC8D0CA10A79476" trl="N">
+    <value column="Name" isTrl="N" original="WEB">WEB</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
+  <row id="5B185BE3BACB4E8AAAB5B513F02D564A" trl="Y">
+    <value column="Name" isTrl="Y" original="SSRBD_Status">Estados Depositos Bancarios</value>
+    <value column="Description" isTrl="N" original="">Estados Depositos Bancarios</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="ADAB437197E9403C8A69B81AEF8D09D2" trl="N">
+    <value column="Name" isTrl="N" original="SSRBD_BankDepositsTerminalPDV">SSRBD_BankDepositsTerminalPDV</value>
+    <value column="Description" isTrl="N" original="Bank Deposits Terminal PDV">Bank Deposits Terminal PDV</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="CD7B000C48784E44A5FD2B23C317CA56" trl="N">
+    <value column="Name" isTrl="N" original="TPV Bank Deposits">TPV Bank Deposits</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

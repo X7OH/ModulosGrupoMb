@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
+  <row id="3AEC014D73DA428A836B47607780CF37" trl="N">
+    <value column="Name" isTrl="N" original="c_invoice_id-Spinl">c_invoice_id-Spinl</value>
+    <value column="Description" isTrl="N" original="c_invoice_id-Spinl">c_invoice_id-Spinl</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="4E0D2F6F851149B191E91DC9779501C5" trl="N">
+    <value column="Name" isTrl="N" original="EM_Spinl_M_Locator_ID">EM_Spinl_M_Locator_ID</value>
+    <value column="Description" isTrl="N" original="EM_Spinl_M_Locator_ID">EM_Spinl_M_Locator_ID</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="963753EF326643C3815CA50C3ECCF261" trl="N">
+    <value column="Name" isTrl="N" original="M_Warehouse_ID-Spinl">M_Warehouse_ID-Spinl</value>
+    <value column="Description" isTrl="N" original="M_Warehouse_ID-Spinl">M_Warehouse_ID-Spinl</value>
+    <value column="Help" isTrl="N" original="M_Warehouse_ID-Spinl">M_Warehouse_ID-Spinl</value>
+  </row>
+</compiereTrl>

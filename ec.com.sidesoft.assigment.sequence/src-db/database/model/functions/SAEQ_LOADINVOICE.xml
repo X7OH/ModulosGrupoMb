@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SAEQ_LOADINVOICE">
+    <function name="SAEQ_LOADINVOICE" type="NULL">
+      <parameter name="pinstance_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[TYPE RECORD IS REF CURSOR;
+    Cur_Parameter RECORD;
+    cursor_inv RECORD;
+    cur_secuencial RECORD;
+
+-- Logistice
+  v_User_ID VARCHAR2(32) ;
+  v_ResultStr VARCHAR2(2000):='';
+  v_Message VARCHAR2(2000):='';
+  v_Record_ID VARCHAR2(32);
+  V_assign_secuence_id VARCHAR(32);
+  V_begin_date DATE;
+  V_end_date DATE;
+  V_name VARCHAR2(32);
+  V_documentno VARCHAR2(32);
+  V_c_invoice_id VARCHAR2(32);
+  V_obpos_applications_id VARCHAR2(32);
+  V_ecsds_compro_type_id VARCHAR2(32);
+  V_ad_client_id VARCHAR(32);
+  V_ad_org_id VARCHAR(32);
+  V_caja VARCHAR(10);
+  V_usados NUMBER;
+  V_maximo NUMBER;
+
+ 
+  BEGIN
+    --  Update AD_PInstance
+  DBMS_OUTPUT.PUT_LINE('Updating PInstance - Processing ' || PInstance_ID) ;
+  v_ResultStr := 'PInstanceNotFound';
+  AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'Y', NULL, NULL) ;
+
+  BEGIN --BODY
+    -- Get Parameters
+    v_ResultStr:='ReadingParameters';
+    FOR Cur_Parameter IN
+      (SELECT i.Record_ID,
+        p.ParameterName,
+        p.P_String,
+        p.P_Number,
+        p.P_Date,
+        p.AD_Client_ID,
+        p.AD_Org_ID,
+        p.CreatedBy        
+      FROM AD_PInstance i
+      LEFT JOIN AD_PInstance_Para p
+           ON i.AD_PInstance_ID = p.AD_PInstance_ID
+      WHERE i.AD_PInstance_ID = pinstance_id
+      ORDER BY p.SeqNo
+      )
+    LOOP
+
+	V_assign_secuence_id:= Cur_Parameter.Record_ID;
+      IF (Cur_Parameter.ParameterName = 'Ad_User_ID') THEN
+        v_User_ID := Cur_Parameter.P_String;   
+        ELSE
+        v_User_ID := 100;         
+      END IF;    
+
+    END LOOP; -- Get Parameter
+    --DATA - Rangos de fecha 
+	select begin_date, end_date
+	into V_begin_date , V_end_date from saeq_sequence 
+	where saeq_sequence_id = V_assign_secuence_id; --'5F2023C2923042DA860A5FB58D46DC50'
+
+	--RAISE NO_DATA_FOUND ||  V_end_date ;
+        --DATA - Carga facturas repetid secuencial (rango de fecha)
+            FOR cursor_inv IN
+		
+	    SELECT dt.name,i.documentno ,i.c_invoice_id,i.ad_client_id , i.ad_org_id, substring(dt.name, 1,6) as caja, substring(dt.name, 8,7) as typedoc,
+		(select obpos_applications_id from obpos_applications where value= substring(dt.name,1,6)) obpos_applications_id	
+		,(case when strpos(dt.name, 'FACTURA')>0 
+		THEN '7B348A068D7845189E986941783CCD28' WHEN strpos(dt.name, 'NOTA')>0 THEN 'E813E37EEBE44AFC812598C4A1AE8A35' END) ecsds_compro_type_id	
+		--INTO V_name, V_documentno , V_c_invoice_id,V_ad_client_id, V_ad_org_id, V_caja, V_obpos_applications_id, V_ecsds_compro_type_id
+		from c_invoice i	
+		left join c_doctype dt on dt.c_doctype_id=i.c_doctype_id	
+		left join c_bpartner bp on bp.c_bpartner_id=i.c_bpartner_id	
+		where i.issotrx='Y' --and dt.name ilike '%FACTURA%' 	
+		and bp.em_sscmb_isagreement = 'N' and i.c_invoice_id not in	
+		(	
+			Select i.c_invoice_id
+			from c_invoice i
+			left join c_doctype dt on dt.c_doctype_id=i.c_doctype_id
+			where i.em_eei_status in ('AU','RE') AND i.issotrx='Y' --and dt.name ilike '%FACTURA%'
+			--order by 1,2,3 asc
+		)	
+		and (i.documentno) ilike '%/%'
+		and i.created BETWEEN V_begin_date and V_end_date -- params function
+		order by dt.name,i.created asc
+		
+		LOOP
+			--Validacion si ya existe el registro en las lineas de la ventana asignarsecuencial no hacer nada
+			IF EXISTS (SELECT 1 FROM saeq_sequenceline WHERE documentno_repeat = cursor_inv.documentno and saeq_sequence_id = V_assign_secuence_id ) THEN
+			   -- No haga nada con este registro
+			  else
+			  -- Continuar
+			  --data in var
+			    FOR cur_secuencial IN
+			--VALIDAR QUE EXISTAN SECUENCIAS POR CADA CAJA
+						-- SACA EL ULTIMO CNSUMIDO Y HASTA QUE SECUENCIA ESTA
+					select  pos.value,tp.name, max(ln.seq) usados, tem.maximo
+					--into V_usados, V_maximo
+					from ECSDS_PSALE_SEQ_LINE ln
+					left join ECSDS_PSALE_SEQ sq on sq.ECSDS_PSALE_SEQ_id=ln.ECSDS_PSALE_SEQ_id
+					left join obpos_applications pos on pos.obpos_applications_id=sq.obpos_applications_id
+					left join ecsds_compro_type tp on tp.ecsds_compro_type_id=sq.ecsds_compro_type_id
+					left join (select ECSDS_PSALE_SEQ_id, max(seq) maximo from ECSDS_PSALE_SEQ_LINE group by ECSDS_PSALE_SEQ_id) tem 
+					on tem.ECSDS_PSALE_SEQ_id=ln.ECSDS_PSALE_SEQ_id
+					where ln.is_used='Y'
+					and pos.value=  cursor_inv.caja --'B10_C1'
+					and tp.name like '%' || cursor_inv.typedoc || '%'--'%FACTURA'
+					group by pos.value, tp.name,4
+					order by 3 desc
+						LOOP
+						V_usados:= cur_secuencial.usados;
+						V_maximo:= cur_secuencial.maximo;
+							--RAISE NO_DATA_FOUND ||  V_maximo ;
+						--existe secuencia disponible ?
+						  IF (V_usados >= V_maximo) THEN
+							RAISE_APPLICATION_ERROR(-20000, 'La caja ' || cur_secuencial.value || ' ' ||cur_secuencial.name || ' no tiene secuencias disponibles');
+						  END IF;
+						-- can do some processing here
+				END LOOP;
+		 V_name:= cursor_inv.name;
+		 V_documentno:= cursor_inv.documentno;
+		 V_c_invoice_id:= cursor_inv.c_invoice_id;
+		 V_ad_client_id:= cursor_inv.ad_client_id;
+		  V_ad_org_id:= cursor_inv.ad_org_id;
+		   V_caja:= cursor_inv.caja;
+		    V_obpos_applications_id:= cursor_inv.obpos_applications_id; 
+		    V_ecsds_compro_type_id:= cursor_inv.ecsds_compro_type_id;
+				--Validacion si ya existe el registro en las lineas de la ventana asignarsecuencial no hacer nada
+			IF EXISTS (SELECT 1 FROM saeq_sequenceline WHERE documentno_repeat = cursor_inv.documentno  and saeq_sequence_id = V_assign_secuence_id ) THEN
+			  -- No haga nada con este registro
+			  else
+			  -- Agregue la linea
+			  --validacion finalizada
+			INSERT INTO saeq_sequenceline(
+		    saeq_sequenceline_id, ad_client_id, ad_org_id, isactive, created, 
+		    createdby, updated, updatedby, name, documentno_repeat, documentno_actual, 
+		    saeq_sequence_id, c_invoice_id, obpos_applications_id, ecsds_compro_type_id)
+			VALUES (get_uuid(), V_ad_client_id, V_ad_org_id, 'Y', now(), 
+		    v_User_ID, now(), v_User_ID, V_name, V_documentno, '', 
+		    V_assign_secuence_id, V_c_invoice_id, V_obpos_applications_id, V_ecsds_compro_type_id);
+		
+			END IF;
+			
+			-- lineas insertadas
+			END IF;
+			
+			       
+		END LOOP;
+	
+ AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 1, '@Success@') ;
+    RETURN;
+  END; --BODY
+EXCEPTION
+WHEN OTHERS THEN
+    v_ResultStr:= '@ERROR=' || SQLERRM;
+    DBMS_OUTPUT.PUT_LINE(v_ResultStr) ;
+    AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 0, v_ResultStr) ;
+    RETURN;
+END SAEQ_LOADINVOICE
+]]></body>
+    </function>
+  </database>

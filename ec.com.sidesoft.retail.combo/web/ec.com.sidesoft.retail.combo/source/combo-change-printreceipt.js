@@ -1,0 +1,1 @@
+OB.OBPOSPointOfSale.Print.ReceiptTemplate = '../ec.com.sidesoft.retail.combo/receipts/printreceipts.xml';

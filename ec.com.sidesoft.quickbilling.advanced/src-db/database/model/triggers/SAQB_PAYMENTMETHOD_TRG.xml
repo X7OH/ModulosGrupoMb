@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SAQB_PAYMENTMETHOD_TRG">
+    <trigger name="SAQB_PAYMENTMETHOD_TRG" table="FIN_PAYMENTMETHOD" fires="before" insert="true" update="true" delete="false" foreach="row">
+      <body><![CDATA[
+ 
+BEGIN
+ 
+  IF AD_isTriggerEnabled()='N' THEN RETURN;
+  END IF;
+ 
+  IF INSERTING OR  UPDATING  THEN
+	IF (:new.em_saqb_call_center ='Y' AND :new.em_saqb_type_call_center IS NULL) THEN
+		RAISE_APPLICATION_ERROR(-20000,'El campo Tipo call center es obligatorio.');
+	END IF;
+  END IF;
+ 
+  END SAQB_PAYMENTMETHOD_TRG
+]]></body>
+    </trigger>
+  </database>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MODULE" version="">
+  <row id="E4A177C8F0F1429998A4B9998F6204F3" trl="N">
+    <value column="Description" isTrl="N" original="Sidesoft Retail Return Order Pos By Payment Method">Sidesoft Retail Return Order Pos By Payment Method</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="License" isTrl="N" original=""/>
+    <value column="Updateinfo" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

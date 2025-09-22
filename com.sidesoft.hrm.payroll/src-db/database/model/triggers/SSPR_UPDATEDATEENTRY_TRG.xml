@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SSPR_UPDATEDATEENTRY_TRG">
+    <trigger name="SSPR_UPDATEDATEENTRY_TRG" table="SSPR_CONTRACT" fires="after" insert="true" update="true" delete="false" foreach="row">
+      <body><![CDATA[
+  
+  
+
+
+  BEGIN
+
+  IF TG_OP <> 'DELETE' THEN
+  
+    --ACTUALIZO FECHA DE INGRESO DEL EMPLEADO CON LA DEL REINGRESO
+    UPDATE c_bpartner SET em_sspr_entrydate=:NEW.startdate WHERE C_BPARTNER_ID = :NEW.c_bpartner_id;
+    
+  END IF;
+     END SSPR_UPDATEDATEENTRY_TRG
+]]></body>
+    </trigger>
+  </database>

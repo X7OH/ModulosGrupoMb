@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SPAI_AGREEMENTORDER_TRG">
+    <trigger name="SPAI_AGREEMENTORDER_TRG" table="C_ORDER" fires="after" insert="true" update="false" delete="false" foreach="row">
+      <body><![CDATA[
+  v_Convenio VARCHAR2(5);
+ 
+BEGIN
+
+  IF AD_isTriggerEnabled()='N' THEN IF DELETING THEN RETURN OLD; ELSE RETURN NEW; END IF;
+  END IF;
+
+	SELECT em_sscmb_isagreement 
+	INTO v_Convenio
+	FROM c_bpartner 
+	WHERE c_bpartner_id = :new.c_bpartner_id;  
+
+    IF(v_Convenio='Y') THEN
+
+    	UPDATE c_order SET em_obpos_notinvoiceoncashup = 'Y' WHERE c_order_id = :new.c_order_id;
+    
+    END IF;
+
+  END SPAI_AGREEMENTORDER_TRG
+]]></body>
+    </trigger>
+  </database>

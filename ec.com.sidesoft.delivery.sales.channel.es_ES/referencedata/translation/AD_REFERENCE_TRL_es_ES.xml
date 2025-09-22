@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
+  <row id="5A458789BE374C7CBADB6E962DD3EBBB" trl="N">
+    <value column="Name" isTrl="N" original="OrgChanelID">OrgChanelID</value>
+    <value column="Description" isTrl="N" original="OrgChanelID">OrgChanelID</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="7C92047FA21547CCAC82DBE5471841EE" trl="N">
+    <value column="Name" isTrl="N" original="OrgDeliveryID">OrgDeliveryID</value>
+    <value column="Description" isTrl="N" original="OrgDeliveryID"/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

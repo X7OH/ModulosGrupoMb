@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TEXTINTERFACES" version="">
+  <row id="225B0117B8FF4332B955E609FFDCEC52" trl="N">
+    <value column="Text" isTrl="N" original="Unidad">Unidad</value>
+  </row>
+  <row id="2849BFDE51B642919CFBE7DA16FCCC3A" trl="N">
+    <value column="Text" isTrl="N" original="Cantidad Stock">Cantidad Stock</value>
+  </row>
+  <row id="43F0606CF9CC4AC188862412E27AE9A2" trl="N">
+    <value column="Text" isTrl="N" original="Categoría:">Categoría:</value>
+  </row>
+  <row id="5895B6E83AF047549F14C2658E73303A" trl="N">
+    <value column="Text" isTrl="N" original="Faltantes de MP para producción de punto de Venta">Faltantes de MP para producción de punto de Venta</value>
+  </row>
+  <row id="72F687FBE5EA4021AEB05832B835B359" trl="N">
+    <value column="Text" isTrl="N" original="Código">Código</value>
+  </row>
+  <row id="957CAFE5F9B0419E9FFDB8B811EBDF07" trl="N">
+    <value column="Text" isTrl="N" original="Fecha:">Fecha:</value>
+  </row>
+  <row id="ABA926E433464A4E8711FB083EEDE101" trl="N">
+    <value column="Text" isTrl="N" original="Faltante">Faltante</value>
+  </row>
+  <row id="C4D5DAAA7064418BA6F676EB15BEA819" trl="N">
+    <value column="Text" isTrl="N" original="Nombre del Producto:">Nombre del Producto:</value>
+  </row>
+  <row id="E2EEA86C62A749668087D2B5B4B28B8C" trl="N">
+    <value column="Text" isTrl="N" original="Local:">Local:</value>
+  </row>
+  <row id="F31E32791F8F48B4B7B572F74863C4E4" trl="N">
+    <value column="Text" isTrl="N" original="Factura:">Factura:</value>
+  </row>
+  <row id="FD428FFA26564B8296F80553D1167E73" trl="N">
+    <value column="Text" isTrl="N" original="Cantidad Requerida">Cantidad Requerida</value>
+  </row>
+</compiereTrl>

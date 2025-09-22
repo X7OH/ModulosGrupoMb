@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE M_OFFER">
+    <table name="M_OFFER" primaryKey="M_OFFER_KEY">
+      <column name="EM_SSRCM_PRO_CATEGORY_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="M_PRODUCT_CATEGORY" name="EM_SSRCM_OFFER_COMBO_CAT">
+        <reference local="EM_SSRCM_PRO_CATEGORY_ID" foreign="M_PRODUCT_CATEGORY_ID"/>
+      </foreign-key>
+    </table>
+  </database>

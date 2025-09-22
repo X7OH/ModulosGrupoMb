@@ -1,0 +1,1277 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SCMF_STOCK_MIN_AND_SECURITY_">
+    <function name="SCMF_STOCK_MIN_AND_SECURITY_" type="NULL">
+      <parameter name="p_pinstance_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[/*************************************************************************
+  * The contents of this file are subject to the Compiere Public
+  * License 1.1 ("License"); You may not use this file except in
+  * compliance with the License. You may obtain a copy of the License in
+  * the legal folder of your Openbravo installation.
+  * Software distributed under the License is distributed on an
+  * "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
+  * implied. See the License for the specific language governing rights
+  * and limitations under the License.
+  * The Original Code is  Compiere  ERP &  Business Solution
+  * The Initial Developer of the Original Code is Jorg Janke and ComPiere, Inc.
+  * Portions created by Jorg Janke are Copyright (C) 1999-2001 Jorg Janke,
+  * parts created by ComPiere are Copyright (C) ComPiere, Inc.;
+  * All Rights Reserved.
+  * Contributor(s): Openbravo SLU
+  * Contributions are Copyright (C) 2001-2008 Openbravo, S.L.U.
+  *
+  * Specifically, this derivative work is based upon the following Compiere
+  * file and version.
+  *************************************************************************
+  * Cancel Invoices of order by reversing it
+  */
+  -- Logistice
+v_ResultStr VARCHAR2(2000):='';
+v_Message VARCHAR2(2000):='';
+v_Record_ID VARCHAR2(32);
+v_AD_Client_ID VARCHAR2(32);
+V_TypeSalesForecast	CHAR(100); 	--OBTG:VARCHAR2--
+V_Product_ID		VARCHAR(32); 	--OBTG:VARCHAR2--
+V_RecorTemp		VARCHAR(32); 	--OBTG:VARCHAR2--
+V_RecorTemp2		VARCHAR(32); 	--OBTG:VARCHAR2--
+V_RecorTemp3		VARCHAR(32); 	--OBTG:VARCHAR2--
+V_ForecastByMonthID	VARCHAR(32); 	--OBTG:VARCHAR2--
+v_Client_ID		VARCHAR(32); 	--OBTG:VARCHAR2--
+v_Org_ID		VARCHAR(32); 	--OBTG:VARCHAR2--
+v_User_ID		VARCHAR(32); 	--OBTG:VARCHAR2--
+V_StringDate 		VARCHAR(20); 	--OBTG:VARCHAR2--
+V_HistoryMonth		VARCHAR(1000); 	--OBTG:VARCHAR2--
+V_ProductForecast	VARCHAR(32); 	--OBTG:VARCHAR2--
+V_OrgID			VARCHAR(32); 	--OBTG:VARCHAR2--
+V_Query			VARCHAR(2000); 	--OBTG:VARCHAR2--
+V_ProductList		VARCHAR(2000); 	--OBTG:VARCHAR2--
+V_SubCategoryList	VARCHAR(2000); 	--OBTG:VARCHAR2--
+V_CategoryList		VARCHAR(2000); 	--OBTG:VARCHAR2--
+V_BrandList		VARCHAR(2000); 	--OBTG:VARCHAR2--
+V_ProcessStatus	        VARCHAR(60); 	--OBTG:VARCHAR2--
+
+
+V_Dateto	 DATE;
+V_DateFrom	 DATE;
+V_NewDateFrom	 DATE;
+V_NewDateto	 DATE;
+V_DateStart	 DATE;
+V_DateEnd	 DATE;
+V_DateProcessForecast DATE;
+V_SearchDate	 DATE;
+V_NewDateFromLine DATE;
+V_DateEndLine DATE;
+V_DateFromForecast DATE;
+V_DateAuxForecast DATE;
+
+V_NumberWeek	 NUMBER;	--OBTG:NUMBER--
+V_CountSales	 NUMBER;	--OBTG:NUMBER--
+V_Average	 NUMBER(10,4);	--OBTG:NUMBER--
+V_Percentage	 NUMBER(10,4);	--OBTG:NUMBER--
+v_WeekOrDay	 NUMBER(10,4);	--OBTG:NUMBER--
+
+V_Historydays	 NUMBER;	--OBTG:NUMBER--
+V_YearsNumber	 NUMBER;	--OBTG:NUMBER--
+V_DayForecast	 NUMBER;	--OBTG:NUMBER--
+V_AcumSquareDifference  NUMBER(10,4);	--OBTG:NUMBER--
+V_SalesWeek   	 NUMBER(10,4);	--OBTG:NUMBER--
+V_SalesAverage	 NUMBER(10,4);	--OBTG:NUMBER--
+V_SquareDifference  NUMBER(10,4);	--OBTG:NUMBER--
+V_NewLine 	 NUMBER(10,4);	--OBTG:NUMBER--
+V_Variance 	 NUMBER(10,4);	--OBTG:NUMBER--  
+V_DeviationStandar  NUMBER(10,4);	--OBTG:NUMBER-- 
+V_Qty_Media   	 NUMBER(10,4);	--OBTG:NUMBER--
+V_Media   	 NUMBER(10,4);	--OBTG:NUMBER--
+V_ResultMedia	 NUMBER(10,4);	--OBTG:NUMBER--
+V_StockMin1	 NUMBER(10,4);	--OBTG:NUMBER--
+V_StockMin2	 NUMBER(10,4);	--OBTG:NUMBER--
+V_YearsFrom 	 NUMBER;	--OBTG:NUMBER--
+V_YearsAux  	 NUMBER;	--OBTG:NUMBER--
+V_YearsEnd 	 NUMBER;	--OBTG:NUMBER--
+V_MonthDifference   NUMBER(10,4);	--OBTG:NUMBER--
+V_DaysByWeek   	 NUMBER;	--OBTG:NUMBER--
+V_CountWeek   	 NUMBER(10,4);	--OBTG:NUMBER--
+V_NumberDay   	 NUMBER;	--OBTG:NUMBER--
+V_Total   	 NUMBER;	--OBTG:NUMBER--
+V_TotalDay    	 NUMBER(10,4);	--OBTG:NUMBER--
+V_TOTALFORECAST	 NUMBER(10,4);	--OBTG:NUMBER--
+v_n_insertions	 NUMBER;	--OBTG:NUMBER--
+V_AuxNumberWeek	 NUMBER;	--OBTG:NUMBER--
+V_CountSales2	 NUMBER;	--OBTG:NUMBER--
+V_LineMin 	 NUMBER(10);	--OBTG:NUMBER--
+V_MediaLine	 NUMBER(10);	--OBTG:NUMBER--
+V_xi		 NUMBER(10);	--OBTG:NUMBER--
+V_yi		 NUMBER(10);	--OBTG:NUMBER--
+V_CountSales3	 NUMBER;	--OBTG:NUMBER--	
+V_xi_yi		 NUMBER(10);	--OBTG:NUMBER--
+V_xiSquare	 NUMBER(10);	--OBTG:NUMBER--	
+V_yiSquare	 NUMBER(10);	--OBTG:NUMBER--
+V_AuxHistoryDays NUMBER;	--OBTG:NUMBER--
+V_CountRegressionLine NUMBER(10);	--OBTG:NUMBER--
+V_Total_XDays 	 NUMBER(10);	--OBTG:NUMBER--
+V_Media_X	 NUMBER(10,4);	--OBTG:NUMBER--
+V_Media_Y	 NUMBER(10,4);	--OBTG:NUMBER--
+V_Covariance	 NUMBER(10,4);	--OBTG:NUMBER--
+V_Variance_X	 NUMBER(10,4);	--OBTG:NUMBER--
+V_Incline	 NUMBER(10,4);	--OBTG:NUMBER--
+V_DispersionValue NUMBER(10,4);	--OBTG:NUMBER--
+V_Increase	 NUMBER(10,4);	--OBTG:NUMBER--
+V_StockMinEnd	 NUMBER(10,4);	--OBTG:NUMBER--
+V_Monday	 NUMBER(10,4);	--OBTG:NUMBER--
+V_Tuesday	 NUMBER(10,4);	--OBTG:NUMBER--
+V_Wednesday	 NUMBER(10,4);	--OBTG:NUMBER--
+V_Thursday	 NUMBER(10,4);	--OBTG:NUMBER--
+V_Friday	 NUMBER(10,4);	--OBTG:NUMBER--
+V_Saturday	 NUMBER(10,4);	--OBTG:NUMBER--
+V_Sunday	 NUMBER(10,4);	--OBTG:NUMBER--
+V_CurNumberWeek	 NUMBER;	--OBTG:NUMBER--
+V_TotalByDays	 NUMBER;	--OBTG:NUMBER--
+V_TotalSeasonByProductByWeek NUMBER(10,4);	--OBTG:NUMBER--
+V_QtyTopByWeek	 NUMBER(10);	--OBTG:NUMBER--
+V_DayTopByWeek 	 NUMBER;	--OBTG:NUMBER--
+V_TotalCountDays NUMBER;	--OBTG:NUMBER--
+V_ValueRepeat	 NUMBER;	--OBTG:NUMBER--
+V_TotalSeasonProduct NUMBER;	--OBTG:NUMBER--
+V_AcumYearNumber NUMBER;	--OBTG:NUMBER--
+V_inSeason	 NUMBER;	--OBTG:NUMBER--
+V_RealIncrease	 NUMBER;	--OBTG:NUMBER--
+V_CountProduct	 NUMBER;	--OBTG:NUMBER--
+V_GrandTotalSeasonByProductByWeek NUMBER;	--OBTG:NUMBER--
+V_FindNumberDays1 NUMBER;	--OBTG:NUMBER--
+V_FindNumberDays2 NUMBER;	--OBTG:NUMBER--
+V_FindNumberDays3 NUMBER;	--OBTG:NUMBER
+V_FindNumberDays4 NUMBER;	--OBTG:NUMBER
+V_FindNumberDays5 NUMBER;	--OBTG:NUMBER
+V_FindNumberDays6 NUMBER;	--OBTG:NUMBER
+V_FindNumberDays7 NUMBER;	--OBTG:NUMBER
+V_CountRecordTableDateForecast NUMBER;
+
+  -- Parameter
+  TYPE RECORD IS REF CURSOR;
+    Cur_Parameter 	RECORD;
+    CUR_PRODUCT		RECORD;
+    CUR_CALCULATE	RECORD;
+    CUR_MEDIANA		RECORD;
+    CurWeek		RECORD;
+    CUR_ORGANIZATION    RECORD;
+    -- Parameter Variables
+
+  BEGIN
+
+----RAISE EXCEPTION '%' ,p_pinstance_id ;
+
+    --  Update AD_PInstance
+    --RAISE NOTICE '%','Updating PInstance - Processing ' || p_PInstance_ID ;
+    v_ResultStr:='PInstanceNotFound';
+    --PERFORM AD_UPDATE_PINSTANCE(p_PInstance_ID, NULL, 'Y', NULL, NULL) ;
+  BEGIN --BODY
+
+    -- Get Parameters
+    v_ResultStr := 'ReadingParameters';
+    v_n_insertions:=0;
+    
+    FOR Cur_Parameter IN
+      (SELECT i.Record_ID,
+        i.AD_User_ID,
+        i.AD_Client_ID,
+        i.AD_Org_ID 
+                          
+      FROM AD_PInstance i      
+      WHERE i.AD_PInstance_ID = p_PInstance_ID      
+      )
+    LOOP
+    
+      v_Record_ID := Cur_Parameter.Record_ID;      
+      v_Client_ID := Cur_Parameter.AD_Client_ID;
+      v_Org_ID := Cur_Parameter.AD_Org_ID;
+      v_User_ID := Cur_Parameter.AD_User_ID;
+           
+      
+    END LOOP; -- End Get Parameter
+   
+    IF(v_Record_ID IS NULL) THEN
+      RETURN;
+    END IF;
+
+	select
+	coalesce((select count(*) from scmf_dateforecast),0)
+	INTO V_CountRecordTableDateForecast
+	from dual;
+	IF V_CountRecordTableDateForecast = 0 THEN
+		PERFORM SCMF_LOADFORECAST('CREATE FECHA');
+	END IF;
+
+	
+	 ----RAISE EXCEPTION '%' ,p_pinstance_id ;
+	 
+	SELECT TO_DATE(to_char(datedoc,'dd/MM/yyyy')),em_scmf_typesalesforecast,em_scmf_historymonth
+	,em_scmf_yearsnumber,em_scmf_dayforecast,em_scmf_historydays,em_scmf_processforecast,	AD_ORG_ID
+	INTO V_Dateto,V_TypeSalesForecast,V_HistoryMonth,V_YearsNumber,V_DayForecast,V_Historydays,V_ProcessStatus,V_OrgID
+	from Mrp_SalesForecast Where  Mrp_SalesForecast_ID = v_Record_ID;
+
+--IF V_ProcessStatus='N' THEN
+	DELETE from Mrp_SalesForecastline Where  Mrp_SalesForecast_ID = v_Record_ID;
+--END IF
+
+
+	SELECT
+	coalesce((SELECT COUNT(*) FROM scmf_season_product where isactive ='Y'),0)
+	INTO V_TotalSeasonProduct
+	FROM DUAL;
+
+	--RAISE EXCEPTION '%' ,'Temporadas '  || V_Dateto || 'Temporadas '  || V_TotalSeasonProduct;
+
+IF  V_TotalSeasonProduct=1  THEN
+	
+		SELECT productlist,	subcategorylist,	 categorylist,	brandtype,	TO_NUMBER(PERCENTAGE) FROM scmf_season_product  
+		into V_ProductList,	V_SubCategoryList,	V_CategoryList,	V_BrandList, 	V_Increase
+		where isactive ='Y';
+		
+--RAISE EXCEPTION '%' , V_Dateto || '- ' ;
+	----->>>>>>>>< PRODUCTOS
+
+	--RAISE EXCEPTION '%' , V_TotalSeasonProduct || '- ' || V_ProductList;
+	
+	IF V_ProductList='UNS' THEN
+
+	
+		create or replace view p_products
+		as
+		select * from m_product where m_product_id NOT IN (select m_product_id from scmf_product );
+
+	ELSIF V_ProductList='ALLS' THEN
+
+		create or replace view p_products
+		as
+		select * from m_product where m_product_id IN (select m_product_id from scmf_product );
+
+		--select   * from p_products;
+		--RAISE EXCEPTION '%' , V_TotalSeasonProduct || '- ' || V_ProductList;
+	END IF;
+
+	----->>>>>>>>< SUBCATEGORIA
+	IF V_SubCategoryList='UNS' THEN
+
+		create or replace view p_subcat
+		as
+		select * from scmf_mrp_prod_subcategory where scmf_mrp_prod_subcategory_id not in (select scmf_mrp_prod_subcategory_id from scmf_product_subcategory )
+		order by name asc;
+
+
+	ELSIF V_SubCategoryList='ALLS' THEN
+
+		create or replace view p_subcat
+		as
+		select * from scmf_mrp_prod_subcategory where scmf_mrp_prod_subcategory_id in (select scmf_mrp_prod_subcategory_id from scmf_product_subcategory )
+		order by name asc;
+		
+	END IF;
+
+	----->>>>>>>>< CATEGORIA
+
+	IF V_CategoryList='UNS' THEN
+
+		create or replace view p_cat
+		as
+		select * from m_product_category where m_product_category_id not in (select m_product_category_id from scmf_product_category)  ;
+
+	ELSIF V_CategoryList='ALLS' THEN
+
+		create or replace view p_cat
+		as
+		select * from m_product_category where m_product_category_id in (select m_product_category_id from scmf_product_category)  ;
+
+	END IF;
+
+	------>>>>>>>>>> MARCA
+	
+	IF V_BrandList='UNS' THEN
+
+		create or replace view p_brand
+		as
+		select * from m_brand where m_brand_id NOT in (select m_brand_id from scmf_brandtype );
+
+
+	ELSIF V_BrandList='ALLS' THEN
+
+		create or replace view p_brand
+		as
+		select * from m_brand where m_brand_id in (select m_brand_id from scmf_brandtype );
+
+	END IF;
+
+END IF;	--Fin control de tempoarada
+
+	
+	IF V_Historydays<V_DayForecast THEN
+
+	    RAISE_APPLICATION_ERROR(-20000, '@SCMF_HISTORICDAYFORECAST@');
+	
+	END IF;
+
+		V_DateAuxForecast:=V_Dateto;
+		V_DateFromForecast:=V_Dateto;
+
+	IF (V_TypeSalesForecast='BD') THEN
+
+		--delete from scmf_datalist;
+
+		--  select * from scmf_datalist
+
+		V_DateFrom:= (V_Dateto - (V_Historydays))+1;
+
+		V_AuxNumberWeek:=TRUNC(to_number(((V_Dateto-V_DateFrom)/7)),0);
+		V_NumberWeek:=to_number(V_AuxNumberWeek);
+
+		IF V_NumberWeek>=7 then
+		
+			V_NumberWeek:= V_AuxNumberWeek;
+			----RAISE_APPLICATION_ERROR(-20000,'pROMEDIO =' || TO_CHAR(V_NumberWeek));
+			
+			v_WeekOrDay :=7;
+		ELSE 
+			V_NumberWeek:= 1;
+			v_WeekOrDay :=	1;
+			
+		END IF;
+		v_WeekOrDay :=7;
+
+		V_CountProduct:=0;
+
+		
+				delete from scmf_forecastbymonth;
+				delete from scmf_transaction;
+				delete from scmf_transactionbydate;
+				-- select * from scmf_transactionbydate
+
+INSERT INTO scmf_transaction(scmf_transaction_id, AD_ORG_ID,AD_CLIENT_ID, ISACTIVE, CREATED, CREATEDBY,UPDATED, UPDATEDBY,M_PRODUCT_ID,QTY
+)
+
+SELECT 
+get_uuid(),
+AD_ORG_ID,
+v_Client_ID,
+'Y',
+now(),
+'100',
+now(),
+'100',
+M_PRODUCT_ID,
+abs(sum(movementqty)) as total
+FROM M_TRANSACTION 
+WHERE (MOVEMENTDATE between V_DateFrom AND V_Dateto)
+AND AD_ORG_ID = V_OrgID
+AND MOVEMENTTYPE = 'C-'
+group by AD_ORG_ID,
+--AD_CLIENT_ID,
+M_PRODUCT_ID  ;
+
+
+--RAISE NO_DATA_FOUND ||  V_Dateto  ;
+INSERT INTO scmf_transactionbydate(scmf_transactionbydate_id, AD_ORG_ID,AD_CLIENT_ID, ISACTIVE, CREATED, CREATEDBY,UPDATED, UPDATEDBY,M_PRODUCT_ID,QTY,movementdate
+)
+SELECT 
+get_uuid(),
+AD_ORG_ID,
+v_Client_ID,
+'Y',
+now(),
+'100',
+now(),
+'100',
+M_PRODUCT_ID,
+abs(sum(movementqty)) as total,
+movementdate
+FROM M_TRANSACTION 
+WHERE (MOVEMENTDATE between V_DateFrom AND V_Dateto)
+AND AD_ORG_ID = V_OrgID
+AND MOVEMENTTYPE = 'C-'
+group by movementdate,AD_ORG_ID,
+M_PRODUCT_ID;
+				
+				FOR CUR_PRODUCT IN
+				(	
+					SELECT M_PRODUCT_ID,ad_org_id
+					FROM scmf_transaction
+						
+				)
+				LOOP
+					V_Product_ID:=null;
+					V_Product_ID:=to_char(CUR_PRODUCT.M_PRODUCT_ID);
+					
+						V_NewDateFrom:= (V_Dateto-(V_Historydays))+1;
+						--V_AcumSquareDifference:=0;
+						V_RecorTemp:=(select get_uuid() from dual);
+						V_NewDateto:= V_NewDateFrom+6; 
+
+			
+						V_ForecastByMonthID:=(select get_uuid() from dual);
+
+						INSERT INTO scmf_forecastbymonth(
+						scmf_forecastbymonth_id , ad_client_id ,  ad_org_id ,  isactive ,  created,
+						createdby ,  updated , updatedby,  monday,  tuesday,   wednesday,  thursday,
+						friday,  saturday,  sunday,  dayforecast,  monthforecast,  yearforecast,weeknumber,m_product_id,startdate,enddate
+						)VALUES
+						(
+							V_ForecastByMonthID, null,null,'Y', now(),null,now(),null,0,0,0,0,0,0,0,0,0,0,0,V_Product_ID,null,null
+						);	
+
+						V_CountProduct:=V_CountProduct+1;
+
+							FOR CUR_CALCULATE_TOP_DAY  IN 1..7 LOOP -- Inicio total ventas por dias
+							
+
+								V_NumberDay:= TO_NUMBER(CUR_CALCULATE_TOP_DAY); -- Contador número de Días
+			
+								--<-- Consulta que cuenta las ventas de acuerdo al mes,dia,rangos de fecha desde y hasta, 
+								--<-- producto, y que solo sean guias de salida
+								SELECT
+									COALESCE((SELECT 
+									abs(sum(qty))  as CountSales
+									FROM scmf_transactionbydate MT
+									LEFT JOIN SCMF_DATEFORECAST DF ON DF.STRINGDATE = to_char(MOVEMENTDATE,'dd/MM/yyyy')
+									WHERE ( MOVEMENTDATE between V_NewDateFrom AND V_Dateto)
+									AND M_PRODUCT_ID = V_Product_ID
+									AND DAYFORECAST = V_NumberDay 
+									AND mt.ad_org_id = V_OrgID),0)
+								INTO V_Total
+								FROM DUAL
+								;
+								
+
+								V_TotalDay:=V_Total;
+									
+
+								---<<< Acutaliza la linea de la tabla smcf_forcastbymonth acorde al día que le corresponda >>>--
+								IF (V_NumberDay=1 AND V_TotalDay>0) THEN 
+									UPDATE scmf_forecastbymonth 
+									SET MONDAY=V_TotalDay,
+									    dayforecast=V_NumberDay,
+									    monthforecast=TO_NUMBER(TO_CHAR(now(),'MM')),  
+									    yearforecast=TO_NUMBER(TO_CHAR(now(),'yyyy')),
+									    startdate = V_NewDateFrom,
+									    enddate = V_NewDateto
+									WHERE scmf_forecastbymonth_id = V_ForecastByMonthID
+									AND M_PRODUCT_ID = V_Product_ID;
+								END IF;
+								
+								IF (V_NumberDay=2 AND V_TotalDay>0) THEN 
+									UPDATE scmf_forecastbymonth 
+									SET TUESDAY=V_TotalDay,
+									    dayforecast=V_NumberDay,
+									    monthforecast=TO_NUMBER(TO_CHAR(now(),'MM')),  
+									    yearforecast=TO_NUMBER(TO_CHAR(now(),'yyyy')),
+									    startdate = V_NewDateFrom,
+									    enddate = V_NewDateto
+									WHERE scmf_forecastbymonth_id = V_ForecastByMonthID
+									AND M_PRODUCT_ID = V_Product_ID;
+								END IF;
+								IF (V_NumberDay=3 AND V_TotalDay>0) THEN 
+									UPDATE scmf_forecastbymonth 
+									SET WEDNESDAY=V_TotalDay,
+									    dayforecast=V_NumberDay,
+									    monthforecast=TO_NUMBER(TO_CHAR(now(),'MM')),  
+									    yearforecast=TO_NUMBER(TO_CHAR(now(),'yyyy')),
+									    startdate = V_NewDateFrom,
+									    enddate = V_NewDateto
+									WHERE scmf_forecastbymonth_id = V_ForecastByMonthID
+									AND M_PRODUCT_ID = V_Product_ID;
+								END IF;
+								IF (V_NumberDay=4 AND V_TotalDay>0) THEN 
+									UPDATE scmf_forecastbymonth 
+									SET THURSDAY=V_TotalDay,
+									    dayforecast=V_NumberDay,
+									    monthforecast=TO_NUMBER(TO_CHAR(now(),'MM')),  
+									    yearforecast=TO_NUMBER(TO_CHAR(now(),'yyyy')),
+									    startdate = V_NewDateFrom,
+									    enddate = V_NewDateto
+									WHERE scmf_forecastbymonth_id = V_ForecastByMonthID
+									AND M_PRODUCT_ID = V_Product_ID;
+								END IF;
+								IF (V_NumberDay=5 AND V_TotalDay>0) THEN 
+									UPDATE scmf_forecastbymonth 
+									SET FRIDAY=V_TotalDay,
+									    dayforecast=V_NumberDay,
+									   monthforecast=TO_NUMBER(TO_CHAR(now(),'MM')),  
+									    yearforecast=TO_NUMBER(TO_CHAR(now(),'yyyy')),
+									    startdate = V_NewDateFrom,
+									    enddate = V_NewDateto
+									WHERE scmf_forecastbymonth_id = V_ForecastByMonthID
+									AND M_PRODUCT_ID = V_Product_ID;
+								END IF;
+								IF (V_NumberDay=6 AND V_TotalDay>0) THEN 
+									UPDATE scmf_forecastbymonth 
+									SET SATURDAY=V_TotalDay,
+									    dayforecast=V_NumberDay,
+									    monthforecast=TO_NUMBER(TO_CHAR(now(),'MM')),  
+									    yearforecast=TO_NUMBER(TO_CHAR(now(),'yyyy')),
+									    startdate = V_NewDateFrom,
+									    enddate = V_NewDateto
+									WHERE scmf_forecastbymonth_id = V_ForecastByMonthID
+									AND M_PRODUCT_ID = V_Product_ID;
+								END IF;
+								IF (V_NumberDay=7 AND V_TotalDay>0) THEN 
+									UPDATE scmf_forecastbymonth 
+									SET SUNDAY=V_TotalDay,
+									    dayforecast=V_NumberDay,
+									    monthforecast=TO_NUMBER(TO_CHAR(now(),'MM')),  
+									    yearforecast=TO_NUMBER(TO_CHAR(now(),'yyyy')),
+									    startdate = V_NewDateFrom,
+									    enddate = V_NewDateto
+									WHERE scmf_forecastbymonth_id = V_ForecastByMonthID
+									AND M_PRODUCT_ID = V_Product_ID;
+								END IF;
+								---<<< Fin de la actualización de la linea de la tabla smcf_forcastbymonth acorde al día que le corresponda >>>--
+
+
+							END LOOP;  -- Fin  total ventas por dias
+
+							---- -- -- <<-- -- -- <<-- -- -- <<-- -- -- <<-- -- -- <<-- -- -- <<-- -- -- <<-- -- -- <<-- -- -- <<-- -- -- <<<< INSERTAR LINEAS FORECAST
+
+							SELECT sum(coalesce(monday,0)) as monday, 
+								       sum(coalesce(tuesday,0)) as tuesday,
+								       sum(coalesce(wednesday,0)) as wednesday,
+								       sum(coalesce(thursday,0)) as thursday,
+								       sum(coalesce(friday,0)) as friday,
+								       sum(coalesce(saturday,0)) as saturday,
+								       sum(coalesce(sunday,0)) as sunday,
+								       m_product_id
+								INTO
+								       V_Monday,
+								       V_Tuesday,
+								       V_Wednesday,
+								       V_Thursday,
+								       V_Friday,
+								       V_Saturday,
+								       V_Sunday,
+								       V_ProductForecast
+								FROM scmf_forecastbymonth 
+
+								WHERE M_PRODUCT_ID = V_Product_ID
+								group by m_product_id;
+
+
+								SELECT
+								COALESCE((SELECT
+								COUNT(*)
+								FROM SCMF_DATEFORECAST
+								WHERE ( DATEFORECAST between V_DateFrom AND V_Dateto)
+								and dayforecast = 1),0)
+								INTO V_FindNumberDays1
+								FROM DUAL;
+
+								SELECT
+								COALESCE((SELECT
+								COUNT(*)
+								FROM SCMF_DATEFORECAST
+								WHERE ( DATEFORECAST between V_DateFrom AND V_Dateto)
+								and dayforecast = 2),0)
+								INTO V_FindNumberDays2
+								FROM DUAL;
+
+								SELECT
+								COALESCE((SELECT
+								COUNT(*)
+								FROM SCMF_DATEFORECAST
+								WHERE ( DATEFORECAST between V_DateFrom AND V_Dateto)
+								and dayforecast = 3),0)
+								INTO V_FindNumberDays3
+								FROM DUAL;
+
+								SELECT
+								COALESCE((SELECT
+								COUNT(*)
+								FROM SCMF_DATEFORECAST
+								WHERE ( DATEFORECAST between V_DateFrom AND V_Dateto)
+								and dayforecast = 4),0)
+								INTO V_FindNumberDays4
+								FROM DUAL;
+
+								SELECT
+								COALESCE((SELECT
+								COUNT(*)
+								FROM SCMF_DATEFORECAST
+								WHERE ( DATEFORECAST between V_DateFrom AND V_Dateto)
+								and dayforecast = 5),0)
+								INTO V_FindNumberDays5
+								FROM DUAL;
+
+								SELECT
+								COALESCE((SELECT
+								COUNT(*)
+								FROM SCMF_DATEFORECAST
+								WHERE ( DATEFORECAST between V_DateFrom AND V_Dateto)
+								and dayforecast = 6),0)
+								INTO V_FindNumberDays6
+								FROM DUAL;
+
+								SELECT
+								COALESCE((SELECT
+								COUNT(*)
+								FROM SCMF_DATEFORECAST
+								WHERE ( DATEFORECAST between V_DateFrom AND V_Dateto)
+								and dayforecast = 7),0)
+								INTO V_FindNumberDays7
+								FROM DUAL;
+
+
+								--RAISE_APPLICATION_ERROR(-20000, 'Los dias ' || V_DateFrom || ' - ' ||  V_Dateto || ' - ' || 1 || ' - ' || V_FindNumberDays1 || ' - ' || V_Monday);
+ 
+
+																																																
+								
+								insert into scmf_datalistbymonth  (
+								scmf_datalistbymonth_id,ad_client_id,ad_org_id,isactive,created,createdby,updated,updatedby,
+								record_id,line,qty,daynumber)
+								values (get_uuid(),null,null,'Y',now(),null, now(),NULL,V_RecorTemp2, 1 , to_number(round((V_Monday/V_FindNumberDays1),0)),1);
+
+								insert into scmf_datalistbymonth  (
+								scmf_datalistbymonth_id,ad_client_id,ad_org_id,isactive,created,createdby,updated,updatedby,
+								record_id,line,qty,daynumber)
+								values (get_uuid(),null,null,'Y',now(),null, now(),NULL,V_RecorTemp2, 2 , to_number(round((V_Tuesday/V_FindNumberDays2),0)),2);
+
+								insert into scmf_datalistbymonth  (
+								scmf_datalistbymonth_id,ad_client_id,ad_org_id,isactive,created,createdby,updated,updatedby,
+								record_id,line,qty,daynumber)
+								values (get_uuid(),null,null,'Y',now(),null, now(),NULL,V_RecorTemp2, 3 , to_number(round((V_Wednesday/V_FindNumberDays3),0)),3);
+
+								insert into scmf_datalistbymonth  (
+								scmf_datalistbymonth_id,ad_client_id,ad_org_id,isactive,created,createdby,updated,updatedby,
+								record_id,line,qty,daynumber)
+								values (get_uuid(),null,null,'Y',now(),null, now(),NULL,V_RecorTemp2, 4 , to_number(round((V_Thursday/V_FindNumberDays4),0)) ,4);
+
+								insert into scmf_datalistbymonth  (
+								scmf_datalistbymonth_id,ad_client_id,ad_org_id,isactive,created,createdby,updated,updatedby,
+								record_id,line,qty,daynumber)
+								values (get_uuid(),null,null,'Y',now(),null, now(),NULL,V_RecorTemp2, 5 , to_number(round((V_Friday/V_FindNumberDays5),0)) ,5);
+
+								insert into scmf_datalistbymonth  (
+								scmf_datalistbymonth_id,ad_client_id,ad_org_id,isactive,created,createdby,updated,updatedby,
+								record_id,line,qty,daynumber)
+								values (get_uuid(),null,null,'Y',now(),null, now(),NULL,V_RecorTemp2, 6 , to_number(round((V_Saturday/V_FindNumberDays6),0)),6);
+
+
+								insert into scmf_datalistbymonth  (
+								scmf_datalistbymonth_id,ad_client_id,ad_org_id,isactive,created,createdby,updated,updatedby,
+								record_id,line,qty,daynumber)
+								values (get_uuid(),null,null,'Y',now(),null, now(),NULL,V_RecorTemp2, 7 , to_number(round((V_Sunday/V_FindNumberDays7),0)),7);
+		 
+								
+								SELECT
+								coalesce((SELECT max(qty) from scmf_datalistbymonth),0)
+								INTO V_QtyTopByWeek
+								FROM DUAL;
+
+								
+
+								
+								SELECT 
+								COALESCE((
+									SELECT COUNT(*) FROM  scmf_datalistbymonth where qty = V_QtyTopByWeek
+								),0)
+								INTO V_ValueRepeat
+								FROM DUAL;
+								
+								IF V_ValueRepeat>1 THEN
+								
+									SELECT
+									coalesce((SELECT TO_NUMBER(trunc(SUM(daynumber)/to_number(V_ValueRepeat),0)) as SelectedDay 
+										  from scmf_datalistbymonth where qty = V_QtyTopByWeek),0)
+									INTO  V_DayTopByWeek
+									FROM DUAL;
+
+								ELSE
+									SELECT
+									coalesce((SELECT daynumber
+										  from scmf_datalistbymonth where qty = V_QtyTopByWeek),0)
+									INTO V_DayTopByWeek
+									FROM DUAL;
+				
+								END IF;
+
+								
+								V_TotalSeasonByProductByWeek:= to_number(round((V_Monday/V_FindNumberDays1),0)) + to_number(round((V_Tuesday/V_FindNumberDays2),0))+
+								      to_number(round((V_Wednesday/V_FindNumberDays3),0)) +
+								       to_number(round((V_Thursday/V_FindNumberDays4),0))+
+								       to_number(round((V_Friday/V_FindNumberDays5),0))+
+								       to_number(round((V_Saturday/V_FindNumberDays6),0))+
+								       to_number(round((V_Sunday/V_FindNumberDays7),0));
+
+								DELETE FROM scmf_datalistbymonth;
+								DELETE FROM scmf_forecastbymonth where M_PRODUCT_ID = V_Product_ID ; 
+
+								IF V_TotalSeasonByProductByWeek > 0 THEN
+
+									FOR  Cur_TOPProduct in 1..V_DayForecast LOOP
+
+										SELECT
+											COALESCE((SELECT 
+											DATEFORECAST
+											FROM SCMF_DATEFORECAST 
+											where  DATEFORECAST = V_DateFromForecast
+											and DAYFORECAST = V_DayTopByWeek ),null)
+										INTO V_SearchDate
+										FROM DUAL;
+
+
+
+										IF V_SearchDate IS NOT NULL THEN
+
+											--RAISE NO_DATA_FOUND||  V_DayTopByWeek;-- ||  ' - '|| V_NewDateFrom ||  ' - '||  V_Dateto; --OBTG:-20000--
+										   IF  V_TotalSeasonProduct=1  THEN
+											SELECT
+											coalesce((select count(*)
+											from p_products
+											left join p_cat on p_cat.m_product_category_id = p_products.m_product_category_id
+											left join p_subcat on p_subcat.scmf_mrp_prod_subcategory_id =  p_products.em_scmf_mrp_prodsubcat_id
+											left join p_brand on p_brand.m_brand_id = p_products.m_brand_id
+											where p_products.m_product_id =	V_Product_ID),0)
+											INTO V_inSeason
+											FROM DUAL;
+
+											if V_inSeason>0 then
+
+												--RAISE EXCEPTION '%' ,'mm' ||  V_inSeason;
+												V_RealIncrease=V_Increase;
+											else
+												V_RealIncrease=0;
+
+											end if;
+										  else
+											V_RealIncrease=0;
+										  end if;
+											----------------------------------------------------------------------------------
+											
+											V_GrandTotalSeasonByProductByWeek:=to_number(trunc( ((V_TotalSeasonByProductByWeek*V_RealIncrease)/100)+V_TotalSeasonByProductByWeek,0));
+
+											INSERT INTO mrp_salesforecastline values(get_uuid(),v_Client_ID,V_OrgID,'Y',now(),v_User_ID,now(),v_User_ID
+											,v_Record_ID,V_Product_ID,V_GrandTotalSeasonByProductByWeek,V_SearchDate);
+
+											v_n_insertions:=v_n_insertions+1;
+
+										END IF;
+										
+										V_DateFromForecast:=V_DateFromForecast+1;
+											
+									END LOOP;
+									V_DateFromForecast:=V_DateAuxForecast;
+
+								END IF;
+								
+							
+								----- -- -- <<-- -- -- <<-- -- -- <<-- -- -- <<-- -- -- <<-- -- -- <<-- -- -- <<-- -- -- <<-- -- -- <<-- -- -- <<-- -- -- <<-- -- -- <<<< FIN --> INSERTAR LINEAS FORECAST
+								
+
+					--END IF;
+						
+				END LOOP;
+	END IF;
+
+	
+	-----<>>>>>>>-- -- -- <<-- -- -- <<-- -- -- <<-- -- -- <<-- -- -- <<-- -- -- <<>>>>>>>>>>>>>-- -- -- <<-- -- -- <<-- -- -- <<>>>>-- -- -- <<-- -- -- <<>>>-- -- -- <<-- -- -- <<>>-- -- -- <<<>>>-- -- -- <<-- -- -- <<>-- -- -- <<-- -- -- <<>>-- -- -- <<-- -- -- <<>-- -- -- <<-- -- -- <<-- -- -- <<<<<
+	------- -- -- <<-- -- -- <<-- -- -- <<-- -- -- <<-- -- -- <<-- -- -- <<<< Calculo en Base  a los Años - Meses >>>>>>>>>>>-- -- -- <<----------------
+	-----<>>>>>>>-- -- -- <<-- -- -- <<-- -- -- <<-- -- -- <<-- -- -- <<-- -- -- <<>>>>>>>>>>>>>-- -- -- <<-- -- -- <<-- -- -- <<>>>>-- -- -- <<-- -- -- <<>>>-- -- -- <<-- -- -- <<>>-- -- -- <<<>>>-- -- -- <<-- -- -- <<>-- -- -- <<-- -- -- <<>>-- -- -- <<-- -- -- <<>-- -- -- <<-- -- -- <<-- -- -- <<<<<
+
+	
+	IF V_TypeSalesForecast='BMY' THEN
+	
+		
+		V_YearsFrom  := TO_NUMBER(TO_NUMBER(TO_CHAR(V_Dateto,'YYYY')) - (V_YearsNumber)); -- Resto el año del parametro Número de Años
+
+		
+
+		V_YearsAux   := TO_NUMBER(TO_CHAR(V_Dateto,'YYYY')) - (V_YearsNumber); -- 
+		
+		
+		V_YearsEnd   :=  TO_NUMBER(V_YearsFrom)+(V_YearsNumber-1);
+		V_StringDate :=  (TO_CHAR(V_Dateto,'dd-MM')) || TO_CHAR(TO_NUMBER(V_YearsFrom)) ;
+		V_DateFrom   := TO_DATE(V_StringDate);
+
+		V_MonthDifference:= TO_NUMBER(V_DateEnd- V_DateStart); 
+		V_DaysByWeek:= 7;
+
+
+			delete from scmf_transaction;
+				delete from scmf_transactionbydate;
+				-- select * from scmf_transactionbydate
+
+INSERT INTO scmf_transaction(scmf_transaction_id, AD_ORG_ID,AD_CLIENT_ID, ISACTIVE, CREATED, CREATEDBY,UPDATED, UPDATEDBY,M_PRODUCT_ID,QTY
+)
+
+SELECT 
+get_uuid(),
+AD_ORG_ID,
+v_Client_ID,
+'Y',
+now(),
+'100',
+now(),
+'100',
+M_PRODUCT_ID,
+abs(sum(movementqty)) as total
+FROM M_TRANSACTION 
+WHERE (MOVEMENTDATE between V_DateFrom AND V_Dateto)
+AND AD_ORG_ID = V_OrgID
+AND MOVEMENTTYPE = 'C-'
+group by AD_ORG_ID,
+--AD_CLIENT_ID,
+M_PRODUCT_ID  ;
+
+
+--RAISE_APPLICATION_ERROR(-20000, 'Los dias ' || V_DateFrom || ' - ' ||  V_Dateto) ;
+INSERT INTO scmf_transactionbydate(scmf_transactionbydate_id, AD_ORG_ID,AD_CLIENT_ID, ISACTIVE, CREATED, CREATEDBY,UPDATED, UPDATEDBY,M_PRODUCT_ID,QTY,movementdate
+)
+SELECT 
+get_uuid(),
+AD_ORG_ID,
+v_Client_ID,
+'Y',
+now(),
+'100',
+now(),
+'100',
+M_PRODUCT_ID,
+abs(sum(movementqty)) as total,
+movementdate
+FROM M_TRANSACTION 
+WHERE (MOVEMENTDATE between V_DateFrom AND V_Dateto)
+AND AD_ORG_ID = V_OrgID
+AND MOVEMENTTYPE = 'C-'
+group by movementdate,AD_ORG_ID,
+M_PRODUCT_ID;		
+		
+		--RAISE EXCEPTION '%' ,  V_HistoryMonth || ' - ' || (V_YearsNumber);
+
+			FOR I IN TO_NUMBER(V_YearsAux)..TO_NUMBER(V_YearsEnd) LOOP  -- Inicio -> Proceso que revisa las ventas acorde al año(2014,2015,2016, etc)
+
+				
+				V_AcumYearNumber:=to_number(I);
+				
+				SELECT(
+				SELECT MIN(dateforecast)
+				FROM scmf_dateforecast  
+				WHERE monthforecast = TO_NUMBER(V_HistoryMonth)
+				AND YEARFORECAST = V_AcumYearNumber
+				)
+				INTO V_DateStart
+				FROM DUAL;
+				
+				SELECT(
+				SELECT max(dateforecast)
+				FROM scmf_dateforecast  
+				WHERE monthforecast = TO_NUMBER(V_HistoryMonth)
+				AND YEARFORECAST = V_AcumYearNumber
+				)
+				INTO V_DateEnd
+				FROM DUAL;
+											
+				--RAISE EXCEPTION '%' ,  V_DateStart || ' - ' || (V_DateEnd);
+				
+				FOR CUR_PRODUCT IN   --- Inicio Consulta de todos los productos activos
+				(	
+					SELECT M_PRODUCT_ID
+					FROM scmf_transaction
+					 where ad_org_id = V_OrgID
+	
+				)
+				LOOP
+				
+					V_Product_ID:= CUR_PRODUCT.M_PRODUCT_ID ;
+					V_NewDateFrom:= V_DateStart;
+					V_NewDateto:= (V_DateStart-1)+7;
+
+					V_RecorTemp3:=get_uuid();
+					V_CountWeek:=0;
+					
+					--RAISE_APPLICATION_ERROR(-20000, 'linea ' || V_NewDateFrom ||  ' Ventas: ' ||  V_NewDateto);
+
+								
+					FOR CUR_WEEK IN 1..4 LOOP -- Inicio de Cálculo Total ventas por semana de un mes
+
+						
+						V_CountWeek:=to_number(CUR_WEEK); -- Contador número de semanas
+						V_ForecastByMonthID:= (select get_uuid() from dual); -- Nuevo ID para la tabla smcf_forcastbymonth
+
+						--<-- Insertar linea en el smcf_forcastbymonth
+						INSERT INTO scmf_forecastbymonth(
+						scmf_forecastbymonth_id , ad_client_id ,  ad_org_id ,  isactive ,  created,
+						createdby ,  updated , updatedby,  monday,  tuesday,   wednesday,  thursday,
+						friday,  saturday,  sunday,  dayforecast,  monthforecast,  yearforecast,weeknumber,m_product_id,startdate,enddate
+						)VALUES
+						(
+							V_ForecastByMonthID, null,V_OrgID,'Y', now(),null,now(),null,0,0,0,0,0,0,0,0,0,0,V_CountWeek,V_Product_ID,null,null
+						);	
+
+
+						V_NumberDay:=0;
+						
+						
+						FOR CUR_CALCULATE  IN 1..V_DaysByWeek LOOP -- Inicio total ventas por dias
+						
+
+							V_NumberDay:= TO_NUMBER(CUR_CALCULATE); -- Contador número de Días
+
+
+
+							--<-- Consulta que cuenta las ventas de acuerdo al mes,dia,rangos de fecha desde y hasta, 
+							--<-- producto, y que solo sean guias de salida
+
+							SELECT
+							COALESCE((SELECT 
+							abs(sum(qty))  as CountSales
+							FROM scmf_transactionbydate MT
+							LEFT JOIN SCMF_DATEFORECAST DF ON DF.STRINGDATE = to_char(MOVEMENTDATE,'dd/MM/yyyy')
+							WHERE ( MOVEMENTDATE between V_NewDateFrom AND V_NewDateto)
+							AND M_PRODUCT_ID = V_Product_ID
+							AND DAYFORECAST = V_NumberDay
+							AND TO_NUMBER(to_char(MOVEMENTDATE,'MM')) = to_number(V_HistoryMonth)
+							AND mt.ad_org_id = V_OrgID),0)
+							INTO V_Total
+							FROM DUAL
+							;
+
+
+							IF (V_CountWeek=4) and  V_Total>0THEN
+							
+								V_NewDateto:=V_DateEnd;
+							END IF;
+
+							V_TotalDay:= V_Total;
+
+							--RAISE NO_DATA_FOUND || V_NumberDay ;  --OBTG:-20000--
+
+							---<<< Acutaliza la linea de la tabla smcf_forcastbymonth acorde al día que le corresponda >>>--
+							IF (V_NumberDay=1 AND V_TotalDay>0) THEN 
+								UPDATE scmf_forecastbymonth 
+								SET MONDAY=V_TotalDay,
+								    dayforecast=V_NumberDay,
+								    monthforecast=TO_NUMBER(V_HistoryMonth),  
+								    yearforecast=I,
+								    weeknumber=V_CountWeek,
+								    startdate = V_NewDateFrom,
+								    enddate = V_NewDateto
+								WHERE scmf_forecastbymonth_id = V_ForecastByMonthID;
+							END IF;
+							
+							IF (V_NumberDay=2 AND V_TotalDay>0) THEN 
+								UPDATE scmf_forecastbymonth 
+								SET TUESDAY=V_TotalDay,
+								    dayforecast=V_NumberDay,
+								    monthforecast=TO_NUMBER(V_HistoryMonth),  
+								    yearforecast=I,
+								    weeknumber=V_CountWeek,
+								    startdate = V_NewDateFrom,
+								    enddate = V_NewDateto
+								WHERE scmf_forecastbymonth_id = V_ForecastByMonthID;
+							END IF;
+							IF (V_NumberDay=3 AND V_TotalDay>0) THEN 
+								UPDATE scmf_forecastbymonth 
+								SET WEDNESDAY=V_TotalDay,
+								    dayforecast=V_NumberDay,
+								    monthforecast=TO_NUMBER(V_HistoryMonth),  
+								    yearforecast=I,
+								    weeknumber=V_CountWeek,
+								    startdate = V_NewDateFrom,
+								    enddate = V_NewDateto
+								WHERE scmf_forecastbymonth_id = V_ForecastByMonthID;
+							END IF;
+							IF (V_NumberDay=4 AND V_TotalDay>0) THEN 
+								UPDATE scmf_forecastbymonth 
+								SET THURSDAY=V_TotalDay,
+								    dayforecast=V_NumberDay,
+								    monthforecast=TO_NUMBER(V_HistoryMonth),  
+								    yearforecast=I,
+								    weeknumber=V_CountWeek,
+								    startdate = V_NewDateFrom,
+								    enddate = V_NewDateto
+								WHERE scmf_forecastbymonth_id = V_ForecastByMonthID;
+							END IF;
+							IF (V_NumberDay=5 AND V_TotalDay>0) THEN 
+								UPDATE scmf_forecastbymonth 
+								SET FRIDAY=V_TotalDay,
+								    dayforecast=V_NumberDay,
+								    monthforecast=TO_NUMBER(V_HistoryMonth),  
+								    yearforecast=I,
+								    weeknumber=V_CountWeek,
+								    startdate = V_NewDateFrom,
+								    enddate = V_NewDateto
+								WHERE scmf_forecastbymonth_id = V_ForecastByMonthID;
+							END IF;
+							IF (V_NumberDay=6 AND V_TotalDay>0) THEN 
+								UPDATE scmf_forecastbymonth 
+								SET SATURDAY=V_TotalDay,
+								    dayforecast=V_NumberDay,
+								    monthforecast=TO_NUMBER(V_HistoryMonth),  
+								    yearforecast=I,
+								    weeknumber=V_CountWeek,
+								    startdate = V_NewDateFrom,
+								    enddate = V_NewDateto
+								WHERE scmf_forecastbymonth_id = V_ForecastByMonthID;
+							END IF;
+							IF (V_NumberDay=7 AND V_TotalDay>0) THEN 
+								UPDATE scmf_forecastbymonth 
+								SET SUNDAY=V_TotalDay,
+								    dayforecast=V_NumberDay,
+								    monthforecast=TO_NUMBER(V_HistoryMonth),  
+								    yearforecast=I,
+								    weeknumber=V_CountWeek,
+								    startdate = V_NewDateFrom,
+								    enddate = V_NewDateto
+								WHERE scmf_forecastbymonth_id = V_ForecastByMonthID;
+							END IF;
+							---<<< Fin de la actualización de la linea de la tabla smcf_forcastbymonth acorde al día que le corresponda >>>--
+							
+							--RAISE Notice '%','Nueva linea en smcf_forcastbymonth ==>> '; --OBTG:-20000--
+
+						END LOOP;  -- Fin  total ventas por dias
+									  
+						IF V_Total=0 THEN
+
+							SELECT
+							COALESCE((SELECT (MONDAY+TUESDAY+WEDNESDAY+THURSDAY+FRIDAY+SATURDAY+SUNDAY) 
+							FROM scmf_forecastbymonth WHERE scmf_forecastbymonth_ID = V_ForecastByMonthID
+							AND ad_org_id = V_OrgID
+							),0)
+							INTO V_TOTALFORECAST
+							FROM DUAL;
+
+							IF V_TOTALFORECAST=0 THEN
+								----RAISE_APPLICATION_ERROR(-20000, '@EROR@' || to_char(V_Total));
+								DELETE FROM scmf_forecastbymonth 
+								WHERE M_PRODUCT_ID = V_Product_ID 
+								AND scmf_forecastbymonth_ID = V_ForecastByMonthID
+								AND ad_org_id = V_OrgID
+								;
+							END IF;
+
+						END IF;
+
+										
+										
+
+						
+
+						V_NewDateFrom:= V_NewDateto+1; 
+										
+						IF (V_CountWeek=4) THEN
+							
+							V_NewDateto:=V_DateEnd;
+							----RAISE_APPLICATION_ERROR(-20000, '@EROR@' || V_NewDateto);
+						ELSE 
+							V_NewDateto:=(V_NewDateFrom-1)+7;
+						END IF;
+						
+						--RAISE Notice '%','Fin Total ventas por semana de un mes ==>> ';
+					END LOOP; -- Fin Total ventas por semana de un mes
+					
+					--RAISE Notice '%','Fin Consulta de todos los productos activos ==>> ';
+					
+				END LOOP; --- Fin Consulta de todos los productos activos
+
+				--RAISE Notice '%','Proceso que revisa las ventas acorde al año(2014,2015,2016, etc) ==>> ';
+
+			
+			END LOOP; -- Fin -> Proceso que revisa las ventas acorde al año(2014,2015,2016, etc)
+
+			FOR CUR_PRODUCT IN   --- Inicio Consulta de todos los productos activos
+				(	
+
+					SELECT M_PRODUCT_ID
+					FROM scmf_transaction
+					where ad_org_id = V_OrgID
+
+				)
+				LOOP
+					V_Product_ID:=CUR_PRODUCT.m_product_id;
+
+					FOR CurWeek in 1..4 LOOP
+
+							V_CurNumberWeek:=to_number(CurWeek);
+							SELECT sum(coalesce(monday,0)) as monday, 
+							       sum(coalesce(tuesday,0)) as tuesday,
+							       sum(coalesce(wednesday,0)) as wednesday,
+							       sum(coalesce(thursday,0)) as thursday,
+							       sum(coalesce(friday,0)) as friday,
+							       sum(coalesce(saturday,0)) as saturday,
+							       sum(coalesce(sunday,0)) as sunday,
+							       m_product_id
+							INTO
+							       V_Monday,
+							       V_Tuesday,
+							       V_Wednesday,
+							       V_Thursday,
+							       V_Friday,
+							       V_Saturday,
+							       V_Sunday,
+							       V_ProductForecast
+							FROM scmf_forecastbymonth 
+							where yearforecast in ((SELECT DISTINCT yearforecast FROM scmf_forecastbymonth ))
+							and weeknumber = V_CurNumberWeek
+							AND M_PRODUCT_ID = V_Product_ID
+							 AND ad_org_id = V_OrgID
+							group by m_product_id;
+
+							
+
+							V_TotalByDays:= round((V_Monday/V_YearsNumber),0)+ round((V_Tuesday/V_YearsNumber),0) + round((V_Wednesday/V_YearsNumber),0)
+							+ round((V_Thursday/V_YearsNumber),0) + round((V_Friday /V_YearsNumber),0) +round((V_Saturday/V_YearsNumber),0) + round((V_Sunday/V_YearsNumber),0); 
+							
+							insert into scmf_datalistbymonth  (
+							scmf_datalistbymonth_id,ad_client_id,ad_org_id,isactive,created,createdby,updated,updatedby,
+							record_id,line,qty,daynumber)
+							values (get_uuid(),null,null,'Y',now(),null, now(),NULL,V_RecorTemp2, V_CurNumberWeek , round((V_Monday/V_YearsNumber),0),1);
+
+
+							insert into scmf_datalistbymonth  (
+							scmf_datalistbymonth_id,ad_client_id,ad_org_id,isactive,created,createdby,updated,updatedby,
+							record_id,line,qty,daynumber)
+							values (get_uuid(),null,null,'Y',now(),null, now(),NULL,V_RecorTemp2, V_CurNumberWeek , round((V_Tuesday/V_YearsNumber),0),2);
+
+							insert into scmf_datalistbymonth  (
+							scmf_datalistbymonth_id,ad_client_id,ad_org_id,isactive,created,createdby,updated,updatedby,
+							record_id,line,qty,daynumber)
+							values (get_uuid(),null,null,'Y',now(),null, now(),NULL,V_RecorTemp2, V_CurNumberWeek , round((V_Wednesday/V_YearsNumber),0),3);
+
+							insert into scmf_datalistbymonth  (
+							scmf_datalistbymonth_id,ad_client_id,ad_org_id,isactive,created,createdby,updated,updatedby,
+							record_id,line,qty,daynumber)
+							values (get_uuid(),null,null,'Y',now(),null, now(),NULL,V_RecorTemp2, V_CurNumberWeek , round((V_Thursday/V_YearsNumber),0),4);
+
+							insert into scmf_datalistbymonth  (
+							scmf_datalistbymonth_id,ad_client_id,ad_org_id,isactive,created,createdby,updated,updatedby,
+							record_id,line,qty,daynumber)
+							values (get_uuid(),null,null,'Y',now(),null, now(),NULL,V_RecorTemp2, V_CurNumberWeek , round((V_Friday/V_YearsNumber),0),5);
+
+							insert into scmf_datalistbymonth  (
+							scmf_datalistbymonth_id,ad_client_id,ad_org_id,isactive,created,createdby,updated,updatedby,
+							record_id,line,qty,daynumber)
+							values (get_uuid(),null,null,'Y',now(),null, now(),NULL,V_RecorTemp2, V_CurNumberWeek , round((V_Saturday/V_YearsNumber),0),6);
+
+
+							insert into scmf_datalistbymonth  (
+							scmf_datalistbymonth_id,ad_client_id,ad_org_id,isactive,created,createdby,updated,updatedby,
+							record_id,line,qty,daynumber)
+							values (get_uuid(),null,null,'Y',now(),null, now(),NULL,V_RecorTemp2,V_CurNumberWeek  , round((V_Sunday/V_YearsNumber),0),7);
+
+							V_DayTopByWeek:=0;
+							SELECT
+							coalesce((SELECT max(qty) from scmf_datalistbymonth where line = V_CurNumberWeek),0)
+							INTO V_QtyTopByWeek
+							FROM DUAL;
+
+							SELECT 
+							COALESCE((
+								SELECT COUNT(*) FROM  scmf_datalistbymonth where qty = V_QtyTopByWeek
+								AND line = V_CurNumberWeek
+							),0)
+							INTO V_ValueRepeat
+							FROM DUAL;
+							
+							IF V_ValueRepeat>1 THEN
+							
+								SELECT
+								coalesce((SELECT TO_NUMBER(trunc(SUM(daynumber)/to_number(V_ValueRepeat),0)) as SelectedDay 
+									  from scmf_datalistbymonth where qty = V_QtyTopByWeek
+									   and line = V_CurNumberWeek),0)
+								INTO  V_DayTopByWeek
+								FROM DUAL;
+
+							ELSE
+								SELECT
+								coalesce((SELECT daynumber
+									  from scmf_datalistbymonth where qty = V_QtyTopByWeek
+									  and line = V_CurNumberWeek),0)
+								INTO V_DayTopByWeek
+								FROM DUAL;
+
+							END IF;
+
+							V_StringDate:= '01/'|| coalesce((case when to_number(V_HistoryMonth) <=9 then '0' end ),'') || V_HistoryMonth || '/' || to_char(now(),'yyyy');
+
+							IF V_CurNumberWeek=3 THEN
+								--RAISE EXCEPTION '%' , V_QtyTopByWeek || ' - ' || V_DayTopByWeek ;
+							END IF;
+							
+							SELECT
+							coalesce((SELECT DATEFORECAST FROM SCMF_DATEFORECAST
+							WHERE  dayforecast= V_DayTopByWeek AND TO_NUMBER(TO_CHAR(DATEFORECAST,'MM'))=to_number(V_HistoryMonth)
+							and yearforecast=to_number(to_char(now(),'yyyy'))
+							and weekforecast=  V_CurNumberWeek
+							),TO_DATE(V_StringDate))
+							INTO V_DateProcessForecast
+							FROM DUAL;
+							
+
+							----------------------------------------------------------------------------------
+						if V_TotalSeasonProduct=1 then	
+							SELECT
+							coalesce((select count(*)
+							from p_products
+							left join p_cat on p_cat.m_product_category_id = p_products.m_product_category_id
+							left join p_subcat on p_subcat.scmf_mrp_prod_subcategory_id =  p_products.em_scmf_mrp_prodsubcat_id
+							left join p_brand on p_brand.m_brand_id = p_products.m_brand_id
+							where p_products.m_product_id =	V_Product_ID),0)
+							INTO V_inSeason
+							FROM DUAL;
+
+							if V_inSeason>0 then
+
+								--RAISE EXCEPTION '%' ,'mm' ||  V_inSeason;
+								V_RealIncrease=V_Increase;
+							else
+								V_RealIncrease=0;
+
+							end if;
+						else
+							V_RealIncrease=0;
+						end if;	
+							----------------------------------------------------------------------------------
+							
+
+							V_TotalSeasonByProductByWeek := TO_NUMBER(round((((V_TotalByDays*V_RealIncrease)/100) + V_TotalByDays),0));
+
+							IF V_TotalSeasonByProductByWeek>0 THEN
+							INSERT INTO mrp_salesforecastline values(get_uuid(),v_Client_ID,V_OrgID,'Y',now(),v_User_ID,now(),v_User_ID
+							,v_Record_ID,V_Product_ID,coalesce(V_TotalSeasonByProductByWeek,0),V_DateProcessForecast);
+
+							v_n_insertions:=v_n_insertions+1;
+							END IF;
+
+						
+						END LOOP;
+						
+						DELETE FROM scmf_forecastbymonth where m_product_id = V_Product_ID AND ad_org_id = V_OrgID;
+						DELETE FROM scmf_datalistbymonth;
+						
+				END LOOP;
+		
+	END IF;
+if V_TotalSeasonProduct=1 then
+		DROP VIEW p_products;
+		DROP VIEW p_subcat;
+		DROP VIEW p_cat;
+		DROP VIEW p_brand;
+		
+END IF;
+
+
+        --<<FINISH_PROCESS>>
+    --  Update AD_PInstance
+    v_Message := '@RowsInserted@: ' || v_n_insertions || '.';
+    --RAISE NOTICE '%','Updating PInstance - Finished ' || v_Message ;
+    AD_UPDATE_PINSTANCE(p_PInstance_ID, NULL, 'N', 1, v_Message) ;
+    RETURN;
+  END; --BODY
+  
+EXCEPTION
+WHEN OTHERS THEN
+  v_ResultStr:= '@ERROR=' || SQLERRM;
+  --RAISE NOTICE '%',v_ResultStr ;
+  ROLLBACK;
+  AD_UPDATE_PINSTANCE(p_PInstance_ID, NULL, 'N', 0, v_ResultStr) ;
+  RETURN;
+END SCMF_STOCK_MIN_AND_SECURITY_
+]]></body>
+    </function>
+  </database>

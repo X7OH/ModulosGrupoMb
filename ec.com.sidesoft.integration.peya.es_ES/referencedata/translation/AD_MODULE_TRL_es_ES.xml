@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MODULE" version="">
+  <row id="F5FFEAF7C62841559B1BD09B470786B8" trl="N">
+    <value column="Description" isTrl="N" original="Sidesoft Integration for PedidosYA">Sidesoft Integration for PedidosYA</value>
+    <value column="Help" isTrl="Y" original="  - Retail Delivery PedidosYA&#10;  - Ticket 9741 - Configuración personalizada para PedidosYA, se crea el proceso de crear ordenes de PedidosYA y se adiciona un item a la lista del log de la configuracion de Delivery para poder filtrar por tipo de integracion.&#10;  - Dependencia con el modulo module Sidesoft Integration Delivery (ec.com.sidesoft.integration.delivery)">  - Retail Delivery PedidosYA
+  - Ticket 9741 - Configuración personalizada para PedidosYA, se crea el proceso de crear ordenes de PedidosYA y se adiciona un item a la lista del log de la configuracion de Delivery para poder filtrar por tipo de integracion.
+  - Dependencia con el modulo module ec.com.sidesoft.integration.delivery</value>
+    <value column="License" isTrl="N" original=""/>
+    <value column="Updateinfo" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

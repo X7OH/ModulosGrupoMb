@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE AD_ORGINFO">
+    <table name="AD_ORGINFO" primaryKey="AD_ORGINFO_KEY">
+      <column name="EM_SSPR_SIGNATUREIMG" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="AD_IMAGE" name="EM_SSPR_SIGNATUREIMG">
+        <reference local="EM_SSPR_SIGNATUREIMG" foreign="AD_IMAGE_ID"/>
+      </foreign-key>
+    </table>
+  </database>

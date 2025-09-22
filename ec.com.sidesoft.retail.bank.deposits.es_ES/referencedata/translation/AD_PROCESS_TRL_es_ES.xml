@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
+  <row id="12AB04A5AB4245019C96B53EEE453CDE" trl="Y">
+    <value column="Name" isTrl="Y" original="Bank Deposit Report">Reporte Depósitos Bancarios PDV</value>
+    <value column="Description" isTrl="N" original="">Reporte Depósitos Bancarios PDV</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="40E1468308744F40A98794A21B763F2D" trl="Y">
+    <value column="Name" isTrl="Y" original="Reactivate Bank Deposits">Reactivar Depósito</value>
+    <value column="Description" isTrl="N" original="">Reactivar Depósito</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="AC42EFBD411A434E8ADC430E9DE9D138" trl="Y">
+    <value column="Name" isTrl="Y" original="Process Bank Deposits">Procesar Depósito</value>
+    <value column="Description" isTrl="N" original="">Procesar Depósito</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="B4DFBD0F99AA4E709AC5DCC6667C01D3" trl="Y">
+    <value column="Name" isTrl="Y" original="Retail Bank Deposits Background">Proceso Background Depósitos Bancarios</value>
+    <value column="Description" isTrl="N" original="">Proceso Background Depósitos Bancarios</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

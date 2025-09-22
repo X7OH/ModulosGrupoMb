@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="4B1EE265AFC944DB98054B73E64E5188" trl="Y">
+    <value column="MsgText" isTrl="Y" original="You cannot delete lines when the registration is processed.">No se pueden eliminar lineas cuando cuando el registro esta procesado.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="818940F75B544863BB39196CA4477296" trl="Y">
+    <value column="MsgText" isTrl="Y" original="You cannot create lines when the record is processed.">No se pueden crear líneas cuando el registro está procesado.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="86699E802EA54BC6961D57D3C81D4FE4" trl="Y">
+    <value column="MsgText" isTrl="Y" original="The deposit date must be greater than or equal to the date of sale">La fecha de deposito debe de ser mayor o igual a la fecha de venta</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

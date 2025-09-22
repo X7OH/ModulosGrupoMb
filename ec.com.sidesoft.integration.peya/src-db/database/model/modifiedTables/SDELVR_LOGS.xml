@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE SDELVR_LOGS">
+    <table name="SDELVR_LOGS" primaryKey="SDELVR_LOGS_KEY">
+      <column name="EM_SPEYA_ORDERREADY" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SPEYA_CANCELLORDER" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SPEYA_URLACCEPT" primaryKey="false" required="false" type="VARCHAR" size="300" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SPEYA_URLREJECT" primaryKey="false" required="false" type="VARCHAR" size="300" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SPEYA_URLPREPARED" primaryKey="false" required="false" type="VARCHAR" size="300" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SPEYA_REASONTOCANCELL" primaryKey="false" required="false" type="VARCHAR" size="300" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SPEYA_PEDIDOSYA_ID" primaryKey="false" required="false" type="VARCHAR" size="300" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SPEYA_CANCELLREASONS_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SPEYA_URLPICKEDUP" primaryKey="false" required="false" type="VARCHAR" size="300" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SPEYA_PICKUPORDER" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SPEYA_LISTSTATES" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="SPEYA_CANCELLREASONS" name="EM_SPEYA_LOGSCREASONS">
+        <reference local="EM_SPEYA_CANCELLREASONS_ID" foreign="SPEYA_CANCELLREASONS_ID"/>
+      </foreign-key>
+    </table>
+  </database>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubRpt_Differences" pageWidth="221" pageHeight="150" orientation="Landscape" columnWidth="221" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="3.797498335832488"/>
+	<property name="ireport.x" value="27"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="sccc_cash_clousure_id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT a.nombre as nombre, SUM(a.monto) as monto, a.line
+FROM(
+(
+	SELECT  fpm.name as nombre,
+		COALESCE((SELECT SUM(pdet.paidconverted) FROM c_order co
+		LEFT JOIN fin_payment_sched_ord_v psh ON psh.c_order_id = co.c_order_id
+		LEFT JOIN fin_payment_detail_v pdet ON pdet.fin_payment_sched_ord_v_id = psh.fin_payment_sched_ord_v_id
+		WHERE co.issotrx = 'Y' AND co.docstatus = 'CO'
+		AND to_char( co.dateordered ,'yyyy-MM-dd') = to_char( cclo.closingdate ,'yyyy-MM-dd')
+		AND co.c_doctypetarget_id = postype.c_doctype_id
+		AND pdet.em_aprm_displayed_paymmeth_id = fpm.fin_paymentmethod_id
+		),0) as "monto",
+		ccl.order_number as line
+	FROM fin_paymentmethod fpm
+	LEFT JOIN sccc_cash_clousureline ccl ON ccl.fin_paymentmethod_id = fpm.fin_paymentmethod_id
+	LEFT JOIN sccc_cash_clousure cclo ON cclo.sccc_cash_clousure_id = ccl.sccc_cash_clousure_id
+	LEFT JOIN ad_org org ON org.ad_org_id = cclo.ad_org_id
+	LEFT JOIN c_costcenter cc ON cc.c_costcenter_id = org.em_scmba_costcenter_id
+	LEFT JOIN sccc_setup setup ON setup.ad_org_id = org.ad_org_id
+	LEFT JOIN obpos_applications pos ON pos.obpos_applications_id = setup.em_scccd_posterminal
+	LEFT JOIN obpos_terminaltype postype ON postype.obpos_terminaltype_id = pos.obpos_terminaltype_id
+	LEFT JOIN c_doctype cdt ON cdt.c_doctype_id = postype.c_doctype_id
+	WHERE to_char( cclo.closingdate ,'yyyy-MM-dd') = to_char( cclo.closingdate ,'yyyy-MM-dd')
+	AND ccl.sccc_cash_clousure_id = $P{sccc_cash_clousure_id}
+	ORDER BY ccl.order_number
+)
+UNION ALL
+(
+	SELECT fpm.name as nombre, (ABS(ccl.amount) * -1) as monto, ccl.order_number as line
+	FROM sccc_cash_clousureline ccl
+	LEFT JOIN fin_paymentmethod fpm ON fpm.fin_paymentmethod_id = ccl.fin_paymentmethod_id
+	LEFT JOIN sccc_cash_clousure cclo ON cclo.sccc_cash_clousure_id = ccl.sccc_cash_clousure_id
+	WHERE to_char( cclo.closingdate ,'yyyy-MM-dd') = (SELECT to_char( closingdate ,'yyyy-MM-dd') FROM sccc_cash_clousure WHERE sccc_cash_clousure_id = $P{sccc_cash_clousure_id})
+	AND ccl.sccc_cash_clousure_id = $P{sccc_cash_clousure_id}
+	ORDER BY ccl.order_number
+)
+)A
+GROUP BY a.nombre, a.line
+ORDER BY a.line]]>
+	</queryString>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="monto" class="java.math.BigDecimal"/>
+	<field name="line" class="java.math.BigDecimal"/>
+	<variable name="SUM" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{monto}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="10">
+			<textField>
+				<reportElement x="166" y="0" width="55" height="10"/>
+				<box rightPadding="5">
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{monto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="166" height="10"/>
+				<box leftPadding="5" rightPadding="0">
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Diferencia "+$F{nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="25">
+			<staticText>
+				<reportElement x="0" y="7" width="166" height="10"/>
+				<box leftPadding="5">
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Diferencia]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="166" y="7" width="55" height="10"/>
+				<box rightPadding="5">
+					<topPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SUM}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

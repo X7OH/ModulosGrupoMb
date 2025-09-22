@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="ADCF543EEA934D4AA7116A028DC058BE" trl="N">
+    <value column="MsgText" isTrl="Y" original="You are not authorized to perform movements at this location.">No tiene autorización para realizar movimientos en esta ubicación.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

@@ -1,0 +1,292 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SCCC_CLOUSUREPROCESS">
+    <function name="SCCC_CLOUSUREPROCESS" type="NULL">
+      <parameter name="pinstance_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[TYPE RECORD IS REF CURSOR;
+  Cur_Parameter RECORD;
+  Cur_ClousureLines RECORD;
+  Cur_ClousureDifferences RECORD;
+  Cur_UpdateOrder RECORD;
+
+  v_User_ID VARCHAR2(32) ;
+
+  v_ResultStr VARCHAR2(2000) := '';
+  v_Concept_ID VARCHAR2(32);
+  v_LoadLines VARCHAR2(60);
+  v_RecordId VARCHAR2(32);
+  v_OrganizationId VARCHAR2(32);
+  v_Contador NUMBER:=0; 
+  v_TotalIncome NUMBER:=0; 
+  v_TotalExpenses NUMBER:=0; 
+  v_Docstatus VARCHAR2(60); 
+  v_TotalAmount NUMBER:=0; 
+  v_FinancialAccount VARCHAR2(32);
+  v_ClosingDate DATE;
+  v_PaymentMethodID VARCHAR2(32);
+  v_ConceptID VARCHAR2(32);
+  v_NameSetup VARCHAR2(60);
+  v_CostCenterID VARCHAR2(32);
+  v_AdClientID VARCHAR2(32);
+  v_Process VARCHAR2(60);
+  v_PeriodStatus VARCHAR2(60);
+
+  -- VARIABLES PARA DIFERENCIAS CIERRE DE CAJA
+  V_Get_UUID VARCHAR2(32);
+  V_Doctype_ID VARCHAR2(32);
+  V_Order_ID VARCHAR2(32);  
+  V_PaymentMethod_ID VARCHAR2(32);
+  V_Glitem_ID VARCHAR2(32);
+  V_FinancialAccount_ID VARCHAR2(32);
+  V_CloseCashOrg_ID VARCHAR2(32);
+  V_CloseCashCostCenter_ID VARCHAR2(32);   
+  V_CloseCashName  VARCHAR(60);
+  V_Amount_CloseCash NUMBER:=0;
+  V_Amount_CloseCashReal NUMBER:=0;
+  V_Difference NUMBER:=0;
+  V_re VARCHAR2(2000) := '';
+  -- VARIABLES PARA DIFERENCIAS CIERRE DE CAJA
+
+BEGIN
+  --  Update AD_PInstance
+  DBMS_OUTPUT.PUT_LINE('Updating PInstance - Processing ' || PInstance_ID) ;
+  v_ResultStr := 'PInstanceNotFound';
+  AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'Y', NULL, NULL) ;
+
+  BEGIN --BODY
+
+  -- Get Parameters
+  v_ResultStr := 'ReadingParameters';
+  --    v_n_insertions := 0;  
+
+  -- GET:    
+  FOR Cur_Parameter IN(
+            SELECT i.Record_ID,
+              p.ParameterName,
+              p.P_String,
+              p.P_Number,
+              p.P_Date,
+              p.AD_Client_ID,
+              p.AD_Org_ID,
+              p.CreatedBy        
+            FROM AD_PInstance i
+            LEFT JOIN AD_PInstance_Para p
+           ON i.AD_PInstance_ID = p.AD_PInstance_ID
+            WHERE i.AD_PInstance_ID = pinstance_id
+            ORDER BY p.SeqNo
+  )LOOP
+
+      v_RecordId := Cur_Parameter.Record_ID;
+
+      IF (Cur_Parameter.ParameterName = 'Ad_User_ID') THEN
+        v_User_ID := Cur_Parameter.P_String;      
+      END IF;    
+      
+  END LOOP; 
+
+  SELECT  process,docstatus,ad_org_id,closingdate,ad_client_id,totalincome + totalexpenses 
+  INTO v_Process,v_Docstatus,v_OrganizationId,v_ClosingDate,v_AdClientID,v_TotalAmount 
+  FROM sccc_cash_clousure where sccc_cash_clousure_id= v_RecordId;
+
+  --SE COMPRUEBA SI EL PERÍODO ESTÁ CERRADO
+  SELECT openclose INTO v_PeriodStatus FROM c_period WHERE v_ClosingDate>=startdate AND v_ClosingDate <= enddate ;
+  IF (v_PeriodStatus='O')THEN
+    AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 0, '@PeriodNotAvailable@') ;
+    RETURN;
+  END IF;
+  
+    --SI ESTA EN ESTADO REGISTRADO 
+    IF(v_Docstatus ='SCCC_RG') THEN
+
+      IF (v_TotalAmount=0) THEN
+        AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 0, '@SCCC_TOTAL_ZERO@') ;
+        RETURN;
+      END IF;
+
+      SELECT count(*) into v_Contador from sccc_payment_method pm
+      INNER JOIN sccc_setup st ON st.sccc_setup_id = pm.sccc_setup_id
+      WHERE st.ad_org_id= v_OrganizationId;
+
+      IF (v_Contador =0) THEN
+        AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 0, '@SCCC_ORG_NOT_FOUND@') ;
+        RETURN;
+      END IF;
+
+      SELECT FIN_Financial_Account_id,c_glitem_id,name,c_costcenter_id INTO v_FinancialAccount,v_ConceptID,v_NameSetup,v_CostCenterID FROM sccc_setup where ad_org_id= v_OrganizationId;
+
+      --INSERCIÓN EN LÍNEAS DE CUENTA FINANCIERA
+      INSERT INTO fin_finacc_transaction(
+              fin_finacc_transaction_id, ad_client_id, ad_org_id, created, 
+              createdby, updated, updatedby, isactive, c_currency_id, fin_financial_account_id, 
+              line, dateacct, c_glitem_id, status, paymentamt, 
+              depositamt, processed, processing, posted,
+              trxtype, statementdate, description,c_costcenter_id,em_sccc_iscashclousure,EM_Aprm_Processed, em_sccc_cash_clousure_id)
+      VALUES (get_uuid(), v_AdClientID, v_OrganizationId, now(), 
+              v_User_ID, now(), v_User_ID, 'Y', '100', v_FinancialAccount, 
+             (SELECT COALESCE(MAX(line),0)+10 FROM  fin_finacc_transaction WHERE fin_finacc_transaction_ID = v_FinancialAccount ),  v_ClosingDate, v_ConceptID, 'PWNC', v_TotalAmount, 
+              0, 'N', 'N', 'N', 
+              'BPW', v_ClosingDate, v_NameSetup, v_CostCenterID,'Y','P',v_RecordId);
+
+
+      FOR Cur_ClousureLines IN( 
+
+      SELECT * FROM sccc_cash_clousureline WHERE sccc_cash_clousure_id =v_RecordId ORDER BY order_number
+
+      )LOOP
+
+        IF Cur_ClousureLines.amount <> 0 THEN
+
+          v_FinancialAccount:=null;
+          SELECT pm.fin_financial_account_id into v_FinancialAccount FROM sccc_payment_method pm
+          INNER JOIN sccc_setup ss ON ss.sccc_setup_id = pm.sccc_setup_id
+          WHERE pm.fin_paymentmethod_id = Cur_ClousureLines.fin_paymentmethod_id 
+          AND pm.typeaccount =Cur_ClousureLines.typeaccount
+          AND ss.ad_org_id =(SELECT ad_org_id from sccc_cash_clousure where  sccc_cash_clousure_id = Cur_ClousureLines.sccc_cash_clousure_id);
+
+          IF (v_FinancialAccount = NULL) THEN
+          AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 0, '@SCCC_PYMNMETHOD_NOTFOUND@') ;
+          RETURN;
+          END IF;
+
+          --INSERCIÓN EN LÍNEAS DE CUENTA FINANCIERA
+          INSERT INTO fin_finacc_transaction(
+              fin_finacc_transaction_id, ad_client_id, ad_org_id, created, 
+              createdby, updated, updatedby, isactive, c_currency_id, fin_financial_account_id, 
+              line, dateacct, c_glitem_id, status, paymentamt, 
+              depositamt, processed, processing, posted,
+              trxtype, statementdate, description,c_costcenter_id,em_sccc_iscashclousure,EM_Aprm_Processed, em_sccc_cash_clousure_id)
+          VALUES (get_uuid(), v_AdClientID, v_OrganizationId, now(), 
+              v_User_ID, now(), v_User_ID, 'Y', '100', v_FinancialAccount, 
+             (SELECT COALESCE(MAX(line),0)+10 FROM  fin_finacc_transaction WHERE fin_finacc_transaction_ID = v_FinancialAccount ),  v_ClosingDate, v_ConceptID, 'RDNC', 0, 
+              Cur_ClousureLines.amount, 'N', 'N', 'N', 
+              'BPD', v_ClosingDate, v_NameSetup, v_CostCenterID,'Y','P',v_RecordId);
+
+        END IF;
+
+        END LOOP; 
+
+      UPDATE sccc_cash_clousure SET docstatus='SCCC_PR' WHERE sccc_cash_clousure_ID= v_RecordId;
+      UPDATE sccc_cash_clousure SET process='RE' WHERE sccc_cash_clousure_ID= v_RecordId;
+
+      /**********************************************************/
+      /*  INICIO CALCULO DE DIFERENCIAS PARA EL CIERRE DE CAJA  */
+      /**********************************************************/
+      FOR Cur_ClousureDifferences IN( 
+
+        SELECT  fpm.fin_paymentmethod_id as metodopagoid, 
+                ccl.amount as montocierre, 
+                cclo.name as nombrecierre,
+                cclo.ad_org_id as orgcierrecaja,
+                org.em_scmba_costcenter_id as coscentercierrecaja,   
+                setup.em_scccd_finaacc_diff as cuentafinanciera,               
+                setup.em_scccd_glitem_diff as conceptocontable,
+                postype.c_doctype_id as tipodocumento
+        FROM fin_paymentmethod fpm
+        LEFT JOIN sccc_cash_clousureline ccl ON ccl.fin_paymentmethod_id = fpm.fin_paymentmethod_id
+        LEFT JOIN sccc_cash_clousure cclo ON cclo.sccc_cash_clousure_id = ccl.sccc_cash_clousure_id
+        LEFT JOIN ad_org org ON org.ad_org_id = cclo.ad_org_id
+        LEFT JOIN c_costcenter cc ON cc.c_costcenter_id = org.em_scmba_costcenter_id
+        LEFT JOIN sccc_setup setup ON setup.ad_org_id = org.ad_org_id
+        LEFT JOIN obpos_applications pos ON pos.obpos_applications_id = setup.em_scccd_posterminal
+        LEFT JOIN obpos_terminaltype postype ON postype.obpos_terminaltype_id = pos.obpos_terminaltype_id
+        LEFT JOIN c_doctype cdt ON cdt.c_doctype_id = postype.c_doctype_id
+        WHERE fpm.em_saqb_type_call_center = 'EFE'
+        AND to_char( cclo.closingdate ,'yyyy-MM-dd') = to_char( v_ClosingDate ,'yyyy-MM-dd')
+        AND ccl.sccc_cash_clousure_id = v_RecordId
+
+      )LOOP  
+
+        V_PaymentMethod_ID:= Cur_ClousureDifferences.metodopagoid;
+        V_Doctype_ID:=Cur_ClousureDifferences.tipodocumento;
+        V_Amount_CloseCash:=Cur_ClousureDifferences.montocierre;
+        V_Glitem_ID:=Cur_ClousureDifferences.conceptocontable;
+        V_FinancialAccount_ID:=Cur_ClousureDifferences.cuentafinanciera;
+        V_CloseCashName:=Cur_ClousureDifferences.nombrecierre;
+        V_CloseCashOrg_ID:=Cur_ClousureDifferences.orgcierrecaja;
+        V_CloseCashCostCenter_ID:=Cur_ClousureDifferences.coscentercierrecaja;
+
+      END LOOP;   
+
+      SELECT SUM(valor)
+      INTO V_Amount_CloseCashReal
+      FROM (
+        SELECT co.c_order_id, co.documentno,co.dateordered,co.em_scccd_conciliate, co.c_doctypetarget_id, pdet.em_aprm_displayed_paymmeth_id, pdet.paidamt as valor  
+        FROM c_order co
+        LEFT JOIN fin_payment_sched_ord_v psh ON psh.c_order_id = co.c_order_id
+        LEFT JOIN fin_payment_detail_v pdet ON pdet.fin_payment_sched_ord_v_id = psh.fin_payment_sched_ord_v_id 
+        WHERE co.issotrx = 'Y'
+        AND to_char( co.dateordered ,'yyyy-MM-dd') = to_char( v_ClosingDate ,'yyyy-MM-dd')
+        AND co.em_scccd_conciliate = 'N'
+        AND co.c_doctypetarget_id = V_Doctype_ID --VENTAS PARA TIPO DE DOCUMENTO DEL POS TERMINAL 
+        AND pdet.em_aprm_displayed_paymmeth_id = V_PaymentMethod_ID  
+        ORDER BY co.documentno 
+      )A
+      GROUP BY dateordered;
+
+      V_Difference = (V_Amount_CloseCash - V_Amount_CloseCashReal);
+
+      -- SE ACTUALIZA EL CAMPO DIFERENCIAS EN LA CABECERA DEK CIERRE DE CAJA
+      UPDATE sccc_cash_clousure SET em_scccd_differences = V_Difference, em_scccd_differencesamt = V_Amount_CloseCashReal WHERE sccc_cash_clousure_id = v_RecordId;
+
+      V_Get_UUID := get_uuid();
+      --INSERCIÓN EN LÍNEAS DE CUENTA FINANCIERA
+      INSERT INTO fin_finacc_transaction(fin_finacc_transaction_id, ad_client_id, ad_org_id, created, createdby, updated, updatedby, isactive, 
+              c_currency_id, fin_financial_account_id, line, dateacct, c_glitem_id, status, paymentamt, depositamt, processed, processing, 
+              posted, trxtype, statementdate, description, c_costcenter_id, em_sccc_iscashclousure, EM_Aprm_Processed, em_sccc_cash_clousure_id)
+      VALUES ( V_Get_UUID , v_AdClientID, V_CloseCashOrg_ID, now(), v_User_ID, now(), v_User_ID, 'Y', '100', V_FinancialAccount_ID, 
+              (SELECT COALESCE(MAX(line),0)+10 FROM  fin_finacc_transaction WHERE fin_finacc_transaction_ID = V_FinancialAccount_ID ),  v_ClosingDate, 
+              V_Glitem_ID, 'PWNC', ABS(V_Difference), 0, 'Y', 'N', 'N', 'BPW', v_ClosingDate, V_CloseCashName, V_CloseCashCostCenter_ID, 'Y','P', v_RecordId);      
+
+      -- SE LLAMA LA FUNCION PARA ACTUALIZAR LOS SALDOS FINANCIERA  
+      SESCR_TRANSPROCESSPAYMENT(V_Get_UUID);
+
+      -- SE ACTUALIZA EL CAMPO CONCILIADO PARA LOS PEDIDOS DE VENTA DEL CIERRE DE CAJA
+      FOR Cur_UpdateOrder IN( 
+
+        SELECT co.c_order_id  
+        FROM c_order co
+        LEFT JOIN fin_payment_sched_ord_v psh ON psh.c_order_id = co.c_order_id
+        LEFT JOIN fin_payment_detail_v pdet ON pdet.fin_payment_sched_ord_v_id = psh.fin_payment_sched_ord_v_id 
+        WHERE co.issotrx = 'Y'
+        AND to_char( co.dateordered ,'yyyy-MM-dd') = to_char( v_ClosingDate ,'yyyy-MM-dd')
+        AND co.em_scccd_conciliate = 'N'
+        AND co.c_doctypetarget_id = V_Doctype_ID
+        AND pdet.em_aprm_displayed_paymmeth_id = V_PaymentMethod_ID  
+        ORDER BY co.documentno 
+
+      )LOOP  
+
+        V_Order_ID:=Cur_UpdateOrder.c_order_id;
+        UPDATE c_order SET em_scccd_conciliate = 'Y' WHERE c_order_id = V_Order_ID;
+
+      END LOOP;      
+      /**********************************************************/
+      /*   FIN CALCULO DE DIFERENCIAS PARA EL CIERRE DE CAJA    */
+      /**********************************************************/      
+
+    ELSE
+
+      IF(v_Process ='RE' AND v_Docstatus= 'SCCC_PR') THEN
+        UPDATE sccc_cash_clousure SET docstatus='SCCC_RG' WHERE sccc_cash_clousure_ID= v_RecordId;
+        UPDATE sccc_cash_clousure SET process='PR' WHERE sccc_cash_clousure_ID= v_RecordId;
+      END IF;
+
+    END IF; 
+
+    
+    DBMS_OUTPUT.PUT_LINE('Updating PInstance - Finished ' || '@Success@');
+    AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 1, '@Success@') ;
+    RETURN;
+  
+  END; --BODY
+  EXCEPTION
+  WHEN OTHERS THEN
+  v_ResultStr:= '@ERROR=' || SQLERRM;
+  DBMS_OUTPUT.PUT_LINE(v_ResultStr) ;
+  AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 0, v_ResultStr) ;    
+  RETURN;
+END SCCC_CLOUSUREPROCESS
+]]></body>
+    </function>
+  </database>

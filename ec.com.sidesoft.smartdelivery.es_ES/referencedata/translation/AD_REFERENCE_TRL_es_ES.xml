@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
+  <row id="1D95DE4F95E142A88864305D0796DC9D" trl="Y">
+    <value column="Name" isTrl="Y" original="SSMRDR_DeliveryType">Lista Tipo de Delivery Urbano</value>
+    <value column="Description" isTrl="N" original="">Lista Tipo de Delivery Urbano</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="23A44C07034A4662A4A91F8F46771DC7" trl="N">
+    <value column="Name" isTrl="Y" original="SSMRDR_Employee">Empleado - Motorizado</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="41902E9711084E458E499B4A8FF2C375" trl="N">
+    <value column="Name" isTrl="Y" original="SSMRDR_Motorized">Motorizado</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_ELEMENT" version="">
+  <row id="066C5CF39B5B4C1EA54E59769B691D13" trl="N">
+    <value column="Name" isTrl="N" original="Ssdah_Mirrormo_Prod_Cat_ID">Ssdah_Mirrormo_Prod_Cat_ID</value>
+    <value column="PrintName" isTrl="N" original="Ssdah_Mirrormo_Prod_Cat_ID">Ssdah_Mirrormo_Prod_Cat_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="099E35AA9DCA4757832681C0816B100F" trl="N">
+    <value column="Name" isTrl="N" original="Ssdah_Mirrormo_Bp_Group_ID">Ssdah_Mirrormo_Bp_Group_ID</value>
+    <value column="PrintName" isTrl="N" original="Ssdah_Mirrormo_Bp_Group_ID">Ssdah_Mirrormo_Bp_Group_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="0AA15779247B4EF19C067FDDD0700DAF" trl="N">
+    <value column="Name" isTrl="N" original="Ssdah_Mmo_Oc_Family_ID">Ssdah_Mmo_Oc_Family_ID</value>
+    <value column="PrintName" isTrl="N" original="Ssdah_Mmo_Oc_Family_ID">Ssdah_Mmo_Oc_Family_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="0E5A259DA82448529BC51A9F5EDE4419" trl="N">
+    <value column="Name" isTrl="N" original="Ssdah_Reforiginalid">Ssdah_Reforiginalid</value>
+    <value column="PrintName" isTrl="N" original="Ssdah_Reforiginalid">Ssdah_Reforiginalid</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="123AA32005754799AE1816739E7F18D4" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Od_Approval_Required">Requiere Aprobación</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Od_Approval_Required">Requiere Aprobación</value>
+    <value column="Description" isTrl="N" original="">Requiere Aprobación</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="1BF745E611254434B6EF797FF4014C20" trl="N">
+    <value column="Name" isTrl="N" original="Ssdah_Moc_Family_Trl_ID">Ssdah_Moc_Family_Trl_ID</value>
+    <value column="PrintName" isTrl="N" original="Ssdah_Moc_Family_Trl_ID">Ssdah_Moc_Family_Trl_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="1C8B3062654A4E5FA948797F4C296750" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Od_Price">Precio de descuento/promoción</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Od_Price">Precio de descuento/promoción</value>
+    <value column="Description" isTrl="N" original="">Precio de descuento/promoción</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="1EC973ADE57241BA8604F0062BDC41D1" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Od_Percentage">Porcentaje de Descuento</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Od_Percentage">Porcentaje de Descuento</value>
+    <value column="Description" isTrl="N" original="">Porcentaje de Descuento</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="1F160473F5E54CCAACA4F3E16B1DBC6A" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Ds_Totalpercdisc">Percentage</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Ds_Totalpercdisc">Percentage</value>
+    <value column="Description" isTrl="N" original="">Percentage</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="406B4606F11E45B38926115BD2819DB5" trl="N">
+    <value column="Name" isTrl="N" original="Ssdah_Mirrormo_Product_ID">Ssdah_Mirrormo_Product_ID</value>
+    <value column="PrintName" isTrl="N" original="Ssdah_Mirrormo_Product_ID">Ssdah_Mirrormo_Product_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="4122D37ECC0445AC9DCE792DE265F264" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Ss_Main">Principal Web</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Ss_Main">Principal Web</value>
+    <value column="Description" isTrl="N" original="">Principal Web</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="43E75237903D4E3B909B69033FEF4B18" trl="N">
+    <value column="Name" isTrl="N" original="Ssdah_Mirror_Price_ID">Ssdah_Mirror_Price_ID</value>
+    <value column="PrintName" isTrl="N" original="Ssdah_Mirror_Price_ID">Ssdah_Mirror_Price_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="456F9301B9374E78A62ED3ACAD2D9923" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Msrm_Callcenter">Call center</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Msrm_Callcenter">Call center</value>
+    <value column="Description" isTrl="N" original="">Call center</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="480C2C331D714248A075610D8ED97689" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Ds_Totalamountdisc">Importe</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Ds_Totalamountdisc">Importe</value>
+    <value column="Description" isTrl="N" original="">Importe</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="483DEB1FE6B549388F6A9F6A7D2682FA" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Od_Upc">UPC/EAN</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Od_Upc">UPC/EAN</value>
+    <value column="Description" isTrl="N" original="">UPC/EAN</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="4971CB92DF0049D7BF389C0032889DB9" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Se_Value">Identificador Delivery</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Se_Value">Identificador Delivery</value>
+    <value column="Description" isTrl="N" original="">Identificador Delivery</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="56952D980A3E400BB1A9DAAC2FC4EB86" trl="N">
+    <value column="Name" isTrl="N" original="Ssdah_Od_Is_Gift">Ssdah_Od_Is_Gift</value>
+    <value column="PrintName" isTrl="N" original="Ssdah_Od_Is_Gift">Ssdah_Od_Is_Gift</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="57960AAFFA084917BAB750980304E1BC" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Od_Subtype">Subtipo de descuento</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Od_Subtype">Subtipo de descuento</value>
+    <value column="Description" isTrl="N" original="">Subtipo de descuento</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="58E9C12530E144D7A996549EF6564359" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Od_C_Currency_ID">Moneda</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Od_C_Currency_ID">Moneda</value>
+    <value column="Description" isTrl="N" original="">Moneda</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="5917CB7AF50E45098A2EB65463F1FEC4" trl="N">
+    <value column="Name" isTrl="N" original="Ssdah_Mirrormo_Charac_ID">Ssdah_Mirrormo_Charac_ID</value>
+    <value column="PrintName" isTrl="N" original="Ssdah_Mirrormo_Charac_ID">Ssdah_Mirrormo_Charac_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="6170337A02A149699801B765B308DD76" trl="N">
+    <value column="Name" isTrl="N" original="Ssdah_Od_Qty">Ssdah_Od_Qty</value>
+    <value column="PrintName" isTrl="N" original="Ssdah_Od_Qty">Ssdah_Od_Qty</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="62BF3A2F677E45409A7C74A46B386B86" trl="Y">
+    <value column="Name" isTrl="Y" original="Characteristics_Selection">Características Incluidas</value>
+    <value column="PrintName" isTrl="Y" original="Characteristics_Selection">Características Incluidas</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="71782E04EACA4DF1A44B1B01542F6295" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Od_Distribute">Distribuir entre las lineas</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Od_Distribute">Distribuir entre las lineas</value>
+    <value column="Description" isTrl="N" original="">Distribuir entre las lineas</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="724A7510D73041739A9AF9A15FDF8C3B" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Od_Y">Y Unidades</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Od_Y">Y Unidades</value>
+    <value column="Description" isTrl="N" original="">Y Unidades</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="7F0C02BE59FE40C8BE41D01CE7A9BFB9" trl="N">
+    <value column="Name" isTrl="N" original="Ssdah_Mirror_Odo_Role_ID">Ssdah_Mirror_Odo_Role_ID</value>
+    <value column="PrintName" isTrl="N" original="Ssdah_Mirror_Odo_Role_ID">Ssdah_Mirror_Odo_Role_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="801B9B7EFEAE49988B6BA12AB7B536E0" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Oc_Allowinclineprice">Permitir aumento en precio línea</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Oc_Allowinclineprice">Permitir aumento en precio línea</value>
+    <value column="Description" isTrl="N" original="">Permitir aumento en precio línea</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="822E7F8626F14BE385F31E5CA1F99556" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Msrm_Extra_Suplement">Suplemento Extra</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Msrm_Extra_Suplement">Suplemento Extra</value>
+    <value column="Description" isTrl="N" original="">Suplemento Extra</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="86A777E7BB494BCE9412CA1BAC6366D2" trl="Y">
+    <value column="Name" isTrl="N" original="EM_Ssdah_Charge_Prices">Cargar Precios</value>
+    <value column="PrintName" isTrl="N" original="EM_Ssdah_Charge_Prices">Cargar Precios</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="950475C10AC4402BA55E4F8971AC57AA" trl="Y">
+    <value column="Name" isTrl="Y" original="EM_Ssdah_Charge_Materialist">Cargar Lista de Materiales - Espejo</value>
+    <value column="PrintName" isTrl="Y" original="EM_Ssdah_Charge_Materialist">Cargar Lista de Materiales - Espejo</value>
+    <value column="Description" isTrl="N" original="">Cargar Lista de Materiales - Espejo</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="9E5CA6F3312E4813ABE53B09712CDBD6" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Od_Amt">Importe descontado</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Od_Amt">Importe descontado</value>
+    <value column="Description" isTrl="N" original="">Importe descontado</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="9E663C17A57447C497075AD390E5E60C" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Ss_Value">Identificador</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Ss_Value">Identificador</value>
+    <value column="Description" isTrl="N" original="">Identificador</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="B5C003065C3B40A79AF48EED3FE34F75" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Mssc_Domicile">Domicilio</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Mssc_Domicile">Domicilio</value>
+    <value column="Description" isTrl="N" original="">Domicilio</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="B77F8E54C7064017A7774370B52EC4CF" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Od_Role_Selection">Roles Incluidos</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Od_Role_Selection">Roles Incluidos</value>
+    <value column="Description" isTrl="N" original="">Roles Incluidos</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="BECDD7231C8D44DD9F3F43EF6C7FA62F" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Oc_Combofixprice">Precio Fijo Combo</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Oc_Combofixprice">Precio Fijo Combo</value>
+    <value column="Description" isTrl="N" original="">Precio Fijo Combo</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="C604400A37E549A9AF0BA25F0D384AFD" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Mslv_Default">Glovo</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Mslv_Default">Glovo</value>
+    <value column="Description" isTrl="N" original="">Glovo</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="CB968CF8B01643D698F14FFA0CB30976" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Msea_Default">Pedidos YA</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Msea_Default">Pedidos YA</value>
+    <value column="Description" isTrl="N" original="">Pedidos YA</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="CE4EB8687C3F4136AD160F835C8DF0D0" trl="N">
+    <value column="Name" isTrl="N" original="Ssdah_Mirrormo_Organization_ID">Ssdah_Mirrormo_Organization_ID</value>
+    <value column="PrintName" isTrl="N" original="Ssdah_Mirrormo_Organization_ID">Ssdah_Mirrormo_Organization_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="CF1CA1BF452A478DAFD25DE4D94FEC63" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Msrb_Main">Principal</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Msrb_Main">Principal</value>
+    <value column="Description" isTrl="N" original="">Principal</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="CFE702727EF442C2BA40C224F6B88701" trl="N">
+    <value column="Name" isTrl="N" original="Ssdah_Mirrormo_Pricelist_ID">Ssdah_Mirrormo_Pricelist_ID</value>
+    <value column="PrintName" isTrl="N" original="Ssdah_Mirrormo_Pricelist_ID">Ssdah_Mirrormo_Pricelist_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="D1FE58F364234DB8B97C520143E15232" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Mirrormo_ID">Ajustes de precio - Espejo</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Mirrormo_ID">Ajustes de precio - Espejo</value>
+    <value column="Description" isTrl="N" original="">Ajustes de precio - Espejo</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="D4FDB2AD352C4671BE3EB0F6B95A544C" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Ds_Totalreceipt">Importe total del recibo</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Ds_Totalreceipt">Importe total del recibo</value>
+    <value column="Description" isTrl="N" original="">Importe total del recibo</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="D60CF950911A4B00B095902F36F4B6D8" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Od_X">X Unidades</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Od_X">X Unidades</value>
+    <value column="Description" isTrl="N" original="">X Unidades</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="E0F6CA3C284546B59D32DE010AFEC1C8" trl="N">
+    <value column="Name" isTrl="N" original="Ssdah_Moc_Product_ID">Ssdah_Moc_Product_ID</value>
+    <value column="PrintName" isTrl="N" original="Ssdah_Moc_Product_ID">Ssdah_Moc_Product_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="E20A60E297144BCEBEC38254400550DE" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Se_Deliprice">Precio Delivery</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Se_Deliprice">Precio Delivery</value>
+    <value column="Description" isTrl="N" original="">Precio Delivery</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="E41DED53D1794873908EA2C15568345A" trl="N">
+    <value column="Name" isTrl="N" original="Ssdah_Mirrormo_Bpartner_ID">Ssdah_Mirrormo_Bpartner_ID</value>
+    <value column="PrintName" isTrl="N" original="Ssdah_Mirrormo_Bpartner_ID">Ssdah_Mirrormo_Bpartner_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="EB83CA4277524536BD5462769F8313D2" trl="N">
+    <value column="Name" isTrl="N" original="Ssdah_Mds_Freeproduct_ID">Ssdah_Mds_Freeproduct_ID</value>
+    <value column="PrintName" isTrl="N" original="Ssdah_Mds_Freeproduct_ID">Ssdah_Mds_Freeproduct_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="EC098131897448BB93298E7B9F30BC2B" trl="N">
+    <value column="Name" isTrl="N" original="Ssdah_Sr_Pro_Category_ID">Ssdah_Sr_Pro_Category_ID</value>
+    <value column="PrintName" isTrl="N" original="Ssdah_Sr_Pro_Category_ID">Ssdah_Sr_Pro_Category_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="F0695C6ED0BF45BCB149D512CF614154" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssdah_Od_Image">Imagen</value>
+    <value column="PrintName" isTrl="Y" original="Ssdah_Od_Image">Imagen</value>
+    <value column="Description" isTrl="N" original="">Imagen</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="F69B3D22CFF842759278D068C0800C59" trl="N">
+    <value column="Name" isTrl="N" original="Ssdah_Od_Gifqty">Ssdah_Od_Gifqty</value>
+    <value column="PrintName" isTrl="N" original="Ssdah_Od_Gifqty">Ssdah_Od_Gifqty</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="F9E54B82E9F846809B414BB1EFB90E3B" trl="N">
+    <value column="Name" isTrl="N" original="Ssdah_Mirror_Pb_ID">Ssdah_Mirror_Pb_ID</value>
+    <value column="PrintName" isTrl="N" original="Ssdah_Mirror_Pb_ID">Ssdah_Mirror_Pb_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="FC83185956A44F2F8973E8B88B5B38D0" trl="N">
+    <value column="Name" isTrl="N" original="Ssdah_Mirrormo_Trl_ID">Ssdah_Mirrormo_Trl_ID</value>
+    <value column="PrintName" isTrl="N" original="Ssdah_Mirrormo_Trl_ID">Ssdah_Mirrormo_Trl_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

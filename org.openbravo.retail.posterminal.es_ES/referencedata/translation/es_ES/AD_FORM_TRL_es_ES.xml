@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_FORM" version="">
+  <row id="24C362E81493418A966C4FB18340CC89" trl="N">
+    <value column="Name" isTrl="N" original="InstanceActivationExtensions">InstanceActivationExtensions</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="B7B7675269CD4D44B628A2C6CF01244F" trl="N">
+    <value column="Name" isTrl="Y" original="Web POS">TPV Web</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Web POS window">Ventana del TPV Web</value>
+  </row>
+</compiereTrl>

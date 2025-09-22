@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_ELEMENT" version="">
+  <row id="0462678EE2044D24A59B705C64096098" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssipy_Lasttoken">Token</value>
+    <value column="PrintName" isTrl="Y" original="Ssipy_Lasttoken">Token</value>
+    <value column="Description" isTrl="N" original="">Token</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="07A580CE95164504A6D84047A1EBEBF5" trl="N">
+    <value column="Name" isTrl="N" original="Ssipy_Justoconflines_ID">Ssipy_Justoconflines_ID</value>
+    <value column="PrintName" isTrl="N" original="Ssipy_Justoconflines_ID">Ssipy_Justoconflines_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="168231C4C3E9407E8E57B2BFB54D4853" trl="N">
+    <value column="Name" isTrl="N" original="Ssipy_Justopaymethod_ID">Ssipy_Justopaymethod_ID</value>
+    <value column="PrintName" isTrl="N" original="Ssipy_Justopaymethod_ID">Ssipy_Justopaymethod_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="390C77D8ECC149B98AE95489C801F3CA" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssipy_Methodname">Nombre Metodo</value>
+    <value column="PrintName" isTrl="Y" original="Ssipy_Methodname">Nombre Metodo</value>
+    <value column="Description" isTrl="N" original="">Nombre Metodo</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="44660BEE2AE24B7882815440B863BC73" trl="Y">
+    <value column="Name" isTrl="Y" original="Processjson">Procesar</value>
+    <value column="PrintName" isTrl="Y" original="Processjson">Procesar</value>
+    <value column="Description" isTrl="N" original="">Procesar</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="45DB27E8C002454A83CEE605ABCFADE7" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssipy_Apikey">API Key</value>
+    <value column="PrintName" isTrl="Y" original="Ssipy_Apikey">API Key</value>
+    <value column="Description" isTrl="N" original="">API Key</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="48299A7B786447E6B34B022AD1E0B17B" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssipy_Identifier">Identificador</value>
+    <value column="PrintName" isTrl="Y" original="Ssipy_Identifier">Identificador</value>
+    <value column="Description" isTrl="N" original="">Identificador</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="4BF6B3FE3DC14ECF8CE0A097849484EE" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssipy_Domain">Dominio</value>
+    <value column="PrintName" isTrl="Y" original="Ssipy_Domain">Dominio</value>
+    <value column="Description" isTrl="N" original="">Dominio</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="5E5591A46EBF4149BF8192C9A5C9F9DF" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssipy_Orderurl">URL API Pedido de Venta</value>
+    <value column="PrintName" isTrl="Y" original="Ssipy_Orderurl">URL API Pedido de Venta</value>
+    <value column="Description" isTrl="N" original="">URL API Pedido de Venta</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="6142E660CF894525BF8360268FF528A6" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssipy_Notifyurl">URL API Notificacion</value>
+    <value column="PrintName" isTrl="Y" original="Ssipy_Notifyurl">URL API Notificacion</value>
+    <value column="Description" isTrl="N" original="">URL API Notificacion</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="6E097C3F7CD4404AA9209484BD95E063" trl="Y">
+    <value column="Name" isTrl="Y" original="Isauth">Autorizacion</value>
+    <value column="PrintName" isTrl="Y" original="Isauth">Autorizacion</value>
+    <value column="Description" isTrl="N" original="">Autorizacion</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="904DAFB3B610413299FF2A5FF607D058" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssipy_Username">Usuario</value>
+    <value column="PrintName" isTrl="Y" original="Ssipy_Username">Usuario</value>
+    <value column="Description" isTrl="N" original="">Usuario</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="9B4463805F70411495145168DF224C16" trl="N">
+    <value column="Name" isTrl="N" original="Ssipy_Justoconfig_ID">Ssipy_Justoconfig_ID</value>
+    <value column="PrintName" isTrl="N" original="Ssipy_Justoconfig_ID">Ssipy_Justoconfig_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="9CD837BB801B4869A2059073905F87D4" trl="Y">
+    <value column="Name" isTrl="Y" original="Responselog">Response Log</value>
+    <value column="PrintName" isTrl="Y" original="Responselog">Response Log</value>
+    <value column="Description" isTrl="N" original="">Response Log</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="B59911448D624958981629F81D1BFED7" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssipy_Description">Descripcion</value>
+    <value column="PrintName" isTrl="Y" original="Ssipy_Description">Descripcion</value>
+    <value column="Description" isTrl="N" original="">Descripcion</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="C6621669D4B240FE9F72C08A3297A6A9" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssipy_Password">Clave</value>
+    <value column="PrintName" isTrl="Y" original="Ssipy_Password">Clave</value>
+    <value column="Description" isTrl="N" original="">Clave</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="CDD3554EB0F1464D8F2FE690C66248C6" trl="Y">
+    <value column="Name" isTrl="Y" original="Logstatus">Estado</value>
+    <value column="PrintName" isTrl="Y" original="Logstatus">Estado</value>
+    <value column="Description" isTrl="N" original="">Estado</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="DC2BDBC551174FF4B0AE650F3A94DF01" trl="N">
+    <value column="Name" isTrl="N" original="Ssipy_Justologs_ID">Ssipy_Justologs_ID</value>
+    <value column="PrintName" isTrl="N" original="Ssipy_Justologs_ID">Ssipy_Justologs_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="DCE01A7CD4414B41BCF176FE534B42F5" trl="Y">
+    <value column="Name" isTrl="Y" original="Jsonlog">JSON Log</value>
+    <value column="PrintName" isTrl="Y" original="Jsonlog">JSON Log</value>
+    <value column="Description" isTrl="N" original="">JSON Log</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="DDE11614E8EC47E786E94AB8456DDEC1" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssipy_Url">URL</value>
+    <value column="PrintName" isTrl="Y" original="Ssipy_Url">URL</value>
+    <value column="Description" isTrl="N" original="">URL</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="F150EAB9C091479C90C5F8E817CD3F1C" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssipy_Endpoint">EndPoint</value>
+    <value column="PrintName" isTrl="Y" original="Ssipy_Endpoint">EndPoint</value>
+    <value column="Description" isTrl="N" original="">EndPoint</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="FD6772B27C2D46A29806CB0F00B1FFAC" trl="Y">
+    <value column="Name" isTrl="Y" original="Ssipy_Brand">Marca</value>
+    <value column="PrintName" isTrl="Y" original="Ssipy_Brand">Marca</value>
+    <value column="Description" isTrl="N" original="">Marca</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

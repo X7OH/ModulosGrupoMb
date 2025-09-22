@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_OvertimeDetail" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.2100000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="ad_user_id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="c_costcenter_id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="startdate" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="enddate" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select a.ad_org_id,
+upper(c.name) as costcenter,
+upper('Total ' || c.name) as totalcentro,
+upper(d.name) as area,
+upper('Total ' || d.name) as totalarea,
+(select sprov_return_position(b.c_bpartner_id) from dual) as cargo,
+b.name as employee,
+e.name as department,
+f.name as city,
+sum(a.time_25) as HE25,
+sum(a.time_50) as HE50,
+sum(a.time_100) as HE100,
+sum(a.total_arrears) as totalatrasos,
+to_char(now(),'dd/MM/yyyy HH24:MI:SS') as fecha_impresion,
+(select COALESCE(CB.NAME,AU.NAME) from AD_USER AU LEFT JOIN C_BPARTNER CB on CB.C_BPARTNER_ID = AU.C_BPARTNER_ID where AU.AD_USER_ID = $P{ad_user_id}) as usuario
+from sprov_employee_overtime a
+left join c_bpartner b on b.c_bpartner_id = a.c_bpartner_id
+left join c_costcenter c on c.c_costcenter_id = b.EM_Sspr_Costcenter_ID
+left join sprbi_area d on d.sprbi_area_id = b.em_sprbi_area_id
+left join sshr_department e on e.sshr_department_id = b.em_sshr_department_id
+left join c_city f on f.c_city_id = b.em_sspr_city
+where a.datemovement between $P{startdate} and $P{enddate}
+and (c.c_costcenter_id = $P{c_costcenter_id} or $P{c_costcenter_id} is null)
+group by a.ad_org_id, b.c_bpartner_id, c.name, d.name, b.name, e.name, f.name
+order by c.name, d.name, b.name, e.name, f.name]]>
+	</queryString>
+	<field name="ad_org_id" class="java.lang.String"/>
+	<field name="costcenter" class="java.lang.String"/>
+	<field name="totalcentro" class="java.lang.String"/>
+	<field name="area" class="java.lang.String"/>
+	<field name="totalarea" class="java.lang.String"/>
+	<field name="cargo" class="java.lang.String"/>
+	<field name="employee" class="java.lang.String"/>
+	<field name="department" class="java.lang.String"/>
+	<field name="city" class="java.lang.String"/>
+	<field name="he25" class="java.math.BigDecimal"/>
+	<field name="he50" class="java.math.BigDecimal"/>
+	<field name="he100" class="java.math.BigDecimal"/>
+	<field name="totalatrasos" class="java.math.BigDecimal"/>
+	<field name="fecha_impresion" class="java.lang.String"/>
+	<field name="usuario" class="java.lang.String"/>
+	<variable name="sum_horas25" class="java.math.BigDecimal" resetType="Group" resetGroup="Area" calculation="Sum">
+		<variableExpression><![CDATA[$F{he25}]]></variableExpression>
+	</variable>
+	<variable name="sum_horas50" class="java.math.BigDecimal" resetType="Group" resetGroup="Area" calculation="Sum">
+		<variableExpression><![CDATA[$F{he50}]]></variableExpression>
+	</variable>
+	<variable name="sum_horas100" class="java.math.BigDecimal" resetType="Group" resetGroup="Area" calculation="Sum">
+		<variableExpression><![CDATA[$F{he100}]]></variableExpression>
+	</variable>
+	<variable name="sum_atrasos" class="java.math.BigDecimal" resetType="Group" resetGroup="Area" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalatrasos}]]></variableExpression>
+	</variable>
+	<variable name="sum_group_horas25" class="java.math.BigDecimal" resetType="Group" resetGroup="CostCenter" calculation="Sum">
+		<variableExpression><![CDATA[$F{he25}]]></variableExpression>
+	</variable>
+	<variable name="sum_group_horas50" class="java.math.BigDecimal" resetType="Group" resetGroup="CostCenter" calculation="Sum">
+		<variableExpression><![CDATA[$F{he50}]]></variableExpression>
+	</variable>
+	<variable name="sum_group_horas100" class="java.math.BigDecimal" resetType="Group" resetGroup="CostCenter" calculation="Sum">
+		<variableExpression><![CDATA[$F{he100}]]></variableExpression>
+	</variable>
+	<variable name="sum_group_atrasos" class="java.math.BigDecimal" resetType="Group" resetGroup="CostCenter" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalatrasos}]]></variableExpression>
+	</variable>
+	<variable name="sum_gr_horas25" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{he25}]]></variableExpression>
+	</variable>
+	<variable name="sum_gr_horas50" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{he50}]]></variableExpression>
+	</variable>
+	<variable name="sum_gr_horas100" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{he100}]]></variableExpression>
+	</variable>
+	<variable name="sum_gr_atrasos" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalatrasos}]]></variableExpression>
+	</variable>
+	<variable name="sum_noempleados" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$V{CostCenter_COUNT}]]></variableExpression>
+	</variable>
+	<group name="CostCenter">
+		<groupExpression><![CDATA[$F{costcenter}]]></groupExpression>
+		<groupHeader>
+			<band height="13">
+				<textField isStretchWithOverflow="true">
+					<reportElement x="0" y="0" width="164" height="12"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{costcenter}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="17">
+				<textField>
+					<reportElement x="543" y="2" width="40" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{CostCenter_COUNT}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="2" width="171" height="12"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{totalcentro}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="583" y="2" width="44" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_group_horas25}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="627" y="2" width="40" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_group_horas50}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="667" y="2" width="40" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_group_horas100}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="707" y="2" width="45" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_group_atrasos}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Area">
+		<groupExpression><![CDATA[$F{area}]]></groupExpression>
+		<groupHeader>
+			<band height="12">
+				<textField isStretchWithOverflow="true">
+					<reportElement x="105" y="0" width="133" height="12"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{area}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="18">
+				<textField>
+					<reportElement x="543" y="2" width="40" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{Area_COUNT}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="372" y="2" width="171" height="12"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{totalarea}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="583" y="2" width="44" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_horas25}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="627" y="2" width="40" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_horas50}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="667" y="2" width="40" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_horas100}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="707" y="2" width="45" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_atrasos}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="86" splitType="Stretch">
+			<staticText>
+				<reportElement x="543" y="14" width="81" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Usuario:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="543" y="1" width="81" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Fecha de impresión:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="625" y="14" width="127" height="13" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="SansSerif" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{usuario}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="625" y="1" width="127" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha_impresion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="198" y="40" width="345" height="29"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DETALLE DE HORAS EXTRAS GENERADAS]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="1" width="100" height="50"/>
+				<imageExpression class="java.lang.String"><![CDATA[org.openbravo.erpCommon.utility.Utility.showImageLogo("yourcompanylegal", $F{ad_org_id})]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="752" height="29" backcolor="#C0C0C0"/>
+				<staticText>
+					<reportElement x="0" y="0" width="105" height="29"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CENTRO DE COSTO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="105" y="0" width="59" height="29"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[AREA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="164" y="0" width="74" height="29"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CARGO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="238" y="0" width="178" height="29"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[EMPLEADO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="416" y="0" width="75" height="29"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[DEPARTAMENTO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="491" y="0" width="52" height="29"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CIUDAD]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="543" y="0" width="40" height="29"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[No. EMP]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="585" y="0" width="40" height="29"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[HE25]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="627" y="0" width="40" height="29"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[HE50]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="667" y="0" width="40" height="29"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[HE100]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="707" y="0" width="45" height="29"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TOTAL ATRASOS]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="164" y="0" width="74" height="12"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cargo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="238" y="0" width="178" height="12"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{employee}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="416" y="0" width="75" height="12"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{department}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="491" y="0" width="52" height="12"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{city}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="583" y="0" width="44" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{he25}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="627" y="0" width="40" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{he50}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="667" y="0" width="40" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{he100}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="707" y="0" width="45" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{totalatrasos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="543" y="1" width="40" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{COLUMN_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="92" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="4" width="171" height="12"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL GENERAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="583" y="16" width="44" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_gr_horas25}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="625" y="16" width="42" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_gr_horas50}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="667" y="16" width="40" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_gr_horas100}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="707" y="16" width="45" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_gr_atrasos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="543" y="16" width="40" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

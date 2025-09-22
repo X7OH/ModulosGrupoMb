@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE C_BPARTNER_LOCATION">
+    <table name="C_BPARTNER_LOCATION" primaryKey="C_BPARTNER_LOCATION_KEY">
+      <column name="EM_SAQB_ALIAS" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default><![CDATA[.]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SAQB_REFERENCE" primaryKey="false" required="false" type="VARCHAR" size="105" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SAQB_LATITUDE" primaryKey="false" required="false" type="VARCHAR" size="20" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SAQB_LENGTH" primaryKey="false" required="false" type="VARCHAR" size="20" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+    </table>
+  </database>

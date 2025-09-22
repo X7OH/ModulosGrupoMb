@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
+  <row id="7AAE419FA3764E87A74E3FC466210B09" trl="N">
+    <value column="Name" isTrl="Y" original="Civil Status">Estado Civil</value>
+    <value column="Description" isTrl="Y" original="Civil Status">Estado Civil</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="BE78FF54DBAD4A559D9741607B84B794" trl="N">
+    <value column="Name" isTrl="N" original="Gender Complement Partner">Gender Complement Partner</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="CECF3000B66D4FDAA97F49146A0F4139" trl="N">
+    <value column="Name" isTrl="N" original="Education">Education</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="CEF4331DCFE64644A899FDCC0E28D7F9" trl="N">
+    <value column="Name" isTrl="N" original="Blood Type">Blood Type</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="D5A87631868D49C9A9E4D69493798D63" trl="N">
+    <value column="Name" isTrl="N" original="Sbpc_LicenseTypeList">Lista Tipo de Licencia</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="F745AFA5C27D40BA806CD658B8907309" trl="N">
+    <value column="Name" isTrl="N" original="Position Complement Partner">Position Complement Partner</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
+  <row id="15EE49C431364243A9C50BADA76642BF" trl="N">
+    <value column="Name" isTrl="Y" original="Agreement Report">Reporte Convenios</value>
+    <value column="Description" isTrl="Y" original="Agreement Report">Reporte Convenios</value>
+    <value column="Help" isTrl="Y" original="Agreement Report">Reporte Convenios</value>
+  </row>
+  <row id="9FD1C46109C6463E9E00EEB9971DB869" trl="N">
+    <value column="Name" isTrl="Y" original="Invoice Credit Note">Reporte Nota de Credito</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

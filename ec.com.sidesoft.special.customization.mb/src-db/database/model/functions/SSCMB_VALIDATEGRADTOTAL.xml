@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SSCMB_VALIDATEGRADTOTAL">
+    <function name="SSCMB_VALIDATEGRADTOTAL" type="NULL">
+      <parameter name="p_ep_instance" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[p_message VARCHAR(2000);
+p_record_id VARCHAR(60);
+p_docAction VARCHAR(60);
+p_user VARCHAR(60);
+p_result NUMBER;
+
+v_issotrx VARCHAR2(1); 
+v_grandtotal NUMBER;
+v_ResultStr VARCHAR2(500);
+v_isreturn VARCHAR2(1); 
+v_status   VARCHAR2(60); 
+v_docaction VARCHAR2(60); 
+
+TYPE RECORD IS REF CURSOR;
+Cur_Params RECORD;
+Cur_orderline RECORD;
+
+BEGIN
+
+  FOR Cur_Params IN (
+    SELECT *
+    FROM ad_ep_instance_para
+    WHERE ad_ep_instance_id = p_ep_instance
+    ) LOOP
+    IF (cur_params.parametername LIKE 'DocAction') THEN
+      p_docaction := Cur_Params.p_string;
+    ELSIF (cur_params.parametername LIKE 'Record_ID') THEN
+      p_record_id := cur_params.p_string;
+    ELSIF (cur_params.parametername LIKE 'User') THEN
+      p_user := cur_params.p_string;
+    ELSIF (cur_params.parametername LIKE 'Message') THEN
+      p_message := cur_params.p_text;
+    ELSIF (cur_params.parametername LIKE 'Result') THEN
+      p_result := cur_params.p_number;
+    END IF;
+  END LOOP;
+
+	select a.issotrx, a.grandtotal, b.isreturn, a.docstatus, a.docaction
+	into v_issotrx, v_grandtotal, v_isreturn, v_status, v_docaction
+	from c_order a
+	left join c_doctype b on b.c_doctype_id = a.c_doctypetarget_id
+	where a.c_order_id = p_record_id;
+
+	If(v_issotrx = 'N' and v_grandtotal = 0 and (v_status<>'CL' and v_status<>'VO' ) ) Then
+
+		RAISE_APPLICATION_ERROR(-20000,'@Imposible procesar un pedido con Importe Total: 0@');
+
+	End If;
+
+	If(v_issotrx = 'Y' and v_isreturn = 'Y' and (v_status<>'CL' and v_status<>'VO' ))Then
+		For Cur_orderline in (
+			select qtyordered, line
+			from c_orderline 
+			where c_order_id = p_record_id
+		)
+		Loop
+			If(Cur_orderline.qtyordered = 0)Then
+				RAISE_APPLICATION_ERROR(-20000,'@Imposible procesar devolución, la linea @' || Cur_orderline.line || ' tiene valor 0');
+			End If;
+			
+		End Loop;
+	End if;
+
+ 
+EXCEPTION
+WHEN OTHERS THEN
+v_ResultStr =SQLERRM;
+  DBMS_OUTPUT.PUT_LINE( v_ResultStr);
+  RAISE v_ResultStr;
+END SSCMB_VALIDATEGRADTOTAL
+]]></body>
+    </function>
+  </database>

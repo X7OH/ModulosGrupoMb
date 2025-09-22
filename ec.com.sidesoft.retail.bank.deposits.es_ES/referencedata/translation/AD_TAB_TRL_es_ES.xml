@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TAB" version="">
+  <row id="292CBF9E878B412AB906B410A6C0AEFE" trl="Y">
+    <value column="Name" isTrl="Y" original="Bank deposits">Depósitos Bancarios</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">Depósitos Bancarios</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="3A8960651FE64B2096029B2A19D2426D" trl="Y">
+    <value column="Name" isTrl="Y" original="Lines">Lineas</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="5273674C922C4526B633B02761469293" trl="Y">
+    <value column="Name" isTrl="Y" original="Lines">Lineas</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">Lineas</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="6BFDB0C754A24E928E069F47D908C82C" trl="Y">
+    <value column="Name" isTrl="Y" original="Bank Deposit Settings">Configuración Depósitos Bancarios</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

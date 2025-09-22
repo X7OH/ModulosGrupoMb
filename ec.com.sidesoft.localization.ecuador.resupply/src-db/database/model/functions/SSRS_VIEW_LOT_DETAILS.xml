@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SSRS_VIEW_LOT_DETAILS">
+    <function name="SSRS_VIEW_LOT_DETAILS" type="VARCHAR">
+      <parameter name="p_product_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <parameter name="p_warehouse_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <parameter name="p_ressuply_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <parameter name="p_qty" type="NUMERIC" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[--  Parameter 
+  TYPE RECORD IS REF CURSOR;
+  Cur_Lot RECORD;
+
+  v_Msg VARCHAR(60);
+cont NUMBER:=0;
+	asterisk VARCHAR2(1000) :='*';
+  v_Qty NUMBER;
+  v_QtyProcess NUMBER;
+  v_QtyOrigen NUMBER;
+  v_QtyInsert NUMBER;
+  v_Lines NUMBER;
+  
+  BEGIN
+  
+	v_Msg:='ND';
+	v_Qty:=0;
+	v_Qty:= COALESCE(p_qty,0);
+	v_QtyProcess:=0;
+	v_QtyOrigen:=0;
+	v_QtyOrigen:= COALESCE(p_qty,0);
+	v_QtyInsert:=0;
+	v_Lines:=0;
+
+	-- Eliminar linea
+
+	DELETE FROM ssrs_detail_lots WHERE RECORDID = p_ressuply_id;
+
+	FOR Cur_Lot IN(
+
+		select 
+		msd.m_product_id
+		, mp.name as producto
+		, mattsi.guaranteedate
+		, mw.name
+		, ml.m_locator_id
+		, coalesce(msd.qtyonhand,0) AS qty
+		, msd.ad_org_id
+		, msd.ad_client_id
+		, msd.createdby
+		, msd.m_attributesetinstance_id
+		from m_storage_detail msd
+		left join m_locator ml on ml.m_locator_id = msd.m_locator_id
+		left join m_warehouse mw on mw.m_warehouse_id = ml.m_warehouse_id
+		left join m_attributesetinstance mattsi on mattsi.m_attributesetinstance_id = msd.m_attributesetinstance_id
+		join m_product mp on mp.m_product_id = msd.m_product_id
+		where msd.M_PRODUCT_ID = p_product_id
+		and mw.m_warehouse_id = p_warehouse_id
+		order by mp.name asc, mattsi.guaranteedate asc
+	)
+	LOOP
+		v_QtyProcess:= Cur_Lot.qty;
+
+		IF (v_QtyProcess>= v_Qty AND v_Qty>0 AND v_QtyProcess>0) THEN
+		
+			IF ((v_QtyProcess - v_Qty)=0) THEN
+				v_QtyInsert:= v_QtyOrigen;
+
+				v_Qty:=-1;
+				insert into ssrs_detail_lots( ssrs_detail_lots_id, ad_client_id, ad_org_id, isactive, created,
+							      createdby, updated, updatedby, recordID, qtyonhand, m_attributesetinstance_id)
+						      values( get_uuid(), Cur_Lot.ad_client_id, Cur_Lot.ad_org_id, 'Y', now(),
+							      Cur_Lot.createdby, now(), Cur_Lot.createdby,  p_ressuply_id, v_QtyInsert, Cur_Lot.m_attributesetinstance_id);
+				v_Lines:= v_Lines+1;
+							
+			ELSE
+				v_QtyInsert:= v_Qty;
+				v_Qty:=-1;
+
+				insert into ssrs_detail_lots( ssrs_detail_lots_id, ad_client_id, ad_org_id, isactive, created,
+						              createdby, updated, updatedby, recordID, qtyonhand, m_attributesetinstance_id)
+						      values( get_uuid(), Cur_Lot.ad_client_id, Cur_Lot.ad_org_id, 'Y', now(),
+						              Cur_Lot.createdby, now(), Cur_Lot.createdby,  p_ressuply_id, v_QtyInsert, Cur_Lot.m_attributesetinstance_id);
+				v_Lines:= v_Lines+1;
+							
+			END IF;
+		ELSE
+			
+			IF (v_QtyProcess<= v_Qty AND v_Qty>0 AND v_QtyProcess>0) THEN
+
+				IF ((v_QtyProcess - v_Qty)=0) THEN
+					v_QtyInsert:= v_QtyProcess;
+					v_Qty:=-1;
+				
+					insert into ssrs_detail_lots( ssrs_detail_lots_id, ad_client_id, ad_org_id, isactive, created,
+							              createdby, updated, updatedby, recordID, qtyonhand, m_attributesetinstance_id)
+						              values( get_uuid(), Cur_Lot.ad_client_id, Cur_Lot.ad_org_id, 'Y', now(),
+							              Cur_Lot.createdby, now(), Cur_Lot.createdby,  p_ressuply_id, v_QtyInsert, Cur_Lot.m_attributesetinstance_id);
+					v_Lines:= v_Lines+1;					
+				ELSE
+					v_QtyInsert:= v_QtyProcess;
+					v_Qty:=ABS(v_QtyInsert - v_Qty);
+
+					insert into ssrs_detail_lots( ssrs_detail_lots_id, ad_client_id, ad_org_id, isactive, created,
+								      createdby, updated, updatedby, recordID, qtyonhand, m_attributesetinstance_id)
+							      values( get_uuid(), Cur_Lot.ad_client_id, Cur_Lot.ad_org_id, 'Y', now(),
+								      Cur_Lot.createdby, now(), Cur_Lot.createdby,  p_ressuply_id, v_QtyInsert, Cur_Lot.m_attributesetinstance_id);
+					v_Lines:= v_Lines+1;					
+					
+				END IF;
+				
+			END IF;
+		END IF;
+	
+
+	END LOOP;
+	IF (v_Lines>0) THEN
+		v_Msg:= 'OK';
+	ELSE
+		v_Msg:= 'ERROR';
+	END IF;
+	RETURN v_Msg;
+END SSRS_VIEW_LOT_DETAILS
+]]></body>
+    </function>
+  </database>
+

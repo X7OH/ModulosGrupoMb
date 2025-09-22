@@ -1,0 +1,222 @@
+<?xml version="1.0"?>
+  <vector>
+    <versionInfo version="3.0.34312"/>
+    <columnDataChange tablename="AD_PROCESS" columnname="PROCEDURENAME" pkRow="137">
+      <oldValue><![CDATA[M_Production_Run]]></oldValue>
+      <newValue><![CDATA[ssprod_production_run]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_PROCESS" columnname="PROCEDURENAME" pkRow="800103">
+      <oldValue><![CDATA[MA_WorkRequirement_Process]]></oldValue>
+      <newValue><![CDATA[Ssprod_WorkRequirement_Process]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_AUXILIARINPUT" columnname="AD_TAB_ID" pkRow="FF80818132147C77013214CD3E9300C0">
+      <oldValue><![CDATA[FF80818132144FDB0132146AAFCA0042]]></oldValue>
+      <newValue><![CDATA[C5F379938010486A9B7A0D448781E02B]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="ISIDENTIFIER" pkRow="801516">
+      <oldValue><![CDATA[N]]></oldValue>
+      <newValue><![CDATA[Y]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="4764">
+      <oldValue><![CDATA[@WorkEffortValidated@='Y']]></oldValue>
+      <newValue><![CDATA[@WorkEffortValidated@='Y' | @Processed@='Y']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="AD_PROCESS_ID" pkRow="802028">
+      <oldValue><![CDATA[FF80818132A4F6AD0132A573DD7A0021]]></oldValue>
+      <newValue><![CDATA[CE81B27EADC74667A59506719E70349A]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="DEFAULTVALUE" pkRow="802032">
+      <oldValue><![CDATA[@IsSOTrx@]]></oldValue>
+      <newValue><![CDATA[N]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="PO_WINDOW_ID" pkRow="325">
+      <oldValue><![CDATA[800053]]></oldValue>
+      <newValue><![CDATA[0D49D788605449178F19CBB42B5335EA]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="PO_WINDOW_ID" pkRow="326">
+      <oldValue><![CDATA[800053]]></oldValue>
+      <newValue><![CDATA[0D49D788605449178F19CBB42B5335EA]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="PO_WINDOW_ID" pkRow="385">
+      <oldValue><![CDATA[800053]]></oldValue>
+      <newValue><![CDATA[0D49D788605449178F19CBB42B5335EA]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800067">
+      <oldValue><![CDATA[800029]]></oldValue>
+      <newValue><![CDATA[31FF1D1C24F149399F685CD11F4EE653]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800069">
+      <oldValue><![CDATA[800031]]></oldValue>
+      <newValue><![CDATA[4B493627A2A0439A8264647810FECABB]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800070">
+      <oldValue><![CDATA[800032]]></oldValue>
+      <newValue><![CDATA[0108727346834FFF80BBE96B1C1D1D35]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800071">
+      <oldValue><![CDATA[800032]]></oldValue>
+      <newValue><![CDATA[0108727346834FFF80BBE96B1C1D1D35]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800072">
+      <oldValue><![CDATA[800060]]></oldValue>
+      <newValue><![CDATA[82E1016A33314A76A4790DD95D3C49BA]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800079">
+      <oldValue><![CDATA[800035]]></oldValue>
+      <newValue><![CDATA[D41ACC4A805B4445BFBCDAA4974E3666]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800080">
+      <oldValue><![CDATA[800035]]></oldValue>
+      <newValue><![CDATA[D41ACC4A805B4445BFBCDAA4974E3666]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800081">
+      <oldValue><![CDATA[800060]]></oldValue>
+      <newValue><![CDATA[82E1016A33314A76A4790DD95D3C49BA]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800092">
+      <oldValue><![CDATA[800048]]></oldValue>
+      <newValue><![CDATA[FA5A5BC0F50246569B9CED7256356B25]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800095">
+      <oldValue><![CDATA[800051]]></oldValue>
+      <newValue><![CDATA[21976EDEA3934A61884D0B1B681A3776]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800096">
+      <oldValue><![CDATA[800051]]></oldValue>
+      <newValue><![CDATA[21976EDEA3934A61884D0B1B681A3776]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800097">
+      <oldValue><![CDATA[800051]]></oldValue>
+      <newValue><![CDATA[21976EDEA3934A61884D0B1B681A3776]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800102">
+      <oldValue><![CDATA[800053]]></oldValue>
+      <newValue><![CDATA[0D49D788605449178F19CBB42B5335EA]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800103">
+      <oldValue><![CDATA[800053]]></oldValue>
+      <newValue><![CDATA[0D49D788605449178F19CBB42B5335EA]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800105">
+      <oldValue><![CDATA[800053]]></oldValue>
+      <newValue><![CDATA[0D49D788605449178F19CBB42B5335EA]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="PO_WINDOW_ID" pkRow="800105">
+      <oldValue><![CDATA[800053]]></oldValue>
+      <newValue><![CDATA[0D49D788605449178F19CBB42B5335EA]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800123">
+      <oldValue><![CDATA[800030]]></oldValue>
+      <newValue><![CDATA[6EDC152D663141FBA7A013A38742CD28]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800125">
+      <oldValue><![CDATA[800051]]></oldValue>
+      <newValue><![CDATA[21976EDEA3934A61884D0B1B681A3776]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800131">
+      <oldValue><![CDATA[800063]]></oldValue>
+      <newValue><![CDATA[6C0AF024993F4DFC9D997CA39F58BB52]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800132">
+      <oldValue><![CDATA[800063]]></oldValue>
+      <newValue><![CDATA[6C0AF024993F4DFC9D997CA39F58BB52]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800139">
+      <oldValue><![CDATA[800066]]></oldValue>
+      <newValue><![CDATA[DBF297CD33F248F288358AE71B6E8AD1]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800140">
+      <oldValue><![CDATA[800066]]></oldValue>
+      <newValue><![CDATA[DBF297CD33F248F288358AE71B6E8AD1]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800152">
+      <oldValue><![CDATA[800063]]></oldValue>
+      <newValue><![CDATA[6C0AF024993F4DFC9D997CA39F58BB52]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800157">
+      <oldValue><![CDATA[800071]]></oldValue>
+      <newValue><![CDATA[68F051F966EE46ECBB3AC7406C4B0513]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800158">
+      <oldValue><![CDATA[800072]]></oldValue>
+      <newValue><![CDATA[01EB770BAFF84E738D699E836755E94B]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800159">
+      <oldValue><![CDATA[800031]]></oldValue>
+      <newValue><![CDATA[4B493627A2A0439A8264647810FECABB]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800160">
+      <oldValue><![CDATA[800031]]></oldValue>
+      <newValue><![CDATA[4B493627A2A0439A8264647810FECABB]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800161">
+      <oldValue><![CDATA[800074]]></oldValue>
+      <newValue><![CDATA[D648B7980B5143C59A7FC760D3617615]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800163">
+      <oldValue><![CDATA[800075]]></oldValue>
+      <newValue><![CDATA[E052C86CC62E42C19CE097A03E178558]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800164">
+      <oldValue><![CDATA[800075]]></oldValue>
+      <newValue><![CDATA[E052C86CC62E42C19CE097A03E178558]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800168">
+      <oldValue><![CDATA[800076]]></oldValue>
+      <newValue><![CDATA[C5FAE6AAFF89405ABAB9AA1478A11634]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800169">
+      <oldValue><![CDATA[800076]]></oldValue>
+      <newValue><![CDATA[C5FAE6AAFF89405ABAB9AA1478A11634]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800189">
+      <oldValue><![CDATA[800030]]></oldValue>
+      <newValue><![CDATA[6EDC152D663141FBA7A013A38742CD28]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800190">
+      <oldValue><![CDATA[800085]]></oldValue>
+      <newValue><![CDATA[387DCD1EB9F54B8491C749CC1EA2A38A]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800191">
+      <oldValue><![CDATA[800085]]></oldValue>
+      <newValue><![CDATA[387DCD1EB9F54B8491C749CC1EA2A38A]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800192">
+      <oldValue><![CDATA[800030]]></oldValue>
+      <newValue><![CDATA[6EDC152D663141FBA7A013A38742CD28]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800195">
+      <oldValue><![CDATA[800053]]></oldValue>
+      <newValue><![CDATA[0D49D788605449178F19CBB42B5335EA]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800197">
+      <oldValue><![CDATA[800030]]></oldValue>
+      <newValue><![CDATA[6EDC152D663141FBA7A013A38742CD28]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800199">
+      <oldValue><![CDATA[800030]]></oldValue>
+      <newValue><![CDATA[6EDC152D663141FBA7A013A38742CD28]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800200">
+      <oldValue><![CDATA[800031]]></oldValue>
+      <newValue><![CDATA[4B493627A2A0439A8264647810FECABB]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="800207">
+      <oldValue><![CDATA[800051]]></oldValue>
+      <newValue><![CDATA[21976EDEA3934A61884D0B1B681A3776]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TABLE" columnname="AD_WINDOW_ID" pkRow="FF80818132144FDB01321456E8AC000E">
+      <oldValue><![CDATA[800051]]></oldValue>
+      <newValue><![CDATA[21976EDEA3934A61884D0B1B681A3776]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_VAL_RULE" columnname="CODE" pkRow="800006">
+      <oldValue><![CDATA[MA_WRPhase.Closed = 'N'
+
+AND MA_WRPhase.AD_Org_ID = @AD_Org_Forced@]]></oldValue>
+      <newValue><![CDATA[MA_WRPhase.Closed = 'N' and MA_WRPhase.AD_Org_ID = @AD_Org_ID@]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_VAL_RULE" columnname="CODE" pkRow="800015">
+      <oldValue><![CDATA[td0.AD_Org_ID = @AD_Org_Forced@]]></oldValue>
+      <newValue><![CDATA[td0.AD_Org_ID = @AD_Org_ID@]]></newValue>
+    </columnDataChange>
+  </vector>

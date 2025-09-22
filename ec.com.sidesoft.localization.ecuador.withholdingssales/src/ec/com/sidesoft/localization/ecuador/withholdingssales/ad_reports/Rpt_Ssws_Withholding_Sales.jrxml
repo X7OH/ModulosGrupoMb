@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Ret_ventas_resumen" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="7.400249944258202"/>
+	<property name="ireport.x" value="2905"/>
+	<property name="ireport.y" value="1151"/>
+	<parameter name="ad_org_id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="posted" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="starting_date" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ending_date" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ad_user_id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+factura as "factura",
+cliente as "cliente",
+cod_ret as "cod_ret",
+porc_ret as "porc_ret",
+coalesce(base_imp,0) as "base_imp",
+coalesce(val_ret,0) as "val_ret",
+fecha_impresion as "fecha_impresion",
+usuario as "usuario",
+organization_id as "organization_id",
+organization_name as "organization_name"
+from
+(select b.documentno as factura, c.name as cliente, e.taxindicator cod_ret,
+(select sum(d1.linenetamt) from ssws_withholdingsaleline d1 where d1.ssws_withholdingsale_id= d.ssws_withholdingsale_id
+and d1.c_tax_id=d.c_tax_id
+)
+ base_imp,
+
+case when e.rate <0 then
+e.rate *-1
+else
+ e.rate
+ end as porc_ret,
+ (select sum(d1.whrentalamt) from ssws_withholdingsaleline d1 where  d1.ssws_withholdingsale_id= d.ssws_withholdingsale_id
+and d1.c_tax_id=d.c_tax_id )
+as val_ret,
+to_char(now(),'dd/MM/yyyy HH24:MI:SS') as fecha_impresion,
+(select coalesce(cbp.name,adu.name) from ad_user adu left join c_bpartner cbp on
+adu.c_bpartner_id = cbp.c_bpartner_id where adu.ad_user_id=$P{ad_user_id}) as usuario,
+case when $P{ad_org_id} is null then
+a.ad_org_id
+else
+$P{ad_org_id}
+end as organization_id,
+case when $P{ad_org_id} is null then
+(select bpo.name from ad_orginfo ai
+left join c_bpartner bpo on ai.c_bpartner_id = bpo.c_bpartner_id
+where a.ad_org_id =ai.ad_org_id)
+else
+(select bpo.name from ad_orginfo ai
+left join c_bpartner bpo on ai.c_bpartner_id = bpo.c_bpartner_id
+where  $P{ad_org_id} =ai.ad_org_id)
+end as organization_name
+from ssws_withholdingsale a
+left join c_invoice b on a.c_invoice_id = b.c_invoice_id
+left join c_bpartner c on b.c_bpartner_id = c.c_bpartner_id
+left join ssws_withholdingsaleline d on a.ssws_withholdingsale_id = d.ssws_withholdingsale_id
+left join c_tax e on d.c_tax_id = e.c_tax_id
+where  (a.posted =$P{posted} or $P{posted} is null)  and
+($P{ad_org_id} is null or a.ad_org_id = $P{ad_org_id} ) and
+withholdingdate between $P{starting_date} and $P{ending_date} and
+d.isrental = 'Y'
+order by 3
+) rep
+group by
+factura ,
+cliente,
+cod_ret,
+base_imp ,
+porc_ret,
+val_ret,
+fecha_impresion,
+usuario ,
+organization_id,
+organization_name 
+order by 3]]>
+	</queryString>
+	<field name="factura" class="java.lang.String"/>
+	<field name="cliente" class="java.lang.String"/>
+	<field name="cod_ret" class="java.lang.String"/>
+	<field name="porc_ret" class="java.math.BigDecimal"/>
+	<field name="base_imp" class="java.math.BigDecimal"/>
+	<field name="val_ret" class="java.math.BigDecimal"/>
+	<field name="fecha_impresion" class="java.lang.String"/>
+	<field name="usuario" class="java.lang.String"/>
+	<field name="organization_id" class="java.lang.String"/>
+	<field name="organization_name" class="java.lang.String"/>
+	<variable name="total_retenido" class="java.math.BigDecimal" resetType="Group" resetGroup="cod_ret" calculation="Sum">
+		<variableExpression><![CDATA[$F{val_ret}]]></variableExpression>
+	</variable>
+	<group name="cod_ret">
+		<groupExpression><![CDATA[$F{cod_ret}]]></groupExpression>
+		<groupHeader>
+			<band height="53">
+				<staticText>
+					<reportElement mode="Transparent" x="0" y="0" width="111" height="32" forecolor="#000000" backcolor="#E6E6E6"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Código de Retención]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="0" width="555" height="1"/>
+				</line>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement mode="Transparent" x="111" y="0" width="444" height="32" forecolor="#000000" backcolor="#E6E6E6"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="18" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cod_ret}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Transparent" x="0" y="32" width="111" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nº de Factura]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="111" y="32" width="185" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nombre Cliente]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="296" y="32" width="90" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Base Imponible]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="386" y="32" width="88" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[% de Retención]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="474" y="32" width="81" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Valor retenido]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="31" width="555" height="1"/>
+				</line>
+				<line>
+					<reportElement x="0" y="52" width="555" height="1"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="20">
+				<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="474" y="1" width="81" height="19"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{total_retenido}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Transparent" x="386" y="0" width="88" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<line>
+					<reportElement x="474" y="0" width="81" height="1"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="90">
+			<staticText>
+				<reportElement x="83" y="21" width="472" height="21" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Retenciones en Venta ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="386" y="70" width="169" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{usuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="386" y="50" width="169" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha_impresion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="296" y="50" width="90" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="296" y="70" width="90" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuario:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="83" y="0" width="472" height="21"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{organization_name}]]></textFieldExpression>
+			</textField>
+			<image scaleImage="RetainShape" hAlign="Right" vAlign="Top" isUsingCache="true">
+				<reportElement key="image-1" x="0" y="2" width="83" height="67"/>
+				<imageExpression class="java.awt.Image"><![CDATA[org.openbravo.erpCommon.utility.Utility.showImageLogo("yourcompanylegal",$F{organization_id})]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band/>
+	</pageHeader>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="111" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{factura}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="111" y="0" width="185" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cliente}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="296" y="0" width="90" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+					<font size="9" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{base_imp}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="386" y="0" width="88" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{porc_ret}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="474" y="0" width="81" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{val_ret}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="13">
+			<textField>
+				<reportElement mode="Transparent" x="386" y="0" width="169" height="13" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Página "+$V{PAGE_NUMBER}+" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

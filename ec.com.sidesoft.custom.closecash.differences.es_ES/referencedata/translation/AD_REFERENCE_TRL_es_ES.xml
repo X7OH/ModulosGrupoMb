@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
+  <row id="9C39979A4C514941949F1054B993A427" trl="N">
+    <value column="Name" isTrl="N" original="SCCCD_POSTerminal">SCCCD_POSTerminal</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="CD6EC176589D480F8DA09B7E85CAA5F4" trl="N">
+    <value column="Name" isTrl="N" original="SCCCD_Account">SCCCD_Account</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="E98A90222EDD4CF5A50B04160E3D8B6F" trl="N">
+    <value column="Name" isTrl="N" original="SCCCD_AccountingConcept">SCCCD_AccountingConcept</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

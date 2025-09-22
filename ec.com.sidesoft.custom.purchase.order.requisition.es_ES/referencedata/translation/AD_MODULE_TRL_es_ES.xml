@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MODULE" version="">
+  <row id="09757785225347638D0581A734090583" trl="N">
+    <value column="Description" isTrl="Y" original="This module allows closing orders even when the need for materials is closed">Este módulo permite cerrar pedidos aún cuando la necesidad de materiales se encuentre cerrado</value>
+    <value column="Help" isTrl="Y" original="This module allows closing orders even when the need for materials is closed">Este módulo permite cerrar pedidos aún cuando la necesidad de materiales se encuentre cerrado</value>
+    <value column="License" isTrl="N" original=""/>
+    <value column="Updateinfo" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SSCMB_C_INVOICE_CREDNOTE">
+    <function name="SSCMB_C_INVOICE_CREDNOTE" type="NULL">
+      <parameter name="p_ep_instance" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[TYPE RECORD IS REF CURSOR;
+  Cur_Bankstatementline RECORD;
+  cur_params          RECORD;
+
+p_message           VARCHAR2(2000);    
+p_record_id         VARCHAR2(60);      
+p_docaction         VARCHAR2(60);      
+p_user              VARCHAR2(60);      
+p_result            NUMBER;
+p_docstatus         VARCHAR(60); 	--OBTG:VARCHAR2--
+p_issotrx           VARCHAR(60); 	--OBTG:VARCHAR2--
+v_ResultStr         VARCHAR(2000):=''; 	--OBTG:VARCHAR2--
+
+--PROCESO NC
+v_doctype_id        VARCHAR2(32);      
+v_docbasetype	    VARCHAR2(60);      
+v_sswh_livelihoodt  VARCHAR2(32);      
+V_refundinvoice_ID  VARCHAR2(32);      
+v_value_livehoodt   VARCHAR2(60);      
+v_em_sscmb_wait_cn  VARCHAR2(60);      
+v_documentno		VARCHAR(60);       	--OBTG:VARCHAR2--
+v_IsSOTrx   VARCHAR(60);       		--OBTG:VARCHAR2--
+v_Isreversal   VARCHAR(60);       	--OBTG:VARCHAR2--
+v_EM_Sswh_Implementautoriza   VARCHAR2(60);      
+v_EM_Scnr_Isref_Inv   VARCHAR2(60);      
+v_EM_Scnr_Invoice_ID   VARCHAR2(60);      
+
+
+BEGIN
+
+  FOR Cur_Params IN (
+    SELECT *
+    FROM ad_ep_instance_para 
+    WHERE ad_ep_instance_id = p_ep_instance
+    ) LOOP
+    IF (cur_params.parametername LIKE 'DocAction') THEN
+      p_docaction := Cur_Params.p_string;
+    ELSIF (cur_params.parametername LIKE 'Record_ID') THEN
+      p_record_id := cur_params.p_string;
+    END IF;
+  END LOOP;
+
+  --OBTENGO DATOS DE FACTURA DE COMPRA
+  SELECT INV.issotrx, INV.docstatus,  INV.em_sscmb_wait_cn,DOCT.issotrx,DOCT.isreversal,DOCT.em_sswh_implementautoriza,INV.em_scnr_isref_inv,INV.em_scnr_invoice_id
+	INTO p_issotrx, p_docstatus, v_em_sscmb_wait_cn,v_IsSOTrx,v_Isreversal,v_EM_Sswh_Implementautoriza,v_EM_Scnr_Isref_Inv,v_EM_Scnr_Invoice_ID
+  FROM c_invoice INV
+  INNER JOIN C_DocType DOCT ON INV.C_DocTypeTarget_ID =DOCT.C_DocType_id
+  WHERE c_invoice_id = p_record_id ;--'DB41BFE69DE24BF28B3A6E8468B4F91F'; 
+
+  --VALIDO QUE SEA FACTURA DE COMPRA
+  IF (p_issotrx='N') THEN 
+
+	IF (v_em_sscmb_wait_cn  = 'Y' and p_docstatus = 'CO')  THEN 
+	
+		FOR Cur_Bankstatementline IN
+			(SELECT  ORL.c_order_id
+			FROM C_InvoiceLine INV
+			inner join C_OrderLine ORL on ORL.C_OrderLine_ID = INV.C_OrderLine_ID
+			WHERE c_invoice_id =p_record_id
+			GROUP BY ORL.c_order_id
+			)
+		LOOP
+				UPDATE c_order SET Processed = 'N'
+				WHERE c_order_id = Cur_Bankstatementline.c_order_id;	
+				--v_documentno := (select (coalesce(documentno,'') || ' - NC') as "test" from c_order where c_order_id = Cur_Bankstatementline.c_order_id)::VARCHAR(28) ;
+				UPDATE c_order 
+				SET documentno = documentno || ' - NC'
+				WHERE c_order_id = Cur_Bankstatementline.c_order_id; 
+
+				--RAISE NO_DATA_FOUND || Cur_Bankstatementline.c_order_id; --to_char((select (to_char(documentno) || ' - NC ' ||Cur_Bankstatementline.c_order_id) as "test" from c_order where c_order_id = Cur_Bankstatementline.c_order_id));
+
+				UPDATE c_order SET Processed = 'Y'
+				WHERE c_order_id = Cur_Bankstatementline.c_order_id;	
+			
+		END LOOP;
+		
+	END IF;
+
+	IF (v_em_sscmb_wait_cn  = 'Y' and p_docstatus = 'DR')  THEN 
+	
+		FOR Cur_Bankstatementline IN
+			(SELECT  ORL.c_order_id
+			FROM C_InvoiceLine INV
+			inner join C_OrderLine ORL on ORL.C_OrderLine_ID = INV.C_OrderLine_ID
+			WHERE c_invoice_id =p_record_id
+			GROUP BY ORL.c_order_id
+			)
+		LOOP
+				UPDATE c_order SET Processed = 'N'
+				WHERE c_order_id = Cur_Bankstatementline.c_order_id;	
+				--v_documentno := (select (coalesce(documentno,'') || ' - NC') as "test" from c_order where c_order_id = Cur_Bankstatementline.c_order_id)::VARCHAR(28) ;
+				UPDATE c_order 
+				SET documentno = trim(trailing ' - NC' from documentno)
+				WHERE c_order_id = Cur_Bankstatementline.c_order_id; 
+
+				--RAISE NO_DATA_FOUND || Cur_Bankstatementline.c_order_id; --to_char((select (to_char(documentno) || ' - NC ' ||Cur_Bankstatementline.c_order_id) as "test" from c_order where c_order_id = Cur_Bankstatementline.c_order_id));
+
+				UPDATE c_order SET Processed = 'Y'
+				WHERE c_order_id = Cur_Bankstatementline.c_order_id;	
+			
+		END LOOP;
+		
+	END IF;
+
+
+	--RAISE NO_DATA_FOUND || v_IsSOTrx || v_Isreversal || v_EM_Sswh_Implementautoriza || v_EM_Scnr_Invoice_ID; 	
+	IF (v_IsSOTrx = 'N' and v_Isreversal = 'Y' and v_EM_Sswh_Implementautoriza = 'Y' and p_docstatus = 'CO')  THEN 
+
+		--RAISE NO_DATA_FOUND || v_EM_Scnr_Invoice_ID; --to_char((select (to_char(documentno) || ' - NC ' ||Cur_Bankstatementline.c_order_id) as "test" from c_order where c_order_id = Cur_Bankstatementline.c_order_id));
+
+		
+		UPDATE c_invoice SET em_sscmb_wait_cn = 'N'
+		WHERE c_invoice_id = v_EM_Scnr_Invoice_ID;	
+
+		
+		FOR Cur_Bankstatementline IN
+			(SELECT  ORL.c_order_id
+			FROM C_InvoiceLine INV
+			inner join C_OrderLine ORL on ORL.C_OrderLine_ID = INV.C_OrderLine_ID
+			WHERE c_invoice_id =v_EM_Scnr_Invoice_ID
+			GROUP BY ORL.c_order_id
+			)
+		LOOP
+				UPDATE c_order SET Processed = 'N'
+				WHERE c_order_id = Cur_Bankstatementline.c_order_id;	
+				--v_documentno := (select (coalesce(documentno,'') || ' - NC') as "test" from c_order where c_order_id = Cur_Bankstatementline.c_order_id)::VARCHAR(28) ;
+				UPDATE c_order 
+				SET documentno = trim(trailing ' - NC' from documentno)
+				WHERE c_order_id = Cur_Bankstatementline.c_order_id; 
+
+				--RAISE NO_DATA_FOUND || Cur_Bankstatementline.c_order_id; --to_char((select (to_char(documentno) || ' - NC ' ||Cur_Bankstatementline.c_order_id) as "test" from c_order where c_order_id = Cur_Bankstatementline.c_order_id));
+
+				UPDATE c_order SET Processed = 'Y'
+				WHERE c_order_id = Cur_Bankstatementline.c_order_id;	
+			
+		END LOOP;
+		
+	END IF;
+	
+
+  END IF;
+  
+EXCEPTION
+WHEN OTHERS THEN
+  DBMS_OUTPUT.PUT_LINE( v_ResultStr);
+  RAISE;
+END SSCMB_C_INVOICE_CREDNOTE
+]]></body>
+    </function>
+  </database>

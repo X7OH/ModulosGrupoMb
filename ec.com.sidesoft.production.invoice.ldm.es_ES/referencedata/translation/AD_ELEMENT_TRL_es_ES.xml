@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_ELEMENT" version="">
+  <row id="2A9B79E9F6544204B9C7876B09F7174B" trl="N">
+    <value column="Name" isTrl="Y" original="Locator">Ubicación</value>
+    <value column="PrintName" isTrl="Y" original="Locator">Ubicación</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="3D8B63318E7C42A79501833FC3766030" trl="N">
+    <value column="Name" isTrl="Y" original="Load Sales Invoice">Cargar Factura de Venta</value>
+    <value column="PrintName" isTrl="Y" original="Load Sales Invoice">Cargar Factura de Venta</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="EA9C04267F114D0EBD6FEF186700C362" trl="N">
+    <value column="Name" isTrl="Y" original="Sales Invoice">Factura de Venta</value>
+    <value column="PrintName" isTrl="Y" original="Sales Invoice">Factura de Venta</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

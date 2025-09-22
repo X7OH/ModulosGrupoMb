@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_ELEMENT" version="">
+  <row id="03A861D041EE448C90D0148D741B8837" trl="Y">
+    <value column="Name" isTrl="Y" original="EM_Speya_Liststates">Estado</value>
+    <value column="PrintName" isTrl="Y" original="EM_Speya_Liststates">Estado</value>
+    <value column="Description" isTrl="N" original="">Estado</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="05491EBBDDD2459DB88143A4B37B08D1" trl="Y">
+    <value column="Name" isTrl="Y" original="Speya_Stateslist">Accion</value>
+    <value column="PrintName" isTrl="Y" original="Speya_Stateslist">Accion</value>
+    <value column="Description" isTrl="N" original="">Accion</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="1177E51769E5413EB54E6BE852D5E6FA" trl="Y">
+    <value column="Name" isTrl="Y" original="Speya_Closingtime">Duracion de Cierre x mins</value>
+    <value column="PrintName" isTrl="Y" original="Speya_Closingtime">Duracion de Cierre x mins</value>
+    <value column="Description" isTrl="N" original="">Duracion de Cierre x mins</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="215540DA968E41DD8B6073C182BFCBD6" trl="Y">
+    <value column="Name" isTrl="Y" original="Speya_Restaurantid">RestaurantCode</value>
+    <value column="PrintName" isTrl="Y" original="Speya_Restaurantid">RestaurantCode</value>
+    <value column="Description" isTrl="N" original="">RestaurantCode</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="33A6E8003FFA43BB978292B7BA6CE29A" trl="Y">
+    <value column="Name" isTrl="Y" original="Pylogin_Username">Login Usuario</value>
+    <value column="PrintName" isTrl="Y" original="Pylogin_Username">Login Usuario</value>
+    <value column="Description" isTrl="N" original="">Login Usuario</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="348CE455634D4DBD8B17C1E62C2EE109" trl="Y">
+    <value column="Name" isTrl="Y" original="EM_Speya_Reasontocancell">Razon de Rechazo</value>
+    <value column="PrintName" isTrl="Y" original="EM_Speya_Reasontocancell">Razon de Rechazo</value>
+    <value column="Description" isTrl="N" original="">Razon de Rechazo</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="3B31245B57F247E28B6224324CCD3E53" trl="Y">
+    <value column="Name" isTrl="N" original="Pedidos YA">Pedidos YA</value>
+    <value column="PrintName" isTrl="N" original="Pedidos YA">Pedidos YA</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="4A32DFF28B3241EDB52928DBC1B7DD13" trl="Y">
+    <value column="Name" isTrl="Y" original="Store">Pedidos YA Identificador Tienda</value>
+    <value column="PrintName" isTrl="Y" original="Store">Pedidos YA Identificador Tienda</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="4D023708E11A4AE18F093F5FD600F5DA" trl="Y">
+    <value column="Name" isTrl="Y" original="EM_Speya_Pickuporder">Orden Recogida</value>
+    <value column="PrintName" isTrl="Y" original="EM_Speya_Pickuporder">Orden Recogida</value>
+    <value column="Description" isTrl="N" original="">Orden Recogida</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="602741CD2EFA47658A9A3D74ED779C5A" trl="Y">
+    <value column="Name" isTrl="Y" original="Pyaceptorder_Token">Aceptar Orden Token</value>
+    <value column="PrintName" isTrl="Y" original="Pyaceptorder_Token">Aceptar Orden Token</value>
+    <value column="Description" isTrl="N" original="">Aceptar Orden Token</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="69FA5860F7F04707A0468AC6942BFC5D" trl="Y">
+    <value column="Name" isTrl="Y" original="Speya_Vendorid">VendorCode</value>
+    <value column="PrintName" isTrl="Y" original="Speya_Vendorid">VendorCode</value>
+    <value column="Description" isTrl="N" original="">VendorCode</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="7367B9C40EAC4D34B5584DCEA82DA50F" trl="N">
+    <value column="Name" isTrl="N" original="Speya_Config_ID">Speya_Config_ID</value>
+    <value column="PrintName" isTrl="N" original="Speya_Config_ID">Speya_Config_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="74054A0A75F84598A1A72F3CA72E0E54" trl="Y">
+    <value column="Name" isTrl="Y" original="EM_Speya_Urlaccept">URL Orden Aceptada</value>
+    <value column="PrintName" isTrl="Y" original="EM_Speya_Urlaccept">URL Orden Aceptada</value>
+    <value column="Description" isTrl="N" original="">URL Orden Aceptada</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="7510FD17B83B49FC90780BC1D1915F33" trl="Y">
+    <value column="Name" isTrl="Y" original="EM_Speya_Urlreject">URL Orden Rechazada</value>
+    <value column="PrintName" isTrl="Y" original="EM_Speya_Urlreject">URL Orden Rechazada</value>
+    <value column="Description" isTrl="N" original="">URL Orden Rechazada</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="806A49EEC0CF45408F7C19029B99D3A9" trl="Y">
+    <value column="Name" isTrl="Y" original="Pyupdatestore_Url">Actualizacion Locales URL</value>
+    <value column="PrintName" isTrl="Y" original="Pyupdatestore_Url">Actualizacion Locales URL</value>
+    <value column="Description" isTrl="N" original="">Actualizacion Locales URL</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="88D5A9FE81A040C0B9DDC2D0C2550D7C" trl="Y">
+    <value column="Name" isTrl="Y" original="EM_Speya_Orderready">Orden Lista</value>
+    <value column="PrintName" isTrl="Y" original="EM_Speya_Orderready">Orden Lista</value>
+    <value column="Description" isTrl="N" original="">Orden Lista</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="8C7173CC010D4AC19514A46CD885429D" trl="Y">
+    <value column="Name" isTrl="Y" original="EM_Speya_Urlprepared">URL Orden Lista</value>
+    <value column="PrintName" isTrl="Y" original="EM_Speya_Urlprepared">URL Orden Lista</value>
+    <value column="Description" isTrl="N" original="">URL Orden Lista</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="A082D3BFD32A41E8950C3CCD5F12857B" trl="Y">
+    <value column="Name" isTrl="Y" original="ClientSecret">Pedidos YA Secret</value>
+    <value column="PrintName" isTrl="Y" original="ClientSecret">Pedidos YA Secret</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="A83F1F696F384B06BA35E8B5FB7EF5E2" trl="Y">
+    <value column="Name" isTrl="Y" original="Speya_Closinglist">Motivos de Cierre</value>
+    <value column="PrintName" isTrl="Y" original="Speya_Closinglist">Motivos de Cierre</value>
+    <value column="Description" isTrl="N" original="">Motivos de Cierre</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="AA95FBDD67324E90B9265D15F3C455CE" trl="Y">
+    <value column="Name" isTrl="Y" original="Speya_Chainid">ChainCode</value>
+    <value column="PrintName" isTrl="Y" original="Speya_Chainid">ChainCode</value>
+    <value column="Description" isTrl="N" original="">ChainCode</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="AC3C6C33216647FEB339462EC8A3EFD9" trl="N">
+    <value column="Name" isTrl="N" original="Speya_Openclosestores_ID">Speya_Openclosestores_ID</value>
+    <value column="PrintName" isTrl="N" original="Speya_Openclosestores_ID">Speya_Openclosestores_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="AE7FCE35E7FB4C7CB8FC1E3B2BEB32A0" trl="Y">
+    <value column="Name" isTrl="Y" original="Pyupdatestore_Token">Actualizacion Locales Token</value>
+    <value column="PrintName" isTrl="Y" original="Pyupdatestore_Token">Actualizacion Locales Token</value>
+    <value column="Description" isTrl="N" original="">Actualizacion Locales Token</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="B92BD57C694C4622A22B5B4A7C694579" trl="Y">
+    <value column="Name" isTrl="Y" original="Payment Method">Pedidos YA Método de Pago</value>
+    <value column="PrintName" isTrl="Y" original="Payment Method">Pedidos YA Método de Pago</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="BBF325DA09F14D76BC8B4AE7FA7CF9E4" trl="Y">
+    <value column="Name" isTrl="Y" original="Client ID">Pedidos YA Client ID</value>
+    <value column="PrintName" isTrl="Y" original="Client ID">Pedidos YA Client ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="BE7604CC3EED47A695114E25F0BCF149" trl="Y">
+    <value column="Name" isTrl="Y" original="Reasonidentifiers">Identificador del Motivo</value>
+    <value column="PrintName" isTrl="Y" original="Reasonidentifiers">Identificador del Motivo</value>
+    <value column="Description" isTrl="N" original="">Identificador del Motivo</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="BEDDD60C6E2F470684F1A28B0D9DFB36" trl="Y">
+    <value column="Name" isTrl="Y" original="EM_Speya_Cancellreasons_ID">Motivos de Rechazo</value>
+    <value column="PrintName" isTrl="Y" original="EM_Speya_Cancellreasons_ID">Motivos de Rechazo</value>
+    <value column="Description" isTrl="N" original="">Motivos de Rechazo</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="C217276572094934A4F3F20EC70F08EB" trl="Y">
+    <value column="Name" isTrl="Y" original="Speya_Remoteid">RemoteCode</value>
+    <value column="PrintName" isTrl="Y" original="Speya_Remoteid">RemoteCode</value>
+    <value column="Description" isTrl="N" original="">RemoteCode</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="C3BB59510BE84903BBC68F062257C3C8" trl="Y">
+    <value column="Name" isTrl="Y" original="Pylogin_Password">Login Clave</value>
+    <value column="PrintName" isTrl="Y" original="Pylogin_Password">Login Clave</value>
+    <value column="Description" isTrl="N" original="">Login Clave</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="C52C7260FA4643D0ADE8FAB978B135CD" trl="Y">
+    <value column="Name" isTrl="Y" original="URL">Pedidos YA URL</value>
+    <value column="PrintName" isTrl="Y" original="URL">Pedidos YA URL</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="CB83A163BADB4898B8D7F4EBEA0874F0" trl="Y">
+    <value column="Name" isTrl="Y" original="EM_Speya_Urlpickedup">URL Orden Recogida</value>
+    <value column="PrintName" isTrl="Y" original="EM_Speya_Urlpickedup">URL Orden Recogida</value>
+    <value column="Description" isTrl="N" original="">URL Orden Recogida</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="DDC29510FABB4628B1460755AA2A648C" trl="Y">
+    <value column="Name" isTrl="Y" original="Speya_Process">Procesar</value>
+    <value column="PrintName" isTrl="Y" original="Speya_Process">Procesar</value>
+    <value column="Description" isTrl="N" original="">Procesar</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="EEF29B20535649CAAB8FEFF98334AEE7" trl="Y">
+    <value column="Name" isTrl="Y" original="Pyaceptorder_Url">Aceptar Orden URL</value>
+    <value column="PrintName" isTrl="Y" original="Pyaceptorder_Url">Aceptar Orden URL</value>
+    <value column="Description" isTrl="N" original="">Aceptar Orden URL</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="F1DDBE61F3334EF3A21FDD02B7A6A00C" trl="Y">
+    <value column="Name" isTrl="Y" original="EM_Speya_Pedidosya_ID">Codigo PedidosYA</value>
+    <value column="PrintName" isTrl="Y" original="EM_Speya_Pedidosya_ID">Codigo PedidosYA</value>
+    <value column="Description" isTrl="N" original="">Codigo PedidosYA</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="F3872B0F811E45D8B435C199EC511834" trl="Y">
+    <value column="Name" isTrl="Y" original="Pylogin_Url">Login URL</value>
+    <value column="PrintName" isTrl="Y" original="Pylogin_Url">Login URL</value>
+    <value column="Description" isTrl="N" original="">Login URL</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="F86DE5EEB689497C9696E70B6ADC162D" trl="N">
+    <value column="Name" isTrl="N" original="Speya_Cancellreasons_ID">Speya_Cancellreasons_ID</value>
+    <value column="PrintName" isTrl="N" original="Speya_Cancellreasons_ID">Speya_Cancellreasons_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="FD4DB3E9E1084230B978DB907616A577" trl="Y">
+    <value column="Name" isTrl="Y" original="EM_Speya_Cancellorder">Rechazar Pedido</value>
+    <value column="PrintName" isTrl="Y" original="EM_Speya_Cancellorder">Rechazar Pedido</value>
+    <value column="Description" isTrl="N" original="">Rechazar Pedido</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="FF92A1C886804BE3960775E017E17E0E" trl="Y">
+    <value column="Name" isTrl="Y" original="Pylogin_Token">Login Token</value>
+    <value column="PrintName" isTrl="Y" original="Pylogin_Token">Login Token</value>
+    <value column="Description" isTrl="N" original="">Login Token</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REF_LIST" version="">
+  <row id="01E48E117D8A4F27A633FE18D3D03734" trl="Y">
+    <value column="Name" isTrl="Y" original="SSCMB_OTHER">OTROS</value>
+    <value column="Description" isTrl="Y" original="SSCMB_Other">OTROS</value>
+  </row>
+  <row id="07A3C632816F4E49924DD405444E62EB" trl="N">
+    <value column="Name" isTrl="N" original="WEB">WEB</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="3392B77DA0384905BF595205968E1626" trl="N">
+    <value column="Name" isTrl="N" original="Punto de Venta">Punto de Venta</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="33D47A6DF45446878FCDF5D5EE055834" trl="N">
+    <value column="Name" isTrl="N" original="GLOVO">GLOVO</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="37BED1EC4BC94803862DE752DA764884" trl="N">
+    <value column="Name" isTrl="N" original="DOMICILIO">DOMICILIO</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="82376DDAC90D4DD79CA9FD5118F4B6F3" trl="Y">
+    <value column="Name" isTrl="Y" original="SSCMB_OTHER">OTROS</value>
+    <value column="Description" isTrl="Y" original="SSCMB_OTHER">OTROS</value>
+  </row>
+  <row id="B80AF77A9CB744C6A861D06347F90831" trl="Y">
+    <value column="Name" isTrl="N" original="CHATBOT">CHATBOT</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="BD35BD944BC742F59B6C03AA6114E201" trl="N">
+    <value column="Name" isTrl="N" original="UBER">UBER</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="C51969A6799A49E5BE368EB5BE97C373" trl="N">
+    <value column="Name" isTrl="N" original="WEB">WEB</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="E73FE58A95644F0298CB0233FF05FE5A" trl="N">
+    <value column="Name" isTrl="N" original="Call Center">Call Center</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

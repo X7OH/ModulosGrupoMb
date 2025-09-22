@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SWSOC_DOMICILIE_UNIQUE_TRG">
+    <trigger name="SWSOC_DOMICILIE_UNIQUE_TRG" table="OBCOMBO_PRODUCT" fires="before" insert="true" update="true" delete="false" foreach="row">
+      <body><![CDATA[
+v_count NUMBER:=0;
+
+BEGIN
+
+    IF AD_isTriggerEnabled()='N' THEN RETURN;
+    END IF;
+
+    SELECT count(*) 
+    INTO v_count 
+    FROM obcombo_product cp 
+    WHERE cp.obcombo_family_id = :new.obcombo_family_id 
+    AND cp.em_swsoc_domicile='Y'
+    AND cp.obcombo_product_id NOT IN( :new.obcombo_product_id) ;
+
+    IF(INSERTING) THEN
+	    IF (v_count>0) THEN
+	      IF(:new.em_swsoc_domicile <> 'N') THEN
+		RAISE_APPLICATION_ERROR(-20000, '@Swsoc_Only_One_Domilicie@');
+	      END IF;    
+	    END IF;	
+    END IF;
+    	
+    IF(UPDATING) THEN
+	    IF (v_count > 0 ) THEN
+	      IF(:new.em_swsoc_domicile <> :old.em_swsoc_domicile) THEN
+		RAISE_APPLICATION_ERROR(-20000, '@Swsoc_Only_One_Domilicie@');
+	      END IF;
+	    END IF;
+    END IF;       
+
+END SWSOC_DOMICILIE_UNIQUE_TRG
+]]></body>
+    </trigger>
+  </database>

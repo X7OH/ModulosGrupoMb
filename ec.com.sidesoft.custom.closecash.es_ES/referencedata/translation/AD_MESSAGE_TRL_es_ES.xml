@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="6F08482B1ED04F9984937918922690E7" trl="Y">
+    <value column="MsgText" isTrl="Y" original="The sum of income and expenses can not be zero.">La suma de ingresos y egresos no puede ser cero.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="8043F7A76D6D429DBF9163961736FFDF" trl="N">
+    <value column="MsgText" isTrl="Y" original="Cash closure has not been processed">Cierre de caja no ha sido procesado</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="807BD09D93CF41A8B345A65B3BD12794" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Can not insert/update/delete lines, if the header is in 'Registered' or 'Processed' status.">No se pueden insertar/actualizar/eliminar líneas, si la cabecera está en estado 'Registrado' o 'Procesado'.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="9E64589BA7FA454881C5A8197B1FAB0D" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Lines not found to record.">No se encontraron lineas para registrar.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="A9E5990E2FB54DF7A0B8B411214CF3DE" trl="N">
+    <value column="MsgText" isTrl="Y" original="Organization not found in setup window.">Organización no encontrada en la ventana de configuración.</value>
+    <value column="MsgTip" isTrl="Y" original="Create a new record with the organization present in the box closing header.">Crear un nuevo registro con la organización presente en la cabecera del cierre de caja.</value>
+  </row>
+  <row id="BE57895060FF4E5FAEE5382B7BDF5420" trl="N">
+    <value column="MsgText" isTrl="Y" original="Payment method not found at lines of the setup window.">Método de pago no encontrado en las líneas de la ventana de configuración.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

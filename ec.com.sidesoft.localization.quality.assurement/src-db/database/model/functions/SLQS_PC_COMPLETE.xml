@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SLQS_PC_COMPLETE">
+    <function name="SLQS_PC_COMPLETE" type="NULL">
+      <parameter name="pinstance_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[TYPE RECORD IS REF CURSOR;
+Cur_Parameter RECORD;
+Cur_partner RECORD;
+
+v_template_employee VARCHAR2(32) ;
+v_sspr_category_acct_id VARCHAR2(32) ;
+v_EM_SSPR_Prolltemplate_ID VARCHAR2(32) ;
+v_EM_SSPR_Status VARCHAR2(60);
+v_ResultStr VARCHAR2(2000) := '';  
+v_n_insertions NUMBER;	--OBTG:NUMBER--
+v_Message VARCHAR2(2000):='';
+
+
+v_MLocatorID VARCHAR2(32) ;
+v_StatusQuality VARCHAR2(60);
+v_QualityID  VARCHAR2(32) ;
+v_CountReg  NUMBER;	--OBTG:NUMBER--
+v_StatusProcess VARCHAR2(60);
+v_InoutID VARCHAR2(32) ;
+v_ProductID  VARCHAR2(32) ;
+v_StatusTransaction VARCHAR2(60); 
+
+BEGIN
+  --  Update AD_PInstance
+  --RAISE NOTICE '%','Updating PInstance - Processing ' || PInstance_ID ;
+  --v_ResultStr := 'PInstanceNotFound';
+  --PERFORM AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'Y', NULL, NULL) ;
+
+  BEGIN --BODY
+
+	-- Get Parameters
+	v_ResultStr := 'ReadingParameters';
+	v_n_insertions := 0;    
+
+	FOR Cur_Parameter IN
+	(SELECT i.Record_ID,p.ParameterName,p.P_String,p.P_Number,p.P_Date,p.AD_Client_ID,
+	p.AD_Org_ID,p.CreatedBy       
+	FROM AD_PInstance i
+	LEFT JOIN AD_PInstance_Para p
+	   ON i.AD_PInstance_ID = p.AD_PInstance_ID
+	WHERE i.AD_PInstance_ID = PInstance_ID
+	ORDER BY p.SeqNo
+	)
+	LOOP      	  
+
+		IF (Cur_Parameter.ParameterName = 'M_LOCATOR_ID') THEN
+
+			v_MLocatorID := Cur_Parameter.P_String;    
+			
+		ELSIF (Cur_Parameter.ParameterName = 'STATUS') THEN
+		
+			v_StatusQuality := Cur_Parameter.P_String;
+			
+		ELSE  
+		
+			DBMS_OUTPUT.PUT_LINE('*** Unknown Parameter=' || Cur_Parameter.ParameterName) ;
+			
+		END IF;     
+		v_QualityID:= Cur_Parameter.Record_ID;
+
+	END LOOP; -- Get Parameter
+   
+    select
+    coalesce((select em_slqs_processed from ma_pc_case  where ma_pc_case_id = v_QualityID),'N')
+    into v_StatusProcess
+    from dual;
+    v_n_insertions:=0;
+
+
+    IF (v_StatusProcess='N') THEN -- Process
+
+	    select
+	    coalesce((select em_slqs_inout_id from ma_pc_case  where ma_pc_case_id = v_QualityID),'ND')
+	    into v_InoutID
+	    from dual;
+	
+	    select
+	    coalesce((select m_product_id from ma_pc_case  where ma_pc_case_id = v_QualityID),'ND')
+	    into v_ProductID
+	    from dual;
+
+	    select
+	    coalesce((select EM_SLQS_STATUS from ma_pc_case  where ma_pc_case_id = v_QualityID),'ND')
+	    into v_StatusTransaction
+	    from dual;
+
+	    IF (v_StatusTransaction='ND') THEN
+
+		IF (v_StatusQuality<>'RE') THEN
+			RAISE EXCEPTION '%' , '@Slqs_ErrorRequested@' ;--OBTG:20000--
+		END IF;
+		
+	    END IF;
+	    
+
+	    IF (v_ProductID='ND') THEN
+		RAISE EXCEPTION '%' , '@Slqs_ErrorProduct@' ;--OBTG:20000--
+	    END IF;
+
+	    IF (COALESCE(v_StatusQuality,TO_CHAR('ND'))<>'ND') THEN
+
+	        IF (COALESCE((v_MLocatorID),'ND')='ND' AND v_StatusQuality = 'NA') THEN
+			RAISE EXCEPTION '%' , '@Slqs_ErrorLocator@' ;--OBTG:20000--
+	        END IF;
+	        
+		IF (v_StatusQuality = 'NA' AND v_InoutID<>'ND') THEN -- RECHAZAR
+
+			-- Si el estado es rechazado, se actualiza la línea del albaran con la nueva ubicación del producto segun corresponda
+			UPDATE M_INOUTLINE MIL SET M_LOCATOR_ID = v_MLocatorID
+			WHERE M_PRODUCT_ID = v_ProductID 
+			AND MIL.M_INOUT_ID = v_InoutID;
+
+			-- Se actualiza el estado de la transacción ejecutada
+
+			UPDATE MA_PC_CASE SET EM_SLQS_PROCESSED = 'Y',EM_SLQS_STATUS = 'NA' WHERE  MA_PC_CASE_ID = v_QualityID;
+			v_n_insertions:= v_n_insertions + 1;
+
+		END IF;
+
+		IF (v_StatusQuality = 'AP') THEN  -- APROBAR
+
+			-- Se actualiza el estado de la transacción ejecutada
+
+			UPDATE MA_PC_CASE SET EM_SLQS_PROCESSED = 'Y',EM_SLQS_STATUS = 'AP' WHERE  MA_PC_CASE_ID = v_QualityID;
+			v_n_insertions:= v_n_insertions + 1;			
+
+		END IF;
+
+		IF (v_StatusQuality = 'RE') THEN  -- APROBAR
+
+			-- Se actualiza el estado de la transacción ejecutada
+
+			UPDATE MA_PC_CASE SET EM_SLQS_PROCESSED = 'N',EM_SLQS_STATUS = 'RE' WHERE  MA_PC_CASE_ID = v_QualityID;
+			v_n_insertions:= v_n_insertions + 1;			
+
+		END IF;
+
+		
+	    END IF;
+	    
+
+    ELSE   -- UnProcess
+
+    			UPDATE MA_PC_CASE SET EM_SLQS_PROCESSED = 'N', EM_SLQS_STATUS = 'RE' WHERE  MA_PC_CASE_ID = v_QualityID;
+			v_n_insertions:= v_n_insertions + 1;
+
+    END IF;
+    
+    
+	   
+    v_Message := '@RowsInserted@: ' || v_n_insertions || '.';
+    DBMS_OUTPUT.PUT_LINE('Updating PInstance - Finished ' || v_Message) ;
+    AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 1, v_Message) ;
+    RETURN;
+  
+  END; --END BODY
+  EXCEPTION
+  WHEN OTHERS THEN
+    v_ResultStr:= '@ERROR=' || SQLERRM;
+    DBMS_OUTPUT.PUT_LINE(v_ResultStr) ;
+    AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 0, v_ResultStr) ;
+    RETURN;
+END SLQS_PC_COMPLETE
+]]></body>
+    </function>
+  </database>

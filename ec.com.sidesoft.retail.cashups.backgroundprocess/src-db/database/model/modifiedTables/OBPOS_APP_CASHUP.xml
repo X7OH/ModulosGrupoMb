@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE OBPOS_APP_CASHUP">
+    <table name="OBPOS_APP_CASHUP" primaryKey="OBPOS_APPCASH_PK">
+      <column name="EM_SRCBP_PROCESS" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+    </table>
+  </database>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TEXTINTERFACES" version="">
+  <row id="6B48A2E0BCB74C779D172BC73EB9DD84" trl="N">
+    <value column="Text" isTrl="N" original="PRODUCTO">PRODUCTO</value>
+  </row>
+  <row id="7956FF641AFB4FA8BE43386E4DFD7FAE" trl="N">
+    <value column="Text" isTrl="N" original="CANT. MIN.">CANT. MIN.</value>
+  </row>
+  <row id="D93CF9AFE51642FDA1D19D7038E97C0E" trl="N">
+    <value column="Text" isTrl="N" original="CATEGORÍA">CATEGORÍA</value>
+  </row>
+  <row id="E560317138664BFFB34199D5D625E9D5" trl="N">
+    <value column="Text" isTrl="N" original="CANT. MAX">CANT. MAX</value>
+  </row>
+</compiereTrl>

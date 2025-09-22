@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
+  <row id="49FC9BA9A337471AAEDF03ADB4557948" trl="N">
+    <value column="Name" isTrl="N" original="Saeq Invoice defined selector">Saeq Invoice defined selector</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

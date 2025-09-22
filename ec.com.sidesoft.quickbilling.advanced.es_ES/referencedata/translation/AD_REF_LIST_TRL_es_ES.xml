@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REF_LIST" version="">
+  <row id="0E21E9605E2F4003BAB83D67FBB91E6F" trl="Y">
+    <value column="Name" isTrl="Y" original="Rent Withholding">Retención renta</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="39D1E3C91E854E868A7709761F7AE378" trl="Y">
+    <value column="Name" isTrl="Y" original="Lak of stock">Falta de stock</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="53DA9F8A29A34F3AB91A8A90183282C2" trl="Y">
+    <value column="Name" isTrl="Y" original="Card">Tarjeta</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="60D4270A12274F9297786FDA14734F60" trl="Y">
+    <value column="Name" isTrl="Y" original="Agreement">Convenio</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="630021FE54054EF4A0E366E45B4AF6A3" trl="Y">
+    <value column="Name" isTrl="N" original="Giftcard">Giftcard</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="6813B85FE4DB4262839DFC6007ABF00A" trl="Y">
+    <value column="Name" isTrl="Y" original="IVA Withholding">Retención IVA</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="73E0106333124D62AF049FD4635C9DB6" trl="Y">
+    <value column="Name" isTrl="Y" original="Debit">Débito</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="77DC6070A14746E28E7AF0016A6B2EEA" trl="N">
+    <value column="Name" isTrl="N" original="Work">Work</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="7CEABD98E6844865918847A865180529" trl="Y">
+    <value column="Name" isTrl="Y" original="Pick Up Store">Retirar en Local</value>
+    <value column="Description" isTrl="Y" original="Pick Up Store">Retirar en Local</value>
+  </row>
+  <row id="7E35C739D0964F8F9A329B07CA3F96ED" trl="N">
+    <value column="Name" isTrl="N" original="Home">Home</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="8D781A397B8B4EBF8D9B9AEBCDF6216B" trl="N">
+    <value column="Name" isTrl="Y" original="Delivered on Time">Entregado a Tiempo</value>
+    <value column="Description" isTrl="Y" original="Delivered on Time">Entregado a Tiempo</value>
+  </row>
+  <row id="8E55BFE0B2E24354BD01DF65CADEC7DC" trl="Y">
+    <value column="Name" isTrl="N" original="Web">Web</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="99D1A10377D34B9DB6140E3AD33E9057" trl="Y">
+    <value column="Name" isTrl="Y" original="Credit">Crédito</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="9B32371A48384B9DAAE3257F5EA76BEA" trl="N">
+    <value column="Name" isTrl="N" original="Call Center">Call Center</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="A0B57C3952AD40FEBA669F9D1D99364B" trl="Y">
+    <value column="Name" isTrl="N" original="Uber">Uber</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="A739C35CBAC240328FC82380EC679071" trl="N">
+    <value column="Name" isTrl="Y" original="Complete">Completado</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="A9DFAC91E69D42DEBF7E33E88EC97A59" trl="N">
+    <value column="Name" isTrl="Y" original="Draft">Borrador</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="AB2CCB88FE45430EBE05269447086D14" trl="Y">
+    <value column="Name" isTrl="Y" original="Check">Cheque</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="AC25610B76D1481CB74EC9DE10D8FE8A" trl="Y">
+    <value column="Name" isTrl="Y" original="Pick Up Programmed">Retiro Programado</value>
+    <value column="Description" isTrl="Y" original="Pick Up Programmed">Retiro Programado</value>
+  </row>
+  <row id="CFE7C02FC4C54B7D8669AE47E0C25BE8" trl="N">
+    <value column="Name" isTrl="N" original="Pagina Web">Pagina Web</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="DE196D66B0D44D709F95989271F58DAB" trl="Y">
+    <value column="Name" isTrl="N" original="Domicilios.com">Domicilios.com</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="E001EA5C85614A19A0CB819300418C70" trl="Y">
+    <value column="Name" isTrl="Y" original="Cash">Efectivo</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="E96C3786030F4373BF109FDBF2C2783F" trl="N">
+    <value column="Name" isTrl="Y" original="Lost">Perdido</value>
+    <value column="Description" isTrl="N" original="">Perdido</value>
+  </row>
+  <row id="F9EB26BAA552458B9CB51A294BA58FA9" trl="Y">
+    <value column="Name" isTrl="N" original="Glovo">Glovo</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

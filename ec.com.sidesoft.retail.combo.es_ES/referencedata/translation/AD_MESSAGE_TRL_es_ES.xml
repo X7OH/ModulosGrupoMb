@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="01C769B097F34F04806D26C75CB66E38" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Delivery and billing address">Dirección entrega y facturación</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="0686A448BC8D44B0906C636323EBDFF7" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Tax">Impuesto</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="0BD826250D934B858F69F28A42FCED7F" trl="Y">
+    <value column="MsgText" isTrl="Y" original="New address billing">Nueva dirección facturación</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="0C29F7D0AD69449D919A8B3B628E46EC" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Delivery contact phone">Teléfono contacto de entrega</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="0DC1FBE3BA894265A1A5DD96F0590897" trl="Y">
+    <value column="MsgText" isTrl="Y" original="SSRCM_Debit">Débito</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="0F878ACCA1BB45ADA8B70D9DA996852B" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Observations">Observaciones</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="105DDEC66EAA48A586FB77906B709C8E" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Line Net Amount">Total línea</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="12A9AE87402F496DACB02E5B0CA19DE4" trl="Y">
+    <value column="MsgText" isTrl="N" original="Stock">Stock</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="12D56BB0A33B46469EC076E69397648F" trl="Y">
+    <value column="MsgText" isTrl="Y" original="This option is disabled when the document is in status complete">La opción de borrado está deshabilitada si el documento está en estado completado.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="2349C3156C6A4107B94AB4889135A8C3" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Created By">Creado por</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="2827D010423547A4BA4E7F49051A8140" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Financial Entity">Entidad financiera</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="2C8C0159017A4655B978D5FF0CBC0A3A" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Amount">Importe</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="2D7918A0BAF04248A4201069F8B36700" trl="Y">
+    <value column="MsgText" isTrl="Y" original="CIF/NIF">Identificación</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="345B28D03FB84ECF968AEFB40C4B0ED8" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Organization">Organización</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="35503C70FB934B20A603404AFAE82973" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Address">Dirección</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="35A4F77F3567421AA86AD951EDE248A4" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Bank">Banco</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="36B358C3DA214760AEA60564288D62BC" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Insert Product">Insertar producto</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="3757591D8E9A437BBAFCA6D1EDEE8B5E" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Partner|">Cliente</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="3A688EC2E49C41E29E14C21421292FB0" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Name">Nombre</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="3DBF67A865C04F6C8392A87361B5B343" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Card propietary">Propietario</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="41DA6C6FC01A43DEAF02288BE5017CE8" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Audit">Auditoría</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="55FD33F6CB2949E7AC80FB976A4E1FEE" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Phone">Teléfono</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="58E19BD1EBE7456A8C70E52D6339C908" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Delete Line">Eliminar línea</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="64181C82875D40628D9977ADBCC4356D" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Grand Total Amount">Total</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="66A2E3B47AD34D58B4E3AD33AAC9BF3C" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Credit">Crédito</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="66F8D65329BF45D08CEFD454A9420C65" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Type ID">Tipo de identificación</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="684B9D95DC2741C1AFA5D959F6A623FD" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Add Combo">Añadir combo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="6908318EB15C43F882439BDF046D6494" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Reference">Referencia</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="6ABE284569AF48A69DCF83767959CCCF" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Newcard">Nueva tarjeta</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="6D8D835438F24AE890A2A4AFA564917E" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Card">Tarjeta</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="6E63B2B0D63C45D2B4684C2EFCC1FCE0" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Product">Producto</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="6FC0DFD7C96F44FE916A0A386992F2E3" trl="N">
+    <value column="MsgText" isTrl="Y" original="Delivery contact name">Nombre contacto de entrega</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="7014D218896B4A9892A4B91FAF030E98" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Total Net Amount">Total neto</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="7154AF6577A04B53A8138E35E5191087" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Can not delete default products">No se puede eliminar productos por defecto.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="72818E40BEBF46B6B1923C4E14F93644" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Gross Unit Price">Precio unitario</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="733D5E4EB70847E4940ACF0EEF37EDE6" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Email">Correo electrónico</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="788B5B07B2DD4216AAE366FA76701EE1" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Net Unit Price">Precio unitario sin impuestos</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="79C3313DEC7541FD81740EA3D33FE0A8" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Address complete">Dirección completa</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="7AE38B156B8D4CB39B61CD6891B66E49" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Edit Combo">Editar combo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="7B87FF76446D43D28440E6E380160E80" trl="Y">
+    <value column="MsgText" isTrl="N" original="Combo">Combo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="808BE06E21354043845825B7020A3E76" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Lines Call Center">Líneas</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="844A66EF9A254A609FB4558DFF4E76A5" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Process completed successfully">Proceso completado satisfactoriamente</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="869A9EEC237E4722B3733BF2F2DEC8F4" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Payment Methods">Métodos de pago</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="8953F84B8FEA403A97F45848FFD6B903" trl="N">
+    <value column="MsgText" isTrl="N" original="Order Line Id">Order Line Id</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="8B97D98117E94C4088AA921DB42DABC4" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Draft">Borrador</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="8FDA6025B81F487F902B3F40802FBA26" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Billing alias">Alias facturación</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="906A2860C4E94F2DB5CB3493677EEE21" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Address Alias">Alias dirección</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="9491743B0E774E60AE4195B343779E59" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Combo Quantity">Cantidad combo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="954626869F4B47AA8209F025E9EE2426" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Billet_Value">Valor de billete</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="970CDD2DDB924BB4A988A664BD50A45B" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Modify line">Modificar línea</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="988F94F2750E445B8FCB26BC02C4C85F" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Quantity">Cantidad</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="99028091C12D44FEA6E13752AB37B33D" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Description">Descripción</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="99BC8CD480954BABA165A6C0C2364ED0" trl="Y">
+    <value column="MsgText" isTrl="Y" original="The maximum amount allowed is 999,999,999.">La cantidad máxima permitida es 999,999,999.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="9AC2E2D6E0854BACA6104F78B43176C9" trl="Y">
+    <value column="MsgText" isTrl="N" original="Combo">Combo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="9BC6705B4672428B98BC13C25D861668" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Complete">Completado</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="9CC03911A7784334A5F4A282537537A7" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Line No.">Línea</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="9D5B2552E36149FBA7C2C1C62725A06E" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Product Category">Categoría de producto</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="9D6D2B2816AB4502899EB016B4B49CA8" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Line No.">Línea</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="9D7BC3E1FE5944BDB53BE5DFCFBDCCB2" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Card Type">Tipo de tarjeta</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="A0A8FFB4D8094023A178462B54993B1F" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Cardno"># Tarjeta</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="A28F45652306485996BC5B1DA892F82F" trl="Y">
+    <value column="MsgText" isTrl="N" original="Subtotal">Subtotal</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="A341D61E9C7547318A75966A5192882F" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Billing address">Dirección facturación</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="A39E4DA0B6F84D4D8DC1CCE988DA0A70" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Sales Region">Zona de venta</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="A5985F4A7ED04CADA37AC460FE26119A" trl="Y">
+    <value column="MsgText" isTrl="Y" original="New Address">Nueva dirección</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="A734A7C250DF4601AEAAB514938C1C06" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Billing phone">Teléfono facturación</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="ACEF26D2123F4B508F538B2DAE844700" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Billing referencia">Referencia facturación</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="AF548A3B652943DBB0E19BB18815B1AA" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Call Center Order">Órden de call center</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="BF4064AC8DF34ED686BD9C5F70CD27B3" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Expiration date">Fecha de expiración</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="C485DC203D794C7DB6CEE470182CB929" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Call Center Order Post">Registrar</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="C65DDA92842E4BA4A7C99C0A811D7DDB" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Updated By">Actualizado por</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="C8A9EFEF5ACE40AE8FC6EDBABA8E2BDC" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Modify Combo Lines">Modificar líneas de combo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="CBF9F4E5314244FDAFB341FD2CD5D9C7" trl="Y">
+    <value column="MsgText" isTrl="Y" original="NO_Check">Número de cheque</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="CF1A083022CB4D0F9ABA9E8C20A05EC7" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Ordered Quantity">Cantidad</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="CF25EA160CA4449DAF8EB4B6BF18F445" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Add Product">Añadir producto</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="D957E81E566C4E2AAC788C0A102FC4B9" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Document No.">Nº de pedido</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="E0B962F094DC4DDDBB216F34F666FC5A" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Creation Date">Fecha Creación</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="E1F07EBF62914FB3977844E4D4406F62" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Insert Combo">Insertar combo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="E75A7908C4F846FA9D302526169431D8" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Document Status">Estado de documento</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="E89C3A517A9F4645A904A518D6D97D0B" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Billing complete address">Dirección completa facturación</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="E9937C0A422644FDA8EBD5DB730A8018" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Updated">Actualizado</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="EC43E517AF0A411FB2694DEA97BD5357" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Card brand">Marca de tarjeta</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="EE47C97CC13D4BE283E8F28EF9D887B2" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Security code">Código de seguridad</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="F5C8958769DC445AB53A45957485AFCD" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Attention Hours">Horario de atención</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="F7055F920C4447BBB5AF49575F20087A" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Tax Rate">Tarifa</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="F7E2ABDDDD084949BB50FCD86A787B55" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Order Date">Fecha de órden</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="FABF48A11821479F83D607628AC70064" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Payment Method">Método de pago</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

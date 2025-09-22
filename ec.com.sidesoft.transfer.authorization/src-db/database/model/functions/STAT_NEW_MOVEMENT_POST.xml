@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION STAT_NEW_MOVEMENT_POST">
+    <function name="STAT_NEW_MOVEMENT_POST" type="NULL">
+      <parameter name="p_pinstance_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[/*************************************************************************
+ * The contents of this file are subject to the Openbravo  Public  License
+ * Version  1.1  (the  "License"),  being   the  Mozilla   Public  License
+ * Version 1.1  with a permitted attribution clause; you may not  use this
+ * file except in compliance with the License. You  may  obtain  a copy of
+ * the License at http://www.openbravo.com/legal/license.html
+ * Software distributed under the License  is  distributed  on  an "AS IS"
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+ * License for the specific  language  governing  rights  and  limitations
+ * under the License.
+ * The Original Code is Openbravo ERP.
+ * The Initial Developer of the Original Code is Openbravo SLU
+ * All portions are Copyright (C) 2001-2013 Openbravo SLU
+ * All Rights Reserved.
+ * Contributor(s):  Rodney Xavier Jácome Teran.
+ ************************************************************************/
+
+  v_ResultStr VARCHAR2(2000):='';
+  v_Message VARCHAR2(2000):='';
+  --v_Result NUMERIC:=1; -- 0=failure
+  v_Record_ID VARCHAR2(32);
+  v_User_ID VARCHAR2(32):='0';
+  v_Client_ID VARCHAR2(32):='0';
+  v_Org_ID     VARCHAR2(32):='0';
+  v_Requires_Authorization    VARCHAR2(1):='N';
+  v_Code_Authorization   VARCHAR2(6);
+  v_Create_Code_Date     DATE;
+  v_Minute_from	NUMBER:=0;
+  v_Minute_to	NUMBER:=0;
+  v_ad_pinstance_id     VARCHAR2(32):='0';
+  v_pinstance_vac_id    VARCHAR2(32):='0';
+  v_result AD_PINSTANCE.RESULT%TYPE;
+  v_errormsg VARCHAR2(2000):='';
+  v_errormsg_time VARCHAR2(2000):='';
+  v_errormsg_comparer VARCHAR2(2000):='';
+  v_errormsg_generate  VARCHAR2(2000):='';
+  p_Authorization_code    VARCHAR2(6);
+
+
+  TYPE RECORD IS REF CURSOR;
+  Cur_Parameter RECORD;
+  Cur_Sequences RECORD;
+
+  v_Count NUMBER:=0;
+
+
+BEGIN
+BEGIN --BODY
+
+v_errormsg_time:='Contraseña de autorización del supervisor ha expirado. No se puede completar la transacción.';
+v_errormsg_comparer:='Contraseña de autorización del supervisor no es correcta. No se puede completar la transacción.';
+v_errormsg_generate:='No se ha enviado la contraseña al supervisor';
+
+	FOR Cur_Parameter IN
+		(SELECT i.Record_ID, i.AD_User_ID, i.AD_Client_ID, i.AD_Org_ID,
+			p.ParameterName, p.P_String, p.P_Number, p.P_Date
+		FROM AD_PInstance i
+		LEFT JOIN AD_PInstance_Para p
+						ON i.AD_PInstance_ID=p.AD_PInstance_ID
+		WHERE i.AD_PInstance_ID=p_PInstance_ID
+		ORDER BY p.SeqNo) 
+	LOOP
+		v_Record_ID:=Cur_Parameter.Record_ID;
+		v_User_ID:=Cur_Parameter.AD_User_ID;
+		v_Client_ID:=Cur_Parameter.AD_Client_ID;
+		v_Org_ID:=Cur_Parameter.AD_Org_ID;
+		IF (Cur_Parameter.ParameterName = 'Stat_Code') THEN
+			p_Authorization_code := Cur_Parameter.P_String;
+		END IF;
+	END LOOP; -- Get Parameter
+
+
+
+	--Obtener datos de registro:
+	SELECT docty.em_stat_trans_authorization,movm.em_stat_code_authorization,movm.em_stat_create_code_date
+	INTO v_Requires_Authorization,v_Code_Authorization,v_Create_Code_Date
+	FROM m_movement movm
+	INNER JOIN c_doctype docty on docty.c_doctype_id = movm.em_ssrs_c_doctype_id
+	WHERE movm.m_movement_id = v_Record_ID;
+
+	--Crea instancia
+	v_pinstance_vac_id := get_uuid();
+
+	insert into AD_PINSTANCE( ad_pinstance_id, ad_process_id,record_id, isprocessing, created, ad_user_id, updated, 
+				result, errormsg,ad_client_id, ad_org_id,createdby,updatedby,isactive)
+	values(v_pinstance_vac_id,'D3ED058DE3444DAFB49DB442919A980B',v_Record_ID,'N',now(),v_User_ID,now(),
+		1,'@Insert@: Instance vacations',v_Client_ID, v_Org_ID, v_User_ID,v_User_ID,'Y');
+	
+
+	--Fin Crea instancia
+
+--Valida si requiere autorizacón
+	IF (v_Requires_Authorization = 'Y') THEN
+		IF(v_Code_Authorization is not null or v_Code_Authorization != '') THEN
+			IF(v_Code_Authorization = p_Authorization_code) THEN
+			--Valida el año 
+				IF((extract(year from  v_Create_Code_Date))=(extract(year from  now())))THEN
+				--Valida mes
+					IF((extract(month from  v_Create_Code_Date))=(extract(month from  now())))THEN
+					--Valida dia
+						IF((extract(day from  v_Create_Code_Date))=(extract(day from  now())))THEN
+						--Valida hora
+							IF((extract(hour from  v_Create_Code_Date))=(extract(hour from  now())))THEN
+							--Almacena el minuto actual con el minuto original
+								v_Minute_from:= ((extract(minute from  now()))-(extract(minute from  v_Create_Code_Date)));
+								IF(v_Minute_from<6)THEN
+										M_MOVEMENT_POST(v_pinstance_vac_id);
+								ELSE
+									RAISE_APPLICATION_ERROR(-20000, v_errormsg_time) ;
+								END IF;
+							ELSE
+								RAISE_APPLICATION_ERROR(-20000, v_errormsg_time) ;
+							END IF;
+						ELSE
+							RAISE_APPLICATION_ERROR(-20000, v_errormsg_time) ;
+						END IF;
+					ELSE
+						RAISE_APPLICATION_ERROR(-20000, v_errormsg_time) ;
+					END IF;
+				ELSE
+					RAISE_APPLICATION_ERROR(-20000, v_errormsg_time) ;
+				END IF;
+			ELSE
+				RAISE_APPLICATION_ERROR(-20000, v_errormsg_comparer) ;
+			END IF;
+		ELSE
+			RAISE_APPLICATION_ERROR(-20000, v_errormsg_generate) ;
+		END IF;
+	ELSE
+		M_MOVEMENT_POST(v_pinstance_vac_id);
+	END IF;
+
+
+
+
+		--RECUPERA ERROR DE LA FUNCION SFPR_PROCESS_PAYROLL
+			select 
+			coalesce(to_number((select pi.result
+			from ad_pinstance pi 
+			where pi.ad_pinstance_id = v_pinstance_vac_id
+			)),to_number(1))
+			into v_result 
+			from dual;
+
+			select 
+			coalesce(to_char((select pi.errormsg 
+			from ad_pinstance pi 
+			where pi.ad_pinstance_id = v_pinstance_vac_id
+			)),to_char(''))
+			into v_errormsg
+			from dual;
+			
+		If v_result = 0 then
+			  RAISE_APPLICATION_ERROR(-20000, v_errormsg) ;
+		End if;
+  
+END; --BODY
+  AD_UPDATE_PINSTANCE(p_PInstance_ID, NULL, 'N', v_Result, v_Message) ;
+EXCEPTION
+  WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE(v_ResultStr);
+    v_ResultStr:= '@ERROR=' || SQLERRM;
+    DBMS_OUTPUT.PUT_LINE(v_ResultStr);
+    AD_UPDATE_PINSTANCE(p_PInstance_ID, NULL, 'N', 0, v_ResultStr) ;
+    RETURN;
+END STAT_NEW_MOVEMENT_POST
+]]></body>
+    </function>
+  </database>

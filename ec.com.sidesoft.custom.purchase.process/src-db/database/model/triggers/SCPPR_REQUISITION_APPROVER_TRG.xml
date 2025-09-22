@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SCPPR_REQUISITION_APPROVER_TRG">
+    <trigger name="SCPPR_REQUISITION_APPROVER_TRG" table="M_REQUISITION" fires="before" insert="true" update="true" delete="false" foreach="row">
+      <body><![CDATA[
+V_approver			             VARCHAR2(32);
+	
+BEGIN
+
+  IF AD_isTriggerEnabled()='N' THEN IF DELETING THEN RETURN OLD; ELSE RETURN NEW; END IF;
+  END IF;
+  
+  IF(INSERTING ) THEN
+
+    IF (:NEW.c_bpartner_id IS NOT NULL) THEN
+
+	Select COALESCE(EM_Scppr_Approver ,'ND')
+	INTO V_approver
+	from c_bpartner where c_bpartner_id = :NEW.c_bpartner_id;
+
+	IF (V_approver IS NULL or V_approver = 'ND') THEN 
+		RAISE_APPLICATION_ERROR(-20000, '@No existe Aprobador atado al tercero elegido@') ;
+	END IF;
+    END IF;
+
+  END IF;
+
+  IF(UPDATING) THEN
+
+    IF (:NEW.c_bpartner_id IS NOT NULL) THEN
+
+	Select COALESCE(EM_Scppr_Approver ,'ND')
+	INTO V_approver
+	from c_bpartner where c_bpartner_id = :NEW.c_bpartner_id;
+
+	IF (V_approver IS NULL or V_approver = 'ND') THEN 
+		RAISE_APPLICATION_ERROR(-20000, '@No existe Aprobador atado al tercero elegido@') ;
+	END IF;
+    END IF;
+
+  END IF;
+
+END SCPPR_REQUISITION_APPROVER_TRG
+]]></body>
+    </trigger>
+  </database>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SSRS_PROD_ATTIB_TRG">
+    <trigger name="SSRS_PROD_ATTIB_TRG" table="SSRS_RESUPPLYLINE" fires="before" insert="true" update="true" delete="true" foreach="row">
+      <body><![CDATA[    v_DateNull DATE := TO_DATE('31-12-9999','DD-MM-YYYY');
+    v_WarehouseID VARCHAR(32);
+        
+BEGIN
+    
+    IF AD_isTriggerEnabled()='N' THEN RETURN;
+    END IF;
+
+
+    IF (UPDATING OR INSERTING) THEN 
+    SELECT COALESCE((SELECT M_WAREHOUSE_ID FROM SSRS_RESUPPLY WHERE SSRS_RESUPPLY_ID = :NEW.SSRS_RESUPPLY_ID),'ND')
+    INTO v_WarehouseID
+    FROM DUAL;
+		
+	PERFORM SSRS_VIEW_LOT_DETAILS(COALESCE(:new.m_product_id,TO_CHAR('ND')),COALESCE(v_WarehouseID,TO_CHAR('ND')), COALESCE(:new.SSRS_RESUPPLYLINE_ID,TO_CHAR('ND')) ,COALESCE(:new.Quantityorder,0));
+
+    END IF;
+    
+    IF(DELETING) THEN
+	DELETE FROM ssrs_detail_lots WHERE RECORDID= :old.SSRS_RESUPPLYLINE_ID;
+    END IF;
+    
+END SSRS_PROD_ATTIB_TRG
+]]></body>
+    </trigger>
+  </database>

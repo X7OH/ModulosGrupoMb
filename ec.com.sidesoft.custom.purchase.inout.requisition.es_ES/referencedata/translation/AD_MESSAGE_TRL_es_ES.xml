@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="C28646B0BEC44FA4BD8101BB7AB22027" trl="Y">
+    <value column="MsgText" isTrl="Y" original="More than one goods receipt associated to order.">Más de un albarán asociado a pedido.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

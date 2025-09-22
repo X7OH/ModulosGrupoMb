@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE SSWH_TAXPAYER">
+    <table name="SSWH_TAXPAYER" primaryKey="SSWH_TAXPAYER_KEY">
+      <column name="EM_EEI_NO_ELECTRONIC" primaryKey="false" required="false" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+    </table>
+  </database>

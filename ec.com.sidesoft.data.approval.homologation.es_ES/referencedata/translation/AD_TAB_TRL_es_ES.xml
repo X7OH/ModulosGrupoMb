@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TAB" version="">
+  <row id="027A9A8075E44F4D98C017919F26EFE0" trl="Y">
+    <value column="Name" isTrl="Y" original="Mirror Offer">Ofertas - Espejo</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">Ofertas - Espejo</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="15420BF0AF9B42349EF5EDD538FFCC7E" trl="Y">
+    <value column="Name" isTrl="Y" original="Translation">Traducción - Espejo</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">Traducción - Espejo</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="2D430668A1A64B4EB3ED2E819302A73B" trl="Y">
+    <value column="Name" isTrl="Y" original="Mirror Family">Familia - Espejo</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">Familia - Espejo</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="30324EEC48D045008A23536AEB249631" trl="Y">
+    <value column="Name" isTrl="Y" original="Mirror Characteristics">Características - Espejo</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">Características - Espejo</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="4E87A2BDBEC04C8689D0E7F24C09368E" trl="Y">
+    <value column="Name" isTrl="Y" original="Mirror Price List">Tarifa - Espejo</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">Tarifa - Espejo</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="55D2DF5D821F46589FD843D9BD9A3957" trl="Y">
+    <value column="Name" isTrl="Y" original="Mirror Product Category">Categoría de producto - Espejo</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">Categoría de producto - Espejo</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="5B6918B29DFB42148A7B4EA7D3471907" trl="Y">
+    <value column="Name" isTrl="Y" original="Mirror Bill of Materials">LISTA MATERIALES NEW</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">LISTA MATERIALES NEW</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="64C20CFD0E1C43F2AF165B329AC3CAB1" trl="Y">
+    <value column="Name" isTrl="Y" original="Mirror Price">PRECIO NEW</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">PRECIO NEW</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="76329E41A7704644AAC518114BB3FFF5" trl="Y">
+    <value column="Name" isTrl="Y" original="Mirror Free Products">Productos gratis - Espejo</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">Productos gratis - Espejo</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="7D3DABCDD4414A22BA1B3D57873F0B60" trl="Y">
+    <value column="Name" isTrl="Y" original="Mirror Role">Rol - Espejo</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">Rol - Espejo</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="89C97598FEDE4EF78A246055F86CB9A1" trl="Y">
+    <value column="Name" isTrl="Y" original="Mirror Organization">Organización - Espejo</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">Organización - Espejo</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="9547CA1C66414F96BF7939FD8B84805D" trl="Y">
+    <value column="Name" isTrl="Y" original="Mirror Products in Family">Productos en la familia - Espejo</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">Productos en la familia - Espejo</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="9FA43E52F6D141B1905A0291E49E2790" trl="Y">
+    <value column="Name" isTrl="Y" original="Mirror Business Partner Category">Grupos de terceros</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">Grupos de terceros</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="A25C053E9D9F412D9490D74A2E6C2C09" trl="Y">
+    <value column="Name" isTrl="Y" original="Mirror Family Translation">Traducción de la familia - Espejo</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">Traducción de la familia - Espejo</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="C8564F3263A642F09185E776EC3A9242" trl="Y">
+    <value column="Name" isTrl="Y" original="Mirror Business Partner">Terceros - Espejo</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">Terceros - Espejo</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="FEEDD1A783244B63AD5E2DED56760F0C" trl="Y">
+    <value column="Name" isTrl="Y" original="Mirror Products">Productos - Espejo</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">Productos - Espejo</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

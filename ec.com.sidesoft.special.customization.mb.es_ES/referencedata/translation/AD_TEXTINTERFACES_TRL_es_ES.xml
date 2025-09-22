@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TEXTINTERFACES" version="">
+  <row id="157A6465386C4C7B80BCB39CF396B15C" trl="N">
+    <value column="Text" isTrl="N" original="Fecha desde:">Fecha desde:</value>
+  </row>
+  <row id="29A20424B98F460EB04A03D2E04ED3B3" trl="N">
+    <value column="Text" isTrl="N" original="FACTURA">FACTURA</value>
+  </row>
+  <row id="36CE0DD57AC5477781069C5C20301815" trl="N">
+    <value column="Text" isTrl="N" original="TOTAL PENDIENTE">TOTAL PENDIENTE</value>
+  </row>
+  <row id="39263958004A4FC8A17D6DC72B863CD8" trl="N">
+    <value column="Text" isTrl="N" original="Fecha Hasta:">Fecha Hasta:</value>
+  </row>
+  <row id="4B6BF886D133498982920D3C80D270E8" trl="N">
+    <value column="Text" isTrl="N" original="TOTAL PAGADO">TOTAL PAGADO</value>
+  </row>
+  <row id="6A28332C6D734AAF8BA856EC9E02761B" trl="N">
+    <value column="Text" isTrl="N" original="PROVEEDOR">PROVEEDOR</value>
+  </row>
+  <row id="6F6E14D41C394435AD885EA9208B4FFA" trl="N">
+    <value column="Text" isTrl="N" original="RUC">RUC</value>
+  </row>
+  <row id="AD0086D5B7A64820A5CA1A6F55E94DD8" trl="N">
+    <value column="Text" isTrl="N" original="TOTAL IMPORTE">TOTAL IMPORTE</value>
+  </row>
+  <row id="DCB170CE2DFC4230999FDB6EEC46A4BF" trl="N">
+    <value column="Text" isTrl="N" original="NOTA DE CRÉDITO POR RECIVIR">NOTA DE CRÉDITO POR RECIVIR</value>
+  </row>
+</compiereTrl>

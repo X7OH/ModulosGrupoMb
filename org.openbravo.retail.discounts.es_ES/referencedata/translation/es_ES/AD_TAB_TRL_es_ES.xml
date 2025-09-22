@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TAB" version="">
+  <row id="FFA4104B24EF4E2697BFC657E7D826E3" trl="N">
+    <value column="Name" isTrl="Y" original="Role">Rol</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Defines which roles can apply this discretionary discount">Define qué roles pueden aplicar este descuento discrecional</value>
+  </row>
+</compiereTrl>

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE MA_PC_CASE">
+    <table name="MA_PC_CASE" primaryKey="MA_PC_CASE_KEY">
+      <column name="EM_SLQS_BATCH" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SLQS_UOM_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SLQS_INOUT_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SLQS_DOCUMENT_TYPE" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SLQS_DOCUMENTNO" primaryKey="false" required="false" type="VARCHAR" size="40" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SLQS_STATUS" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SLQS_PROCESSED" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SLQS_TRANSFER" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SLQS_M_PROD_LINE_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="C_DOCTYPE" name="EM_SLQS_DOCTYPE_FK">
+        <reference local="EM_SLQS_DOCUMENT_TYPE" foreign="C_DOCTYPE_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_INOUT" name="EM_SLQS_INOUT_FK">
+        <reference local="EM_SLQS_INOUT_ID" foreign="M_INOUT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_PRODUCTIONLINE" name="EM_SLQS_PRODLINE_FK">
+        <reference local="EM_SLQS_M_PROD_LINE_ID" foreign="M_PRODUCTIONLINE_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_UOM" name="EM_SLQS_UOM_FK">
+        <reference local="EM_SLQS_UOM_ID" foreign="C_UOM_ID"/>
+      </foreign-key>
+      <unique name="EM_SLQS_VALDOCUMENT">
+        <unique-column name="EM_SLQS_DOCUMENTNO"/>
+      </unique>
+    </table>
+  </database>

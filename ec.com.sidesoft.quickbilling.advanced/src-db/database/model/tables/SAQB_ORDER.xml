@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+  <database name="TABLE SAQB_ORDER">
+    <table name="SAQB_ORDER" primaryKey="SAQB_ORDER_KEY">
+      <column name="SAQB_ORDER_ID" primaryKey="true" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_CLIENT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_ORG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISACTIVE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="SSWH_TAXIDTYPE" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="DATEORDERED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="CIF_NIF" primaryKey="false" required="true" type="VARCHAR" size="40" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_BPARTNER_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="NAME_PARTNER" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="DOCSTATUS" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ADDRESS1_ALIAS_REF" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_BPARTNER_LOCATION_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="PHONE" primaryKey="false" required="true" type="VARCHAR" size="25" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ADDRESS1" primaryKey="false" required="true" type="VARCHAR" size="105" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ADDRESS1_ALIAS" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_SALESREGION_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_ORG_REGION_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EMAIL" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="NEW_ADDRESS" primaryKey="false" required="false" type="CHAR" size="1" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="PROCESS" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="GRANDTOTAL" primaryKey="false" required="true" type="DECIMAL" autoIncrement="false">
+        <default><![CDATA[0]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="TOTALLINES" primaryKey="false" required="true" type="DECIMAL" autoIncrement="false">
+        <default><![CDATA[0]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="ADDRESS_COMPLETE" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="DESCRIPTION" primaryKey="false" required="false" type="VARCHAR" size="105" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="DEFAULTPRODUCTSCHARGED" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="DOCUMENTNO" primaryKey="false" required="false" type="VARCHAR" size="30" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ATTENTION_HOURS" primaryKey="false" required="false" type="VARCHAR" size="250" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="DELIVERYCONTACT_NAME" primaryKey="false" required="false" type="VARCHAR" size="25" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="DELIVERYCONTACT_PHONE" primaryKey="false" required="true" type="VARCHAR" size="10" autoIncrement="false">
+        <default><![CDATA[.]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="NEW_ADDRESS_FAC" primaryKey="false" required="false" type="CHAR" size="1" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_BPARTNER_LOCATION_FAC_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ADDRESS_COMPLETE_FAC" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ADDRESS1_ALIAS_REF_FAC" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="PHONE_FAC" primaryKey="false" required="false" type="VARCHAR" size="25" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ADDRESS1_ALIAS_FAC" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="DELIVERY_INVOICE_ADDRESS" primaryKey="false" required="false" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="AUTHORIZATION_CODE" primaryKey="false" required="false" type="VARCHAR" size="100" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="LON_LAT" primaryKey="false" required="false" type="VARCHAR" size="100" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="SAQB_ORDERTYPE" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="SAQB_DATETIMEPICKUP" primaryKey="false" required="false" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="SAQB_APPROVETRX" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="AD_CLIENT" name="SAQB_ORDER_AD_CLIENT">
+        <reference local="AD_CLIENT_ID" foreign="AD_CLIENT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_ORG" name="SAQB_ORDER_AD_ORG">
+        <reference local="AD_ORG_ID" foreign="AD_ORG_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_ORG" name="SAQB_ORDER_AD_ORGTRX">
+        <reference local="AD_ORG_REGION_ID" foreign="AD_ORG_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_BPARTNER_LOCATION" name="SAQB_ORDER_C_BP_LOCATION_FAC">
+        <reference local="C_BPARTNER_LOCATION_FAC_ID" foreign="C_BPARTNER_LOCATION_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_BPARTNER" name="SAQB_ORDER_C_BPARTNER">
+        <reference local="C_BPARTNER_ID" foreign="C_BPARTNER_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_BPARTNER_LOCATION" name="SAQB_ORDER_C_BPARTNER_LOCATION">
+        <reference local="C_BPARTNER_LOCATION_ID" foreign="C_BPARTNER_LOCATION_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_SALESREGION" name="SAQB_ORDER_C_REGION">
+        <reference local="C_SALESREGION_ID" foreign="C_SALESREGION_ID"/>
+      </foreign-key>
+      <check name="SAQB_ORDER_DEFPRODCHAR_CHECK"><![CDATA[DEFAULTPRODUCTSCHARGED IN ('Y', 'N')]]></check>
+      <check name="SAQB_ORDER_DELINVADDR_CHECK"><![CDATA[DELIVERY_INVOICE_ADDRESS IN ('Y', 'N')]]></check>
+      <check name="SAQB_ORDER_ISACTIVE_CHECK"><![CDATA[ISACTIVE IN ('Y', 'N')]]></check>
+    </table>
+  </database>

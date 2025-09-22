@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="71D2CF10512E407FBCA040532B091D4D" trl="N">
+    <value column="MsgText" isTrl="N" original="SI SOLICITASTE TU FACTURA CON DATOS LA PODRÁS VISUALIZAR DENTRO DE LAS PRÓXIMAS 24 HORAS EN:;facturación.mayflower.com.ec/EDOCRAD;OPCIÓN: VISUALIZACIÓN/DOCUMENTOS RECIBIDOS;USUARIO: SU CI/RUC.;CLAVE: SU CI/RUC.">SI SOLICITASTE TU FACTURA CON DATOS LA PODRÁS VISUALIZAR DENTRO DE LAS PRÓXIMAS 24 HORAS EN:;facturación.mayflower.com.ec/EDOCRAD;OPCIÓN: VISUALIZACIÓN/DOCUMENTOS RECIBIDOS;USUARIO: SU CI/RUC.;CLAVE: SU CI/RUC.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

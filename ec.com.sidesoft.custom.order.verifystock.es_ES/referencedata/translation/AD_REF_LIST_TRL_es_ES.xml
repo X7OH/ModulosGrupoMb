@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REF_LIST" version="">
+  <row id="7468FFA5FE6C40AC90F15B779FEE82C4" trl="N">
+    <value column="Name" isTrl="N" original="LDM">LDM</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="9C502A4165724D4286FD0D34E07E06E2" trl="N">
+    <value column="Name" isTrl="N" original="Material">Material</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

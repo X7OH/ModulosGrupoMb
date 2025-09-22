@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SSRBD_DATECONTROL_TRG">
+    <trigger name="SSRBD_DATECONTROL_TRG" table="SSRBD_BANKDEPOSITS" fires="before" insert="true" update="true" delete="false" foreach="row">
+      <body><![CDATA[
+  v_ID VARCHAR2(32);
+  v_RO NUMBER;
+    
+BEGIN
+    
+    IF AD_isTriggerEnabled()='N' THEN RETURN;
+    END IF;
+
+  IF(UPDATING OR INSERTING) THEN
+
+	IF(:new.sales_date IS NOT NULL AND :new.deposit_date IS NOT NULL ) THEN
+		IF(:new.sales_date > :new.deposit_date ) THEN
+			RAISE_APPLICATION_ERROR(-20000, '@SSRBD_DepositDateMajor@');
+		END IF;
+	END IF;
+  END IF;
+
+  
+END SSRBD_DATECONTROL_TRG
+]]></body>
+    </trigger>
+  </database>

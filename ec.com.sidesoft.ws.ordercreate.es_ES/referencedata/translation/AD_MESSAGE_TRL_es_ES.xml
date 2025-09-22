@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="1C1E46E767D444B980B136CD08321729" trl="N">
+    <value column="MsgText" isTrl="Y" original="At least there must be a main family.">Al menos debe de haber una familia principal.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="76FB1B33617B4D688E0F4FDFD7B5BEAF" trl="N">
+    <value column="MsgText" isTrl="Y" original="There can not be more than one main family.">No puede haber más de una familia principal.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="8E1BF25A4A784B52BDE091304D380C37" trl="N">
+    <value column="MsgText" isTrl="Y" original="There can not be more than one product at home.">No puede haber más de un producto a domicilio.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="AB6E671571C949E7B8BF9074ED59E067" trl="N">
+    <value column="MsgText" isTrl="Y" original="At least there must be a product at home for the family.">Al menos debe de haber un producto a domicilio para la familia.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REF_LIST" version="">
+  <row id="05DBF0EE5BCE4A098C19E16766C79EE5" trl="Y">
+    <value column="Name" isTrl="Y" original="Accepted">Aceptado</value>
+    <value column="Description" isTrl="Y" original="Accepted">Aceptado</value>
+  </row>
+  <row id="3655B71447414C07BEE6EFA0EC35D6A8" trl="Y">
+    <value column="Name" isTrl="Y" original="Bad Weather">Mal Clima</value>
+    <value column="Description" isTrl="Y" original="Bad Weather">Mal Clima</value>
+  </row>
+  <row id="3837E4A7EBB3439593ADD5A270BE3367" trl="Y">
+    <value column="Name" isTrl="Y" original="Refurbishment">Mantenimiento</value>
+    <value column="Description" isTrl="Y" original="Refurbishment">Mantenimiento</value>
+  </row>
+  <row id="3CCFC8B53010448093664E9D99AE8B22" trl="Y">
+    <value column="Name" isTrl="N" original="Pedidos YA">Pedidos YA</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="3D246C1ABBAC439FA7E7841A338DAF49" trl="Y">
+    <value column="Name" isTrl="Y" original="PickedUp">Recogido</value>
+    <value column="Description" isTrl="Y" original="PickedUp">Recogido</value>
+  </row>
+  <row id="4C76ED4A436F4F9E9FE42D9950F1AC47" trl="Y">
+    <value column="Name" isTrl="Y" original="Open">Abrir</value>
+    <value column="Description" isTrl="Y" original="Open">Abrir</value>
+  </row>
+  <row id="AEA44FB38AAF432F9D9B97832F676547" trl="Y">
+    <value column="Name" isTrl="Y" original="Closed Until">Cerrar Hasta</value>
+    <value column="Description" isTrl="Y" original="Closed Until">Cerrar Hasta</value>
+  </row>
+  <row id="B2E7DB1B02D7432E93784AD6A714A66E" trl="Y">
+    <value column="Name" isTrl="Y" original="Technical_Problem">Problemas Tecnicos</value>
+    <value column="Description" isTrl="Y" original="Technical_Problem">Problemas Tecnicos</value>
+  </row>
+  <row id="B932D4729D2340DABE49CF498237D17D" trl="Y">
+    <value column="Name" isTrl="Y" original="Too Busy No Drivers">Demasiado ocupado, sin conductores</value>
+    <value column="Description" isTrl="Y" original="Too Busy No Drivers">Demasiado ocupado, sin conductores</value>
+  </row>
+  <row id="C43E43427C3F4928B8F63B2E28EFADB8" trl="Y">
+    <value column="Name" isTrl="Y" original="Prepared">Listo</value>
+    <value column="Description" isTrl="Y" original="Prepared">Listo</value>
+  </row>
+  <row id="CDFB25BF71184180A374505918BC88AF" trl="Y">
+    <value column="Name" isTrl="Y" original="Closed">Cerrado</value>
+    <value column="Description" isTrl="Y" original="Closed">Cerrado</value>
+  </row>
+  <row id="E0448AB7D0E74D2FA7EB97E9392231D3" trl="Y">
+    <value column="Name" isTrl="Y" original="Updates in Menu">Actualizando Menu</value>
+    <value column="Description" isTrl="Y" original="Updates in Menu">Actualizando Menu</value>
+  </row>
+  <row id="EA7DBA8608914EA0AA1D995604DACA59" trl="Y">
+    <value column="Name" isTrl="Y" original="Other">Otros</value>
+    <value column="Description" isTrl="Y" original="Other">Otros</value>
+  </row>
+  <row id="F9AB5F017FED4DF2A30E0EE42943BE69" trl="Y">
+    <value column="Name" isTrl="Y" original="Closed Today">Cerrar por Hoy</value>
+    <value column="Description" isTrl="Y" original="Closed Today">Cerrar por Hoy</value>
+  </row>
+  <row id="FA01E4DF71064A39A263140339FC4F50" trl="N">
+    <value column="Name" isTrl="N" original="Pedidos YA">Pedidos YA</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="FAECA4E523A1403FBCC3E218AF5B047B" trl="Y">
+    <value column="Name" isTrl="Y" original="Rejected">Rechazado</value>
+    <value column="Description" isTrl="Y" original="Rejected">Rechazado</value>
+  </row>
+  <row id="FDAFCAB205504BE8ABD93B31B51198C0" trl="Y">
+    <value column="Name" isTrl="Y" original="Holiday Special Day">Feriado</value>
+    <value column="Description" isTrl="Y" original="Holiday Special Day">Feriado</value>
+  </row>
+</compiereTrl>

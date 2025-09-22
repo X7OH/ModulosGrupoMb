@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SSCMB_INOUT_ORG_TRG">
+    <trigger name="SSCMB_INOUT_ORG_TRG" table="M_INOUT" fires="before" insert="true" update="true" delete="false" foreach="row">
+      <body><![CDATA[
+    v_DateNull DATE := TO_DATE('31-12-9999','DD-MM-YYYY');
+        
+BEGIN
+    
+    IF AD_isTriggerEnabled()='N' THEN RETURN;
+    END IF;
+
+
+    -- If invoice is processed, is not allowed to change C_BPartner
+    IF (UPDATING OR INSERTING) THEN  
+	IF(COALESCE(:new.issotrx,'N')='N') THEN
+		IF (COALESCE(:new.c_costcenter_id,'ND')='ND') THEN
+			RAISE_APPLICATION_ERROR(-20000, '@EEl Centro de Costo es obligatorio@') ;
+		END IF;
+	END IF;
+    END IF;
+
+    END SSCMB_INOUT_ORG_TRG
+]]></body>
+    </trigger>
+  </database>

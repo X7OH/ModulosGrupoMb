@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE M_PRODUCT_ORG">
+    <table name="M_PRODUCT_ORG" primaryKey="M_PRODUCT_ORG_KEY">
+      <column name="EM_SCMF_PERCENTAGE" primaryKey="false" required="false" type="DECIMAL" size="10,4" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SCMF_DISPERSION_VALUE" primaryKey="false" required="false" type="DECIMAL" size="10,4" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SCMF_STORETYPE_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="SCMF_STORETYPE" name="EM_SCMF_MPO_STORETYPE">
+        <reference local="EM_SCMF_STORETYPE_ID" foreign="SCMF_STORETYPE_ID"/>
+      </foreign-key>
+    </table>
+  </database>

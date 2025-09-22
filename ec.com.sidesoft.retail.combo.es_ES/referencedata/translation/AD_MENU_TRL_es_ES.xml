@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="3A39D3F216694D16977A51E152DBEA94" trl="Y">
+    <value column="Name" isTrl="Y" original="Create Orders">Pedido de venta call center</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="88744405A21740908C22762E02933A6C" trl="Y">
+    <value column="Name" isTrl="N" original="Call center">Call center</value>
+    <value column="Description" isTrl="N" original="Call center">Call center</value>
+  </row>
+</compiereTrl>

@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SIDPCH_UPD_QTY_INST_DMD_TRG">
+    <trigger name="SIDPCH_UPD_QTY_INST_DMD_TRG" table="C_ORDERLINE" fires="before" insert="true" update="true" delete="true" foreach="row">
+      <body><![CDATA[ 
+   v_OrderID VARCHAR(32);
+   v_StatusOrder VARCHAR(60);
+   v_StatusOrder2 VARCHAR(60);
+   v_qty NUMBER;
+   v_qtyoredered NUMBER;
+   v_Issotrx VARCHAR(60);
+BEGIN
+ 
+   IF AD_isTriggerEnabled()='N' THEN RETURN;
+   END IF;
+
+    IF  (INSERTING) THEN
+
+      IF (COALESCE(:NEW.em_sidpch_qty, 0) <  COALESCE(:NEW.qtyordered, 0)) THEN
+	      --NEW.em_sidpch_qty:= NEW.qtyordered;
+      END IF; 
+
+      v_OrderID:= coalesce(:new.c_order_id,'ND');
+
+      SELECT
+      COALESCE((SELECT ISSOTRX FROM C_ORDER WHERE C_ORDER_ID = v_OrderID),'ND') AS STATUS
+      INTO v_Issotrx
+      FROM DUAL;
+      
+      SELECT
+      COALESCE((SELECT DOCSTATUS FROM C_ORDER WHERE C_ORDER_ID = v_OrderID),'ND') AS STATUS
+      INTO v_StatusOrder
+      FROM DUAL;
+
+      IF ((v_StatusOrder = 'DR') AND v_Issotrx='N') THEN
+	      :NEW.em_sidpch_qtyordered:= :NEW.qtyordered;
+      END IF;
+       
+    END IF;
+
+    IF  (UPDATING ) THEN
+
+      v_OrderID:= coalesce(:new.c_order_id,'ND');
+
+      SELECT
+      COALESCE((SELECT DOCSTATUS FROM C_ORDER WHERE C_ORDER_ID = v_OrderID),'ND') AS STATUS
+      INTO v_StatusOrder
+      FROM DUAL;
+
+      SELECT
+      COALESCE((SELECT DOCACTION FROM C_ORDER WHERE C_ORDER_ID = v_OrderID),'ND') AS STATUS
+      INTO v_StatusOrder2
+      FROM DUAL;
+ 
+      SELECT
+      COALESCE((SELECT ISSOTRX FROM C_ORDER WHERE C_ORDER_ID = v_OrderID),'ND') AS STATUS
+      INTO v_Issotrx
+      FROM DUAL;
+
+      v_qtyoredered:= COALESCE(:NEW.qtyordered, 0) - abs(COALESCE(:NEW.qtyreserved, 0)) ;
+
+      IF ((v_StatusOrder = 'DR') AND v_Issotrx='N') THEN
+        -- cantidad requerida no debe de actualizarce
+	      --NEW.em_sidpch_qtyordered:= NEW.qtyordered;
+      END IF;
+
+      IF (  v_Issotrx='N' AND v_qtyoredered>0 AND v_StatusOrder = 'CO' AND v_StatusOrder2<>'CL') THEN
+        v_qty:= COALESCE(:NEW.qtyordered, 0) - abs(COALESCE(:NEW.qtyreserved, 0));
+        :NEW.em_sidpch_qty:= v_qty;
+      END IF;
+
+      IF (  v_Issotrx='N' AND v_qtyoredered < 0 AND v_StatusOrder = 'CO' AND v_StatusOrder2 <> 'CL') THEN
+        :NEW.em_sidpch_qty:= v_qtyoredered;
+      END IF;
+
+      IF (  v_Issotrx='N' AND v_qtyoredered = 0 AND v_StatusOrder = 'CO' AND v_StatusOrder2 <> 'CL') THEN
+        :NEW.em_sidpch_qty:= v_qtyoredered;
+      END IF;       
+
+      IF (  v_Issotrx='N' AND v_StatusOrder = 'CO' AND v_StatusOrder2 = 'CL') THEN
+	      :NEW.em_sidpch_qty:= COALESCE(:NEW.em_sidpch_qtyordered, 0) - abs(COALESCE(:NEW.qtyordered, 0));
+      END IF;      
+
+    END IF;    
+
+    END SIDPCH_UPD_QTY_INST_DMD_TRG
+]]></body>
+    </trigger>
+  </database>

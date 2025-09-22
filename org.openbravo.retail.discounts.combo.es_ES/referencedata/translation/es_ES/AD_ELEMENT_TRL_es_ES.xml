@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_ELEMENT" version="">
+  <row id="237BBBCE96224970915E1E81635B72FB" trl="N">
+    <value column="Name" isTrl="N" original="Fixed Discount">Descuento fijo</value>
+    <value column="PrintName" isTrl="N" original="Fixed Discount">Descuento fijo</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original="Fixed amount (in Price List's currency) that will be discounted from each of the units of each product in the family when the combo is applied.">Se descontará una cantidad fija (en la moneda de la lista de precios) a cada una de las unidades de los productos de la familia al aplicar el combo.</value>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="45FCCC756D314010A63CE0CB2A0B5BF4" trl="N">
+    <value column="Name" isTrl="N" original="Discount Type">Tipo de descuento</value>
+    <value column="PrintName" isTrl="N" original="Discount Type">Tipo de descuento</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="4AAC61349F8E4653B5B4CE97E634F5CD" trl="N">
+    <value column="Name" isTrl="N" original="Fixed Price">Precio fijo</value>
+    <value column="PrintName" isTrl="N" original="Fixed Price">Precio fijo</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original="Price (in Price List's currency) that will be applied to each of the units of each product in the family when the combo is applied.">Se aplicara un precio (en la moneda de la lista de precios) a cada una de las unidades de los productos de la familia al aplicar el combo..</value>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="EC2B0C7480624027AE077CF0352AFD6A" trl="N">
+    <value column="Name" isTrl="Y" original="Family">Obcombo_Family_ID</value>
+    <value column="PrintName" isTrl="Y" original="Family">Obcombo_Family_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="EF63E58EC22F42A2A15CFB8A13DD2D63" trl="N">
+    <value column="Name" isTrl="N" original="Obcombo_Family_Trl_ID">Obcombo_Family_Trl_ID</value>
+    <value column="PrintName" isTrl="N" original="Obcombo_Family_Trl_ID">Obcombo_Family_Trl_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="FC5355D6AB1C421AAC65CFD65ADD9745" trl="N">
+    <value column="Name" isTrl="N" original="Obcombo_Product_ID">Obcombo_Product_ID</value>
+    <value column="PrintName" isTrl="N" original="Obcombo_Product_ID">Obcombo_Product_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

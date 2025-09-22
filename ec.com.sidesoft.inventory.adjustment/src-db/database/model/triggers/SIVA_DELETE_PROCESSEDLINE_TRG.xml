@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SIVA_DELETE_PROCESSEDLINE_TRG">
+    <trigger name="SIVA_DELETE_PROCESSEDLINE_TRG" table="SIVA_PHYSICAL_INVTLINES" fires="before" insert="true" update="false" delete="true" foreach="row">
+      <body><![CDATA[
+   V_RVE_ID VARCHAR(32); 	--OBTG:VARCHAR2--
+   V_PROCESSED VARCHAR(1);	--OBTG:VARCHAR2--
+   V_STATUS VARCHAR(60);	--OBTG:VARCHAR2--
+   V_COUNT NUMBER;		--OBTG:NUMBER--
+   v_inv_id VARCHAR(32); 	--OBTG:VARCHAR2--
+   
+BEGIN
+    
+    
+   IF AD_isTriggerEnabled()='N' THEN RETURN;
+  END IF; 
+
+  IF (DELETING) THEN
+	v_inv_id = :old.siva_physical_inventory_id;
+  END IF;
+
+  IF (INSERTING) THEN
+	v_inv_id = :new.siva_physical_inventory_id;
+  END IF;	
+
+    select coalesce((select docstatus
+      from siva_physical_inventory  
+      where siva_physical_inventory_id = v_inv_id),'ND')
+    into V_STATUS
+    from dual;  
+
+    IF (V_STATUS = 'PR') THEN
+      RAISE_APPLICATION_ERROR(-20000, 'Documento ya procesado.') ;
+    END IF;
+
+
+
+  END SIVA_DELETE_PROCESSEDLINE_TRG
+]]></body>
+    </trigger>
+  </database>

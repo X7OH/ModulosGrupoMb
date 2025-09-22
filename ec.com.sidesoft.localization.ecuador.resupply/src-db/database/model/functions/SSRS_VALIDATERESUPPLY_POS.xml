@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SSRS_VALIDATERESUPPLY_POS">
+    <function name="SSRS_VALIDATERESUPPLY_POS" type="VARCHAR">
+      <parameter name="v_record_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[/*************************************************************************
+* The contents of this file are subject to the Openbravo  Public  License
+* Version  1.1  (the  "License"),  being   the  Mozilla   Public  License
+* Version 1.1  with a permitted attribution clause; you may not  use this
+* file except in compliance with the License. You  may  obtain  a copy of
+* the License at http://www.openbravo.com/legal/license.html
+* Software distributed under the License  is  distributed  on  an "AS IS"
+* basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+* License for the specific  language  governing  rights  and  limitations
+* under the License.
+* The Original Code is Openbravo ERP.
+* The Initial Developer of the Original Code is Openbravo SLU
+* All portions are Copyright (C) 2001-2013 Openbravo SLU
+* All Rights Reserved.
+* Contributor(s):  ______________________________________.
+************************************************************************/
+  -- Logistice
+  v_Count NUMBER;
+  v_return VARCHAR2(32);
+
+  TYPE RECORD IS REF CURSOR;
+  Cur_ResupplyLine RECORD;
+  Cur_stockproduct RECORD;
+  
+BEGIN
+
+	FOR Cur_ResupplyLine IN(
+		SELECT l.ssrs_resupplyposline_id,l.line,l.QTY_Dispatched,l.Orderedqty,p.m_product_id,p.name, l.*
+		FROM ssrs_resupplyposline l
+		inner join m_product p on p.m_product_id = l.m_product_id
+		WHERE ssrs_resupply_pos_id = v_Record_ID
+	) 
+	LOOP
+		IF(Cur_ResupplyLine.QTY_Dispatched <> 0)THEN
+
+			select coalesce((
+				select sum(a.qtyonhand)
+				from m_storage_detail a
+				left join m_product b on b.m_product_id = a.m_product_id
+				left join m_attributesetinstance c on c.m_attributesetinstance_id = a.m_attributesetinstance_id
+				left join m_locator d on d.m_locator_id = a.m_locator_id
+				where a.m_product_id = Cur_ResupplyLine.m_product_id  
+				and d.m_warehouse_id = b.EM_Ssrs_M_Warehouse_ID
+				and b.isactive = 'Y'
+				and b.isstocked = 'Y'
+				and a.qtyonhand > 0),0)
+			into v_Count
+			from dual;
+			
+			IF(Cur_ResupplyLine.QTY_Dispatched > v_Count)THEN
+				v_return := Cur_ResupplyLine.ssrs_resupplyposline_id;
+				RETURN v_return;
+			Else
+				v_return := null;
+			End If;			
+
+		END IF;			
+	END LOOP; 
+
+RETURN v_return;
+END SSRS_VALIDATERESUPPLY_POS
+]]></body>
+    </function>
+  </database>

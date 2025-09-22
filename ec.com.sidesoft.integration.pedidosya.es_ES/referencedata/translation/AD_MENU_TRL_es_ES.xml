@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="4E87CCC026C848DEAE945A7A65957FC8" trl="N">
+    <value column="Name" isTrl="N" original="Integrations">Integrations</value>
+    <value column="Description" isTrl="N" original="Integrations">Integrations</value>
+  </row>
+  <row id="ABDD80EFD3BF4126ADF2D145FDDE5525" trl="Y">
+    <value column="Name" isTrl="Y" original="Justo Logs">Logs Justo</value>
+    <value column="Description" isTrl="Y" original="Justo Logs">Logs Justo</value>
+  </row>
+  <row id="D3688C7CE4364A50B3008D3541251AEC" trl="N">
+    <value column="Name" isTrl="N" original="Justo">Justo</value>
+    <value column="Description" isTrl="N" original="Justo">Justo</value>
+  </row>
+  <row id="E389C40019A34D299EF3ABCADE496E66" trl="Y">
+    <value column="Name" isTrl="Y" original="Justo Config">Configuracion Justo</value>
+    <value column="Description" isTrl="N" original="">Configuracion Justo</value>
+  </row>
+</compiereTrl>

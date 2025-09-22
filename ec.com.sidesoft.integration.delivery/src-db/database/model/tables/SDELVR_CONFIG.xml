@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+  <database name="TABLE SDELVR_CONFIG">
+    <table name="SDELVR_CONFIG" primaryKey="SDELVR_CONFIG_PK">
+      <column name="SDELVR_CONFIG_ID" primaryKey="true" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_CLIENT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_ORG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISACTIVE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_DOCTYPE_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_USER_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="M_WAREHOUSE_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_CURRENCY_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_PAYMENTTERM_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="M_PRICELIST_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_BP_GROUP_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="SSWH_TAXPAYER_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_LANGUAGE" primaryKey="false" required="true" type="VARCHAR" size="6" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="M_PRODUCT_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="OBPOS_APPLICATIONS_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_BPARTNER_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_TAX_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="DEFAULT_EMAIL" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="AD_CLIENT" name="SDELVR_CONFIG_ADCLIENT">
+        <reference local="AD_CLIENT_ID" foreign="AD_CLIENT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_ORG" name="SDELVR_CONFIG_ADORG">
+        <reference local="AD_ORG_ID" foreign="AD_ORG_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_USER" name="SDELVR_CONFIG_ADUSER">
+        <reference local="AD_USER_ID" foreign="AD_USER_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_BP_GROUP" name="SDELVR_CONFIG_BP_GROUP">
+        <reference local="C_BP_GROUP_ID" foreign="C_BP_GROUP_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_BPARTNER" name="SDELVR_CONFIG_C_BPARTNER">
+        <reference local="C_BPARTNER_ID" foreign="C_BPARTNER_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_CURRENCY" name="SDELVR_CONFIG_CCURRENCY">
+        <reference local="C_CURRENCY_ID" foreign="C_CURRENCY_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_DOCTYPE" name="SDELVR_CONFIG_CDOCTYPE">
+        <reference local="C_DOCTYPE_ID" foreign="C_DOCTYPE_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_PAYMENTTERM" name="SDELVR_CONFIG_CPAYMENTTERM">
+        <reference local="C_PAYMENTTERM_ID" foreign="C_PAYMENTTERM_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_LANGUAGE" name="SDELVR_CONFIG_LANGUAGE">
+        <reference local="AD_LANGUAGE" foreign="AD_LANGUAGE"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_PRICELIST" name="SDELVR_CONFIG_MPRICELIST">
+        <reference local="M_PRICELIST_ID" foreign="M_PRICELIST_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_WAREHOUSE" name="SDELVR_CONFIG_MWAREHOUSE">
+        <reference local="M_WAREHOUSE_ID" foreign="M_WAREHOUSE_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_PRODUCT" name="SDELVR_CONFIG_PRODUCT">
+        <reference local="M_PRODUCT_ID" foreign="M_PRODUCT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_TAX" name="SDELVR_CONFIG_TAX">
+        <reference local="C_TAX_ID" foreign="C_TAX_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="SSWH_TAXPAYER" name="SDELVR_CONFIG_TAXPAYER">
+        <reference local="SSWH_TAXPAYER_ID" foreign="SSWH_TAXPAYER_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="OBPOS_APPLICATIONS" name="SDELVR_OBPOS_APP_ID">
+        <reference local="OBPOS_APPLICATIONS_ID" foreign="OBPOS_APPLICATIONS_ID"/>
+      </foreign-key>
+      <unique name="SDELVR_AD_ORG_ID_SPEYA_STORE">
+        <unique-column name="AD_ORG_ID"/>
+        <unique-column name="EM_SPEYA_STORE"/>
+      </unique>
+    </table>
+  </database>

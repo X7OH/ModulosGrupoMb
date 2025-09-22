@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TAB" version="">
+  <row id="54442B6FDB4D4CB59D468CF2311607CA" trl="Y">
+    <value column="Name" isTrl="Y" original="Invoice (credit notes) POS">Notas de crédito POS</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="BD40E65D225B4248912226D31F05F207" trl="Y">
+    <value column="Name" isTrl="Y" original="Sales invoice (sequence)">Factuas POS</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="">Factuas cliente</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="CC08A8E7C97E4D0A9DA10ACCAA355593" trl="N">
+    <value column="Name" isTrl="N" original="Assigment Sequence Header">Assigment Sequence Header</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

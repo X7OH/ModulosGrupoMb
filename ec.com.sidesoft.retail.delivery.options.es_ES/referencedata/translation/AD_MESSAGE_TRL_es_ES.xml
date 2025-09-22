@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="31ED0CB59AD44C058E665C6CBDB5A03C" trl="N">
+    <value column="MsgText" isTrl="Y" original="The order %0 has already been processed.">El pedido %0 ya ha sido procesado.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="452E87E6443F4824B96C47EBBA95F9FF" trl="N">
+    <value column="MsgText" isTrl="Y" original="Payment method %0 is not associated with the order.">Método de pago %0 no esta asociado al pedido.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="4F670499FFC24D97A1994A6D8BB1A7B3" trl="N">
+    <value column="MsgText" isTrl="Y" original="Please choose payment method %0 for an amount of %1">Por favor elija el método de pago %0 por un monto de %1</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="77DF3FAFC0B44CD7A8A90E1383148E32" trl="N">
+    <value column="MsgText" isTrl="Y" original="You have pending orders to process.">Tiene Pedidos pendientes por procesar.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="90AEA7F5C78C4B9BB1D70A8BF7C7C952" trl="N">
+    <value column="MsgText" isTrl="Y" original="The business partner or the business partner address doesn't exist. To be able to process the order you have to update the browser. ">El tercero o la dirección del tercero no existe. Para procesar el pedido, el navegador debe ser actualizado.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="B09ACE141B0848D2BB96E5F530F1FE23" trl="N">
+    <value column="MsgText" isTrl="Y" original="Refresh">Actualizar</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="B22FDFEC5B9B4CA6B11A991DE349C9D2" trl="N">
+    <value column="MsgText" isTrl="Y" original="Error Payment Method">Error en Método de Pago</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="C24412C0D8FF486FA16F66158D2340BA" trl="N">
+    <value column="MsgText" isTrl="Y" original="Information">Información</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="ECF1453E906742BA933894F1F6BD1386" trl="N">
+    <value column="MsgText" isTrl="Y" original="For %0 there is not enough stock.">Para %0 no hay suficiente stock.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

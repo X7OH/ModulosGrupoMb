@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TEXTINTERFACES" version="">
+  <row id="3CDF39E1360F46838AE3DB945755130A" trl="N">
+    <value column="Text" isTrl="N" original="html,body { height:100%; width:100%; overflow:auto; }">html,body { height:100%; width:100%; overflow:auto; }</value>
+  </row>
+  <row id="588A83A964C34AF99AEF7D0F05571D39" trl="N">
+    <value column="Text" isTrl="N" original="View properties per entity:">Ver propiedades por entidad:</value>
+  </row>
+  <row id="6E0DA22F1F024B82995D2FB090D7EE82" trl="N">
+    <value column="Text" isTrl="N" original="HQL Query Tool">Herramienta de consultas HQL</value>
+  </row>
+  <row id="B2BA6A56761943479CC90B63C23CCA52" trl="N">
+    <value column="Text" isTrl="N" original="Query:">Consulta:</value>
+  </row>
+  <row id="C804CA13D5B643A3BA5FF055A4E9664A" trl="N">
+    <value column="Text" isTrl="N" original="Properties:">Propiedades:</value>
+  </row>
+  <row id="DBDE7074BA064880B6C98C47B67D95A6" trl="N">
+    <value column="Text" isTrl="N" original="Execute">Ejecutar</value>
+  </row>
+  <row id="DCE2D385E447494592D75F65DB8878A1" trl="N">
+    <value column="Text" isTrl="N" original="Note: maximum 10000 results are returned">Nota: se devolvió el máximo de 10000 resultados</value>
+  </row>
+  <row id="F58DEDB841874DF8B1D00440DFAE040E" trl="N">
+    <value column="Text" isTrl="N" original="Developers Guide Entity Description">Developers Guide Entity Description</value>
+  </row>
+</compiereTrl>

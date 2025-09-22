@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_WINDOW" version="">
+  <row id="15D3C8EC2C8E47EAAD9FDC0CF815F525" trl="Y">
+    <value column="Name" isTrl="Y" original="Post sales service logs">Log servicio postventa</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="16F533E195904DC8A4802424CB0CBB64" trl="Y">
+    <value column="Name" isTrl="Y" original="Post sales settings">Configuración servicio postventa</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

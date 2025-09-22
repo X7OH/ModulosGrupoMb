@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
+  <row id="0A7CFFFF33694BADA19944F69F02D7B2" trl="N">
+    <value column="Name" isTrl="N" original="Slqs_ProductionLine">Slqs_ProductionLine</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="21D51F723F6B41C88B1BD48C3BAB3270" trl="N">
+    <value column="Name" isTrl="N" original="Slqs_ValueTypeList">Slqs_ValueTypeList</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="23643C7A837B459E99B378E1A2FB760B" trl="N">
+    <value column="Name" isTrl="N" original="Slqs_MaPcCase">Slqs_MaPcCase</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="28A5C233A5E947338E5055700CEFD80F" trl="N">
+    <value column="Name" isTrl="Y" original="SlqsComplete Product">SqlsComplete Product</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="53DBA46323294201858ABF80A05692DB" trl="N">
+    <value column="Name" isTrl="Y" original="SLQS_M_PRODUCT">SQLS_M_PRODUCT</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="71C0461D57934953A2E9572C57671887" trl="N">
+    <value column="Name" isTrl="N" original="Slqs_Inout">Slqs_Inout</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="A5C5B56D75294A02BC4FB5B8A9337B8E" trl="N">
+    <value column="Name" isTrl="N" original="Slqs_ApprovedQualityList">Slqs_ApprovedQualityList</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="C4EDFC20013D401B8C03789EC74B408A" trl="N">
+    <value column="Name" isTrl="N" original="Slqs Status List">Slqs Status List</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="F18B21F5520E431484F3D3DCE7A4AC1F" trl="N">
+    <value column="Name" isTrl="N" original="Slqs_DocTypeTable">Slqs_DocTypeTable</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="F43BB9F10CEF4E4D8C6F82D9CF94E691" trl="N">
+    <value column="Name" isTrl="N" original="Slqs_Table_MaPeriodControl">Slqs_Table_MaPeriodControl</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="F9C619429F604D13B31A50710559980B" trl="N">
+    <value column="Name" isTrl="N" original="Slqs_ListYesNo">Slqs_ListYesNo</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

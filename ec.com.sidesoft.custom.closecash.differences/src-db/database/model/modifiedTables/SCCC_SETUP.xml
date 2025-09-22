@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE SCCC_SETUP">
+    <table name="SCCC_SETUP" primaryKey="SCCC_SETUP_KEY">
+      <column name="EM_SCCCD_POSTERMINAL" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SCCCD_GLITEM_DIFF" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SCCCD_FINAACC_DIFF" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+    </table>
+  </database>

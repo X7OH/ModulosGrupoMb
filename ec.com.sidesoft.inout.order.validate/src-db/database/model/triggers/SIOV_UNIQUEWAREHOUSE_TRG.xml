@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SIOV_UNIQUEWAREHOUSE_TRG">
+    <trigger name="SIOV_UNIQUEWAREHOUSE_TRG" table="SIOV_VARIATION_PERCENTAGE" fires="before" insert="true" update="true" delete="false" foreach="row">
+      <body><![CDATA[
+  v_count NUMBER;
+  
+BEGIN
+
+    IF AD_isTriggerEnabled()='N' THEN IF DELETING THEN RETURN OLD; ELSE RETURN NEW; END IF;
+    END IF;
+
+    IF (INSERTING OR UPDATING) THEN
+
+	    IF (:new.m_warehouse_id IS NULL) THEN
+		    SELECT count(*) INTO v_count FROM siov_variation_percentage WHERE ad_org_id = :NEW.ad_org_id AND m_warehouse_id IS NULL AND siov_variation_percentage_id <> :NEW.siov_variation_percentage_id;
+
+		    v_count:=COALESCE(v_count,0);
+		    IF (v_count>0) THEN
+			RAISE_APPLICATION_ERROR(-20000,'@Siov_Unique@');
+		    END IF;
+	    END IF;
+    END IF;
+
+    END SIOV_UNIQUEWAREHOUSE_TRG
+]]></body>
+    </trigger>
+  </database>

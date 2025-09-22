@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SSPROD_DATECONTROL_TRG">
+    <trigger name="SSPROD_DATECONTROL_TRG" table="M_PRODUCTIONPLAN" fires="before" insert="true" update="true" delete="false" foreach="row">
+      <body><![CDATA[
+  v_ID VARCHAR2(32);
+  v_RO NUMBER;
+    
+BEGIN
+    
+    IF AD_isTriggerEnabled()='N' THEN RETURN;
+    END IF;
+
+  IF(UPDATING OR INSERTING) THEN
+
+	IF(:new.starttime IS NOT NULL AND :new.endtime IS NOT NULL ) THEN
+
+		IF(TO_CHAR(TO_DATE(:new.starttime,'dd-mm-yyyy'),'dd-mm-yyyy')<>TO_CHAR(TO_DATE(:new.endtime,'dd-mm-yyyy'),'dd-mm-yyyy') ) THEN
+			RAISE_APPLICATION_ERROR(-20000, '@Ssprod_Dates_Not_Equals@');
+		END IF;
+		
+		IF(:new.starttime > :new.endtime) THEN
+			RAISE_APPLICATION_ERROR(-20000, '@Ssprod_Startdate_Major@');
+		END IF;
+	END IF;
+  END IF;
+
+  
+END SSPROD_DATECONTROL_TRG
+]]></body>
+    </trigger>
+  </database>

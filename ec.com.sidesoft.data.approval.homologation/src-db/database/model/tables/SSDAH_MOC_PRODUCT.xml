@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+  <database name="TABLE SSDAH_MOC_PRODUCT">
+    <table name="SSDAH_MOC_PRODUCT" primaryKey="SSDAH_MOC_PRODUCT_KEY">
+      <column name="SSDAH_MOC_PRODUCT_ID" primaryKey="true" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_CLIENT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_ORG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISACTIVE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="SSDAH_MMO_OC_FAMILY_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="M_PRODUCT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="SSDAH_MSRB_MAIN" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="SSDAH_MSRM_EXTRA_SUPLEMENT" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="SSDAH_MSSC_DOMICILE" primaryKey="false" required="false" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="SSDAH_MSRM_CALLCENTER" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="SSDAH_MSLV_DEFAULT" primaryKey="false" required="false" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="SSDAH_MSEA_DEFAULT" primaryKey="false" required="false" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="SSDAH_REFORIGINALID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="AD_CLIENT" name="SSDAH_MOC_PRODUCT_CLIENT">
+        <reference local="AD_CLIENT_ID" foreign="AD_CLIENT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="SSDAH_MMO_OC_FAMILY" name="SSDAH_MOC_PRODUCT_FAMILY">
+        <reference local="SSDAH_MMO_OC_FAMILY_ID" foreign="SSDAH_MMO_OC_FAMILY_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_ORG" name="SSDAH_MOC_PRODUCT_ORG">
+        <reference local="AD_ORG_ID" foreign="AD_ORG_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_PRODUCT" name="SSDAH_MOC_PRODUCT_PRODUCT">
+        <reference local="M_PRODUCT_ID" foreign="M_PRODUCT_ID"/>
+      </foreign-key>
+      <unique name="SSDAH_MOC_PRODUCT_UNIQUE">
+        <unique-column name="SSDAH_MMO_OC_FAMILY_ID"/>
+        <unique-column name="M_PRODUCT_ID"/>
+      </unique>
+      <check name="SSDAH_MOC_PRODUCT_ACTIVE_CHK"><![CDATA[ISACTIVE IN ('Y', 'N')]]></check>
+      <check name="SSDAH_MSRB_MAIN_CHK"><![CDATA[SSDAH_MSRB_MAIN IN ('Y', 'N')]]></check>
+      <check name="SSDAH_MSRM_CALLCENTER_CHK"><![CDATA[SSDAH_MSRM_CALLCENTER IN ('Y', 'N')]]></check>
+    </table>
+  </database>

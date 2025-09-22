@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REF_LIST" version="">
+  <row id="1EF14B07434049F7A75F61529F8FD1ED" trl="N">
+    <value column="Name" isTrl="Y" original="New">Nuevo</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="ACC82D02E8FA4BA29B471C0D4C9915AB" trl="N">
+    <value column="Name" isTrl="Y" original="Gift card">Tarjeta regalo</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="C9FD204A39984DC5BDA8BD0E932A1178" trl="N">
+    <value column="Name" isTrl="Y" original="Gift Card payment">Pago con tarjeta regalo</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="D00F599734D74E06A6C30E90C289413C" trl="N">
+    <value column="Name" isTrl="Y" original="Gift voucher">Vale de compra</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="E5869ABDD2D144AE9BB073F4A61F6E45" trl="N">
+    <value column="Name" isTrl="Y" original="Closed">Cerrado</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="E94D29C3F7F14422873FC60F9C464C85" trl="N">
+    <value column="Name" isTrl="Y" original="Partial">Parcialmente</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

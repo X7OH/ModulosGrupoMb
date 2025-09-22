@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TEXTINTERFACES" version="">
+  <row id="144E79C50FB04734931CE273322D8262" trl="N">
+    <value column="Text" isTrl="N" original="Diferencia">Diferencia</value>
+  </row>
+  <row id="31EBD60A910540CE9B88587A8E299080" trl="N">
+    <value column="Text" isTrl="N" original="TOTAL DE TRASACCIONES MINORISTAS">TOTAL DE TRASACCIONES MINORISTAS</value>
+  </row>
+  <row id="3297CCE6EC364E69A77AE8D27DAF703C" trl="N">
+    <value column="Text" isTrl="N" original="Devoluciones Netas">Devoluciones Netas</value>
+  </row>
+  <row id="36321B48DF7D4123914A0FD599212468" trl="N">
+    <value column="Text" isTrl="N" original="Total a depositar">Total a depositar</value>
+  </row>
+  <row id="3A5DE390FFC5443BBD7A58D7644D43BC" trl="N">
+    <value column="Text" isTrl="N" original="Cierre de Caja">Cierre de Caja</value>
+  </row>
+  <row id="4526E6F8CFF54B97ABFB1251DF77BFEB" trl="N">
+    <value column="Text" isTrl="N" original="Devoluciones Brutas">Devoluciones Brutas</value>
+  </row>
+  <row id="500B66E5C1C742128BFB487324F5E4D8" trl="N">
+    <value column="Text" isTrl="N" original="Ventas Netas">Ventas Netas</value>
+  </row>
+  <row id="502A84784593416DB347D94F9BE681FE" trl="N">
+    <value column="Text" isTrl="N" original="Ventas Brutas">Ventas Brutas</value>
+  </row>
+  <row id="7FE99AE5CBB74607959D7B60487E19FE" trl="N">
+    <value column="Text" isTrl="N" original="Cantidad Esperada">Cantidad Esperada</value>
+  </row>
+  <row id="A40E6C3BF6054443919E1F02763CE074" trl="N">
+    <value column="Text" isTrl="N" original="IVA 0%">IVA 0%</value>
+  </row>
+  <row id="D0CF715984BC4D81A5314B7E19087E67" trl="N">
+    <value column="Text" isTrl="N" original="IVA 12% 01/02/2014">IVA 12% 01/02/2014</value>
+  </row>
+  <row id="DF3E0467147644D290E0CFB55478CE53" trl="N">
+    <value column="Text" isTrl="N" original="Cantidad contada">Cantidad contada</value>
+  </row>
+</compiereTrl>

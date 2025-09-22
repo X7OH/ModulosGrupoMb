@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TEXTINTERFACES" version="">
+  <row id="03DBCCE9FE094EF49EE07CED1D817B4A" trl="N">
+    <value column="Text" isTrl="N" original="Deactivate">Desactivar</value>
+  </row>
+  <row id="0A466DE998744ACE827C624202D3B770" trl="N">
+    <value column="Text" isTrl="N" original="Cancel Subscription">Cancelar Subscripción</value>
+  </row>
+  <row id="0EB7879802DB4497B12A746BD02A9AC2" trl="N">
+    <value column="Text" isTrl="N" original="When there are more terminals than the maximum number allowed by the license, only System Administrator can login in the application. There are are two possible actions that can be performed:">Cuando hay más terminales que el número máximo permitidos por la licencia, sólo el administrador del sistema puede iniciar sesión en la aplicación. Hay dos posibles acciones que pueden realizarse:</value>
+  </row>
+  <row id="2BBAB937E0764391807D9F26E393D70E" trl="N">
+    <value column="Text" isTrl="N" original="SALE">Venta</value>
+  </row>
+  <row id="2C5FDEF1DE674809894C71FC4DC878F0" trl="N">
+    <value column="Text" isTrl="N" original="Deactivate all POS Terminals">Desactivar todos los TPV</value>
+  </row>
+  <row id="31BDC5F40E6D4A2CAA85695EE00352FE" trl="N">
+    <value column="Text" isTrl="N" original="Continue">Continuar</value>
+  </row>
+  <row id="654EDCC3C0FD4880BA8E18ED3D7AA057" trl="N">
+    <value column="Text" isTrl="N" original="The number of active POS Terminals in this instance is bigger than the maximum number allowed.">El número de TPVs activo en esta insanciaes mayor del permitido.</value>
+  </row>
+  <row id="6A3850C6111D497D920B83279BCE90EC" trl="N">
+    <value column="Text" isTrl="N" original="Deactivate all POS Terminal: in this case all POS Terminals in the System will be marked as inactive, allowing in this manner standard Admin roles to log in. POS Terminals can be activated back from POS Terminal window up to the limit defined in the license. Note deactivated terminals will not be accesible till they are activated again.">Desactivar todos los TPVs: en este caso todos los TPVs del sistema se marcarán como inactivos, permitiendo de esta manera iniciar sesión en rol Administrador. TPVs pueden ser activados de nuevo desde la ventana TPV hasta el limite definido en la licencia. Nota, los TPVs desactivados no serán accesibles hasta que sean activados de nuevo.</value>
+  </row>
+  <row id="7CE54E4900EB4E0F9AF943C54A1104C8" trl="N">
+    <value column="Text" isTrl="N" original="Acquire more POS Terminals for current license and refresh it.">Adquiera más TPV para la licencia actual y recargue.</value>
+  </row>
+  <row id="AC5F0FE08BF64378BB13926CA5E5DF6A" trl="N">
+    <value column="Text" isTrl="N" original="WITHDRAWAL">RETIRADA</value>
+  </row>
+  <row id="C563B3848709408DA9010AE2498F07E7" trl="N">
+    <value column="Text" isTrl="N" original="Deactivate all POS Terminals">Desactivar todos los terminales TPV</value>
+  </row>
+  <row id="D0F66F70AB974444964E3E680BAE4A70" trl="N">
+    <value column="Text" isTrl="N" original="You can also deactivate all active terminals in order to allow standard Admin role login to activate only those ones that are really required. Note inactive terminals cannot be used."> También se puede desactivar todos los terminales activos para permitir al rol de Administrador iniciar sesión para activar sólo los realmente necesarios.. Nota: terminales inactivos no pueden ser usados.</value>
+  </row>
+  <row id="EBB87FA9C34A4B8DB4BF665799F23E22" trl="N">
+    <value column="Text" isTrl="N" original="Do you want to deactivate all POS Terminals?">¿Quiere desactivar todos los terminales TPV?</value>
+  </row>
+  <row id="F9D290389DE64D078ACB8E054BD0868C" trl="N">
+    <value column="Text" isTrl="N" original="You may acquire more terminals for your license.">Puede adquirir más terminales para su licencia.</value>
+  </row>
+</compiereTrl>

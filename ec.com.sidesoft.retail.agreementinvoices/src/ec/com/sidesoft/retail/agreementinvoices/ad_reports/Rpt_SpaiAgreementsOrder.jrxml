@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_SpaiAgreementsOrder" pageWidth="1404" pageHeight="842" columnWidth="1388" leftMargin="8" rightMargin="8" topMargin="8" bottomMargin="8">
+	<property name="ireport.zoom" value="0.6209213230591555"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="DATEFROM" class="java.util.Date"/>
+	<parameter name="DATETO" class="java.util.Date"/>
+	<parameter name="AD_ORG_ID" class="java.lang.String"/>
+	<parameter name="C_BPARTNER_ID" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+(select ao2.name from ad_org ao2 where ao2.ad_org_id = co.ad_org_id) as "local"
+,cbp.name as "empresa"
+,cbp.taxid as "ruc_cliente"
+,co.documentno as "orden"
+,to_char(co.dateordered,'dd/MM/yyyy HH24:MI:SS') as "fecha_orden"
+,to_char(co.created,'dd/MM/yyyy HH24:MI:SS') as "fecha_creacion"
+, sos.importe_imponible as "subtotal"
+,sos.impuesto as "IVA"
+,(sos.importe_imponible + sos.impuesto) as "total"
+,co.ad_org_id as "organizationid"
+,ROW_NUMBER() OVER (ORDER BY co.documentno) as "linea"
+,co.em_saqb_authorization_code
+from (
+
+SELECT C_BPARTNER_ID,name,taxid FROM C_BPARTNER CBP
+		WHERE cbp.EM_Sscmb_Isagreement = 'Y'
+             and cbp.isactive ='Y'
+                          -- validaciòn terceros
+and(cbp.c_bpartner_id=$P{C_BPARTNER_ID} or $P{C_BPARTNER_ID} is null )
+
+) cbp
+join (
+
+select
+c_order_id, documentno, dateordered, created, ad_org_id,c_bpartner_id,co.em_saqb_authorization_code
+from C_order co
+where
+co.dateordered between $P{DATEFROM} and $P{DATETO}
+and (co.ad_org_id=$P{AD_ORG_ID} or $P{AD_ORG_ID} is null)
+and co.c_bpartner_id in (SELECT C_BPARTNER_ID  FROM C_BPARTNER CBP
+		WHERE cbp.EM_Sscmb_Isagreement = 'Y'
+             and cbp.isactive ='Y'
+        and(cbp.c_bpartner_id=$P{C_BPARTNER_ID} or $P{C_BPARTNER_ID} is null )
+             )
+
+) co on co.c_bpartner_id = cbp.c_bpartner_id
+join (
+
+ SELECT
+    impuesto.c_order_id,
+    sum(impuesto.importe_bruto) AS importe_bruto,
+    sum(impuesto.importe_imponible) AS importe_imponible,
+    sum(impuesto.impuesto) AS impuesto,
+    sum(impuesto.basecero) AS basecero,
+    sum(impuesto.base12) AS base12,
+    sum(impuesto.iva) AS iva12
+   FROM ( SELECT co.c_order_id,
+            co.ad_client_id,
+            co.ad_org_id,
+            co.isactive,
+            co.created,
+            co.createdby,
+            co.updated,
+            co.updatedby,
+            sum(
+                CASE
+                    WHEN ct.istaxdeductable = 'Y'::bpchar AND ct.rate = 0::numeric THEN colt.taxbaseamt
+                    WHEN ct.istaxdeductable = 'Y'::bpchar AND ct.rate <> 0::numeric THEN colt.taxbaseamt
+                    ELSE NULL::numeric
+                END) + sum(
+                CASE
+                    WHEN ct.istaxdeductable = 'Y'::bpchar AND ct.rate <> 0::numeric THEN colt.taxamt
+                    ELSE 0::numeric
+                END) AS importe_bruto,
+            sum(
+                CASE
+                    WHEN ct.istaxdeductable = 'Y'::bpchar AND ct.rate = 0::numeric THEN colt.taxbaseamt
+                    ELSE 0::numeric
+                END +
+                CASE
+                    WHEN ct.istaxdeductable = 'Y'::bpchar AND ct.rate <> 0::numeric THEN colt.taxbaseamt
+                    ELSE 0::numeric
+                END +
+                CASE
+                    WHEN ct.istaxdeductable = 'Y'::bpchar AND ct.rate = 0::numeric THEN colt.taxamt
+                    ELSE 0::numeric
+                END) AS importe_imponible,
+            sum(
+                CASE
+                    WHEN ct.istaxdeductable = 'Y'::bpchar AND ct.rate <> 0::numeric THEN colt.taxamt
+                    ELSE 0::numeric
+                END) AS impuesto,
+            sum(
+                CASE
+                    WHEN ct.istaxdeductable = 'Y'::bpchar AND ct.rate = 0::numeric THEN colt.taxbaseamt
+                    ELSE 0::numeric
+                END) AS basecero,
+            sum(
+                CASE
+                    WHEN ct.istaxdeductable = 'Y'::bpchar AND ct.rate <> 0::numeric THEN colt.taxbaseamt
+                    ELSE 0::numeric
+                END) AS base12,
+            sum(
+                CASE
+                    WHEN ct.istaxdeductable = 'Y'::bpchar AND ct.rate <> 0::numeric THEN colt.taxamt
+                    ELSE 0::numeric
+                END) AS iva
+           FROM   (
+		SELECT C_BPARTNER_ID FROM C_BPARTNER CBP
+		WHERE cbp.EM_Sscmb_Isagreement = 'Y'
+             and cbp.isactive ='Y'
+           ) CBP
+             JOIN  c_order co ON CBP.C_BPARTNER_ID = CO.C_BPARTNER_ID
+             JOIN c_orderline col ON col.c_order_id::text = co.c_order_id::text
+             JOIN m_product mp ON mp.m_product_id::text = col.m_product_id::text
+             JOIN c_orderlinetax colt ON colt.c_order_id::text = co.c_order_id::text AND col.c_orderline_id::text = colt.c_orderline_id::text
+             JOIN c_tax ct ON ct.c_tax_id::text = colt.c_tax_id::text
+             WHERE co.dateordered between $P{DATEFROM}  and $P{DATETO}
+	     and (co.ad_org_id=$P{AD_ORG_ID} or $P{AD_ORG_ID} is null)
+	     and co.c_bpartner_id in (SELECT C_BPARTNER_ID  FROM C_BPARTNER CBP
+		WHERE cbp.EM_Sscmb_Isagreement = 'Y'
+             and cbp.isactive ='Y'
+           and(cbp.c_bpartner_id=$P{C_BPARTNER_ID} or $P{C_BPARTNER_ID} is null )
+             )
+
+          GROUP BY co.c_order_id, co.ad_client_id, co.ad_org_id, co.isactive, co.created, co.createdby, co.updated, co.updatedby) impuesto
+  GROUP BY impuesto.c_order_id
+
+
+) sos on sos.c_order_id = co.c_order_id
+
+
+order by 1,2]]>
+	</queryString>
+	<field name="local" class="java.lang.String"/>
+	<field name="empresa" class="java.lang.String"/>
+	<field name="ruc_cliente" class="java.lang.String"/>
+	<field name="orden" class="java.lang.String"/>
+	<field name="fecha_orden" class="java.lang.String"/>
+	<field name="fecha_creacion" class="java.lang.String"/>
+	<field name="subtotal" class="java.math.BigDecimal"/>
+	<field name="IVA" class="java.math.BigDecimal"/>
+	<field name="total" class="java.math.BigDecimal"/>
+	<field name="organizationid" class="java.lang.String"/>
+	<field name="linea" class="java.lang.Long"/>
+	<field name="em_saqb_authorization_code" class="java.lang.String"/>
+	<group name="organizacion">
+		<groupExpression><![CDATA[$F{local}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<staticText>
+					<reportElement x="0" y="0" width="167" height="20"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[LOCAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="167" y="0" width="253" height="20"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[EMPRESA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="420" y="0" width="113" height="20"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[RUC]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="533" y="0" width="119" height="20"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[NÚMERO DE PEDIDO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="652" y="0" width="131" height="20"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[FECHA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1089" y="0" width="100" height="20"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[SUBTOTAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1189" y="0" width="100" height="20"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[IVA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1289" y="0" width="100" height="20"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[TOTAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="783" y="0" width="132" height="20"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[FECHA CREACIÒN]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="915" y="0" width="174" height="20"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[CÓDIGO DE AUTORIZACIÓN]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="25"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement x="167" y="0" width="1222" height="70"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VENTAS CONVENIO]]></text>
+			</staticText>
+			<image scaleImage="RetainShape" hAlign="Left" vAlign="Top" isUsingCache="true">
+				<reportElement key="image-1" x="0" y="0" width="167" height="70"/>
+				<imageExpression class="java.awt.Image"><![CDATA[org.openbravo.erpCommon.utility.Utility.showImageLogo("yourcompanylegal", $F{organizationid})]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="167" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{local}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="167" y="0" width="253" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{empresa}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="420" y="0" width="113" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ruc_cliente}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="652" y="0" width="131" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha_orden}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="533" y="0" width="119" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{orden}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1089" y="0" width="100" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{subtotal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1189" y="0" width="100" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{IVA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1289" y="0" width="100" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="783" y="0" width="132" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha_creacion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="915" y="0" width="174" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{em_saqb_authorization_code}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

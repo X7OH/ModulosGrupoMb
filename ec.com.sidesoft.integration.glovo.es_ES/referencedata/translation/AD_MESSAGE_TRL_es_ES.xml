@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="D61EBE2DE51A4114BF61E535F784C547" trl="Y">
+    <value column="MsgText" isTrl="Y" original="There cannot be more than one glovo home product.">No puede haber más de un producto a domicilio glovo.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

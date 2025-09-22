@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SIVA_VALIDATE_STOCKPRODUCT">
+    <function name="SIVA_VALIDATE_STOCKPRODUCT" type="VARCHAR">
+      <parameter name="p_pinstance_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[-- Logistice
+v_Record_ID VARCHAR2(32);
+v_User_ID VARCHAR2(32):='0';
+v_ResultStr VARCHAR2(2000);
+v_Result NUMBER:=1; -- 0=failure
+v_Message VARCHAR2(2000):='';
+v_DocAction VARCHAR2(60);
+v_DocStatus VARCHAR2(60);
+v_client_id VARCHAR2(32);
+v_org_id VARCHAR2(32);
+v_m_locator_id VARCHAR2(32);
+v_m_warehouse_id VARCHAR2(32);
+v_flag VARCHAR2(32);
+v_name_inv VARCHAR2(100);
+v_description VARCHAR2(250);
+v_documentno VARCHAR2(30);
+v_movementdate DATE;
+v_documenttype VARCHAR2(32);
+v_my_alert VARCHAR2(32):='NDSAD';
+v_NoInserted NUMBER:=0;
+v_Contador_nuevo NUMBER:=0;
+v_QtyOnHand NUMBER:=0;
+v_Qtycount NUMBER:=0;
+v_LinesCount NUMBER:=0;
+v_Real_Qtycount NUMBER:=0;
+v_id_newinventory VARCHAR2(32):='ND';
+v_physical_invtlines_id VARCHAR2(32);
+v_org_c_costcenter_id VARCHAR2(32);
+v_Sql VARCHAR(2000);
+v_stockline NUMBER:=0;
+v_qtyandjust_f NUMBER:=0;
+v_qtyonhand_f NUMBER:=0;
+v_qtyandjust NUMBER:=0;
+
+--  Parameter
+TYPE RECORD IS REF CURSOR;
+Cur_Parameter RECORD;
+Cur_Storage RECORD;
+Cur_New_Storage RECORD;
+Cur_Products_change RECORD;
+
+BEGIN
+
+    v_Record_ID := p_PInstance_ID;
+    
+    -- Datos Cabecera	
+    select AD_Org_ID, AD_client_id, M_Locator_ID, docstatus, documentno, name, description, c_doctype_id, 
+		movementdate, m_warehouse_id, C_Costcenter_ID	
+    into v_Org_ID, v_Client_ID, v_M_Locator_ID, v_DocStatus, v_documentno,v_name_inv, v_description, v_documenttype,
+		v_movementdate, v_m_warehouse_id, v_org_c_costcenter_id	
+    From siva_physical_inventory
+    where siva_physical_inventory_id= v_Record_ID;
+    
+    select count(*) 
+    into v_LinesCount
+    from siva_physical_invtlines  
+    where siva_physical_inventory_id  = v_Record_ID;
+
+    If (v_LinesCount > 0) THEN
+  	For Cur_Products_change In(
+		select qtyandjust, m_product_id, line
+		from siva_physical_invtlines  
+		where siva_physical_inventory_id = v_Record_ID 
+		order by qtyandjust desc
+	)
+	Loop
+		v_qtyandjust := Cur_Products_change.qtyandjust;
+		
+		select coalesce(sum(a.qtyonhand),0) as qtyonhand
+		into v_qtyonhand
+		from m_storage_detail a
+		left join m_product b on b.m_product_id = a.m_product_id
+		where a.m_product_id = Cur_Products_change.m_product_id  
+		and a.m_locator_id = v_M_Locator_ID  
+		and b.isactive = 'Y'
+		and b.isstocked = 'Y';
+
+		v_Qtycount := v_qtyonhand + v_qtyandjust;
+
+		If(v_Qtycount < 0)Then
+			--RAISE_APPLICATION_ERROR(-20000, 'En la linea No '||Cur_Products_change.line|| ' la cantidad deja el inventario con valor menor a 0.');
+			v_ResultStr := 'En la linea No '||Cur_Products_change.line|| ' la cantidad deja el inventario con valor menor a 0.'; 
+		End If;
+	End Loop;
+    Else
+	--RAISE_APPLICATION_ERROR(-20000, 'No existen lineas para procesar esta transacción') ;
+	v_ResultStr := 'No existen lineas para procesar esta transacción';
+    End If;
+
+  Return v_ResultStr;
+END SIVA_VALIDATE_STOCKPRODUCT
+]]></body>
+    </function>
+  </database>

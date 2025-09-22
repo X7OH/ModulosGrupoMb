@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
+  <row id="4DEA4E15C0EE42B3B94FBA5A95E3D426" trl="N">
+    <value column="Name" isTrl="N" original="Scmf Create Purchase Orders">Scmf Crear órdenes de compra</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="940272ED78B04340938C529D6C02D162" trl="N">
+    <value column="Name" isTrl="N" original="Processed Forecast">Pronóstico procesado</value>
+    <value column="Description" isTrl="N" original="Processed Forecast">Pronóstico procesado</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="EDDF4D2C9F624F3A950B46D23B87B48D" trl="N">
+    <value column="Name" isTrl="Y" original="Process - Minimiun and Security  Stock">Proceso - Stock mínimo y de seguridad</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

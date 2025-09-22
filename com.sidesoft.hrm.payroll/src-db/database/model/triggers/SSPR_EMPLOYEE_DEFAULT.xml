@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SSPR_EMPLOYEE_DEFAULT">
+    <trigger name="SSPR_EMPLOYEE_DEFAULT" table="C_BPARTNER" fires="before" insert="true" update="true" delete="false" foreach="row">
+      <body><![CDATA[
+  v_Template_One VARCHAR2(32);
+  v_Template_Two VARCHAR2(32);
+  v_I_Frecuency VARCHAR2(32);
+  v_Concept_ID VARCHAR2(32);
+
+  BEGIN
+
+  IF AD_isTriggerEnabled()='N' THEN RETURN;
+  END IF;
+	
+
+  IF (INSERTING) THEN
+  
+  IF :new.isemployee='Y' THEN 
+
+  --Consultamos los valores por defecto configurados
+  SELECT income_frequency,sspr_prolltemplate_id,sspr_prolltemplate2_id,sspr_concept_id
+  INTO v_I_Frecuency,v_Template_One,v_Template_Two,v_Concept_ID
+  FROM sspempd_config_employee 
+  WHERE isactive='Y' LIMIT 1;  
+
+  	--Asignamos los valores por defecto para empleados
+		:new.EM_SSPR_Entrydate:=:new.updated;
+		:new.EM_SSPR_Incomefrequency:=v_I_Frecuency;
+		:new.EM_SSPR_Prolltemplate_ID:=v_Template_One;
+		:new.EM_SSPR_Prolltemplate2_ID:=v_Template_Two;
+		:new.EM_Sspr_Concept_Vac_ID:=v_Concept_ID;
+    :new.EM_Sspr_Firstname:= upper(:new.em_ssscrbp_name||' '||:new.em_ssscrbp_name2);
+    :new.EM_Sspr_Lastname:= upper(:new.em_ssscrbp_lastname||' '||:new.em_ssscrbp_lastname2);
+	END IF;
+
+ END IF;
+      
+  END SSPR_EMPLOYEE_DEFAULT
+]]></body>
+    </trigger>
+  </database>

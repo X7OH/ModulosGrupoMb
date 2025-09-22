@@ -1,0 +1,311 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SLQS_TRANSFER_PROD">
+    <function name="SLQS_TRANSFER_PROD" type="NULL">
+      <parameter name="pinstance_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[TYPE RECORD IS REF CURSOR;
+Cur_Parameter RECORD;
+Cur_partner RECORD;
+
+v_template_employee VARCHAR2(32) ;
+v_sspr_category_acct_id VARCHAR2(32) ;
+v_EM_SSPR_Prolltemplate_ID VARCHAR2(32) ;
+v_EM_SSPR_Status VARCHAR2(60);
+v_ResultStr VARCHAR2(2000) := '';  
+v_n_insertions NUMBER;	--OBTG:NUMBER--
+v_Message VARCHAR2(2000):='';
+
+
+v_MLocatorID VARCHAR2(32) ;
+v_StatusQuality VARCHAR2(60);
+v_QualityID  VARCHAR2(32) ;
+v_CountReg  NUMBER;	--OBTG:NUMBER--
+v_StatusProcess VARCHAR2(60);
+v_InoutID VARCHAR2(32) ;
+v_ProductID  VARCHAR2(32) ;
+v_DocTypeID VARCHAR2(32) ;
+v_UserID  VARCHAR2(32) ;
+v_MovementID  VARCHAR2(32) ;
+v_ProcessID  VARCHAR2(32) ;
+V_ORG_ID  VARCHAR2(32) ;
+V_CLIENT_ID VARCHAR2(32) ;
+v_Name VARCHAR2(60);
+v_Description VARCHAR2(255);
+v_Documentno VARCHAR2(60);
+v_NameUser  VARCHAR2(60);
+V_LocatorOrigenID VARCHAR2(32) ;
+v_Attribute  VARCHAR2(32) ;
+v_UOM_ID  VARCHAR2(32) ;
+v_productLineId VARCHAR2(32) ;
+v_Sequence_ID  VARCHAR2(32) ;
+v_QytOrder  NUMBER;	--OBTG:NUMBER--
+v_statusQA  VARCHAR2(60);
+v_DescriptionMovLine VARCHAR2(60);
+v_DocumentNoNew VARCHAR2(60);
+v_ReviewTransfer VARCHAR2(32) ;
+v_ErrorMsg VARCHAR2(600);
+V_FoundError NUMBER;	--OBTG:NUMBER--
+
+BEGIN
+
+  --  Update AD_PInstance
+  --RAISE NOTICE '%','Updating PInstance - Processing ' || PInstance_ID ;
+  --v_ResultStr := 'PInstanceNotFound';
+  --PERFORM AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'Y', NULL, NULL) ;
+
+  BEGIN --BODY
+
+	-- Get Parameters
+	v_ResultStr := 'ReadingParameters';
+	v_n_insertions := 0;    
+
+	FOR Cur_Parameter IN
+	(SELECT i.Record_ID,p.ParameterName,p.P_String,p.P_Number,p.P_Date,p.AD_Client_ID,
+	p.AD_Org_ID,p.CreatedBy       
+	FROM AD_PInstance i
+	LEFT JOIN AD_PInstance_Para p
+	   ON i.AD_PInstance_ID = p.AD_PInstance_ID
+	WHERE i.AD_PInstance_ID = PInstance_ID
+	ORDER BY p.SeqNo
+	)
+	LOOP      	  
+
+		IF (Cur_Parameter.ParameterName = 'M_LOCATOR_ID') THEN
+
+			v_MLocatorID := Cur_Parameter.P_String;    
+			
+		ELSIF (Cur_Parameter.ParameterName = 'COMPLETETRANSER') THEN
+		
+			v_StatusQuality := COALESCE(Cur_Parameter.P_String,TO_CHAR('N'));
+
+		ELSIF (Cur_Parameter.ParameterName = 'C_DOCTYPE_ID') THEN
+		
+			v_DocTypeID := Cur_Parameter.P_String;
+
+		ELSIF (Cur_Parameter.ParameterName = 'AD_USER_ID') THEN
+		
+			v_UserID := Cur_Parameter.P_String;
+			
+			
+		ELSE  
+		
+			DBMS_OUTPUT.PUT_LINE('*** Unknown Parameter=' || Cur_Parameter.ParameterName) ;
+			
+		END IF;     
+		v_QualityID:= Cur_Parameter.Record_ID;
+
+	END LOOP; -- Get Parameter
+
+	v_n_insertions:=0;
+
+	SELECT COALESCE((SELECT TO_CHAR('OK') FROM M_MOVEMENT WHERE em_slqs_ma_pc_case_id = v_QualityID),TO_CHAR('ND'))
+	INTO v_ReviewTransfer
+	FROM DUAL;
+
+	IF (v_ReviewTransfer = 'OK') THEN --Revisa si el producto se encuentra transferido
+
+		RAISE_APPLICATION_ERROR(-20000, '@Slqs_ErrorMovement@');
+	END IF;
+
+	
+	--Se prepara los datos para llenar la cabecera y lineas de la pantalla de Movimiento entre almacenes
+	
+  	SELECT COALESCE((
+		SELECT GET_UUID() FROM DUAL
+	),'ND')
+	INTO v_MovementID
+	FROM DUAL;
+
+	
+	-- Datos del de calidad
+	SELECT AD_ORG_ID, AD_CLIENT_ID, EM_SLQS_DOCUMENTNO, M_ATTRIBUTESETINSTANCE_ID, EM_SLQS_UOM_ID, M_PRODUCT_ID, em_slqs_status,  em_slqs_inout_id, EM_SLQS_M_PROD_LINE_ID
+	INTO   V_ORG_ID,  V_CLIENT_ID,  v_Documentno,       v_Attribute,               v_UOM_ID,       v_ProductID, v_statusQA,       v_InoutID,        v_productLineId
+	FROM MA_PC_CASE WHERE MA_PC_CASE_ID = v_QualityID;	
+
+	-- Estado: Datos del de calidad
+	SELECT COALESCE((select adrlt.name 
+	from ad_reference ar
+	join ad_ref_list arl on ar.ad_reference_id = arl.ad_reference_id
+	join ad_ref_list_trl adrlt on adrlt.ad_ref_list_id = arl.ad_ref_list_id
+	where ar.ad_reference_id = 'C4EDFC20013D401B8C03789EC74B408A'
+	and adrlt.ad_language = 'es_ES'
+	and value = v_statusQA),TO_CHAR('ND'))
+	INTO v_DescriptionMovLine
+	FROM DUAL;
+
+	-- Bodega Origen
+	SELECT COALESCE((SELECT M_LOCATOR_ID FROM M_INOUTLINE  MIL
+			WHERE M_PRODUCT_ID = v_ProductID 
+			AND MIL.M_INOUT_ID = v_InoutID),'ND')
+	INTO V_LocatorOrigenID
+	FROM DUAL;
+
+		-- Cantidad Movida
+	SELECT COALESCE((SELECT movementqty FROM M_INOUTLINE  MIL
+			WHERE M_PRODUCT_ID = v_ProductID 
+			AND MIL.M_INOUT_ID = v_InoutID),0)
+	INTO v_QytOrder
+	FROM DUAL;
+	
+
+	IF (V_LocatorOrigenID='ND') THEN
+		SELECT COALESCE((SELECT M_LOCATOR_ID FROM M_PRODUCTIONLINE  MPL
+				WHERE MPL.M_PRODUCT_ID = v_ProductID  
+				AND MPL.M_PRODUCTIONLINE_ID = v_productLineId),'ND')
+		INTO V_LocatorOrigenID
+		FROM DUAL;
+
+		-- Cantidad Movida
+		SELECT COALESCE((SELECT movementqty FROM M_PRODUCTIONLINE  MPL
+				WHERE MPL.M_PRODUCT_ID = v_ProductID  
+				AND MPL.M_PRODUCTIONLINE_ID = v_productLineId),0)
+		INTO v_QytOrder
+		FROM DUAL;
+
+		
+	END IF;
+	
+
+
+
+	-- Usuario que está creando la transferencia
+	SELECT coalesce((SELECT NAME FROM AD_USER WHERE AD_USER_ID = v_UserID)
+	,'ND')
+	INTO v_NameUser
+	FROM DUAL;
+
+	-- Nombre y Descripción de la transferencia
+	v_Name:= TO_CHAR(NOW(), 'dd/MM/yyyy HH24:MI:SS') || ' - CONTROL CALIDAD #' ||  v_Documentno;
+	v_Description:= 'Control de Calidad realizado por: ' ||  v_NameUser ;
+
+	-- Se obtiene del tipo de documento
+	SELECT COALESCE((SELECT  COALESCE(s.Prefix,TO_CHAR('')) || COALESCE(TO_CHAR(s.CurrentNext),TO_CHAR('')) || COALESCE(s.Suffix,TO_CHAR('')) 
+	FROM AD_Sequence s WHERE s.AD_Sequence_ID  IN (
+	(SELECT DocNoSequence_ID
+	 FROM C_DocType
+	WHERE C_DocType_ID = v_DocTypeID))),'')
+	INTO v_DocumentNoNew
+	FROM DUAL;
+	
+
+
+	INSERT INTO M_MOVEMENT(M_MOVEMENT_ID,		AD_CLIENT_ID,		AD_ORG_ID,		ISACTIVE,		CREATED,		CREATEDBY,		UPDATED,		UPDATEDBY,
+			       NAME,			DESCRIPTION,		MOVEMENTDATE,		POSTED,			PROCESSED,		PROCESSING,		AD_ORGTRX_ID,		C_PROJECT_ID,
+			       C_CAMPAIGN_ID,		C_ACTIVITY_ID,		USER1_ID,		USER2_ID,		MOVE_FROMTO_LOCATOR,	DOCUMENTNO,		C_COSTCENTER_ID,	A_ASSET_ID,
+			       EM_SSRS_C_DOCTYPE_ID,	em_slqs_ma_pc_case_id)
+			VALUES(v_MovementID,		V_CLIENT_ID,		V_ORG_ID,		'Y',			NOW(),			v_UserID,		NOW(),			v_UserID,
+			       v_Name,			v_Description,		NOW(),			'N',			'N',			'N',			NULL,			NULL,
+			       NULL,			NULL,			NULL,			NULL,			'N',			v_DocumentNoNew,	NULL,			NULL,		
+			       v_DocTypeID,		v_QualityID
+			       );
+			       
+	-- Actualiza la secuencia del tipo de documento
+	--SLQS_SEQUENCE_DOCTYPE(v_DocTypeID,'N','Y');
+
+	SELECT COALESCE((SELECT DocNoSequence_ID
+	 FROM C_DocType
+	WHERE C_DocType_ID = v_DocTypeID),'ND')
+	INTO v_Sequence_ID
+	FROM DUAL;
+
+	IF (v_Sequence_ID<>'ND') THEN
+		UPDATE AD_Sequence
+		SET CurrentNext=CurrentNext + IncrementNo
+		WHERE AD_Sequence_ID=v_Sequence_ID;
+
+		UPDATE AD_Sequence
+		SET CurrentNext=CurrentNext - IncrementNo
+		WHERE AD_Sequence_ID=v_Sequence_ID;
+	END IF;
+
+	
+    	/*RAISE EXCEPTION '%','ERROR:   ' || V_CLIENT_ID || ' - ' ||
+					   V_ORG_ID || ' - ' ||
+					   v_UserID || ' - ' ||
+					   V_LocatorOrigenID || ' - ' ||
+					   v_MLocatorID || ' - ' ||
+					   v_ProductID || ' - ' ||
+					   v_QytOrder || ' - ' ||
+					   v_DescriptionMovLine || ' - ' ||
+					   v_Attribute  || ' - ' ||
+					    v_UOM_ID || ' - ' ||  v_InoutID
+					    	;  --OBTG:20000--
+    	*/
+
+		       
+	INSERT INTO M_MOVEMENTLINE(M_MOVEMENTLINE_ID,	AD_CLIENT_ID,		AD_ORG_ID,	ISACTIVE,	CREATED,	CREATEDBY,	UPDATED,		UPDATEDBY,
+				   M_MOVEMENT_ID,	M_LOCATOR_ID,		M_LOCATORTO_ID,	M_PRODUCT_ID,	LINE,		MOVEMENTQTY,	DESCRIPTION,		M_ATTRIBUTESETINSTANCE_ID,
+				   C_UOM_ID
+				   )
+			    VALUES(GET_UUID(),		V_CLIENT_ID,		V_ORG_ID,	'Y',		NOW(),		v_UserID,	NOW(),			v_UserID,
+				   v_MovementID,	V_LocatorOrigenID,	v_MLocatorID,	v_ProductID,	10,		v_QytOrder,	v_DescriptionMovLine,	v_Attribute,
+				   v_UOM_ID
+				   );
+
+       
+	IF (v_StatusQuality='Y') THEN  -- Se revisa si se confirma para completar la transferencia
+
+		-- Crear instancia del proceso manualmente
+		SELECT COALESCE((
+			SELECT GET_UUID() FROM DUAL
+		),'ND')
+		INTO v_ProcessID
+		FROM DUAL;
+
+		insert into AD_PINSTANCE(ad_pinstance_id, ad_process_id,record_id, isprocessing, created, ad_user_id, updated, 
+		result, errormsg,ad_client_id, ad_org_id,createdby,updatedby,isactive)
+		values(v_ProcessID,'122',v_MovementID,'N',now(),v_UserID,now()
+		,1,'QA',V_CLIENT_ID, V_ORG_ID, v_UserID,v_UserID,'Y');
+		
+		SLQS_PINSTANCE_PARA_INSERT(v_ProcessID, '1', null, NULL, NULL,0,0,null,NULL,v_Org_ID,v_Client_ID,v_UserID);
+
+		-- Procesar movimiento
+		M_MOVEMENT_POST(v_ProcessID);
+
+
+		SELECT COALESCE((SELECT ERRORMSG FROM AD_PInstance 
+		WHERE AD_PROCESS_ID = '122' AND AD_PINSTANCE_ID = v_ProcessID),TO_CHAR('ND'))
+		INTO v_ErrorMsg
+		FROM DUAL;
+
+		
+		IF (v_ErrorMsg<>'ND') THEN  -- Revisamos si se produjo algún error en la transferencia
+
+			SELECT COALESCE((SELECT COUNT(*) FROM AD_PInstance 
+			WHERE AD_PROCESS_ID = '122' AND UPPER(ERRORMSG) LIKE '%ERROR%' AND AD_PINSTANCE_ID = v_ProcessID),0)
+			INTO V_FoundError
+			FROM DUAL;
+
+			IF (V_FoundError>0) THEN		
+				v_ErrorMsg:=REPLACE(v_ErrorMsg, '@ERROR=','');
+				RAISE EXCEPTION '%' , v_ErrorMsg; --OBTG:-20000--
+			END IF;
+
+		ELSE
+			-- Si el proceso fue correcto se cambia de estado, para deshabilitar los botones
+			UPDATE M_MOVEMENT SET EM_SIMRQ_REQUESTE='RQD', EM_SIMRQ_STATUS='RQD' WHERE M_MOVEMENT_ID = v_MovementID;
+
+		END IF;
+
+		v_n_insertions:=v_n_insertions+1;
+
+	END IF;
+    
+	   
+    v_Message := '@RowsInserted@: ' || v_n_insertions || '.';
+    DBMS_OUTPUT.PUT_LINE('Updating PInstance - Finished ' || v_Message) ;
+    AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 1, v_Message) ;
+    RETURN;
+  
+  END; --END BODY
+  EXCEPTION
+  WHEN OTHERS THEN
+    v_ResultStr:= '@ERROR=' || SQLERRM;
+    DBMS_OUTPUT.PUT_LINE(v_ResultStr) ;
+    AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 0, v_ResultStr) ;
+    RETURN;
+END SLQS_TRANSFER_PROD
+]]></body>
+    </function>
+  </database>

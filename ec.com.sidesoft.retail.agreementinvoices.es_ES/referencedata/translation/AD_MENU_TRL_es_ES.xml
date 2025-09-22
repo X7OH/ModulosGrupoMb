@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="1017B697014B43EDB2EEAE69B29A28FC" trl="N">
+    <value column="Name" isTrl="Y" original="Agreements Sales">Ventas Convenio</value>
+    <value column="Description" isTrl="Y" original="Agreements Sales">Ventas Convenio</value>
+  </row>
+</compiereTrl>

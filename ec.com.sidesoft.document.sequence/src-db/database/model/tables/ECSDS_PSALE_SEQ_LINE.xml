@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+  <database name="TABLE ECSDS_PSALE_SEQ_LINE">
+    <table name="ECSDS_PSALE_SEQ_LINE" primaryKey="ECSDS_PSALE_SEQ_LINE_KEY">
+      <column name="ECSDS_PSALE_SEQ_LINE_ID" primaryKey="true" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ECSDS_PSALE_SEQ_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_CLIENT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_ORG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISACTIVE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="IS_USED" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="SEQ" primaryKey="false" required="false" type="DECIMAL" size="15,0" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="AD_CLIENT" name="ECSDS_PSALE_SEQ_LINE_AD_CLIENT">
+        <reference local="AD_CLIENT_ID" foreign="AD_CLIENT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_ORG" name="ECSDS_PSALE_SEQ_LINE_AD_ORG">
+        <reference local="AD_ORG_ID" foreign="AD_ORG_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="ECSDS_PSALE_SEQ" name="ECSDS_PSALE_SEQ_LINE_SE">
+        <reference local="ECSDS_PSALE_SEQ_ID" foreign="ECSDS_PSALE_SEQ_ID"/>
+      </foreign-key>
+      <index name="ECSDS_PSALE_SEQ_IDX" unique="false">
+        <index-column name="ECSDS_PSALE_SEQ_ID"/>
+      </index>
+      <index name="ECSDS_PSALE_SEQ_ORG_IDX" unique="false">
+        <index-column name="ECSDS_PSALE_SEQ_ID"/>
+        <index-column name="AD_ORG_ID"/>
+      </index>
+      <check name="ECSDS_POINT_AC_LI_CHK"><![CDATA[ISACTIVE IN ('Y', 'N')]]></check>
+      <check name="ECSDS_POINT_USED_CHK"><![CDATA[IS_USED IN ('Y', 'N')]]></check>
+    </table>
+  </database>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE C_ORDER">
+    <table name="C_ORDER" primaryKey="C_ORDER_KEY">
+      <column name="EM_SSRCM_PROCESS_ORDER" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default><![CDATA[CO]]></default>
+        <onCreateDefault/>
+      </column>
+    </table>
+  </database>

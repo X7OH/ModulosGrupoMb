@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_ELEMENT" version="">
+  <row id="0923872CA6D94BC1BC303B5E4660FBB0" trl="N">
+    <value column="Name" isTrl="N" original="Sspkri_Pickerconfig_ID">Sspkri_Pickerconfig_ID</value>
+    <value column="PrintName" isTrl="N" original="Sspkri_Pickerconfig_ID">Sspkri_Pickerconfig_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="1C8115B6B1CF4A5082C3A7630661822F" trl="Y">
+    <value column="Name" isTrl="Y" original="EM_Sspkri_Pickerid">Picker Key</value>
+    <value column="PrintName" isTrl="Y" original="EM_Sspkri_Pickerid">Picker Key</value>
+    <value column="Description" isTrl="N" original="">Picker Key</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="200E3387999440EFB68A689EEF084CA7" trl="Y">
+    <value column="Name" isTrl="Y" original="Urlbooking">URL Booking</value>
+    <value column="PrintName" isTrl="Y" original="Urlbooking">URL Booking</value>
+    <value column="Description" isTrl="N" original="">URL Booking</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="225B8914B28348849862BABD333E5D7E" trl="N">
+    <value column="Name" isTrl="N" original="Sspkri_Pickerwebhook_ID">Sspkri_Pickerwebhook_ID</value>
+    <value column="PrintName" isTrl="N" original="Sspkri_Pickerwebhook_ID">Sspkri_Pickerwebhook_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="3C8206AAD37148C68F04C2EC56AE1A64" trl="Y">
+    <value column="Name" isTrl="Y" original="Jsonlog">Picker JSON</value>
+    <value column="PrintName" isTrl="Y" original="Jsonlog">Picker JSON</value>
+    <value column="Description" isTrl="N" original="">Picker JSON</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="5DA801130982427BAED1DA22DA46F382" trl="N">
+    <value column="Name" isTrl="N" original="Sspkri_Pickerlogs_ID">Sspkri_Pickerlogs_ID</value>
+    <value column="PrintName" isTrl="N" original="Sspkri_Pickerlogs_ID">Sspkri_Pickerlogs_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="781A0BF755784E6FB9C1C8525EBB7CD2" trl="Y">
+    <value column="Name" isTrl="Y" original="Tagtype">Tipo WebHook</value>
+    <value column="PrintName" isTrl="Y" original="Tagtype">Tipo WebHook</value>
+    <value column="Description" isTrl="N" original="">Tipo WebHook</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="815C169A16B344DAB18895539D8E5973" trl="Y">
+    <value column="Name" isTrl="Y" original="Responselog">Picker Response</value>
+    <value column="PrintName" isTrl="Y" original="Responselog">Picker Response</value>
+    <value column="Description" isTrl="N" original="">Picker Response</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="81F837F05DA64128B93A830A21714EBA" trl="Y">
+    <value column="Name" isTrl="Y" original="Pickerid">Identificador Picker</value>
+    <value column="PrintName" isTrl="Y" original="Pickerid">Identificador Picker</value>
+    <value column="Description" isTrl="N" original="">Identificador Picker</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="87531EDFBEB9407E9905AD232BE730A9" trl="Y">
+    <value column="Name" isTrl="Y" original="Webhookurl">URL WebHook</value>
+    <value column="PrintName" isTrl="Y" original="Webhookurl">URL WebHook</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="B089C4A4D2944038A40F44341CC9AA96" trl="Y">
+    <value column="Name" isTrl="Y" original="Pickerprice">Precio Picker</value>
+    <value column="PrintName" isTrl="Y" original="Pickerprice">Precio Picker</value>
+    <value column="Description" isTrl="N" original="">Precio Picker</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="B618D08FCB594380BBAE8E9358574FD9" trl="Y">
+    <value column="Name" isTrl="Y" original="Urlprecheckout">URL Pre-CheckOut</value>
+    <value column="PrintName" isTrl="Y" original="Urlprecheckout">URL Pre-CheckOut</value>
+    <value column="Description" isTrl="N" original="">URL Pre-CheckOut</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="BB04DE46098A422087EE17FC7532D8DA" trl="Y">
+    <value column="Name" isTrl="Y" original="Storeid">Key Local</value>
+    <value column="PrintName" isTrl="Y" original="Storeid">Key Local</value>
+    <value column="Description" isTrl="N" original="">Key Local</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="C5E0C0C311A74187A8F16E259E678681" trl="Y">
+    <value column="Name" isTrl="Y" original="Storename">Nombre Local</value>
+    <value column="PrintName" isTrl="Y" original="Storename">Nombre Local</value>
+    <value column="Description" isTrl="N" original="">Nombre Local</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="E36F78E8D0FA4B7D8EC3B291317A9977" trl="Y">
+    <value column="Name" isTrl="Y" original="EM_Sspkri_Pickervalue">Valor Picker</value>
+    <value column="PrintName" isTrl="Y" original="EM_Sspkri_Pickervalue">Valor Picker</value>
+    <value column="Description" isTrl="N" original="">Valor Picker</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="E7B8663820604202A9420D4D5C38B102" trl="Y">
+    <value column="Name" isTrl="Y" original="Bookingstate">Estado Booking</value>
+    <value column="PrintName" isTrl="Y" original="Bookingstate">Estado Booking</value>
+    <value column="Description" isTrl="N" original="">Estado Booking</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="EC6968455F2A4D319E14158A1B89AA22" trl="Y">
+    <value column="Name" isTrl="Y" original="Urlwebhook">URL WebHooks</value>
+    <value column="PrintName" isTrl="Y" original="Urlwebhook">URL WebHooks</value>
+    <value column="Description" isTrl="N" original="">URL WebHooks</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="F05A7424DCC944349765053E3EB5A475" trl="Y">
+    <value column="Name" isTrl="Y" original="Setwebhook">Cargar WebHook</value>
+    <value column="PrintName" isTrl="Y" original="Setwebhook">Cargar WebHook</value>
+    <value column="Description" isTrl="N" original="">Cargar WebHook</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

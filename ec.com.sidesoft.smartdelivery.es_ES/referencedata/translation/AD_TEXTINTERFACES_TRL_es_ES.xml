@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TEXTINTERFACES" version="">
+  <row id="074E1FDC7F7C4082A7BF2637D4E76233" trl="N">
+    <value column="Text" isTrl="N" original="Tercero">Tercero</value>
+  </row>
+  <row id="0FBB150232604610AE8F884D48A2B214" trl="N">
+    <value column="Text" isTrl="N" original="Organización">Organización</value>
+  </row>
+  <row id="22EA0F0827F34E26A8F0C61B526CD8AD" trl="N">
+    <value column="Text" isTrl="N" original="Fecha Desde:">Fecha Desde:</value>
+  </row>
+  <row id="3B315D90B12B4816A661628DE7F85F93" trl="N">
+    <value column="Text" isTrl="N" original="Importe Total">Importe Total</value>
+  </row>
+  <row id="4D04C4A54FA94691B98BCF69D7B05BEB" trl="N">
+    <value column="Text" isTrl="N" original="Total Importe:">Total Importe:</value>
+  </row>
+  <row id="59FC2DF5C42F48BA87A4DDE38782FF09" trl="N">
+    <value column="Text" isTrl="N" original="Fecha">Fecha</value>
+  </row>
+  <row id="60DE096381254FCAB7354C051179E922" trl="N">
+    <value column="Text" isTrl="N" original="Método de Pago">Método de Pago</value>
+  </row>
+  <row id="700591A968ED43879441657FCA19AC39" trl="N">
+    <value column="Text" isTrl="N" original="Empleado">Empleado</value>
+  </row>
+  <row id="72802D02F4B24CEC843B5065CAD697CA" trl="N">
+    <value column="Text" isTrl="N" original="Total Empleado:">Total Empleado:</value>
+  </row>
+  <row id="7498A39BB6AB4EE2852049B4ACBC2DA1" trl="N">
+    <value column="Text" isTrl="N" original="Hora fin:">Hora fin:</value>
+  </row>
+  <row id="A6FABC00B4284D7CBCEEDFC7D4D6B3FE" trl="N">
+    <value column="Text" isTrl="N" original="Fecha Hasta:">Fecha Hasta:</value>
+  </row>
+  <row id="B3CC1C5E4C19499E86F010BCE98573CD" trl="N">
+    <value column="Text" isTrl="N" original="Detalle de ventas por motorizado">Detalle de ventas por motorizado</value>
+  </row>
+  <row id="D58A9AF432694306AD30376A3D2C30C4" trl="N">
+    <value column="Text" isTrl="N" original="No Pedido">No Pedido</value>
+  </row>
+  <row id="D97356B41F2A4846BC6B1FCF0885B185" trl="N">
+    <value column="Text" isTrl="N" original="CI">CI</value>
+  </row>
+  <row id="EE29074048FC45FFB4A33C04B2DB3B60" trl="N">
+    <value column="Text" isTrl="N" original="Hora Inicio:">Hora Inicio:</value>
+  </row>
+</compiereTrl>

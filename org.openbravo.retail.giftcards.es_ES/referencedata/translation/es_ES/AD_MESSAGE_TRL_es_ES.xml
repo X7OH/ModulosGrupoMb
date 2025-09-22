@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="015AA72ED23F46C885A208B160AD3E04" trl="N">
+    <value column="MsgText" isTrl="Y" original="Credit Note payment: %0">Pago de Nota de Crédito: %0</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="01CECF45E84143F69EC444A3BE9CE691" trl="N">
+    <value column="MsgText" isTrl="Y" original="Select Gift Card Owner">Seleccionar Propietario de Tarjeta de regalo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="07CF3E3C9CBB4B9CAC92172AF651ED9D" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift Card: %0 was created with: %1 credit">Tarjeta de regalo: %0 fue creada con: %1 crédito</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="0C001EB2E7A24391BBB852652369CD88" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift Cards">Tarjetas regalo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="0E374E851822487A8B4011AA14878F6F" trl="N">
+    <value column="MsgText" isTrl="Y" original="You are returning a gift card/voucher. Do you want to convert this receipt into a return receipt?">Estás devolviendo una tarjeta regalo/vale de compra. ¿Quieres convertir este recibo en una devolución?</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="117F5FA0863740E0961EDACD96E119D3" trl="N">
+    <value column="MsgText" isTrl="Y" original="No template assigned to the Gift Card">Plantilla no asignada a la Tarjeta de regalo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="11D0BB4FD91C47C2946C01955CC85727" trl="N">
+    <value column="MsgText" isTrl="Y" original="Tax to be used with exempt products is not configured. Please configure it using organization window.">No se ha configurado el impuesto para los productos exentos. Por favor, configúrelo en la ventana de organización.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="1406CC3571D94660BA70EEEEC2375961" trl="N">
+    <value column="MsgText" isTrl="Y" original="Credit Note">Nota de Crédito</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="15CE86DAD4B84E82A8873A918E13BC30" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift card with ID %0 has expired">Tarjeta de regalo con ID %0 ha expirado</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="15D2AD163C50457FB0EA2CA75250AABC" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift Cards Reason/Type must be &quot;Only for this org&quot; for organization that is not legal entity or parent of legal entity organization.">Razón de Tarjeta de regalo / Tipo tiene que ser "Solamente para esta org" para Organización que no legal o padre de una entidad organización.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="16FC2798A25C4BB3A7E069232273A3E4" trl="N">
+    <value column="MsgText" isTrl="Y" original="Error getting Gift Card Reason Information">Error obteniendo Información de la Razón de la Tarjeta de Regalo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="17161F385BA445A4BE1D8BF7F186AA24" trl="N">
+    <value column="MsgText" isTrl="Y" original="Time elapsed: %0 milis">Tiempo transcurrido: %0 milis</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="1986D965D1DC4C8386DD0C2AB6259609" trl="N">
+    <value column="MsgText" isTrl="Y" original="Reimbursed: %0">Reembolsado: %0</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="2375C32E5E1A4BC7B4F64B9C419E42EA" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift Card: %0">Pago con tarjeta regalo: %0</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="2688D5470D754D1FAAA0B17EAD5B0B8F" trl="N">
+    <value column="MsgText" isTrl="Y" original="Current quantity">Cantidad actual</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="2999BA651F1E475D822BC4ADD07FE1A6" trl="N">
+    <value column="MsgText" isTrl="Y" original="Invalid Terminal Payment Type Configuration">Configuración de Tipo de Pago de Terminal inválido</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="2A2D3A33FF7146F6B7AF8479EF39B0DB" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift cards and gift vouchers">Tarjetas regalo y vales de compra</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="2A35A2C9D0C64E7EB3C4350868C4AC3D" trl="N">
+    <value column="MsgText" isTrl="Y" original="Time consumed in closing last %0 Gift Cards: %1">Tiempo consumido cerrando la última %0 Tarjeta de regalo: %1</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="2A9ABE2FF8AF4A588853FF014E78C563" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift Card">Tarjeta regalo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="2ADF68A33AEC405697C1C7507E708E31" trl="N">
+    <value column="MsgText" isTrl="Y" original="Card ID">Tarjeta ID</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="2B6CC03471F94E2AB5C69CEE65DA1A18" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift Card">Tarjeta regalo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="2E80BF3C17BE45B3A41FD3D0E50A5E6A" trl="N">
+    <value column="MsgText" isTrl="Y" original="Assign an owner to this gift card">Asignar un propietario a esta Tarjeta de regalo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="2EB28841D95C487DBDEE6BF38C750805" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift card with ID: %0 is already reimbursed">Tarjeta de regalo con ID: %0 esta ya fue reembolsada</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="319AD1D74F494AD49ECE8C5B7F776CC1" trl="N">
+    <value column="MsgText" isTrl="Y" original="Credit Note">Nota de crédito</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="31AC36547D0646DA8CC85C227B2558AA" trl="N">
+    <value column="MsgText" isTrl="Y" original="The Gift Card payment method is not configured in this terminal, therefore it is not possible to create Gift Certificates">El método de pago de la Tarjeta de regalo no esta configurado en esta terminal, por lo tanto no es posible crear un Certificado de regalo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="3395BFA51A11497BA052B3480F5954EF" trl="N">
+    <value column="MsgText" isTrl="Y" original="Product">Producto</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="3461C87BE74E4545B4CA6F3E12AF4D20" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift voucher with ID %0 not found">Vale de compra con ID %0 no encontrado</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="3A8C8E19F3C1437284056CBF480AAFAC" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift card with ID %0 not found.">Tarjeta regalo con ID %0 no encontrada.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="3F6BBC712E334662B8ADFE241CE7D582" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift Certificate">Certificado de regalo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="3FB286BA63E74A55A3D0837D718E443F" trl="N">
+    <value column="MsgText" isTrl="Y" original="Credit notes cannot be used to pay several orders at the same time. To use a credit note, add it to the affected order directly using the standard order view.">Notas de crédito no puede ser usada para muchas ordenes al mismo tiempo. Para usar una Nota de crédito, adicionala a la orden afectada directamente usando la vista de orden estándar.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="4262833734564C42BFD65DF92949AC1A" trl="N">
+    <value column="MsgText" isTrl="Y" original="Current balance">Balance actual</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="464F535AEEBC4258958A63C36283D3FC" trl="N">
+    <value column="MsgText" isTrl="Y" original="Cannot return gift voucher with ID %0 because has been partially consumed.">No se puede devolver el vale de compra con ID %0 porque se ha consumido parcialmente.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="492DCD928815482E916ED1246BAB0C53" trl="N">
+    <value column="MsgText" isTrl="Y" original="Closed">Completado</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="494B8A0AA2A54C3D946DEE183F10684A" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift cards and gift vouchers cannot be grouped. Uncheck the field Grouped Product.">Las tarjetas regalo y los vales de compra no pueden ser agrupados. La casilla "producto agrupable" debe ser desmarcada.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="4B73BFA4D5654D918491D4BAC7D51D37" trl="N">
+    <value column="MsgText" isTrl="Y" original="Create Gift Certificate">Crear Certificado de Regalo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="4D361B09FC5446AA9A64B3AFC4EF6D69" trl="N">
+    <value column="MsgText" isTrl="Y" original="Partially consumed">Parcialmente consumido</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="4D4F420CE4E046CA8952F171EA4A9F4E" trl="N">
+    <value column="MsgText" isTrl="N" original="Gift card with ID %0 is not reimbursable">Gift card with ID %0 is not reimbursable</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="4D68DC95AF3745B6AF0B82E6DBB5BD27" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift card with ID %0 has not gift voucher type.">La tarjeta regalo ID %0 no ha definido el tipo de tarjeta.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="4D85326376064F0AAB2C6AEF92AF0D16" trl="N">
+    <value column="MsgText" isTrl="Y" original="Cannot add gift card/voucher '%0' to a return order. The right way to return a gift card/voucher is selecting the instance in the menu option 'Gift cards/vouchers'.">No se puede añadir la tarjeta regalo / vale de compra '%0' a una pedido de devolución. La forma correcta de devolver una tarjeta regalo / vale de compra es seleccionando la instancia en la opción del menú 'Tarjetas regalo/Vales de compra'.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="509CBD1EBECC4EC4958C12B894A573E0" trl="N">
+    <value column="MsgText" isTrl="N" original="Exception closing gift card : %0">Exception closing gift card : %0</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="520DA8A8E562400CBCCA6A5D3E8DF64F" trl="N">
+    <value column="MsgText" isTrl="Y" original="The gift card products must be marked as tax exempt.">Los productos de la Tarjeta de regalo tienen que estar marcados como exentos de de impuestos.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="535A3578EC234F048D60952E7A2415DF" trl="N">
+    <value column="MsgText" isTrl="Y" original="New">Nuevo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="575B7737FE224281BF32888613A9A321" trl="N">
+    <value column="MsgText" isTrl="Y" original="Cannot return gift card with ID %0 because has been partially consumed.">No se puede devolver la tarjeta regalo con ID %0 porque se ha consumido parcialmente.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="57D06B92F8DF4873A1929060A24B6059" trl="N">
+    <value column="MsgText" isTrl="Y" original="There has been an error processing the gift card. Contact your administrator.">Ha ocurrido un error cuando se procesaba la tarjeta regalo. Contacta con el administrador.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="581F691041AC464E89F5EB3F27106154" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift Card / Gift Certificate">Tarjeta de regalo / Certificado de regalo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="5E1E7FC1503545C59552C4EAEC0E6F24" trl="N">
+    <value column="MsgText" isTrl="Y" original="Exception closing card: %0">Excepción cerrando tarjeta: %0</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="5E9DF148BBAA4E9DBF68C3E064ACAF39" trl="N">
+    <value column="MsgText" isTrl="Y" original="Unsupported payment method">Método de pago no soportado</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="60AE0EFFFFB34DCA88663D628B036B3A" trl="N">
+    <value column="MsgText" isTrl="Y" original="There is no G/L Item defined for Reimburse on the '%0' payment method belonging to the terminal type '%1'">No es un G/L definido para Reembolsar en el método de pago '%0' perteneciente al tipo de terminal '%1'</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="60F44B8B2BF44CD2A7D5EAC0A2F63925" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift card transaction with ID %0 not found.">La tarjeta regalo con ID %0 no encontrada.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="60F7565D3C3346B499DEF53E4463ECD6" trl="N">
+    <value column="MsgText" isTrl="Y" original="Expiration date must be after today">Fecha de expiración debe ser posterior a la fecha de hoy</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="61F34B3E8401478AA35FB184C5DBC582" trl="N">
+    <value column="MsgText" isTrl="Y" original="Exception closing gift cards">Excepción cerrando tarjeta de regalo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="62842A770CA74AE58A6749C8154BB314" trl="N">
+    <value column="MsgText" isTrl="Y" original="Category">Categoría</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="64574A92E1A545D7871E202960FFDCE5" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift Voucher">Vale de compra</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="663A55CAE00346D7A37BBA93672EB353" trl="N">
+    <value column="MsgText" isTrl="Y" original="Loading...">Cargando...</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="6811BE9C7CCC404BB8E299B457B17919" trl="N">
+    <value column="MsgText" isTrl="Y" original="There have been an error when creating the Gift Card transaction">Tenemos un error cuando se creaba la transacción de la Tarjeta de Regalo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="69CE6D68043C4D3EBDFFA8AB2C9C7A2D" trl="N">
+    <value column="MsgText" isTrl="Y" original="There's no enough cash to reimburse the Gift Card with ID %0">No hay suficiente efectivo para reembolsar la Tarjeta de regalo con ID %0</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="6B6C06DF1E554A3EAB2C043856DB237C" trl="N">
+    <value column="MsgText" isTrl="Y" original="Cur. Qty">Act. Qty</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="6DA0D82204044A9EA0BC17C9B763FFC6" trl="N">
+    <value column="MsgText" isTrl="Y" original="Status">Estado</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="6E2CE391803A4C46888E11EF8C54D305" trl="N">
+    <value column="MsgText" isTrl="Y" original="The gift card products must be marked as non grouped product.">Los productos de la Tarjeta de regalo tienen que estar marcados como productos no agrupados</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="7077C6064CD3434183BC8437E70FA2C5" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift card with ID %0 cannot be returned because it has been created without return amount.">La tarjeta regalo con ID %0 no puede devolverse porque se ha creado sin precio de devolución.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="791F13D756954D7AA3A32B765DFB5462" trl="N">
+    <value column="MsgText" isTrl="Y" original="Duplicated ID. Please, insert a new ID for the gift card/voucher">ID duplicado. Por favor, inserte un nuevo ID para la Tarjeta de regalo/Vale de compra</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="79AB610C8FD04690A626223082E2CE74" trl="N">
+    <value column="MsgText" isTrl="Y" original="Number *">Número *</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="7A3F736BA309471E940562BA17F44C40" trl="N">
+    <value column="MsgText" isTrl="Y" original="Creation date">Fecha de creación</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="7B0AC1CC1E5749F8A7D4F7846CC21D38" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift Card ID: %0 can not be used in this terminal, as there is no payment method configured for it.">Tarjeta de regalo ID: %0 no puede ser usada en esta terminal, debido a que no hay métodos de pago configurado para ella.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="7DAE3726F4424AF68C881BF3579AC88D" trl="N">
+    <value column="MsgText" isTrl="Y" original="Details">Detalles</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="7DDD324D1ED44D92AF66F34E0303B5F4" trl="N">
+    <value column="MsgText" isTrl="Y" original="Amount *">Importe *</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="7DE9FE0C2FC24F94ADA20CBEA4F60EC6" trl="N">
+    <value column="MsgText" isTrl="Y" original="Print">Imprimir</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="7E95607EEE484957B3DC7A8DA51C45E4" trl="N">
+    <value column="MsgText" isTrl="Y" original="Expired">Expirado</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="928A12EB0D684B57B6AB0AF74D69CEED" trl="N">
+    <value column="MsgText" isTrl="Y" original="No printer assigned to the Gift Card">Impresora no asignada a la Tarjeta de regalo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="9328E2EDC33C49D08D245885547CF8C9" trl="N">
+    <value column="MsgText" isTrl="Y" original="Cannot consume more credit that pending amount.">No es posible consumir más crédito que la cantidad pendiente de pago.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="9331DD1D42D844A5A6D17153A564C867" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift card with ID %0 has not enough credit for product  %1.">La tarjeta regalo con ID %0 no tiene suficiente crédito para el producto %1.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="96F87C111FAA42BD949AAB023C29607D" trl="N">
+    <value column="MsgText" isTrl="Y" original="Cannot consume in a gift voucher a product  quantiy less or equal to zero.">Utilizando un vale de compra no es posible consumir un producto con una cantidad igual o inferior a 0</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="9899223D514B44B6BA137CA739A8F805" trl="N">
+    <value column="MsgText" isTrl="Y" original="Customer *">Cliente *</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="9D78CA6F07C04163AB3B4F4B72194AEF" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift cards cannot be used to pay several orders at the same time. To use a gift card, add it to the affected order directly using the standard order view.">Las tarjetas regalos no se pueden usar para pagar varios recibos a la vez. Para usar una tarjeta regalo añádala al recibo directamente usando la vista de recibo estandar.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="9F327969C57C45AE8AEBF630CA73F391" trl="N">
+    <value column="MsgText" isTrl="Y" original="Empty">Vacío</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="A05B0F958D994E21B95C4579AE416AC2" trl="N">
+    <value column="MsgText" isTrl="Y" original="Identifier">ID</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="A17B62E41C0D48C398CCA0CDF2853576" trl="N">
+    <value column="MsgText" isTrl="Y" original="Close Card">Cerrar Tarjeta</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="A33EF80737A44BAC85E6369C6FFE6C19" trl="N">
+    <value column="MsgText" isTrl="Y" original="The Gift Card identifier cannot be empty.">El identificador de una tarjeta regalo no puede estar vacio.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="A759610C8CFF4DC3AB59321117BD68CA" trl="N">
+    <value column="MsgText" isTrl="Y" original="Invalid params">Parámetros inválidos</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="A8B0699C2F4341F785327BB4D8545CB8" trl="N">
+    <value column="MsgText" isTrl="Y" original="Card %0 has been closed successfully.">Tarjeta %0 ha sido cerrada.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="ABE29F03922A498398B1C6DE914D611F" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift / Credit Notes">Tarjetas regalo/vales de compra</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="B2781B68B77D4E9B9FC93844EF95AF8E" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift card with ID %0 does not contain product %1 in summary.">La tarjeta regalo con ID %0 no tiene definido el producto %1.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="B3C2472AF7E344A78CF2E54981AF065F" trl="N">
+    <value column="MsgText" isTrl="Y" original="The gift card transaction was cancelled successfully, the gift card balance has been adjusted accordingly">La transacción de la Tarjeta de regalo fue cancelada, el balance de la Tarjeta de regalo ha sido ajustado acordemente.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="B3E79524E78F40CDB987ECE515BA2478" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift vouchers cannot be used to pay several orders at the same time. To use a gift voucher, add it to the affected order directly using the standard order view.">Los vales de compra no se pueden usar para pagar varios recibos a la vez. Para usar un vale de compra añádalo al recibo directamente usando la vista de recibo estandar.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="B4457A2D775E4F269EEFFA40018ECDC1" trl="N">
+    <value column="MsgText" isTrl="Y" original="Cannot apply this voucher to any line of this receipt.">No se puede aplicar este vale de compra a ninguna linea del pedido.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="B572EA33F05E44EC8E2BA23509DC3F68" trl="N">
+    <value column="MsgText" isTrl="Y" original="Error when synchronizing data. The Gift Card Certificate has not been created.">Error sincronizando datos. El Certificado de Tarjeta de Regalo no puede ser creado</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="B86CCC05AAE342F6A2F6DB08A61513AA" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift card with ID %0 has not gift card type.">La tarjeta regalo ID %0 no ha definido el tipo de tarjeta.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="B91ABBD5922C431E81DDF7D26FAA2D0C" trl="N">
+    <value column="MsgText" isTrl="Y" original="Is not possible to consume a closed Gift Card">No es posible consumir una Tarjeta de regalo cerrada</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="BB309233DC4C48D9848C7E33D8BF3DBE" trl="N">
+    <value column="MsgText" isTrl="Y" original="Select card">ID de tarjeta</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="BD36A6AF28CF425E8E97FF3DB2C71DC2" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift voucher with ID %0 is closed.">El vale de compra con ID %0 esta cerrado.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="BD8EE7F463AC4C98AF2A54DF840C6A1D" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift card with ID %0 has not gift card certificate type.">Tarjeta de regalo con ID %0 no tiene tipo de certificado de tarjeta de regalo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="BD95D75357EF4818AD75CDE6E5B8AB25" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift Certificate payment: %0">Pago de Certificado de regalo: %0</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="BEA46328FECB4FFBA4812298CF6FEA3F" trl="N">
+    <value column="MsgText" isTrl="Y" original="Expiration Date">Fecha de Expiración</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="C0D4E944B45043B18FEEFA0B2BD884D5" trl="N">
+    <value column="MsgText" isTrl="Y" original="Not found payment method for Gift card with ID %0">No se encontró método de pago para la Tarjeta de regalo con ID %0</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="C253BD0EC85E475B8A7C29E07517CC35" trl="N">
+    <value column="MsgText" isTrl="Y" original="Initial quantity">Cantidad inicial</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="C32291D2CADE49F2A0B646D32FA94D5D" trl="N">
+    <value column="MsgText" isTrl="Y" original="Not found category information for Gift card with ID %0 ">No se encontró la información de la categoría para la Tarjeta de regalo con ID %0</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="C3B2AD1A735C4E738B3B40B08B812075" trl="N">
+    <value column="MsgText" isTrl="Y" original="Expiration date process killed by the user">Proceso de Fecha de expiración terminado por el usuario</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="C72D63774FC043BEAF5B6A1046AC3D12" trl="N">
+    <value column="MsgText" isTrl="Y" original="Verify that the 'Gift Certificate' and 'Credit Note' payment methods are configured as 'Automatic Deposit' in the financial accounts.">Verifique que lo métodos de pago 'Certificado de regalo' y 'Notas de Crédito' están configurados como 'Deposito Automático' en la cuenta financiera.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="C78C088FED1642058567E114B6487A41" trl="N">
+    <value column="MsgText" isTrl="Y" original="Return">Devolver</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="CB12F3090932432E95A3B21B8811C470" trl="N">
+    <value column="MsgText" isTrl="Y" original="Init. Qty">Inic. Qty</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="CBA5B896740444F6958365A42E22CAFD" trl="N">
+    <value column="MsgText" isTrl="Y" original="Close Card">Cerrar Tarjeta</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="CEA8177741E24799A045237F08675528" trl="N">
+    <value column="MsgText" isTrl="Y" original="Can not make a payment">No puede hacer un pago</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="CF491C1779EE41B3B98E97659BDC5803" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift card with ID %0 is closed.">La tarjeta regalo con ID %0 está cerrada.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="D7785A98453D4193AA897D12651A052D" trl="N">
+    <value column="MsgText" isTrl="Y" original="Reimburse">Reembolsar</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="DA9A20B073CF48A3B79DA7867B1336E3" trl="N">
+    <value column="MsgText" isTrl="Y" original="Initial balance">Balance inicial</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="DFC8BB9891054F0B8097204FB61DADBD" trl="N">
+    <value column="MsgText" isTrl="Y" original="Cannot add gift card '%0' to the order. The taxes '%1' must be marked as tax exempt.&#10;Please verify the configuration of the gift card Tax Category.">No se puede adicionar tarjeta de regalo '%0' a la orden. Los impuestos '%1' tienen que ser marcados como exentos de impuestos. Por favor verifique la configuración de la Categoría de Impuesto de la Tarjeta de regalo.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="E0AB663A7DAE42EBB04ACC16F5FF36D4" trl="N">
+    <value column="MsgText" isTrl="Y" original="Cancelled Gift Cards: %0">Cancelada Tarjeta de regalo: %0
+Cancelled Gift Cards: %0</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="E175AB69D72D4DB58F3D1097956D753B" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift Card Category *">Categoría de Tarjeta de Regalo *</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="E2D4FAA8CF2446FAAE148AA075B96AB8" trl="N">
+    <value column="MsgText" isTrl="Y" original="Expiration date *">Fecha de expiración *</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="E4B0B65383BA4F128DCCDF6818889ED4" trl="N">
+    <value column="MsgText" isTrl="Y" original="Voucher with ID %0 has expired">Vale con ID %0 ha expirado</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="E6A4083842CC416C96328D703874264B" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift Card Owner">Propietario de Tarjeta de regalo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="EDE0B4F4A4BC42FBA81C2A9AAD9BD3F4" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift card Cash Management">Tarjeta de regalo y Gestión de Caja</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="F3241E9BA86440638104683BFD3C32BD" trl="N">
+    <value column="MsgText" isTrl="Y" original="Number of gift Cards closed: %0">Número de Tarjetas de regalo cerradas: %0</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="F40DFACD24CC44738BD4225A4F5ADDEF" trl="N">
+    <value column="MsgText" isTrl="Y" original="There has been gift card(s) added to receipt. Please remove the gift card(s) in order to delete the receipt lines">Estas Tarjetas de regalo ha sido adicionadas al recibo. Por favor, elimine las Tarjetas de regalo en la orden para eliminar las líneas del recibo</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="F5845B9B0FB64C4A8C3814987EE89FFB" trl="N">
+    <value column="MsgText" isTrl="Y" original="Business partner">Tercero</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="F75BE7F2E72B47888F23D6C3B2D235D6" trl="N">
+    <value column="MsgText" isTrl="Y" original="The gift card products must be marked as non stocked.">Los productos de la Tarjeta de regalo tienen que estar marcados como no stocked.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="FC36BDB17D3F4FEB8352B8665794D0F1" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift Voucher">Vale de compra</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="FF20A0E6F6D14C7280065E224DD8FFDC" trl="N">
+    <value column="MsgText" isTrl="Y" original="Gift card with ID %0 has not gift voucher nor gift card type.">La tarjeta regalo con ID %0 no ha definido el tipo de tarjeta.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

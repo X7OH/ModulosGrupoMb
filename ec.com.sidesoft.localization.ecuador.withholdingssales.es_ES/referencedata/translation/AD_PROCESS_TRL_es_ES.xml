@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
+  <row id="4E70057243C447169ADD1397D992B189" trl="N">
+    <value column="Name" isTrl="N" original="Get Invoice Lines">Get Invoice Lines</value>
+    <value column="Description" isTrl="N" original="Get Invoice Lines">Get Invoice Lines</value>
+    <value column="Help" isTrl="N" original="Get Lines form the referenced invoice">Get Lines form the referenced invoice</value>
+  </row>
+  <row id="785A5AE0739D404E8F1255B6E526B6F6" trl="N">
+    <value column="Name" isTrl="N" original="Sales Withholding IVA Detail">Sales Withholding IVA Detail</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="99498D75CAE24D839AC788636CD7B457" trl="N">
+    <value column="Name" isTrl="N" original="Withholding Sale Process">Withholding Sale Process</value>
+    <value column="Description" isTrl="N" original="Withholding Sale Process">Withholding Sale Process</value>
+    <value column="Help" isTrl="N" original="Process/Unprocess the Withholding Sale Document">Process/Unprocess the Withholding Sale Document</value>
+  </row>
+  <row id="B53CBF732CAB4EBBBF2F4F620FE4A136" trl="Y">
+    <value column="Name" isTrl="Y" original="Withholding Sales Detail">Detalle de Retenciones en Ventas Renta</value>
+    <value column="Description" isTrl="N" original="">Detalle de Retenciones en Ventas Renta</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="CB808DD623804DC58F144CC5D7D45FFB" trl="N">
+    <value column="Name" isTrl="N" original="Report Monthly Reconciliation">Report Monthly Reconciliation</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

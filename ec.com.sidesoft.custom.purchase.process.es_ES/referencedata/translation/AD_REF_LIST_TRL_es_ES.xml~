@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REF_LIST" version="">
+  <row id="2DA6C6A907C9470EA1EC5F7E57FAE24F" trl="N">
+    <value column="Name" isTrl="N" original="Approve">Approve</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="424040673A2C40CFAE2F9661D3BB4E60" trl="N">
+    <value column="Name" isTrl="N" original="SCPPR_RQ">SCPPR_RQ</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="4A314FF0F867419C91D9D6E1DA040E54" trl="Y">
+    <value column="Name" isTrl="Y" original="Requested">Solicitado</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="56778FE50363446D94AD61BD0C680D17" trl="N">
+    <value column="Name" isTrl="N" original="Close">Close</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="58052F2B57D34D98A9092EB3AF90CCE8" trl="Y">
+    <value column="Name" isTrl="Y" original="Requested">Solicitado</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="6409D838B5404A229E94A3F20BFF993E" trl="N">
+    <value column="Name" isTrl="N" original="Reactivate">Reactivate</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="6A52C38A8D9D427DB2BE5BD2C02B045A" trl="N">
+    <value column="Name" isTrl="N" original="Void">Void</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="A2FE989DBF8E4EB79CD8186363BBF04E" trl="N">
+    <value column="Name" isTrl="N" original="Approves by Partner">Approves by Partner</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="D173DC3DA95342CCB64763758EA8476A" trl="N">
+    <value column="Name" isTrl="N" original="Complete">Complete</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="D9A0D67AB0E049BA84D1F7296C1475F2" trl="N">
+    <value column="Name" isTrl="N" original="Reactivate">Reactivate</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="F465263A4C71492584B69109537EEAA4" trl="N">
+    <value column="Name" isTrl="N" original="Approves All">Approves All</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

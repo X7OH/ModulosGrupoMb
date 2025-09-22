@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="F6FBE12A3F8C4075875B45A70D6D5E0F" trl="N">
+    <value column="Name" isTrl="Y" original="MP requirements for point of sale production">Faltantes de MP para producción de punto de Venta  </value>
+    <value column="Description" isTrl="N" original="">Faltantes de MP para producción de punto de Venta  </value>
+  </row>
+</compiereTrl>

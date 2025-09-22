@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
+  <row id="53D4CF8974724C9B92780120C6EAD0A0" trl="Y">
+    <value column="Name" isTrl="Y" original="Load Lines">Cargar líneas</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="5470B82CC23240498B755FC0346FB728" trl="Y">
+    <value column="Name" isTrl="Y" original="Clousure Process">Proceso Cierre de Caja</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="A908E06F576143388FEB8AC55C0FD573" trl="N">
+    <value column="Name" isTrl="Y" original="SCCC_GenericPrintClosecash">Impresión genérica cierre de caja</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="F5B1A584BF824E3FAC430E032F020F4E" trl="N">
+    <value column="Name" isTrl="Y" original="Process Cash Clousures">Proceso Background Cierre de Caja</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

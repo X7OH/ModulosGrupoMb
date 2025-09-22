@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
+  <row id="B0DCB2771D744EAA8F75B2B6530CABF8" trl="N">
+    <value column="Name" isTrl="Y" original="Stat_Generate_Code">Generar Código</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="D3ED058DE3444DAFB49DB442919A980B" trl="N">
+    <value column="Name" isTrl="N" original="Stat_Process_Movement">Processar Movimiento</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

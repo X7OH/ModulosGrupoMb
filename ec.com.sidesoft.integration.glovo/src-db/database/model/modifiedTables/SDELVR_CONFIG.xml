@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE SDELVR_CONFIG">
+    <table name="SDELVR_CONFIG" primaryKey="SDELVR_CONFIG_PK">
+      <column name="EM_SGLOVO_PAYMENTMETH_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SGLOVO_URL" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SGLOVO_APIKEY" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SGLOVO_STORE" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="FIN_PAYMENTMETHOD" name="EM_SGLOVO_PAYMENTMETH_ID">
+        <reference local="EM_SGLOVO_PAYMENTMETH_ID" foreign="FIN_PAYMENTMETHOD_ID"/>
+      </foreign-key>
+    </table>
+  </database>

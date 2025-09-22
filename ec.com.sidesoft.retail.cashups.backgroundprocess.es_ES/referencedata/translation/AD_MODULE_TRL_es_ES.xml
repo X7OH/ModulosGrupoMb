@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MODULE" version="">
+  <row id="58092FF598DD4311928BE210A550663F" trl="N">
+    <value column="Description" isTrl="N" original="This module update the cashups, of the orders in status 'Register' and 'In progress'">This module update the cashups, of the orders in status 'Register' and 'In progress'</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="License" isTrl="N" original=""/>
+    <value column="Updateinfo" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

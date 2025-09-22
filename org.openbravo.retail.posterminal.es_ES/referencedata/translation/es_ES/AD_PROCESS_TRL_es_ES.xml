@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
+  <row id="38166262A3944A7FA8A687438BEC1A57" trl="N">
+    <value column="Name" isTrl="N" original="Update Product Category By Assortment Background">Actualizar Categoría Producto por catálogo</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="6278DF8D5F1D4091967DDB1733EB7622" trl="N">
+    <value column="Name" isTrl="N" original="Generate Product Images">Generar Imágenes de Productos</value>
+    <value column="Description" isTrl="N" original="Generate Product Images">Generar Imágenes de Productos</value>
+    <value column="Help" isTrl="N" original="Generate Product Images">Generar Imágenes de Productos</value>
+  </row>
+  <row id="6E03EABD3B4E4E71897B6B826D522157" trl="N">
+    <value column="Name" isTrl="Y" original="Cash Up Report">Informe del cierre de caja</value>
+    <value column="Description" isTrl="Y" original="CashUpReport">Informe del cierre de caja</value>
+    <value column="Help" isTrl="Y" original="CashUpReport">Informe del cierre de caja</value>
+  </row>
+  <row id="7C8EF159C8144D5CABD19113989388DD" trl="N">
+    <value column="Name" isTrl="N" original="Sync All Errors While Importing">Sinc todos los errores durante importación</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

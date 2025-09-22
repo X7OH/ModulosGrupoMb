@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE M_PRODUCT">
+    <table name="M_PRODUCT" primaryKey="M_PRODUCT_KEY">
+      <column name="EM_GCNV_GIFTCARDTYPE" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_GCNV_AMOUNT" primaryKey="false" required="false" type="DECIMAL" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_GCNV_ALLOWPARTIALRETURN" primaryKey="false" required="false" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_OBGCNE_EXPIRATIONDAYS" primaryKey="false" required="false" type="DECIMAL" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_OBPGC_PRINTCARD" primaryKey="false" required="false" type="CHAR" size="1" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_OBPGC_PRINTTEMPLATE_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="OBPOS_PRINT_TEMPLATE" name="EM_OBPGC_PROD_CARDTEMPLATE">
+        <reference local="EM_OBPGC_PRINTTEMPLATE_ID" foreign="OBPOS_PRINT_TEMPLATE_ID"/>
+      </foreign-key>
+      <index name="EM_GCNV_PRODUCT_GIFTCARDTYPE" unique="false">
+        <index-column name="EM_GCNV_GIFTCARDTYPE"/>
+        <whereClause><![CDATA[EM_GCNV_GIFTCARDTYPE IS NOT NULL]]></whereClause>
+      </index>
+      <check name="EM_GCNV_ALLOWPARTIALRET_CHK"><![CDATA[EM_GCNV_ALLOWPARTIALRETURN IN ('Y', 'N')]]></check>
+      <check name="EM_GCNV_GROUPING_CHK"><![CDATA[EM_OBPOS_GROUPEDPRODUCT = 'N' OR EM_GCNV_GIFTCARDTYPE IS NULL]]></check>
+      <check name="EM_OBPGC_PRINTCARD_CHECK"><![CDATA[EM_OBPGC_PRINTCARD IN ('Y', 'N')]]></check>
+    </table>
+  </database>

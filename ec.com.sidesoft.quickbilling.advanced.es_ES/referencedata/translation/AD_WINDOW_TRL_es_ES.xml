@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_WINDOW" version="">
+  <row id="B9F59A93C0FF42E0954B5D8D6CFC7B97" trl="Y">
+    <value column="Name" isTrl="Y" original="Financial Entity">Entidad financiera</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="D38B368614934291BD5746ACF0C65EED" trl="Y">
+    <value column="Name" isTrl="Y" original="Call Center Order">Pedido de venta call center</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="E430649587C74593A3B964246694B33C" trl="Y">
+    <value column="Name" isTrl="Y" original="Call Center Order Configuration">Configuración pedido de venta call center</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

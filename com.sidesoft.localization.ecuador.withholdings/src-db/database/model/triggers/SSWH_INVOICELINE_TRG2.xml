@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SSWH_INVOICELINE_TRG2">
+    <trigger name="SSWH_INVOICELINE_TRG2" table="C_INVOICELINE" fires="after" insert="false" update="true" delete="true" foreach="row">
+      <body><![CDATA[
+ v_withholdingincome NUMBER;
+ v_withholdingvat    NUMBER;
+ v_processed          C_INVOICE.PROCESSED%TYPE;
+ v_issotrx            CHARACTER(1);
+ 
+BEGIN
+    
+  IF AD_isTriggerEnabled()='N' THEN RETURN;
+  END IF; 
+
+  IF (UPDATING OR DELETING) THEN
+
+    SELECT processed, issotrx
+    INTO   v_processed, v_issotrx
+    FROM C_INVOICE
+    WHERE c_invoice_id = :old.c_invoice_id;
+
+    IF (v_processed = 'N' AND v_issotrx = 'N' AND :old.excludeforwithholding = 'N') THEN
+
+      -- Update Total Withholding Income Amount
+      select 
+      coalesce((SELECT taxamt 
+      FROM C_INVOICETAX
+      WHERE c_invoicetax_id = :old.em_sswh_invoicetax_income_id
+      ),null)
+      INTO v_withholdingincome
+      from dual;
+
+      -- Update Total Withholding VAT Amount
+      select 
+      coalesce((SELECT taxamt 
+      FROM C_INVOICETAX
+      WHERE c_invoicetax_id =:old.em_sswh_invoicetax_vat_id
+      ),null) 
+      INTO v_withholdingvat
+      from dual;
+      
+      IF (v_withholdingincome IS NOT NULL AND v_withholdingvat IS NOT NULL) THEN
+
+        UPDATE C_INVOICE
+        SET em_sswh_totalwithholdingincome = em_sswh_totalwithholdingincome - v_withholdingincome,
+            em_sswh_totalwithholdingvat = em_sswh_totalwithholdingvat - v_withholdingvat
+            --,grandtotal = grandtotal - v_withholdingincome - v_withholdingvat
+        WHERE c_invoice_id = :old.c_invoice_id;
+
+        DELETE FROM C_INVOICETAX WHERE c_invoicetax_id = :old.em_sswh_invoicetax_income_id;
+        DELETE FROM C_INVOICETAX WHERE c_invoicetax_id = :old.em_sswh_invoicetax_vat_id;
+
+      END IF;        
+
+    END IF;  
+
+  END IF;
+
+  END SSWH_INVOICELINE_TRG2
+]]></body>
+    </trigger>
+  </database>

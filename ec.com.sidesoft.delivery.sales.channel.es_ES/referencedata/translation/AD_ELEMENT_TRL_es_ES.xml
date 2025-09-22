@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_ELEMENT" version="">
+  <row id="0ADC0B62913C493DAB12C3508939FDC2" trl="Y">
+    <value column="Name" isTrl="Y" original="Sqlscriptchannels">Script Canales</value>
+    <value column="PrintName" isTrl="Y" original="Sqlscriptchannels">Script Canales</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="29749BA2E1D14DA5991B4F4B8324EFBC" trl="N">
+    <value column="Name" isTrl="N" original="Sdsch_Rptc_Sql_ID">Sdsch_Rptc_Sql_ID</value>
+    <value column="PrintName" isTrl="N" original="Sdsch_Rptc_Sql_ID">Sdsch_Rptc_Sql_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="4331FDA7C84C464F86BB1EB93E029DD2" trl="Y">
+    <value column="Name" isTrl="Y" original="Sdsch_Orgchanel_Sql_ID">Canal de Venta</value>
+    <value column="PrintName" isTrl="Y" original="Sdsch_Orgchanel_Sql_ID">Canal de Venta</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="605F87CD56DF419DA3D84CFBEF3D3B72" trl="Y">
+    <value column="Name" isTrl="Y" original="Sqlscriptdelivery">Script Delivery</value>
+    <value column="PrintName" isTrl="Y" original="Sqlscriptdelivery">Script Delivery</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="7C2BE1DD02C841E2AD6148243E933FBA" trl="N">
+    <value column="Name" isTrl="N" original="Sdsch_Orgchaneldelivery_Sql_ID">Sdsch_Orgchaneldelivery_Sql_ID</value>
+    <value column="PrintName" isTrl="N" original="Sdsch_Orgchaneldelivery_Sql_ID">Sdsch_Orgchaneldelivery_Sql_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="904DF82E1F5840DB808B1C878A2D93FA" trl="Y">
+    <value column="Name" isTrl="Y" original="Process1">Generar</value>
+    <value column="PrintName" isTrl="Y" original="Process1">Generar</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="BA88F00FAD724EE781478136A3D8F16B" trl="Y">
+    <value column="Name" isTrl="Y" original="Sdsch_Orgdelivery_Sql_ID">Delivery</value>
+    <value column="PrintName" isTrl="Y" original="Sdsch_Orgdelivery_Sql_ID">Delivery</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="C168A642F15C4844948A19699B35623D" trl="N">
+    <value column="Name" isTrl="N" original="Namedelivery">Namedelivery</value>
+    <value column="PrintName" isTrl="N" original="Namedelivery">Namedelivery</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="DCCF36D330FB4EADB22C362BAFA632AA" trl="N">
+    <value column="Name" isTrl="N" original="Namechannels">Namechannels</value>
+    <value column="PrintName" isTrl="N" original="Namechannels">Namechannels</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

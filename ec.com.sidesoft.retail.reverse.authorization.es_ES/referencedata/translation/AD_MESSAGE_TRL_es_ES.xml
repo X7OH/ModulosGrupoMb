@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="07BBFA8E60BE4F0BAFD0E9341CF6F860" trl="N">
+    <value column="MsgText" isTrl="Y" original="The password entered has been used in another transaction.">La clave ingresada ha sido utilizada en otra transacción.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="07E5B8BA99F24DBD9265E84138D68AF7" trl="N">
+    <value column="MsgText" isTrl="Y" original="The email for the entity is not configured.">No esta configurado el correo electrónico para la entidad.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="4B9084ED9BF7453992266715A55669D2" trl="N">
+    <value column="MsgText" isTrl="Y" original="Error recovering data for mail of the entity.">Error recuperando datos para correo de la entidad.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="89AF196548C5492089AE9AD21EAFDFC8" trl="N">
+    <value column="MsgText" isTrl="Y" original="There was an error sending the email to the supervisor.">Hubo un error al enviar el correo electronico al supervisor.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="B74D314BA50B47C5A4ABA2967F65F927" trl="N">
+    <value column="MsgText" isTrl="Y" original="The password entered exceeds the validity time.">La clave ingresada excede el tiempo de vigencia.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="CE5185CDD92B4E29BE993DF76B07B170" trl="N">
+    <value column="MsgText" isTrl="Y" original="Supervisor has not assigned an email.">El Supervisor no tiene asignado un correo electrónico.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="F0213CA90F7C47B39EB906F70427EEC3" trl="N">
+    <value column="MsgText" isTrl="Y" original="The user does not have a supervisor assigned.">El usuario no tiene asignado un supervisor.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

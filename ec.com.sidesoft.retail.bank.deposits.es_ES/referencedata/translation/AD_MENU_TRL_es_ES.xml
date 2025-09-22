@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="0D723D665119479282D4B417BB18CEE3" trl="Y">
+    <value column="Name" isTrl="Y" original="Transactions">Transacciones</value>
+    <value column="Description" isTrl="N" original="">Abre una carpeta en la que puede crear, editar y añadir los datos necesarios para completar una transacción determinada.</value>
+  </row>
+  <row id="259CFA3EADC642798DEDD73A2B416640" trl="Y">
+    <value column="Name" isTrl="Y" original="Bank Deposit Settings">Configuración Depósitos Bancarios</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="6B00FE2685ED49F387F9B09FE64E9EF9" trl="Y">
+    <value column="Name" isTrl="Y" original="Bank Deposit Report">Reporte Depósitos Bancarios PDV</value>
+    <value column="Description" isTrl="N" original="">Reporte Depósitos Bancarios PDV</value>
+  </row>
+  <row id="A06DCEA62E57474B9C375BB493CF2AA3" trl="N">
+    <value column="Name" isTrl="Y" original="Bank Deposits">Depósitos Bancarios</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="C501E3AB3BB140C48CF1A3E1A5C2312C" trl="Y">
+    <value column="Name" isTrl="Y" original="Setup">Configuración</value>
+    <value column="Description" isTrl="N" original="">Abre una carpeta en la que puede definir toda la información necesaria para este módulo.</value>
+  </row>
+  <row id="DEEA9F4A7A084FD9A5A863568D61251A" trl="Y">
+    <value column="Name" isTrl="Y" original="Bank deposits">Depósitos Bancarios</value>
+    <value column="Description" isTrl="N" original="">Depósitos Bancarios</value>
+  </row>
+  <row id="F4B4D567524945A48544C99AF3809F1D" trl="N">
+    <value column="Name" isTrl="Y" original="Analysis Tools">Herramientas de análisis</value>
+    <value column="Description" isTrl="N" original="">Abre una carpeta en la que puede encontrar los informes y herramientas necesarios para analizar los datos.</value>
+  </row>
+</compiereTrl>

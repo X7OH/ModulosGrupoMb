@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REF_LIST" version="">
+  <row id="01EAF86C53EC48EB890AD7DE9F00A984" trl="N">
+    <value column="Name" isTrl="Y" original="Yes">Si</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="0391EC4646E04B9FA6119A1EA5A9F787" trl="N">
+    <value column="Name" isTrl="Y" original="UnProcess">Desprocesar</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="0DF2E3D05CF94EA18BFB4F3C61CDA6F9" trl="N">
+    <value column="Name" isTrl="Y" original="Numeric">Número</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="12CA2EB62B074AFA8590195FC6FAFEBB" trl="N">
+    <value column="Name" isTrl="Y" original="Text">Texto</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="189F45EB89214032BA0BB781A4F8FC7E" trl="N">
+    <value column="Name" isTrl="Y" original="Rejected">Rechazado</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="19FF933559A245F2ABCED509DBA54CE4" trl="N">
+    <value column="Name" isTrl="Y" original="Unapproved">No Aprobado</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="1FE17CFBAD9B4AE182AEE9BE0AED9370" trl="N">
+    <value column="Name" isTrl="Y" original="Yes/No">Si/No</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="204C2D7730BF435FA20A28A0EA4D2E87" trl="N">
+    <value column="Name" isTrl="Y" original="Requested">Solicitado</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="5149A83043914DE9A94254F05089EB19" trl="N">
+    <value column="Name" isTrl="Y" original="Approved">Aprobado</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="A5D6810E932644E48CE60EB242137CBC" trl="N">
+    <value column="Name" isTrl="N" original="No">No</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="BFEE4257788C4F12976D88CFDC4BA83D" trl="N">
+    <value column="Name" isTrl="Y" original="Re classified">Reclasificado</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="F96A1C20DC6F46ECAAD35F0D1B2A8E14" trl="N">
+    <value column="Name" isTrl="Y" original="Quality Period Control Data">Datos del Control de Calidad Periódico</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="FC63D84C5DC04A68A31463108E63ECF0" trl="N">
+    <value column="Name" isTrl="Y" original="Approved Quality">Aprobar Calidad</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

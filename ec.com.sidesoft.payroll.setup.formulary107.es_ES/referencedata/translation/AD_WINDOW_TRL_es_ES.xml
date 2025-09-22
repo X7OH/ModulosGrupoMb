@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_WINDOW" version="">
+  <row id="43BC0558ADDA4D0895F85FB16EE5053A" trl="N">
+    <value column="Name" isTrl="N" original="type employer">type employer</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="5C3C060E96A24C8C915748D804EEF2E6" trl="N">
+    <value column="Name" isTrl="N" original="Social security entity">Social security entity</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

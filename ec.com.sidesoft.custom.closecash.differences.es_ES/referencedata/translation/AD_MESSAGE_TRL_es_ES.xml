@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="85A8C8E7E89D4962B726BD52A057D74C" trl="N">
+    <value column="MsgText" isTrl="Y" original="There are orders with partial payments for the closing of cash.">Existen pedidos con pagos parciales para el cierre de caja.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="99B4F4BF3510410DA45D8B17B3D70F2B" trl="N">
+    <value column="MsgText" isTrl="Y" original="There are orders in the Stock Failure state for the cash closing.">Existen pedidos en estado Falta Stock para el cierre de caja.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

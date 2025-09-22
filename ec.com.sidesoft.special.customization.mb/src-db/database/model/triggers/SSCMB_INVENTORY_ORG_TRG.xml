@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SSCMB_INVENTORY_ORG_TRG">
+    <trigger name="SSCMB_INVENTORY_ORG_TRG" table="M_INVENTORY" fires="before" insert="true" update="true" delete="false" foreach="row">
+      <body><![CDATA[
+    v_DateNull DATE := TO_DATE('31-12-9999','DD-MM-YYYY');
+    v_retailType VARCHAR(60);
+BEGIN
+    
+    IF AD_isTriggerEnabled()='N' THEN RETURN;
+    END IF;
+
+
+    IF (UPDATING OR INSERTING) THEN  
+
+		select coalesce((select 
+		EM_OBRETCO_RetailOrgType
+		from ad_org ao
+		where ao.ad_org_id = :new.ad_org_id),'N')
+		into v_retailType
+		from dual;
+
+		IF (COALESCE(:new.c_costcenter_id,'ND')='ND') THEN -- v_retailType='S') THEN
+			RAISE_APPLICATION_ERROR(-20000, '@El Centro de Costo es obligatorio@') ;
+		END IF;
+    END IF;
+
+    END SSCMB_INVENTORY_ORG_TRG
+]]></body>
+    </trigger>
+  </database>

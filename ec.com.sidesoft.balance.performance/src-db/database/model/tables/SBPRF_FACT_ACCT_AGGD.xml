@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+  <database name="TABLE SBPRF_FACT_ACCT_AGGD">
+    <table name="SBPRF_FACT_ACCT_AGGD" primaryKey="SBPRF_FACT_ACCT_AGGD_KEY">
+      <column name="SBPRF_FACT_ACCT_AGGD_ID" primaryKey="true" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_CLIENT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_ORG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISACTIVE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_ACCTSCHEMA_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ACCOUNT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="DATEACCT" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_PERIOD_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_CURRENCY_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AMTSOURCEDR" primaryKey="false" required="true" type="DECIMAL" autoIncrement="false">
+        <default><![CDATA[0]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="AMTSOURCECR" primaryKey="false" required="true" type="DECIMAL" autoIncrement="false">
+        <default><![CDATA[0]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="AMTACCTDR" primaryKey="false" required="true" type="DECIMAL" autoIncrement="false">
+        <default><![CDATA[0]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="AMTACCTCR" primaryKey="false" required="true" type="DECIMAL" autoIncrement="false">
+        <default><![CDATA[0]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="C_SALESREGION_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_PROJECT_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_CAMPAIGN_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_ACTIVITY_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="USER1_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="USER2_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_COSTCENTER_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="FACTACCTTYPE" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+           <index name="SBPRF_FACT_ACCT_ACCOUNT_AGGD" unique="false">
+        <index-column name="AD_ORG_ID"/>
+        <index-column name="C_ACCTSCHEMA_ID"/>
+        <index-column name="ACCOUNT_ID"/>
+        <index-column name="C_PERIOD_ID"/>
+        <index-column name="C_CURRENCY_ID"/>
+        <index-column name="C_SALESREGION_ID"/>
+        <index-column name="C_PROJECT_ID"/>
+        <index-column name="C_CAMPAIGN_ID"/>
+        <index-column name="C_ACTIVITY_ID"/>
+        <index-column name="USER1_ID"/>
+        <index-column name="USER2_ID"/>
+        <index-column name="FACTACCTTYPE"/>
+      </index>
+      <index name="SBPRF_FACT_ACCT_DATEACCT" unique="false">
+        <index-column name="DATEACCT"/>
+      </index>
+      <index name="SBPRF_FACT_ACCT_GROUP" unique="true">
+        <index-column name="AD_CLIENT_ID"/>
+        <index-column name="AD_ORG_ID"/>
+        <index-column name="C_ACCTSCHEMA_ID"/>
+        <index-column name="ACCOUNT_ID"/>
+        <index-column name="DATEACCT"/>
+        <index-column name="C_PERIOD_ID"/>
+        <index-column name="C_CURRENCY_ID"/>
+        <index-column name="C_SALESREGION_ID"/>
+        <index-column name="C_PROJECT_ID"/>
+        <index-column name="C_CAMPAIGN_ID"/>
+        <index-column name="C_ACTIVITY_ID"/>
+        <index-column name="USER1_ID"/>
+        <index-column name="USER2_ID"/>
+        <index-column name="C_COSTCENTER_ID"/>
+        <index-column name="FACTACCTTYPE"/>
+      </index>
+      <check name="FACT_ACCT_ISACTIVE_CHECK_AGGD"><![CDATA[ISACTIVE IN ('Y', 'N')]]></check>
+    </table>
+  </database>

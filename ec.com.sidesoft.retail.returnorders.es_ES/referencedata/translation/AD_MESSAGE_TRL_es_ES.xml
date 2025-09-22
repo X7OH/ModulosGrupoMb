@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="0D179C209E284B30BA7BAEA4AC0A7FBF" trl="N">
+    <value column="MsgText" isTrl="Y" original="Payment method %0 is not associated with the origin order.">Método de pago %0 no esta asociado al pedido de origen.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="1DE000E0161849C98CBC218FBF6A4F6E" trl="N">
+    <value column="MsgText" isTrl="Y" original="Error Payment Method">Error en Método de Pago</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="FBC9569658414351B36F3D7B4920D786" trl="N">
+    <value column="MsgText" isTrl="Y" original="The return with the payment method %0 is for an amount of %1">La devolucion con el método de pago %0 es por un monto de %1</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

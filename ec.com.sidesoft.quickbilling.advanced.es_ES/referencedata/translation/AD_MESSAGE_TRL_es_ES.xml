@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="03F1A484D9574FD2B6F7EF0FB69C58F8" trl="Y">
+    <value column="MsgText" isTrl="N" original="Coordenadas">Coordenadas</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="0898158BED1A45188F4A3616732F9353" trl="Y">
+    <value column="MsgText" isTrl="Y" original="The Alias field is required.">El campo Alias es obligatorio.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="1C97D477D11C4081BC537297F777C234" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Order Type">Tipo de Orden</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="1FBC83F0585347BF87CD8FA293145C41" trl="Y">
+    <value column="MsgText" isTrl="Y" original="The order can not be completed without payment methods.">No se puede completar el pedido sin métodos de pago.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="31082BF1EA22489FBCBF92C10DB96C89" trl="Y">
+    <value column="MsgText" isTrl="Y" original="The order can not be completed without lines. (Does not apply products by default).">No se puede completar el pedido sin líneas. (No aplica productos por defecto).</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="32202865CF0143A3A5E6F3D58C79188B" trl="N">
+    <value column="MsgText" isTrl="Y" original="The following field(s) are mandatory:">El (los) siguiente(s) campos son obligatorios:</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="3D1F516F236A4C8D84AFA4E2807880EF" trl="Y">
+    <value column="MsgText" isTrl="Y" original="The contact phone can not be null if the client is:">Teléfono contacto de entrega no puede ser nulo si el cliente es:</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="684A7BEB60464C67BA4734AE5554612F" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Authorization code">Código de autorización</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="7286AE6B2FE446C7A6E2B605D1AAE650" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Address not selected.">Dirección no seleccionada.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="74A7F51A05A24A7A9B674E26FBA0B8B6" trl="Y">
+    <value column="MsgText" isTrl="Y" original="There is no configuration for the selected organization.">No existe configuración para la organización seleccionada.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="8E624437DF574428B626B31ED58DA586" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Invalid email.">Correo electronico inválido.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="9A2EB2BD03BE4B469DEDFE35D5BBD259" trl="Y">
+    <value column="MsgText" isTrl="Y" original="There is no address configured for the client:">No existe una dirección configurada para el cliente: </value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="9AEA0C88AA6E4D48AE4BFD9955F4BBD9" trl="Y">
+    <value column="MsgText" isTrl="Y" original="It can not be completed if the total payment methods do not match the total order.">No se puede completar si el total de métodos de pago no coincide con el total del pedido. </value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="A0F34B7C4D0248F4AC5599C11084D195" trl="Y">
+    <value column="MsgText" isTrl="Y" original="The contact name can not be null if the client is:">Nombre contacto de entrega no puede ser nulo si el cliente es:</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="A165F15FE7B24CB58173B8ED02791415" trl="Y">
+    <value column="MsgText" isTrl="Y" original="DateTime to PickUp">Fecha y hora</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="AA026FDC6A2240FFBE0C6FC4F0776BDC" trl="N">
+    <value column="MsgText" isTrl="Y" original="In the organization:">en la organización:</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="AE25D3C8F7D1439AA9464276D9D892C1" trl="N">
+    <value column="MsgText" isTrl="N" original="Approve Transaction">Approve Transaction</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="E55F74FA9B0B41A5BAF51EF04BB8638B" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Full address not entered">Dirección completa no ingresada.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="EAB876094E4F426D9FD893744E54E7D0" trl="Y">
+    <value column="MsgText" isTrl="Y" original="The Reference field is Required">El campo Referencia es obligatorio.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

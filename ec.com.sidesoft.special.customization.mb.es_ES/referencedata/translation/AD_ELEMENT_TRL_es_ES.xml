@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_ELEMENT" version="">
+  <row id="52E47896272E4459885AEA25C19C3E3D" trl="Y">
+    <value column="Name" isTrl="Y" original="EM_Sscmb_Concat_Documentno">Concatenar Nº documento</value>
+    <value column="PrintName" isTrl="Y" original="Concat documentno">Concatenar Nº documento</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="CE75B68205024D9AAAD8DF40D31F3B1D" trl="N">
+    <value column="Name" isTrl="Y" original="Wait CN">Espera NC</value>
+    <value column="PrintName" isTrl="Y" original="Wait CN">Espera NC</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="E7DD8425EF9A479EA2D8926868ECE8DC" trl="Y">
+    <value column="Name" isTrl="Y" original="EM_Sscmb_Saleorigin">Canal Alterno</value>
+    <value column="PrintName" isTrl="Y" original="EM_Sscmb_Saleorigin">Canal Alterno</value>
+    <value column="Description" isTrl="N" original="">Canal Alterno</value>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="E8D7219CC7FF4ADAA237686B28574EDB" trl="N">
+    <value column="Name" isTrl="Y" original="SSCMB_Agreement">Es Convenio</value>
+    <value column="PrintName" isTrl="Y" original="SSCMB_Agreement">Es Convenio</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="EB8681D6E44D4CD99E93350B3B76B777" trl="N">
+    <value column="Name" isTrl="N" original="Sscmb_Saleorigin_ID">Sscmb_Saleorigin_ID</value>
+    <value column="PrintName" isTrl="N" original="Sscmb_Saleorigin_ID">Sscmb_Saleorigin_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="EEB4069AA4B54878AC6944BD84A57979" trl="N">
+    <value column="Name" isTrl="Y" original="SSCMB_InitialsProvider">Iniciales Proveedor</value>
+    <value column="PrintName" isTrl="Y" original="SSCMB_InitialsProvider">Iniciales Proveedor</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="F66A7C23B5F64A07BB674F30318ECF98" trl="N">
+    <value column="Name" isTrl="Y" original="Origin of Sales">Origen de venta</value>
+    <value column="PrintName" isTrl="Y" original="Origin of Sales">Origen de venta</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

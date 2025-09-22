@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE AD_ORG">
+    <table name="AD_ORG" primaryKey="AD_ORG_KEY">
+      <column name="EM_ECSDS_ISDEVELOPMENT" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <check name="EM_ECSDS_ORG_DEV_CHECK"><![CDATA[EM_ECSDS_ISDEVELOPMENT IN ('Y', 'N')]]></check>
+    </table>
+  </database>

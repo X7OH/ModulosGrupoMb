@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE M_OFFER">
+    <table name="M_OFFER" primaryKey="M_OFFER_KEY">
+      <column name="EM_DISCT_TOTALRECEIPT" primaryKey="false" required="false" type="DECIMAL" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_DISCT_TOTALAMOUNTDISC" primaryKey="false" required="false" type="DECIMAL" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_DISCT_TOTALPERCDISC" primaryKey="false" required="false" type="DECIMAL" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <check name="EM_DISCT_TOTALAMOUNTCHK"><![CDATA[M_OFFER_TYPE_ID = '4183C8EB7CDA472D9E64521DC2504B15' AND EM_DISCT_TOTALAMOUNTDISC IS NOT NULL OR NOT M_OFFER_TYPE_ID = '4183C8EB7CDA472D9E64521DC2504B15']]></check>
+      <check name="EM_DISCT_TOTALPERCCHK"><![CDATA[M_OFFER_TYPE_ID = '9707DE71F91549DB80CCB2F094E951EA' AND EM_DISCT_TOTALPERCDISC IS NOT NULL OR NOT M_OFFER_TYPE_ID = '9707DE71F91549DB80CCB2F094E951EA']]></check>
+      <check name="EM_DISCT_TOTALRECEIPTCHK"><![CDATA[(M_OFFER_TYPE_ID = '4183C8EB7CDA472D9E64521DC2504B15' OR M_OFFER_TYPE_ID = '9707DE71F91549DB80CCB2F094E951EA' OR M_OFFER_TYPE_ID = '4755A35B4DA34F6CB08F15462BA123CF') AND EM_DISCT_TOTALRECEIPT IS NOT NULL OR NOT (M_OFFER_TYPE_ID = '4183C8EB7CDA472D9E64521DC2504B15' OR M_OFFER_TYPE_ID = '9707DE71F91549DB80CCB2F094E951EA' OR M_OFFER_TYPE_ID = '4755A35B4DA34F6CB08F15462BA123CF')]]></check>
+    </table>
+  </database>

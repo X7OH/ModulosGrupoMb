@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SIOV_PUR_ORDER_VALIDATE_TRG">
+    <trigger name="SIOV_PUR_ORDER_VALIDATE_TRG" table="M_INOUTLINE" fires="before" insert="true" update="true" delete="false" foreach="row">
+      <body><![CDATA[
+v_islogistic	    VARCHAR2(1);      
+v_isreturn	    VARCHAR2(1);      
+v_issotrx	    VARCHAR2(1);      
+v_movementtype	    VARCHAR2(60);      
+v_order_required    VARCHAR2(1);      
+ 
+BEGIN
+
+   IF AD_isTriggerEnabled()='N' THEN RETURN;
+  END IF; 
+
+  IF (INSERTING or UPDATING) THEN
+
+	SELECT mi.issotrx, mi.isLogistic, mi.movementtype,dt.isreturn, dt.em_siov_order_required
+	INTO v_issotrx, v_islogistic, v_movementtype, v_isreturn, v_order_required
+	FROM m_inout mi  
+	LEFT JOIN c_doctype dt ON mi.c_doctype_id = dt.c_doctype_id
+	WHERE mi.m_inout_id= :new.m_inout_id;
+
+	IF (v_issotrx='N' AND v_islogistic ='N' AND v_movementtype IN ('V-','V+') AND v_isreturn ='N' AND v_order_required='Y' AND :new.c_orderline_id IS NULL) THEN
+		RAISE_APPLICATION_ERROR(-20000,'@Siov_OrderRequired@');	
+	END IF;
+
+  END IF;
+
+
+END SIOV_PUR_ORDER_VALIDATE_TRG
+]]></body>
+    </trigger>
+  </database>

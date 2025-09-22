@@ -1,0 +1,306 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SSRS_LOAD_TEMPLATE">
+    <function name="SSRS_LOAD_TEMPLATE" type="NULL">
+      <parameter name="p_pinstance_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[/*************************************************************************
+* The contents of this file are subject to the Openbravo  Public  License
+* Version  1.1  (the  "License"),  being   the  Mozilla   Public  License
+* Version 1.1  with a permitted attribution clause; you may not  use this
+* file except in compliance with the License. You  may  obtain  a copy of
+* the License at http://www.openbravo.com/legal/license.html
+* Software distributed under the License  is  distributed  on  an "AS IS"
+* basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+* License for the specific  language  governing  rights  and  limitations
+* under the License.
+* The Original Code is Openbravo ERP.
+* The Initial Developer of the Original Code is Openbravo SLU
+* All portions are Copyright (C) 2001-2013 Openbravo SLU
+* All Rights Reserved.
+* Contributor(s): Rodney Xavier Jácome Teran
+************************************************************************/
+  -- Logistice
+  v_ResultStr VARCHAR2(2000):='';
+  v_Message VARCHAR2(2000):='';
+  v_Result NUMBER:=1; -- 0=failure
+  v_Record_ID VARCHAR2(32);
+  v_User_ID VARCHAR2(32):='0';
+  v_DocAction VARCHAR2(60);
+  v_DocStatus VARCHAR2(60);
+  v_client_id VARCHAR2(32);
+  v_org_id VARCHAR2(32);
+  v_m_locator_id VARCHAR2(32);
+  v_m_warehouse_id VARCHAR2(32);
+  v_flag VARCHAR2(32);
+  v_NoInserted NUMBER:=0;
+  v_c_bpartner_id  VARCHAR2(32);
+  V_Admin NUMBER:=0;
+  v_c_aum  VARCHAR2(32);
+  v_NextLine NUMBER:=10;
+  V_count_org NUMBER:=0;
+  v_pathern_org_id  VARCHAR2(32);
+
+  v_brand_type  VARCHAR2(32);
+  v_Org_ID_Brand VARCHAR2(32);
+  v_Org_Parent_Inventory VARCHAR2(32);  
+  
+  v_noweeks NUMBER:=0;
+  v_avrgorder NUMBER(10,2):=0.00;
+  v_lastorder NUMBER(10,2):=0.00;
+  v_rangedays NUMBER(10,2):=0.00;
+  v_arvgprod  NUMBER(10,2):=0.00;
+  v_qtyresult NUMBER(10,2):=0.00;
+  
+  v_locator_id	VARCHAR2(32);
+  v_total	 NUMBER;-- NUMERIC(10,2):=0.00;
+  v_string TEXT; --OBTG:VARCHAR2--
+  v_stringid TEXT; --OBTG:VARCHAR2--
+  
+  --  Parameter
+  TYPE RECORD IS REF CURSOR;
+    Cur_Parameter RECORD;
+    Cur_ResupplyPosLine RECORD;
+    Cur_Collaborators RECORD;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Updating PInstance - Processing ' || p_PInstance_ID) ;
+  v_ResultStr:='PInstanceNotFound';
+  AD_UPDATE_PINSTANCE(p_pinstance_id, NULL, 'Y', NULL, NULL) ;
+
+  BEGIN --BODY
+
+	-- Get Parameters
+	v_ResultStr:='ReadingParameters';
+	FOR Cur_Parameter IN
+	  (SELECT i.Record_ID, i.AD_User_ID, i.AD_Client_ID, i.AD_Org_ID,
+	    p.ParameterName, p.P_String, p.P_Number, p.P_Date
+	  FROM AD_PInstance i
+	  LEFT JOIN AD_PInstance_Para p
+	    ON i.AD_PInstance_ID=p.AD_PInstance_ID
+	  WHERE i.AD_PInstance_ID=p_PInstance_ID
+	  ORDER BY p.SeqNo) LOOP
+	  v_Record_ID:=Cur_Parameter.Record_ID;
+	  v_User_ID:=Cur_Parameter.AD_User_ID;
+	  v_client_id := Cur_Parameter.AD_Client_ID;
+	  v_org_id := Cur_Parameter.AD_Org_ID;
+
+	END LOOP; -- Get Parameter
+	/*********************************************************************************************************/
+-- RAISE p_PInstance_ID;
+	--BEGIN
+	/**********Coge campos del registro***********/
+	SELECT  AD_Org_ID 
+	INTO v_org_id
+	FROM ssrs_resupply_pos 
+	WHERE   ssrs_resupply_pos_id = v_Record_ID;  
+	/********** FIN Coge campos del registro***********/
+	
+	/**********Coge el hueco de la Cabecera***********/
+	SELECT  m_locator_id 
+	INTO v_locator_id
+	FROM ssrs_resupply_pos 
+	WHERE   ssrs_resupply_pos_id = v_Record_ID;  
+	/********** FIN Coge el hueco de la Cabecera***********/
+	
+	IF v_locator_id IS null THEN
+		
+		RAISE_APPLICATION_ERROR(-20000, '@Es necesario Seleccionar un hueco para Cargar la Plantilla@');
+
+	END IF;
+	
+	/**********Toma el numero de semanas de la organizacion***********/
+	SELECT  Coalesce(em_ssrs_noweeks,0)
+	INTO v_noweeks
+	FROM ad_org 
+	WHERE ad_org_id = v_org_id;  
+	/********** FIN Coge campos del registro***********/
+	
+	if v_noweeks=0 then 
+	v_rangedays:=1;
+	else 
+	v_rangedays:=(v_noweeks*7)+1;
+	END IF;
+
+	FOR Cur_ResupplyPosLine IN(
+				SELECT p.M_Product_ID,--St.IDProducto
+					p.C_UOM_ID--ST.Unidad
+					,p.value
+					,aum.C_UOM_ID as c_aum
+					,p.m_product_category_id
+					,p.M_Product_Category_ID
+					,mbr.em_siblr_type
+					,p.m_brand_id
+				FROM M_Product p  
+				left join M_Product_AUM aum on aum.M_Product_id = p.M_Product_id and aum.Logistics = 'P'
+				LEFT JOIN m_brand mbr ON mbr.m_brand_id = p.m_brand_id
+				WHERE p.IsActive='Y'	--Producto activo
+				AND p.IsStocked='Y'	    --Es Almacenado
+				AND p.EM_Ssrs_Resupplyproduct = 'Y' --Es Reaprovisionable
+				AND p.producttype = 'I'				-- tipo articulo
+				AND p.m_brand_id IS NOT NULL
+				GROUP BY p.M_Product_ID,aum.C_UOM_ID,mbr.em_siblr_type
+				ORDER BY p.name
+	)LOOP
+
+	-- RAISE_APPLICATION_ERROR(-20000, 'Revision error' || Cur_ResupplyPosLine.M_Product_ID);
+
+	
+	-- SELECT CANTIDAD DE PRODUCTO POR No. SEMANAS
+	
+	v_stringid := '7DFB9134BA074E938FF9F373A7DB3A5A';
+	
+	Select sum(abs(mpl.movementqty))::NUMERIC 
+	INTO v_total
+	FROM m_productionline AS mpl 
+	LEFT JOIN m_productionplan AS mpp ON mpl.m_productionplan_id = mpp.m_productionplan_id
+	LEFT JOIN m_production AS mp ON mpp.m_production_id = mp.m_production_id
+	WHERE mpl.movementqty < 0
+	  AND mpl.m_product_id = -- v_stringid
+	  Cur_ResupplyPosLine.M_Product_ID
+	  AND mp.movementdate::date >= (current_date - v_rangedays)::date
+	GROUP BY mpl.m_product_id;
+	
+	IF v_total IS null THEN
+		v_total:=0;
+	END IF;
+	
+	-- RAISE_APPLICATION_ERROR(-20000, 'Revision error');
+	
+	IF v_noweeks <> 0 THEN
+		
+		select COALESCE(SUM(il.Qtycount), 0.00)
+		into v_avrgorder
+		from Siblr_Physical_Inventory i
+		left join Siblr_Physical_InvtLines il on il.Siblr_Physical_Inventory_id = i.Siblr_Physical_Inventory_id
+		where i.ad_org_id = v_org_id
+		and i.m_locator_id = v_locator_id
+		and il.m_product_id = Cur_ResupplyPosLine.M_Product_ID
+		and i.movementdate::date BETWEEN (TO_DATE(now()-1)-v_rangedays)::date and TO_DATE(now()-1)::date;
+		
+		v_arvgprod:= v_avrgorder/v_noweeks;
+	ELSE
+		select COALESCE(SUM(il.Qtycount), 0.00)
+		into v_avrgorder
+		from Siblr_Physical_Inventory i
+		left join Siblr_Physical_InvtLines il on il.Siblr_Physical_Inventory_id = i.Siblr_Physical_Inventory_id
+		where i.ad_org_id = v_org_id
+		and i.m_locator_id = v_locator_id
+		and il.m_product_id = Cur_ResupplyPosLine.M_Product_ID
+		and i.movementdate::date = TO_DATE(now()-1)::date;
+		
+		v_arvgprod:= v_avrgorder/1;
+	END IF;
+
+	-- SELECT CANTIDAD DE PRODUCTO DIA ANTERIOR
+	select SUM(il.Qtycount)
+	into v_lastorder
+	from Siblr_Physical_Inventory i
+	left join Siblr_Physical_InvtLines il on il.Siblr_Physical_Inventory_id = i.Siblr_Physical_Inventory_id
+	where i.ad_org_id = v_org_id
+	and i.m_locator_id = v_locator_id
+	and il.m_product_id = Cur_ResupplyPosLine.M_Product_ID
+	and i.movementdate::date = (now()-1)::date;
+	
+	if v_lastorder IS NULL or v_lastorder<=0 THEN
+		select COALESCE(SUM(sd.QtyOnHand),0.00)
+		into v_lastorder
+		from m_product p
+		left join M_Storage_Detail sd on sd.m_product_id = p.m_product_id
+		where sd.m_locator_id = v_locator_id
+		and p.m_product_id = Cur_ResupplyPosLine.M_Product_ID;
+		
+		if v_lastorder <= 0.00 OR v_lastorder IS NULL THEN
+			v_lastorder:= 0.00;
+		END IF;
+		
+	END IF;
+	
+	-- CANTIDAD RESULTANTE
+	v_qtyresult:=v_lastorder-v_arvgprod;
+
+		IF(Cur_ResupplyPosLine.c_aum is null) THEN
+			v_c_aum:=Cur_ResupplyPosLine.C_UOM_ID;
+		ELSE
+			v_c_aum:=Cur_ResupplyPosLine.c_aum;
+		END IF;
+
+		v_brand_type := Cur_ResupplyPosLine.em_siblr_type;
+		
+		IF(v_brand_type = 'GN') THEN
+
+			INSERT INTO ssrs_resupplyposline (
+				ssrs_resupplyposline_id,ad_client_id,ad_org_id,isactive,created ,
+				createdby,updated,updatedby,qty,quantityorder,
+				reqstatus,orderedqty,needbydate,line,value,
+				c_aum,c_uom_id,ssrs_resupply_pos_id,m_product_id,Secqtyuom,m_product_category_id, 
+				Lastcounted, Avrgqty, Qtyresult)
+			VALUES(
+				GET_UUID(), v_client_id, v_org_id,'Y', 
+				now(), v_User_ID, now(),v_User_ID,	0,	0,
+				'0',	0,		now(),	v_NextLine,	Cur_ResupplyPosLine.value,
+				v_c_aum,	Cur_ResupplyPosLine.C_UOM_ID,	v_Record_ID,	Cur_ResupplyPosLine.m_product_id,	0,Cur_ResupplyPosLine.m_product_category_id,
+				v_lastorder, v_arvgprod, v_qtyresult); 
+
+			v_NextLine:=v_NextLine + 10;
+			v_NoInserted:=v_NoInserted +1;			
+
+		ELSE
+
+			-- BUSCO LA ORGANIZACION DE LA MARCA
+			SELECT ad_org_id
+			INTO v_Org_ID_Brand
+			FROM m_brand
+			WHERE m_brand_id = Cur_ResupplyPosLine.m_brand_id;
+
+			-- BUSCO EL PADRE DE LA ORGANIZACION DEL INVENTARIO
+			select ad_parent_org_id 
+			INTO v_Org_Parent_Inventory
+			from ad_org_tree 
+			where ad_org_id = v_org_id 
+			AND levelno = 2;
+
+			-- LA ORGANIZACION PADRE DEL INVENTARIO DEBE DE SER 
+			IF( v_Org_Parent_Inventory = v_Org_ID_Brand ) THEN		
+
+				INSERT INTO ssrs_resupplyposline (
+					ssrs_resupplyposline_id,ad_client_id,ad_org_id,isactive,created ,
+					createdby,updated,updatedby,qty,quantityorder,
+					reqstatus,orderedqty,needbydate,line,value,
+					c_aum,c_uom_id,ssrs_resupply_pos_id,m_product_id,Secqtyuom,m_product_category_id,
+					Lastcounted, Avrgqty, Qtyresult)
+				VALUES(
+					GET_UUID(), v_client_id, v_org_id,'Y', 
+					now(), v_User_ID, now(),v_User_ID,	0,	0,
+					'0',	0,		now(),	v_NextLine,	Cur_ResupplyPosLine.value,
+					v_c_aum,	Cur_ResupplyPosLine.C_UOM_ID,	v_Record_ID,	Cur_ResupplyPosLine.m_product_id,	0,Cur_ResupplyPosLine.m_product_category_id,
+					v_lastorder, v_arvgprod, v_qtyresult); 
+
+				v_NextLine:=v_NextLine + 10;
+				v_NoInserted:=v_NoInserted +1;
+
+			END IF;
+
+		END IF;		
+				-- RAISE_APPLICATION_ERROR(-20000, 'Corrio con exito' || v_total);
+	END LOOP; --    Cur_Storage
+
+	-- Commented by cromero 19102006 COMMIT;
+	v_Message:='@Inserted@=' || v_NoInserted;
+	v_Result:=1; --    success
+
+/*************************************************************************************************************/
+--        		RAISE_APPLICATION_ERROR(-20000, 'La linea ' ||  Cur_m_inoutline.line || ' producto: ' || Cur_m_inoutline.product || ', No tiene una ubicacion configurada') ;
+
+  END; --BODY
+  AD_UPDATE_PINSTANCE(p_PInstance_ID, NULL, 'N', v_Result, v_Message) ;
+EXCEPTION
+WHEN OTHERS THEN
+  DBMS_OUTPUT.PUT_LINE('Load biometric error: ' || v_ResultStr);
+  v_ResultStr:= '@ERROR=' || SQLERRM;
+  DBMS_OUTPUT.PUT_LINE(v_ResultStr) ;
+  ROLLBACK;
+  AD_UPDATE_PINSTANCE(p_PInstance_ID, NULL, 'N', 0, v_ResultStr);
+END SSRS_LOAD_TEMPLATE
+]]></body>
+    </function>
+  </database>

@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE C_ORDER">
+    <table name="C_ORDER" primaryKey="C_ORDER_KEY">
+      <column name="EM_SAQB_ASSIGNED_MOTORIZED" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SAQB_ALLOCATION_HOUR" primaryKey="false" required="false" type="VARCHAR" size="10" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SAQB_DELIVERY_HOUR" primaryKey="false" required="false" type="VARCHAR" size="10" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SAQB_DELIVERYTIME" primaryKey="false" required="false" type="VARCHAR" size="10" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SAQB_DELIVERYSTATUS" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SAQB_LONGITUDE_LATITUDE" primaryKey="false" required="false" type="VARCHAR" size="100" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SAQB_PAYMENTDETAIL" primaryKey="false" required="false" type="CLOB" size="4000" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SAQB_ORDER_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SAQB_CONTACTDELIVERY" primaryKey="false" required="false" type="VARCHAR" size="25" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SAQB_CONTACTNUMBER" primaryKey="false" required="false" type="VARCHAR" size="10" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SAQB_AUTHORIZATION_CODE" primaryKey="false" required="false" type="VARCHAR" size="100" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+    </table>
+  </database>

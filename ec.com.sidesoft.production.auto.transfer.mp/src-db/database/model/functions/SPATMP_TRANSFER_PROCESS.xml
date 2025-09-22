@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SPATMP_TRANSFER_PROCESS">
+    <function name="SPATMP_TRANSFER_PROCESS" type="NULL">
+      <parameter name="p_ep_instance" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[/*************************************************************************
+* The contents of this file are subject to the Openbravo  Public  License
+* Version  1.1  (the  "License"),  being   the  Mozilla   Public  License
+* Version 1.1  with a permitted attribution clause; you may not  use this
+* file except in compliance with the License. You  may  obtain  a copy of
+* the License at http://www.openbravo.com/legal/license.html
+* Software distributed under the License  is  distributed  on  an "AS IS"
+* basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+* License for the specific  language  governing  rights  and  limitations
+* under the License.
+* The Original Code is Openbravo ERP.
+* The Initial Developer of the Original Code is Openbravo SLU
+* All portions are Copyright (C) 2001-2014 Openbravo SLU
+* All Rights Reserved.
+* Contributor(s):  ______________________________________.
+************************************************************************/
+  --  Logistice
+  v_ResultStr VARCHAR2(2000):='';
+  v_Message VARCHAR2(2000):='';
+  --  Parameter
+  TYPE RECORD IS REF CURSOR;
+    Cur_Parameter RECORD;
+    cur_params    RECORD;
+    
+    P_Record_ID VARCHAR2(32):=NULL;
+    P_User VARCHAR2(32);
+    v_Org_ID VARCHAR2(32);
+    P_Client_ID VARCHAR2(32);
+    FINISH_PROCESS BOOLEAN:=false;
+    v_count NUMBER;
+    p_message VARCHAR(2000);
+    p_result NUMBER; 
+  BEGIN
+    
+--RAISE NO_DATA_FOUND||p_ep_instance;
+
+
+  FOR Cur_Params IN (
+    SELECT *
+    FROM ad_ep_instance_para
+    WHERE ad_ep_instance_id = p_ep_instance
+    ) LOOP
+    IF (cur_params.parametername LIKE 'Record_ID') THEN
+      p_record_id := cur_params.p_string;
+      --RAISE NO_DATA_FOUND||p_record_id;
+
+    ELSIF (cur_params.parametername LIKE 'User') THEN
+      p_user := cur_params.p_string;
+    ELSIF (cur_params.parametername LIKE 'Message') THEN
+      p_message := cur_params.p_text;
+    ELSIF (cur_params.parametername LIKE 'Result') THEN
+      p_result := cur_params.p_number; 
+    END IF;
+  END LOOP;
+
+ 
+
+    INSERT INTO spatmp_transfer(
+            spatmp_transfer_id, ad_client_id, ad_org_id, isactive, created, 
+            createdby, updated, updatedby, ma_workrequirement_id, documentno, 
+            ma_processplan_id, release_date, startdate, enddate, quantity, 
+            ma_wrphaseproduct_id, code, m_product_id, production_type, component_amount_formula, 
+            c_uom_id, total_amount_recuested, amount_to_pp, hole, moved_to, 
+            sent)
+    SELECT 
+	get_uuid(),a.AD_client_id,b.AD_Org_ID,'Y',now(),
+	p_User,now(),p_User,A.MA_Workrequirement_ID, a.DocumentNo,
+	A.MA_Processplan_ID, A.Launchdate, A.StartDate, A.EndDate, A.Quantity,
+	C.MA_Wrphaseproduct_ID,	C.M_Product_ID, C.M_Product_ID, C.Productiontype, C.MovementQty,
+	C.C_UOM_ID, A.Quantity * C.MovementQty as Cantidad_Total_Solicitada, A.Quantity * C.MovementQty as Cantidad_PP, 
+	(SELECT t.m_locator_id FROM m_storage_detail t
+        JOIN m_locator l ON t.m_locator_id = l.m_locator_id
+        JOIN m_warehouse w ON l.m_warehouse_id = w.m_warehouse_id
+        WHERE t.m_product_id = C.M_Product_ID and w.EM_Spatmp_ismp = 'Y' and t.C_UOM_ID = C.C_UOM_ID and qtyonhand >= (A.Quantity * C.MovementQty)
+        group by t.m_locator_id --having qtyonhand >= (A.Quantity * C.MovementQty)
+        limit 1) as hueco, 
+	g.em_spatmp_inventory_location as movidoa,
+	'N'
+	FROM MA_WorkRequirement A
+	LEFT JOIN MA_WRPhase B ON A.MA_WorkRequirement_ID = B.MA_WorkRequirement_ID
+	LEFT JOIN MA_WRPhaseProduct C ON B.MA_WRPhase_ID = C.MA_WRPhase_ID
+	LEFT JOIN MA_ProcessPlan D ON A.MA_ProcessPlan_ID = D.MA_ProcessPlan_ID
+	LEFT JOIN MA_ProcessPlan_Version E ON D.MA_ProcessPlan_ID = E.MA_ProcessPlan_ID
+	LEFT JOIN MA_Sequence F ON E.MA_ProcessPlan_Version_id = F.MA_ProcessPlan_Version_id
+	LEFT JOIN MA_SequenceProduct G ON F.MA_Sequence_ID = G.MA_Sequence_ID and C.M_Product_ID = g.M_Product_ID
+	LEFT JOIN M_Product H ON C.M_Product_ID = H.M_Product_ID
+	WHERE A.MA_WorkRequirement_ID = P_Record_ID
+	AND H.EM_Spatmp_Transferable = 'Y'
+	AND C.Productiontype = '-';
+    
+  
+  --RETURN;
+END SPATMP_TRANSFER_PROCESS
+]]></body>
+    </function>
+  </database>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE C_ORDERLINE">
+    <table name="C_ORDERLINE" primaryKey="C_ORDERLINE_KEY">
+      <column name="EM_SIDPCH_QTYORDERED" primaryKey="false" required="true" type="DECIMAL" size="12,6" autoIncrement="false">
+        <default><![CDATA[0]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SIDPCH_QTY" primaryKey="false" required="true" type="DECIMAL" size="12,6" autoIncrement="false">
+        <default><![CDATA[0]]></default>
+        <onCreateDefault/>
+      </column>
+    </table>
+  </database>

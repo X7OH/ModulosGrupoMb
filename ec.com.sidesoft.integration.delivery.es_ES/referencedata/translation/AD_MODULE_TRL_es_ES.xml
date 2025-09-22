@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MODULE" version="">
+  <row id="D856B39CF04C403DAB8B20211D1C1E91" trl="N">
+    <value column="Description" isTrl="Y" original="Sidesoft Integration Delivery">AVA*: ec.com.sidesoft.integration.delivery *Nombre*: Sidesoft Integration Delivery</value>
+    <value column="Help" isTrl="N" original="- Retail Delivery Configuracion Log&#10;- Ticket 9741 - Configuración personalizada para&#10;- Ventana de configuración para la integración de Uber, Glovo, Rappi, Otros.&#10;- Ventana de registro para la integración de Uber, Glovo, Rappi, Otros.&#10;- Sin dependencias">- Retail Delivery Configuracion Log
+- Ticket 9741 - Configuración personalizada para
+- Ventana de configuración para la integración de Uber, Glovo, Rappi, Otros.
+- Ventana de registro para la integración de Uber, Glovo, Rappi, Otros.
+- Sin dependencias</value>
+    <value column="License" isTrl="N" original=""/>
+    <value column="Updateinfo" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

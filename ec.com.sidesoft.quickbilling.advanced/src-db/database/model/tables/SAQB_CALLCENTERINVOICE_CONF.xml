@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+  <database name="TABLE SAQB_CALLCENTERINVOICE_CONF">
+    <table name="SAQB_CALLCENTERINVOICE_CONF" primaryKey="SAQB_CALLCENTERINV_CF_KEY">
+      <column name="SAQB_CALLCENTERINVOICE_CONF_ID" primaryKey="true" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_CLIENT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_ORG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISACTIVE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_DOCTYPE_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="DOCUMENTNO" primaryKey="false" required="true" type="VARCHAR" size="30" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_PAYMENTTERM_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="M_PRICELIST_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_CURRENCY_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="DESCRIPTION" primaryKey="false" required="false" type="VARCHAR" size="255" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_COSTCENTER_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_BP_GROUP_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="SSWH_TAXPAYER_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_LANGUAGE" primaryKey="false" required="true" type="VARCHAR" size="6" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_COUNTRY_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="M_WAREHOUSE_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="INVOICERULE" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="OBPOS_APPLICATIONS_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="SAQB_TIMETOPROCESS" primaryKey="false" required="false" type="DECIMAL" autoIncrement="false">
+        <default><![CDATA[15]]></default>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="C_BP_GROUP" name="SAQB_CALLCENTERINV_CF_BP_GROUP">
+        <reference local="C_BP_GROUP_ID" foreign="C_BP_GROUP_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_CLIENT" name="SAQB_CALLCENTERINV_CF_CLIENT">
+        <reference local="AD_CLIENT_ID" foreign="AD_CLIENT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_COSTCENTER" name="SAQB_CALLCENTERINV_CF_COSTCENT">
+        <reference local="C_COSTCENTER_ID" foreign="C_COSTCENTER_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_COUNTRY" name="SAQB_CALLCENTERINV_CF_COUNTRY">
+        <reference local="C_COUNTRY_ID" foreign="C_COUNTRY_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_CURRENCY" name="SAQB_CALLCENTERINV_CF_CURRENCY">
+        <reference local="C_CURRENCY_ID" foreign="C_CURRENCY_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_DOCTYPE" name="SAQB_CALLCENTERINV_CF_DOCTYPE">
+        <reference local="C_DOCTYPE_ID" foreign="C_DOCTYPE_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_ORG" name="SAQB_CALLCENTERINV_CF_ORG">
+        <reference local="AD_ORG_ID" foreign="AD_ORG_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_PAYMENTTERM" name="SAQB_CALLCENTERINV_CF_PAYTERM">
+        <reference local="C_PAYMENTTERM_ID" foreign="C_PAYMENTTERM_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_PRICELIST" name="SAQB_CALLCENTERINV_CF_PRICELIS">
+        <reference local="M_PRICELIST_ID" foreign="M_PRICELIST_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="SSWH_TAXPAYER" name="SAQB_CALLCENTERINV_CF_TAXPAYER">
+        <reference local="SSWH_TAXPAYER_ID" foreign="SSWH_TAXPAYER_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_WAREHOUSE" name="SAQB_CALLCENTERINV_CF_WAREHOUS">
+        <reference local="M_WAREHOUSE_ID" foreign="M_WAREHOUSE_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="OBPOS_APPLICATIONS" name="SAQB_CALLCENTERINV_OBPOS_APP">
+        <reference local="OBPOS_APPLICATIONS_ID" foreign="OBPOS_APPLICATIONS_ID"/>
+      </foreign-key>
+      <unique name="SAQB_DOCUMENTNO">
+        <unique-column name="DOCUMENTNO"/>
+        <unique-column name="AD_CLIENT_ID"/>
+        <unique-column name="AD_ORG_ID"/>
+        <unique-column name="C_DOCTYPE_ID"/>
+      </unique>
+      <unique name="SAQB_ORGANIZATION">
+        <unique-column name="AD_ORG_ID"/>
+      </unique>
+      <check name="SAQB_CALLCENTERINV_CF_ISACT_CK"><![CDATA[ISACTIVE IN ('Y', 'N')]]></check>
+    </table>
+  </database>

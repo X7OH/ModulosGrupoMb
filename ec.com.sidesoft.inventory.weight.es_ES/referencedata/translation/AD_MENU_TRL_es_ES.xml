@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="1E9992C3210242B58147F84DDA3D6DA5" trl="Y">
+    <value column="Name" isTrl="Y" original="Tares">Taras</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

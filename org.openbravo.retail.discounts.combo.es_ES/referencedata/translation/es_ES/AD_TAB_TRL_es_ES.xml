@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TAB" version="">
+  <row id="157CCEEB439844C5B34E699D14ECCEBF" trl="N">
+    <value column="Name" isTrl="N" original="Family">Familia</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original="Defines families of products for Combo discounts.&#10;&#10;All families in a Combo need to be completed (quantity is satisfied) in order the combo to be applied.&#10;&#10;Each family defines also the discount that will be applied for each of the products participating on it.">Define familias de productos para los Combos.
+
+Todas las familias en un combo tienen que ser completadas (en cantidad) para que se pueda aplicar el combo.
+
+Cada familia define el descuento que se va a aplicar a cada producto que participe en él.</value>
+  </row>
+  <row id="25EAF1C2A3BA4F6597DAD51B7695DABB" trl="N">
+    <value column="Name" isTrl="N" original="Products in Family">Productos en la familia</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original="Defines the products that are part of a family setting the quantity of each of them.&#10;&#10;The family is considered to be completed, making the promotion available to be applied, in case all the products included within it are in the ticket with, at least, their defined quantities.">Define los productos que van a ser parte de la familia definiendo también la cantidad.
+
+La familia se considera completa, haciendo posible que se aplique el descuento, en el caso de que todos los productos incluidos en la familia esten en el pedido con como mínimo la cantidad definida.</value>
+  </row>
+  <row id="9793FFB2FFDF4631AA0132066601591D" trl="N">
+    <value column="Name" isTrl="N" original="Family Translation">Traducción de la familia</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original="Maintains translations of Product Families to different languages.">Mantiene la traducción de la Familia de Productos en diferentes idiomas.</value>
+  </row>
+</compiereTrl>

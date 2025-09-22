@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<data>
+<!--D1BD4864E8FA4B5799FB4B80F9EB3AC8--><AD_VAL_RULE>
+<!--D1BD4864E8FA4B5799FB4B80F9EB3AC8-->  <AD_VAL_RULE_ID><![CDATA[D1BD4864E8FA4B5799FB4B80F9EB3AC8]]></AD_VAL_RULE_ID>
+<!--D1BD4864E8FA4B5799FB4B80F9EB3AC8-->  <AD_CLIENT_ID><![CDATA[0]]></AD_CLIENT_ID>
+<!--D1BD4864E8FA4B5799FB4B80F9EB3AC8-->  <AD_ORG_ID><![CDATA[0]]></AD_ORG_ID>
+<!--D1BD4864E8FA4B5799FB4B80F9EB3AC8-->  <ISACTIVE><![CDATA[Y]]></ISACTIVE>
+<!--D1BD4864E8FA4B5799FB4B80F9EB3AC8-->  <NAME><![CDATA[C_invoice_reference_validation]]></NAME>
+<!--D1BD4864E8FA4B5799FB4B80F9EB3AC8-->  <DESCRIPTION><![CDATA[C_invoice_reference_validation]]></DESCRIPTION>
+<!--D1BD4864E8FA4B5799FB4B80F9EB3AC8-->  <TYPE><![CDATA[S]]></TYPE>
+<!--D1BD4864E8FA4B5799FB4B80F9EB3AC8-->  <CODE><![CDATA[C_invoice.C_BPartner_ID = @C_BPartner_ID@ and C_invoice.dateinvoiced = @date_invoice_credit@
+and C_invoice.grandtotal >= to_number(@grandtotal_invoice@) and C_invoice.issotrx = 'Y'  
+and C_invoice.c_doctype_id not in ( select c_doctype_id 
+from c_doctype where docbasetype = 'ARI_RM'  ) 
+ and  (select substring(name,1,6) from c_doctype where c_doctype_id = C_invoice.c_doctypetarget_id) = substring(@obpos_applications_box@,1,6)]]></CODE>
+<!--D1BD4864E8FA4B5799FB4B80F9EB3AC8-->  <AD_MODULE_ID><![CDATA[5E01C6033BCC48C280B5824E4AEB26A9]]></AD_MODULE_ID>
+<!--D1BD4864E8FA4B5799FB4B80F9EB3AC8--></AD_VAL_RULE>
+
+</data>

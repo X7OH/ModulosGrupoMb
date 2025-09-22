@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
+  <row id="1425EBEE767A43F6A53E2A1078214C2A" trl="N">
+    <value column="Name" isTrl="N" original="New List Action Requisition">New List Action Requisition</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="2A5200CCFBF54B7692AFCA43C45BB1FC" trl="N">
+    <value column="Name" isTrl="N" original="Type Approval">Type Approval</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="AFE1A68580E4435194B42513BF62AB8A" trl="N">
+    <value column="Name" isTrl="N" original="Unprocess List">Unprocess List</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="C3D507D3DC1F47FE96FD9F20EF23BCFA" trl="N">
+    <value column="Name" isTrl="N" original="Requisition">Requisition</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

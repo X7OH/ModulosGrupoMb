@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="01A47111083A4633907D8F19EE47E717" trl="Y">
+    <value column="Name" isTrl="Y" original="SmartDelivery Configuration">Configuración Urbano</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="18B556BBFED343AFBBF8728799FADBD3" trl="Y">
+    <value column="Name" isTrl="Y" original="Payment methods not allowed Smartdelivery">Metodos de pago no permitidos Urbano</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="1FEF41A2349548479631D2DB52D89B22" trl="N">
+    <value column="Name" isTrl="Y" original="Motorized Sales Detail">Detalle ventas por motorizados</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="325ADAB8A03F447881FFD80E4FEC3211" trl="Y">
+    <value column="Name" isTrl="Y" original="SmartDelivery Configuration Log">Log Configuración Urbano</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="656D15B5125948D7A8F7C5567787B6D3" trl="Y">
+    <value column="Name" isTrl="Y" original="Smart Delivery Configuration Log Reception">Log Recepción Urbano</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="981C234FC88C4EB5BD7C0BC263D55E19" trl="N">
+    <value column="Name" isTrl="Y" original="Assignment of sales orders to motorcyclists">Asignación pedidos de venta a motociclistas</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SIVA_COST_VALIDATE_TRG">
+    <trigger name="SIVA_COST_VALIDATE_TRG" table="SIVA_PHYSICAL_INVTLINES" fires="before" insert="true" update="true" delete="false" foreach="row">
+      <body><![CDATA[   V_COUNT NUMBER;		--OBTG:NUMBER--
+BEGIN
+   IF AD_isTriggerEnabled()='N' THEN RETURN;
+  END IF; 
+	IF (INSERTING OR UPDATING) THEN
+		select count(*) into V_COUNT from m_costing where m_product_id = :NEW.m_product_id;
+
+		If (V_COUNT=0) Then
+			RAISE_APPLICATION_ERROR(-20000, 'El producto de la linea No '||:NEW.line|| ', no tiene un costo anterior, solicite su ingreso.');
+		End If; 
+	END IF;	
+  END SIVA_COST_VALIDATE_TRG
+]]></body>
+    </trigger>
+  </database>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="0DA831DF2F824412A079AD023ACC07C8" trl="Y">
+    <value column="MsgText" isTrl="Y" original="At least one family must be selected to assign the price in the order.">Al menos debe de haber una familia seleccionada para asignar el precio delivery.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="381D1C04B0AB4171B54D5AFB6E1F5277" trl="N">
+    <value column="MsgText" isTrl="Y" original="At least there must be a Glovo product for the family.">Al menos debe de haber un producto Glovo para la familia.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="9A048D7594914E41AB30F9BFCAAE21B4" trl="Y">
+    <value column="MsgText" isTrl="Y" original="There can not be more than one main family for delivery.">No puede haber más de una familia principal para delivery.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

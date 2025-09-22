@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TEXTINTERFACES" version="">
+  <row id="0333214E8E3041328433A26E7001A91D" trl="N">
+    <value column="Text" isTrl="N" original="pricelist">pricelist</value>
+  </row>
+  <row id="08FAC66146544E8FA4EDFABB64386F78" trl="N">
+    <value column="Text" isTrl="N" original="Stock">Stock</value>
+  </row>
+  <row id="0972EEE6F488467ABA665B4067DA278F" trl="N">
+    <value column="Text" isTrl="N" original="Subcategoria">Subcategoria</value>
+  </row>
+  <row id="0F8E850E9DC04C84A2D53C631CD5E6FD" trl="N">
+    <value column="Text" isTrl="N" original="Producto">Producto</value>
+  </row>
+  <row id="202914ED1E9A41A480E3D94DAF54B794" trl="N">
+    <value column="Text" isTrl="N" original="Producto">Producto</value>
+  </row>
+  <row id="35C5A04E7DE3454C9DE1D23EB04D7913" trl="N">
+    <value column="Text" isTrl="N" original="Categoria de Poducto">Categoria de Poducto</value>
+  </row>
+  <row id="46F710D9A0934A19BCE70534AC9D5BAD" trl="N">
+    <value column="Text" isTrl="N" original="Costo Promedio">Costo Promedio</value>
+  </row>
+  <row id="4B9780C2E4D84D17A63BC6BD82DDF20B" trl="N">
+    <value column="Text" isTrl="N" original="Identificador">Identificador</value>
+  </row>
+  <row id="533914EA0998429FB2A2F3D4FF9D524D" trl="N">
+    <value column="Text" isTrl="N" original="Price List">Price List</value>
+  </row>
+  <row id="5515FC6CE06A478992CF2688452051AA" trl="N">
+    <value column="Text" isTrl="N" original="UPC/EAN">UPC/EAN</value>
+  </row>
+  <row id="6CA5F7FDF0DE4B3987692783E7F8425C" trl="N">
+    <value column="Text" isTrl="N" original="Subcategoría">Subcategoría</value>
+  </row>
+  <row id="74CD2E3B78E94C15AFDB4B8F22A223F5" trl="N">
+    <value column="Text" isTrl="N" original="Valoración de Stock">Valoración de Stock</value>
+  </row>
+  <row id="8282429EEF3D447BAEF5C43C92BB74C3" trl="N">
+    <value column="Text" isTrl="N" original="Total Bodega">Total Bodega</value>
+  </row>
+  <row id="908CC5D891B849338F39ACDF72EBABCE" trl="N">
+    <value column="Text" isTrl="N" original="Categoria">Categoria</value>
+  </row>
+  <row id="9594EDA57C3E430182EECA2772B13404" trl="N">
+    <value column="Text" isTrl="N" original="Categoría Productos">Categoría Productos</value>
+  </row>
+  <row id="98F095B3DF94496C922723B5DF0CC42C" trl="N">
+    <value column="Text" isTrl="N" original="UPC/EAN">UPC/EAN</value>
+  </row>
+  <row id="B8F341BE2F144A23ABA9358BC4D97913" trl="N">
+    <value column="Text" isTrl="N" original="Fecha">Fecha</value>
+  </row>
+  <row id="CCC82ED4EBC249F1AD016C81D1213B88" trl="N">
+    <value column="Text" isTrl="N" original="Total Categoría de Productos">Total Categoría de Productos</value>
+  </row>
+  <row id="D4D23C73F2454B158D7CAED401FD8B73" trl="N">
+    <value column="Text" isTrl="N" original="Categoría">Categoría</value>
+  </row>
+  <row id="DAA97F832A5C4C4DAA42CE8E38BA382F" trl="N">
+    <value column="Text" isTrl="N" original="Bodega:">Bodega:</value>
+  </row>
+  <row id="ED6B12D06FDF4A5CBE8DB4A5579AC00B" trl="N">
+    <value column="Text" isTrl="N" original="Unidad">Unidad</value>
+  </row>
+  <row id="F0EC5BC4486644D8BE62E273B0009F05" trl="N">
+    <value column="Text" isTrl="N" original="Identificador">Identificador</value>
+  </row>
+  <row id="F11187C6498A48FABACFDDCBA9F1B26E" trl="N">
+    <value column="Text" isTrl="N" original="Unidad">Unidad</value>
+  </row>
+  <row id="F82D0FABE1D44DD0A3AF96DECDDCD864" trl="N">
+    <value column="Text" isTrl="N" original="Valoración">Valoración</value>
+  </row>
+</compiereTrl>

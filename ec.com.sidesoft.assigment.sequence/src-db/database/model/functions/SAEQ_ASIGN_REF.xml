@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SAEQ_ASIGN_REF">
+    <function name="SAEQ_ASIGN_REF" type="NULL">
+      <parameter name="pinstance_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[TYPE RECORD IS REF CURSOR;
+    Cur_Parameter RECORD;
+    Cur_CreditNotes RECORD;
+
+-- Logistice
+  v_ResultStr VARCHAR2(2000):='';
+  v_Message VARCHAR2(2000):='';
+  v_Record_ID VARCHAR2(32);
+  V_assign_secuence_id VARCHAR(32);
+
+
+
+  BEGIN
+    --  Update AD_PInstance
+    DBMS_OUTPUT.PUT_LINE('Updating PInstance - Processing ' || PInstance_ID) ;
+    v_ResultStr:='PInstanceNotFound';
+    AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'Y', NULL, NULL) ;
+  BEGIN --BODY
+       -- Get Parameters
+    v_ResultStr:='ReadingParameters';
+    FOR Cur_Parameter IN
+      (SELECT i.Record_ID, p.ParameterName, p.P_String, p.P_Number, p.P_Date
+      FROM AD_PInstance i
+      LEFT JOIN AD_PInstance_Para p
+        ON i.AD_PInstance_ID=p.AD_PInstance_ID
+      WHERE i.AD_PInstance_ID=PInstance_ID
+      ORDER BY p.SeqNo
+      ) 
+    LOOP
+
+	V_assign_secuence_id:= Cur_Parameter.Record_ID;
+	--RAISE V_assign_secuence_id;
+
+    END LOOP;
+        FOR Cur_CreditNotes IN
+		select saeq_invoice_credit_id, documentno,reference_invoice_id,reference_invoice_id
+		from saeq_invoice_credit
+		where saeq_sequence_id = V_assign_secuence_id	
+	LOOP
+
+	--RAISE EXCEPTION '%' , Cur_CreditNotes.documentno;
+		
+		IF Cur_CreditNotes.reference_invoice_id IS NULL OR Cur_CreditNotes.reference_invoice_id = ''
+		THEN
+		    
+		ELSE
+			Update c_invoice set em_eei_is_inv_ref = 'Y',
+			em_eei_ref_inv_id = Cur_CreditNotes.reference_invoice_id, 
+			EM_Scnr_Isref_Inv = 'Y',
+			EM_Scnr_Invoice_ID = Cur_CreditNotes.reference_invoice_id 
+			where documentno = Cur_CreditNotes.documentno;
+		END IF;
+
+	
+	END LOOP;
+		
+ AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 1, '@Success@') ;
+    RETURN;
+
+    
+  END; --BODY
+  EXCEPTION
+  WHEN OTHERS THEN
+    v_ResultStr:= '@ERROR=' || SQLERRM;
+    DBMS_OUTPUT.PUT_LINE(v_ResultStr) ;
+    AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 0, v_ResultStr) ;
+    RETURN;
+END SAEQ_ASIGN_REF
+]]></body>
+    </function>
+  </database>

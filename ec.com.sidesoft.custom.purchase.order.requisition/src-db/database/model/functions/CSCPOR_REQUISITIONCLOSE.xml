@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION CSCPOR_REQUISITIONCLOSE">
+    <function name="CSCPOR_REQUISITIONCLOSE" type="NULL">
+      <parameter name="p_ep_instance" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[p_message VARCHAR(2000);
+p_record_id VARCHAR(60);
+p_docAction VARCHAR(60);
+p_user VARCHAR(60);
+p_result NUMBER;
+
+v_issotrx VARCHAR2(1); 
+v_Contar NUMBER;
+v_ResultStr VARCHAR2(500);
+v_isreturn VARCHAR2(1); 
+v_status   VARCHAR2(60); 
+v_docaction VARCHAR2(60); 
+
+TYPE RECORD IS REF CURSOR;
+Cur_Params RECORD;
+Cur_orderline RECORD;
+
+BEGIN
+
+  FOR Cur_Params IN (
+    SELECT *
+    FROM ad_ep_instance_para
+    WHERE ad_ep_instance_id = p_ep_instance
+    ) LOOP
+    IF (cur_params.parametername LIKE 'DocAction') THEN
+      p_docaction := Cur_Params.p_string;
+    ELSIF (cur_params.parametername LIKE 'Record_ID') THEN
+      p_record_id := cur_params.p_string;
+    ELSIF (cur_params.parametername LIKE 'User') THEN
+      p_user := cur_params.p_string;
+    ELSIF (cur_params.parametername LIKE 'Message') THEN
+      p_message := cur_params.p_text;
+    ELSIF (cur_params.parametername LIKE 'Result') THEN
+      p_result := cur_params.p_number;
+    END IF;
+  END LOOP;
+
+
+
+
+	SELECT 
+	COALESCE((select COUNT(*)
+	from m_requisitionline mrl
+	join m_requisitionorder mro on mro.m_requisitionline_id = mrl.m_requisitionline_id
+	join c_orderline col on col.c_orderline_id = mro.c_orderline_id 
+	where c_order_id = p_record_id
+	AND REQSTATUS = 'O'
+	),0)
+	INTO v_Contar
+	FROM DUAL;
+
+
+	IF (v_Contar>0) THEN 
+	
+
+		Update m_requisitionline set reqstatus='C' where m_requisitionline_id in (
+		select mrl.m_requisitionline_id
+		from m_requisitionline mrl
+		join m_requisitionorder mro on mro.m_requisitionline_id = mrl.m_requisitionline_id
+		join c_orderline col on col.c_orderline_id = mro.c_orderline_id 
+		where c_order_id = p_record_id
+		);
+		
+		update m_requisition set docstatus='CL', docaction ='CL' where m_requisition_id in (
+		select mrl.m_requisition_id
+		from m_requisitionline mrl
+		join m_requisitionorder mro on mro.m_requisitionline_id = mrl.m_requisitionline_id
+		join c_orderline col on col.c_orderline_id = mro.c_orderline_id 
+		where c_order_id = p_record_id
+		);
+		
+
+	ELSE
+
+
+		SELECT 
+		COALESCE((select COUNT(*)
+		from m_requisitionline mrl
+		join m_requisitionorder mro on mro.m_requisitionline_id = mrl.m_requisitionline_id
+		join c_orderline col on col.c_orderline_id = mro.c_orderline_id 
+		where c_order_id = p_record_id
+		AND REQSTATUS = 'O'
+		),0)
+		INTO v_Contar
+		FROM DUAL;
+
+		IF (v_Contar>0) THEN
+
+		Update m_requisitionline set reqstatus='C' where m_requisitionline_id in (
+		select mrl.m_requisitionline_id
+		from m_requisitionline mrl
+		join m_requisitionorder mro on mro.m_requisitionline_id = mrl.m_requisitionline_id
+		join c_orderline col on col.c_orderline_id = mro.c_orderline_id 
+		where c_order_id = p_record_id
+		);
+
+		update m_requisition set docstatus='CL', docaction ='CL' where m_requisition_id in (
+		select mrl.m_requisition_id
+		from m_requisitionline mrl
+		join m_requisitionorder mro on mro.m_requisitionline_id = mrl.m_requisitionline_id
+		join c_orderline col on col.c_orderline_id = mro.c_orderline_id 
+		where c_order_id = p_record_id
+		);
+
+		END IF;
+
+		
+
+	
+
+	END IF;
+
+
+
+EXCEPTION
+WHEN OTHERS THEN
+v_ResultStr =SQLERRM;
+  DBMS_OUTPUT.PUT_LINE( v_ResultStr);
+  RAISE v_ResultStr;
+END CSCPOR_REQUISITIONCLOSE
+]]></body>
+    </function>
+  </database>

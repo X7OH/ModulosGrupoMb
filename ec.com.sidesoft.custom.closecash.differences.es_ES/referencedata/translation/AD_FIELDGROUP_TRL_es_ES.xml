@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_FIELDGROUP" version="">
+  <row id="AD8BB08053AB4FEEAEDB872188A6F392" trl="N">
+    <value column="Name" isTrl="N" original="Differences">Differences</value>
+  </row>
+</compiereTrl>

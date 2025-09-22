@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
+  <row id="64F4B354CF054814B116109E602BD88B" trl="Y">
+    <value column="Name" isTrl="Y" original="availabilityStates">Estados Habilitados</value>
+    <value column="Description" isTrl="Y" original="availabilityStates">Estados Habilitados</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="A92255FD35DB476FA38B09E958B86E28" trl="Y">
+    <value column="Name" isTrl="Y" original="closingReasons">Motivos de Cierre</value>
+    <value column="Description" isTrl="Y" original="closingReasons">Motivos de Cierre</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="D9B8AC0E6028441F9E4A905A02E83F12" trl="Y">
+    <value column="Name" isTrl="Y" original="Speya_CancellReason">Motivos de Rechazo</value>
+    <value column="Description" isTrl="Y" original="Speya_CancellReason">Motivos de Rechazo</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="F80DA47CB22442CE8E8E967EB044C632" trl="Y">
+    <value column="Name" isTrl="Y" original="Speya_ListStates">Estados</value>
+    <value column="Description" isTrl="Y" original="Speya_ListStates">Estados</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="FC8B91E4A0B64672B757A3991D0B9962" trl="N">
+    <value column="Name" isTrl="N" original="SPEYA_Paymentmethod">SPEYA_Paymentmethod</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

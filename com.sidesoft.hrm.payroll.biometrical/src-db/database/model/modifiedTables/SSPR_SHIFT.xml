@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE SSPR_SHIFT">
+    <table name="SSPR_SHIFT" primaryKey="SSPR_SHIFT_KEY">
+      <column name="EM_SPRBI_AREA_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="SPRBI_AREA" name="EM_SPRBI_SHIFT_SPRBI_AREA">
+        <reference local="EM_SPRBI_AREA_ID" foreign="SPRBI_AREA_ID"/>
+      </foreign-key>
+    </table>
+  </database>

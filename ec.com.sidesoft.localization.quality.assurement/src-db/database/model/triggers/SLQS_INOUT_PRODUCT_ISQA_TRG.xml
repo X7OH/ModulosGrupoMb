@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SLQS_INOUT_PRODUCT_ISQA_TRG">
+    <trigger name="SLQS_INOUT_PRODUCT_ISQA_TRG" table="M_INOUT" fires="before" insert="true" update="true" delete="false" foreach="row">
+      <body><![CDATA[
+   TYPE RECORD IS REF CURSOR; 
+
+  v_checkqa VARCHAR2(1);
+  v_StatusActual VARCHAR2(32);
+  v_MsgBox  VARCHAR2(255);
+  v_ControlId VARCHAR2(32);
+  v_CountRequested NUMBER; --OBTG:NUMBER--
+  v_CountNull NUMBER; --OBTG:NUMBER--
+  
+BEGIN
+
+    IF AD_isTriggerEnabled()='N' THEN IF DELETING THEN RETURN OLD; ELSE RETURN NEW; END IF;
+    END IF;
+
+ 
+    IF (INSERTING OR UPDATING) THEN
+
+	SELECT COALESCE((SELECT COUNT(*) FROM M_INOUTLINE 
+	WHERE M_INOUT_ID = :new.m_inout_id 
+	and v_checkqa ='Y' 
+	and em_slqs_eval_quality = 'RE'),0)
+	INTO v_CountRequested
+	FROM DUAL;
+
+	SELECT COALESCE((SELECT COUNT(*) FROM M_INOUTLINE 
+	WHERE M_INOUT_ID = :new.m_inout_id 
+	and v_checkqa ='Y' 
+	and COALESCE(em_slqs_eval_quality,TO_CHAR('ND')) = 'ND'),0)
+	INTO v_CountNull
+	FROM DUAL;
+	
+
+	IF (v_CountRequested>0) THEN
+
+			v_MsgBox:='@Slqs_ErrorCompleteInout@'  ; 
+			RAISE_APPLICATION_ERROR(-20000, v_MsgBox) ;
+	END IF;
+
+	IF (v_CountNull>0) THEN
+
+			v_MsgBox:='@Slqs_ErrorCompleteInoutNull@'  ; 
+			RAISE_APPLICATION_ERROR(-20000, v_MsgBox) ;
+	END IF;
+	
+    END IF;
+
+    END SLQS_INOUT_PRODUCT_ISQA_TRG
+]]></body>
+    </trigger>
+  </database>

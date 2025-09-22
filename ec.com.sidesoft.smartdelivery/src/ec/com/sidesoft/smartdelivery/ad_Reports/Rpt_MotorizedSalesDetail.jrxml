@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_MotorizedSalesDetail" pageWidth="970" pageHeight="842" columnWidth="970" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="3.45227121439317"/>
+	<property name="ireport.x" value="1715"/>
+	<property name="ireport.y" value="99"/>
+	<parameter name="C_BPartner_ID" class="java.lang.String"/>
+	<parameter name="AD_Org_ID" class="java.lang.String"/>
+	<parameter name="DateFrom" class="java.util.Date"/>
+	<parameter name="DateTo" class="java.util.Date"/>
+	<parameter name="StartTime" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="EndTime" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT 	ORG.ad_org_id as "ad_org_id",
+	ORG.name as "organizacion",
+	MOT.name as "empleado",
+	MOT.taxid as "cedula",
+	COR.documentno as "numeroDocumento",
+	to_char(COR.dateordered, 'dd/MM/YYYY') as "fechapedido",
+	CBP.name as "tercero",
+	COALESCE(COR.grandtotal, 0) as "importetotal",
+	FPM.name as "metodo de pago",
+	to_char(now(),'dd-MM-yyyy') as "fecha",
+	to_char(now(),'HH24:MI:SS') as "hora"
+FROM c_order COR
+INNER JOIN ad_org ORG on ORG.ad_org_id = COR.ad_org_id
+LEFT JOIN c_bpartner CBP ON CBP.c_bpartner_id = COR.c_bpartner_id
+LEFT JOIN c_bpartner MOT ON MOT.c_bpartner_id = COR.em_ssmrdr_motorized_id
+LEFT JOIN fin_paymentmethod FPM ON FPM.fin_paymentmethod_id = COR.fin_paymentmethod_id
+WHERE COR.issotrx = 'Y'
+AND to_date(to_char(COR.created,'dd-MM-YYYY'),'dd/MM/YYYY') >= $P{DateFrom}
+AND to_char(COR.created,'HH24:MI:SS') >= $P{StartTime}
+AND to_date(to_char(COR.created,'dd-MM-YYYY'),'dd/MM/YYYY') <= $P{DateTo}
+AND to_char(COR.created,'HH24:MI:SS') <= $P{EndTime}
+AND COR.em_ssmrdr_motorized_id IS NOT NULL
+AND COR.em_sscmb_sales_origin IN ('WEB','CLC')
+AND (COR.ad_org_id = $P{AD_Org_ID} or $P{AD_Org_ID} is null)
+AND (MOT.c_bpartner_id = $P{C_BPartner_ID} or $P{C_BPartner_ID} is null)
+ORDER BY MOT.taxid]]>
+	</queryString>
+	<field name="ad_org_id" class="java.lang.String"/>
+	<field name="organizacion" class="java.lang.String"/>
+	<field name="empleado" class="java.lang.String"/>
+	<field name="cedula" class="java.lang.String"/>
+	<field name="numeroDocumento" class="java.lang.String"/>
+	<field name="fechapedido" class="java.lang.String"/>
+	<field name="tercero" class="java.lang.String"/>
+	<field name="importetotal" class="java.math.BigDecimal"/>
+	<field name="metodo de pago" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="hora" class="java.lang.String"/>
+	<variable name="SUM_AMOUNT" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{importetotal}]]></variableExpression>
+	</variable>
+	<variable name="SUM_GROUPMOT" class="java.math.BigDecimal" resetType="Group" resetGroup="Motorizado" calculation="Sum">
+		<variableExpression><![CDATA[$F{importetotal}]]></variableExpression>
+	</variable>
+	<group name="Motorizado">
+		<groupExpression><![CDATA[$F{cedula}]]></groupExpression>
+		<groupHeader>
+			<band height="27">
+				<staticText>
+					<reportElement x="148" y="1" width="188" height="26"/>
+					<box>
+						<bottomPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Empleado]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="508" y="1" width="73" height="26"/>
+					<box>
+						<bottomPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="581" y="1" width="180" height="26"/>
+					<box>
+						<bottomPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tercero]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="896" y="1" width="73" height="26"/>
+					<box>
+						<bottomPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Importe Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="336" y="1" width="78" height="26"/>
+					<box>
+						<bottomPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CI]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="414" y="1" width="94" height="26"/>
+					<box>
+						<bottomPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[No Pedido]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="1" width="148" height="26"/>
+					<box>
+						<bottomPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Organización]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="761" y="1" width="135" height="26"/>
+					<box>
+						<bottomPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Método de Pago]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="30">
+				<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
+					<reportElement mode="Transparent" x="896" y="0" width="73" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="SansSerif" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SUM_GROUPMOT}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="716" y="0" width="180" height="20"/>
+					<box>
+						<bottomPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total Empleado:]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="120" splitType="Stretch">
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement x="156" y="19" width="814" height="20"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha}+" / "+$F{hora}]]></textFieldExpression>
+			</textField>
+			<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle" isUsingCache="true">
+				<reportElement key="image-1" x="0" y="0" width="156" height="59"/>
+				<imageExpression class="java.awt.Image"><![CDATA[org.openbravo.erpCommon.utility.Utility.showImageLogo("yourcompanylegal", $F{ad_org_id})]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="59" width="970" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Detalle de ventas por motorizado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="76" width="148" height="16"/>
+				<box leftPadding="0" rightPadding="5"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Desde:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="148" y="76" width="266" height="16"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{DateFrom}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="414" y="76" width="167" height="16"/>
+				<box leftPadding="0" rightPadding="5"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Hasta:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="581" y="76" width="389" height="16"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{DateTo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="92" width="148" height="16"/>
+				<box leftPadding="0" rightPadding="5"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora Inicio:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="148" y="92" width="266" height="16"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{StartTime}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="414" y="92" width="167" height="16"/>
+				<box leftPadding="0" rightPadding="5"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora fin:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="581" y="92" width="388" height="16"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{EndTime}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="336" y="0" width="78" height="12"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cedula}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="414" y="0" width="94" height="12"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{numeroDocumento}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="148" height="12"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{organizacion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="148" y="0" width="188" height="12"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{empleado}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="508" y="0" width="73" height="12"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fechapedido}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="581" y="0" width="180" height="12"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tercero}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00" isBlankWhenNull="true">
+				<reportElement x="896" y="0" width="73" height="12"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{importetotal}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="761" y="0" width="135" height="12"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{metodo de pago}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="25">
+			<staticText>
+				<reportElement x="810" y="0" width="84" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Importe:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00" isBlankWhenNull="true">
+				<reportElement x="894" y="0" width="73" height="20"/>
+				<box rightPadding="0">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SUM_AMOUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

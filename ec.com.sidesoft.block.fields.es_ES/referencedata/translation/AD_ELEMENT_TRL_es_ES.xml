@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_ELEMENT" version="">
+  <row id="6E30FAB4ABB1400185A91853E421BEFA" trl="N">
+    <value column="Name" isTrl="Y" original="Fields">Campos</value>
+    <value column="PrintName" isTrl="Y" original="Fields">Campos</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="776278DDC74A4D0C9F7BCDE747B18196" trl="N">
+    <value column="Name" isTrl="Y" original="Block Fields">Bloqueo de Campos</value>
+    <value column="PrintName" isTrl="Y" original="Block Fields">Bloqueo de Campos</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

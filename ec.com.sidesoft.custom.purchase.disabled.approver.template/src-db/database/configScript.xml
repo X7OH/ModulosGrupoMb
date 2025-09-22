@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+  <vector>
+    <versionInfo version="3.0.33196"/>
+    <removeTriggerChange triggerName="SCPPR_REQUISITION_APPROVER_TRG"/>
+    <columnDataChange tablename="AD_FIELD" columnname="ISDISPLAYED" pkRow="1004400005">
+      <oldValue><![CDATA[Y]]></oldValue>
+      <newValue><![CDATA[N]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="SHOWINRELATION" pkRow="1004400005">
+      <oldValue><![CDATA[Y]]></oldValue>
+      <newValue><![CDATA[N]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="ISDISPLAYED" pkRow="1004400077">
+      <oldValue><![CDATA[Y]]></oldValue>
+      <newValue><![CDATA[N]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="SHOWINRELATION" pkRow="1004400077">
+      <oldValue><![CDATA[Y]]></oldValue>
+      <newValue><![CDATA[N]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="ISDISPLAYED" pkRow="034F060E90D948C382B923EDF9EE7E0E">
+      <oldValue><![CDATA[Y]]></oldValue>
+      <newValue><![CDATA[N]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="SHOWINRELATION" pkRow="034F060E90D948C382B923EDF9EE7E0E">
+      <oldValue><![CDATA[Y]]></oldValue>
+      <newValue><![CDATA[N]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="ISDISPLAYED" pkRow="7B456A51327E424987B9386896F76E4D">
+      <oldValue><![CDATA[Y]]></oldValue>
+      <newValue><![CDATA[N]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="ISDISPLAYED" pkRow="9D57DB9A64B74AD4BE8BBB9D80A5DE1B">
+      <oldValue><![CDATA[Y]]></oldValue>
+      <newValue><![CDATA[N]]></newValue>
+    </columnDataChange>
+  </vector>

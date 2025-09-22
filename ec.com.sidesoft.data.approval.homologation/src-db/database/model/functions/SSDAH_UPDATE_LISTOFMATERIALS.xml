@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SSDAH_UPDATE_LISTOFMATERIALS">
+    <function name="SSDAH_UPDATE_LISTOFMATERIALS" type="NULL">
+      <parameter name="p_instance_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[-- Logistica
+    v_ResultStr VARCHAR(2000):='';
+    v_Message VARCHAR(2000):='';
+    v_Result NUMBER:=1; -- 0=failure
+    v_Record_ID VARCHAR(32);
+    v_User_ID VARCHAR(32):='0';
+    Cur_Parameter RECORD;
+    Cur_GetSubProds RECORD;
+    Cur_ProductBoms RECORD;
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Updating PInstance - Processing ' || p_instance_id);
+    v_ResultStr:='PInstanceNotFound';
+    AD_UPDATE_PINSTANCE(p_instance_id, NULL, 'Y', NULL, NULL);
+
+    -- Get Parameters
+    v_ResultStr:='ReadingParameters';
+    FOR Cur_Parameter IN (
+        SELECT i.Record_ID, i.AD_User_ID, p.ParameterName, p.P_String, p.P_Number, p.P_Date
+        FROM AD_PInstance i
+        LEFT JOIN AD_PInstance_Para p ON i.AD_PInstance_ID = p.AD_PInstance_ID
+        WHERE i.AD_PInstance_ID = p_instance_id
+        ORDER BY p.SeqNo
+    ) LOOP
+        v_Record_ID := Cur_Parameter.Record_ID;
+        v_User_ID := Cur_Parameter.AD_User_ID;
+    END LOOP;
+
+    -- Procesar productos
+    FOR Cur_ProductBoms IN (
+        SELECT m_product_id
+        FROM m_product
+        WHERE isbom = 'Y'
+    ) LOOP
+        -- Poblar la tabla temporal con los componentes de la receta
+        SSDAH_POPULATE_TEMPSUBPRODS(Cur_ProductBoms.m_product_id);
+
+        -- Actualizar los componentes de la receta en m_product_bom
+        FOR Cur_GetSubProds IN (
+			select mp.name, mp.m_product_id, sum(tmp.bomqty) as newqty
+				from ssdah_tempsubprods as tmp
+				left join m_product mp on mp.m_product_id = tmp.component_name
+				where mp.isbom <> 'Y'
+				group by 1,2
+        ) LOOP
+            UPDATE m_product_bom
+            SET Bomqty = Cur_GetSubProds.newqty
+            WHERE m_product_id = Cur_ProductBoms.m_product_id
+            AND m_productbom_id = (SELECT m_product_id FROM m_product WHERE name = Cur_GetSubProds.name);
+        END LOOP;
+    END LOOP;
+
+    DBMS_OUTPUT.PUT_LINE('Updating PInstance - Finished ' || v_Message);
+    AD_UPDATE_PINSTANCE(p_instance_id, NULL, 'N', v_Result, v_Message);
+    RETURN;
+END SSDAH_UPDATE_LISTOFMATERIALS
+]]></body>
+    </function>
+  </database>

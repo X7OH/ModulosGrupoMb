@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="92EEC2459B0143BDBCBC8FAAA49393D9" trl="N">
+    <value column="Name" isTrl="N" original="Sales Detalied">Sales Detalied</value>
+    <value column="Description" isTrl="N" original="Sales Detalied">Sales Detalied</value>
+  </row>
+  <row id="B569F4E9CC0A4A93B1AF02A28C393425" trl="N">
+    <value column="Name" isTrl="Y" original="Sales cost">Costo de Venta</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

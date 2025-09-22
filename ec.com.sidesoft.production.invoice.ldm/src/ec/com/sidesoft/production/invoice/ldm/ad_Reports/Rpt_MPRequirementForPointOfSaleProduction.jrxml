@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_MPRequirementForPointOfSaleProduction" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.7715610000000042"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="AD_USER_ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ad_org_id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="M_LOCATOR_ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="C_INVOICE_ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="M_WAREHOUSE_ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT query.*,
+(SELECT COALESCE(CB.NAME,AU.NAME) FROM AD_USER AU LEFT JOIN C_BPARTNER CB ON CB.C_BPARTNER_ID = AU.C_BPARTNER_ID WHERE AU.AD_USER_ID=$P{AD_USER_ID}) AS "usuario",
+ NOW() AS "fechaimpresion"
+ FROM (
+SELECT LDM.*,((LDM.cant_stock-(LDM."bomqty"*LDM.cantidead_requerida))*-1) as "faltante" FROM(
+SELECT INV.ad_org_id as "organizationid",
+ORG.name as "localizacion",
+INV.documentno as "documentno",
+INV.dateinvoiced as "fecha_fac",
+coalesce(PCTT.name,PCT.name) as "categoria",
+PRL.value as "codigo",
+PRL.name as "producto_requerido",
+SUM((LIT.BOMQty*INVL.QtyInvoiced)) as "cantidead_requerida",
+coalesce(UOMT.name,UOM.name) as "unidad",
+STD.QtyOnHand as "cant_stock",
+LIT.BOMQty as "bomqty"
+--SUM((STD.QtyOnHand-(LIT.BOMQty*INVL.QtyInvoiced))*-1) as "faltante"
+from c_invoice INV
+inner join ad_org ORG on INV.ad_org_id = ORG.ad_org_id
+inner join c_invoiceline INVL on INVL.c_invoice_id = INV.c_invoice_id
+inner join m_product PRO on INVL.m_product_id = PRO.m_product_id
+inner join M_Product_BOM LIT on LIT.m_product_id = PRO .m_product_id
+inner join m_product PRL on LIT.M_ProductBOM_ID = PRL.m_product_id
+inner join C_UOM UOM on PRL.C_UOM_ID = UOM.C_UOM_ID
+inner join M_Storage_Detail STD on STD.m_product_id = PRL.m_product_id
+inner join m_locator LOC on LOC.m_locator_id = STD.m_locator_id
+inner join m_product_category PCT on PCT.m_product_category_id = PRL.m_product_category_id
+left join m_product_category_trl PCTT on PCT.m_product_category_id = PCTT.m_product_category_id
+left join c_uom_trl UOMT on UOM.C_UOM_ID = UoMT.C_UOM_ID
+where (STD.QtyOnHand-(LIT.BOMQty*INVL.QtyInvoiced)) < 0
+and LOC.m_locator_id = $P{M_LOCATOR_ID}
+and INV.c_invoice_id= $P{C_INVOICE_ID}
+and INV.ad_org_id= $P{ad_org_id}
+group by "organizationid","localizacion","documentno","fecha_fac","categoria","codigo","producto_requerido","unidad","cant_stock","bomqty") LDM
+UNION ALL
+SELECT NLDM.*,((NLDM.cant_stock-NLDM.cantidead_requerida)*-1) as "faltante" FROM (select
+INV.ad_org_id as "organizationid",
+ORG.name as "localizacion",
+INV.documentno as "documentno",
+INV.dateinvoiced as "fecha_fac",
+coalesce(PCTT.name,PCT.name) as "categoria",
+PRO.value as "codigo",
+PRO.name as "producto_requerido",
+SUM(INVL.QtyInvoiced) as "cantidead_requerida",
+coalesce(UOMT.name,UOM.name) as "unidad",
+STD.QtyOnHand as "cant_stock",
+to_number(0) as "bomqty"
+--SUM((STD.QtyOnHand-INVL.QtyInvoiced)*-1) as "faltante"
+from c_invoice INV
+inner join ad_org ORG on INV.ad_org_id = ORG.ad_org_id
+inner join c_invoiceline INVL on INVL.c_invoice_id = INV.c_invoice_id
+inner join m_product PRO on INVL.m_product_id = PRO.m_product_id
+inner join C_UOM UOM on PRO.C_UOM_ID = UOM.C_UOM_ID
+inner join M_Storage_Detail STD on STD.m_product_id = PRO.m_product_id
+inner join m_locator LOC on LOC.m_locator_id = STD.m_locator_id
+inner join m_product_category PCT on PCT.m_product_category_id = PRO.m_product_category_id
+left join m_product_category_trl PCTT on PCT.m_product_category_id = PCTT.m_product_category_id
+left join c_uom_trl UOMT on UOM.C_UOM_ID = UoMT.C_UOM_ID
+where (STD.QtyOnHand-INVL.QtyInvoiced) < 0
+and PRO.isbom = 'N'
+and LOC.m_locator_id = $P{M_LOCATOR_ID}
+and INV.c_invoice_id= $P{C_INVOICE_ID}
+and INV.ad_org_id= $P{ad_org_id}
+group by "organizationid","localizacion","documentno","fecha_fac","categoria","codigo","producto_requerido","unidad","cant_stock","bomqty") NLDM) query
+order by query.categoria DESC]]>
+	</queryString>
+	<field name="organizationid" class="java.lang.String"/>
+	<field name="localizacion" class="java.lang.String"/>
+	<field name="documentno" class="java.lang.String"/>
+	<field name="fecha_fac" class="java.sql.Timestamp"/>
+	<field name="categoria" class="java.lang.String"/>
+	<field name="codigo" class="java.lang.String"/>
+	<field name="producto_requerido" class="java.lang.String"/>
+	<field name="cantidead_requerida" class="java.math.BigDecimal"/>
+	<field name="unidad" class="java.lang.String"/>
+	<field name="cant_stock" class="java.math.BigDecimal"/>
+	<field name="bomqty" class="java.math.BigDecimal"/>
+	<field name="faltante" class="java.math.BigDecimal"/>
+	<field name="usuario" class="java.lang.String"/>
+	<field name="fechaimpresion" class="java.sql.Timestamp"/>
+	<variable name="Tot_cat_requerida" class="java.math.BigDecimal" resetType="Group" resetGroup="ProductCategory" calculation="Sum">
+		<variableExpression><![CDATA[$F{cantidead_requerida}]]></variableExpression>
+	</variable>
+	<group name="ProductCategory">
+		<groupExpression><![CDATA[$F{categoria}]]></groupExpression>
+		<groupHeader>
+			<band height="51">
+				<staticText>
+					<reportElement x="0" y="0" width="71" height="20"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Categoría:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="71" y="0" width="484" height="20"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{categoria}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="20" width="71" height="29"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Código]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="71" y="20" width="194" height="29"/>
+					<box leftPadding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nombre del Producto]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="265" y="20" width="90" height="29"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cantidad Requerida]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="355" y="20" width="78" height="29"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Unidad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="433" y="20" width="69" height="29"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cantidad Stock]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="502" y="20" width="53" height="29"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Faltante]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="49" width="555" height="1"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="22">
+				<line>
+					<reportElement x="255" y="0" width="300" height="1"/>
+				</line>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="0" y="1" width="265" height="20"/>
+					<box rightPadding="3"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Total "+$F{categoria}+":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="265" y="1" width="90" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{Tot_cat_requerida}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="101" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="20" width="555" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Faltantes de MP para producción de punto de Venta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="71" height="20"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Local:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="71" height="20"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Factura:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="80" width="71" height="20"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="71" y="40" width="484" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{localizacion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="71" y="60" width="484" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{documentno}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="MM/dd/yyyy" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="71" y="80" width="484" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{fecha_fac}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy / HH:mm:ss">
+				<reportElement x="0" y="0" width="422" height="20"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isItalic="true"/>
+				</textElement>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{fechaimpresion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="422" y="0" width="133" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isItalic="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["/ "+$F{usuario}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="0" width="96" height="40"/>
+				<imageExpression class="java.lang.String"><![CDATA[org.openbravo.erpCommon.utility.Utility.showImageLogo("yourcompanylegal", $F{organizationid})]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="9" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="14" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="71" y="0" width="194" height="20"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{producto_requerido}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="265" y="0" width="90" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{cantidead_requerida}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="355" y="0" width="78" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{unidad}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="433" y="0" width="69" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{cant_stock}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="502" y="0" width="53" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{faltante}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="71" height="20"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

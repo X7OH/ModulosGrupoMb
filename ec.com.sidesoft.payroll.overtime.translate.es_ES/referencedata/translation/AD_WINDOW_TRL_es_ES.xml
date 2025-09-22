@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_WINDOW" version="">
+  <row id="51C9101E38B346EAB5258958293B9DAE" trl="Y">
+    <value column="Name" isTrl="Y" original="Type of Overtime">Tipo de Horas Extras</value>
+    <value column="Description" isTrl="Y" original="Type of Overtime">Tipo de Horas Extras</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="53CDD6FAFC9844ABA9640F02E049EEB1" trl="N">
+    <value column="Name" isTrl="Y" original="Extra Reason Maintenance">Mantenimiento Motivos Extras</value>
+    <value column="Description" isTrl="Y" original="Extra Reason Maintenance">Mantenimiento Motivos Extras</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="6698080363AA4DFC9172A63ED5B1CD5D" trl="Y">
+    <value column="Name" isTrl="Y" original="Overtime Detail Employee">Detalle de Horas Extras Empleado</value>
+    <value column="Description" isTrl="Y" original="Overtime Detail Employee">Detalle de Horas Extras Empleado</value>
+    <value column="Help" isTrl="N" original="Overtime Detail Employee">Overtime Detail Employee</value>
+  </row>
+  <row id="C8D98A47570C4C98B235C7A74EAED0B5" trl="Y">
+    <value column="Name" isTrl="Y" original="Authorization Overtime">Autorización Horas Extras</value>
+    <value column="Description" isTrl="Y" original="Authorization Overtime">Autorización Horas Extras</value>
+    <value column="Help" isTrl="N" original="Authorization Overtime">Authorization Overtime</value>
+  </row>
+</compiereTrl>

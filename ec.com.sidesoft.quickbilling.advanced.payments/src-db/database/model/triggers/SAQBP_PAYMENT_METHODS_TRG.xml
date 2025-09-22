@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SAQBP_PAYMENT_METHODS_TRG">
+    <trigger name="SAQBP_PAYMENT_METHODS_TRG" table="SAQBP_PAYMENT_METHODS" fires="before" insert="true" update="true" delete="false" foreach="row">
+      <body><![CDATA[
+     v_Module NUMBER:=0;
+     v_pymtd_call_center VARCHAR(60); --OBTG:varchar2;
+     v_isagreement CHAR(1);
+     v_Sql VARCHAR(5000); --OBTG:varchar2;
+     v_validatepymnmethd VARCHAR(5000):=NULL; --OBTG:varchar2;
+     v_totalamount NUMBER:=0;
+     v_grandtotal NUMBER:=0;
+     v_oldamt NUMBER:=0;
+
+BEGIN
+ 
+  IF AD_isTriggerEnabled()='N' THEN RETURN;
+  END IF;
+ 
+  IF INSERTING OR  UPDATING  THEN
+
+     IF((SELECT docstatus FROM saqb_order where saqb_order_id=:new.saqb_order_id)='CO' )THEN
+	RAISE_APPLICATION_ERROR(-20000,'No se puede insertar o actualizar métodos de pago si el documento está en estado completado.');
+     END IF;
+	
+     IF(:new.amount<0) THEN 
+	    :new.amount=:new.amount*(-1);
+     END IF;
+     IF(:new.amount=0) THEN 
+	   RAISE_APPLICATION_ERROR(-20000,'El importe debe ser mayor a 0.');
+     END IF;
+
+     --COMPROBAR QUE NO SUPERE EL TOTAL DEL PEDIDO
+     SELECT coalesce(sum(amount),0) INTO v_totalamount FROM saqbp_payment_methods where saqb_order_id=:new.saqb_order_id;
+     SELECT coalesce(grandtotal,0) INTO v_grandtotal FROM saqb_order where saqb_order_id=:new.saqb_order_id;
+
+     IF(UPDATING)THEN
+	 v_oldamt =:old.amount;
+     END IF;
+   
+     IF( v_totalamount-v_oldamt+:new.amount > v_grandtotal ) THEN
+	   RAISE_APPLICATION_ERROR(-20000,'La suma total de métodos de pago no puede superar el valor total del pedido');
+     END IF;
+     
+     
+
+    SELECT em_saqb_type_call_center INTO v_pymtd_call_center FROM fin_paymentmethod WHERE fin_paymentmethod_id =:new.fin_paymentmethod_id;
+
+     --VALIDA TARJETAS
+     IF (v_pymtd_call_center='TAR') THEN 
+
+	   
+	     IF (:new.cardno IS NULL) THEN 
+		v_validatepymnmethd ='- # Tarjeta ';
+	     END IF;
+	     IF (:new.cardtype IS NULL) THEN 
+		v_validatepymnmethd = coalesce(v_validatepymnmethd,'') ||'- Tipo de tarjeta ';
+	     END IF;
+	     IF (:new.securitycode IS NULL) THEN 
+		v_validatepymnmethd = coalesce(v_validatepymnmethd,'') ||'- Código de seguridad ';
+	     END IF;
+	     IF (:new.scai_card_brand_id IS NULL) THEN 
+		v_validatepymnmethd = coalesce(v_validatepymnmethd,'') ||'- Marca de tarjeta ';
+	     END IF;
+     	     IF (:new.saqb_financial_entity_id IS NULL) THEN 
+		v_validatepymnmethd = coalesce(v_validatepymnmethd,'') ||'- Entidad financiera ';
+	     END IF;
+	     IF (:new.expirationdate IS NULL) THEN 
+		v_validatepymnmethd = coalesce(v_validatepymnmethd,'') ||'- Fecha de expiración ';
+	     END IF;
+	     IF (:new.cardpropietary IS NULL) THEN 
+		v_validatepymnmethd = coalesce(v_validatepymnmethd,'') ||'- Propietario ';
+	     END IF;
+
+     END IF;
+     
+     --VALIDA CHEQUE
+     IF (v_pymtd_call_center='CHE') THEN 
+	     IF (:new.no_check IS NULL) THEN 
+		v_validatepymnmethd = '- Número de cheque ';
+	     END IF;
+     	     IF (:new.saqb_financial_entity_id IS NULL) THEN 
+		v_validatepymnmethd = coalesce(v_validatepymnmethd,'') ||'- Entidad financiera ';
+	     END IF;
+     END IF;
+
+
+     IF(v_validatepymnmethd IS NOT NULL) THEN 
+	     RAISE_APPLICATION_ERROR(-20000,'Los siguientes campos no pueden ser nulos: '||v_validatepymnmethd);
+     END IF;
+     
+	
+     --COMPROBAR MÉTODO DE PAGO CONVENIO
+     --COMPROBAR EXISTENCIA MÓDULO ec.com.sidesoft.special.customization.mb
+	IF (v_pymtd_call_center='CON') THEN
+		SELECT 
+		COALESCE((SELECT COUNT(*) AS CONTAR FROM AD_MODULE WHERE JAVAPACKAGE = 'ec.com.sidesoft.special.customization.mb'),0)
+		INTO v_Module
+		FROM DUAL;
+		
+		IF (v_Module>0) THEN
+
+			
+		     
+
+			v_Sql:='SELECT COALESCE(to_char(a.em_sscmb_isagreement),''N'')  FROM c_bpartner a WHERE taxid = '''||(select cif_nif from saqb_order where saqb_order_id=:new.saqb_order_id)||''''; 
+
+			EXECUTE IMMEDIATE v_Sql INTO v_isagreement;
+
+			IF (v_isagreement='N' OR v_isagreement IS NULL) THEN
+				RAISE_APPLICATION_ERROR(-20000,'El cliente no tiene habilitado el método de pago Convenio.');
+			ELSIF (v_isagreement <>'Y') THEN
+				   RAISE_APPLICATION_ERROR(-20000,'Error al consultar habilitación de método de pago Convenio. '||v_isagreement);
+			
+
+			END IF;
+			
+		END IF;
+     	END IF;
+     
+  END IF;
+
+  END SAQBP_PAYMENT_METHODS_TRG
+]]></body>
+    </trigger>
+  </database>

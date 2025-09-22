@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_FIELD" version="">
+  <row id="1D7934E17E984C778783E6196FB7A68A" trl="N">
+    <value column="Name" isTrl="Y" original="Sales Order Line">Orden de venta</value>
+    <value column="Description" isTrl="Y" original="A unique and often automatically generated identifier for an order line.">Un identificador único y generado a menudo automáticamente para una línea de orden.</value>
+    <value column="Help" isTrl="Y" original="A unique identifier and a reference to an order line (product).">Un identificador único y generado a menudo automáticamente para una línea de orden.
+</value>
+  </row>
+  <row id="E4D16000291648509092C361E11749FD" trl="N">
+    <value column="Name" isTrl="Y" original="Purchase Order Line">Linea Pedido</value>
+    <value column="Description" isTrl="Y" original="A unique and often automatically generated identifier for a purchase order line.">Un identificador único y generado a menudo automáticamente para una línea de orden de compra.</value>
+    <value column="Help" isTrl="Y" original="A unique identifier and a reference to a purchase order line (product).">Un identificador único y generado a menudo automáticamente para una línea de orden de compra.
+</value>
+  </row>
+</compiereTrl>

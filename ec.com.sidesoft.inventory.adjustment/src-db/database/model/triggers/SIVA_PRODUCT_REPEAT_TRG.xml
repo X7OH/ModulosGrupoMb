@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SIVA_PRODUCT_REPEAT_TRG">
+    <trigger name="SIVA_PRODUCT_REPEAT_TRG" table="SIVA_PHYSICAL_INVTLINES" fires="before" insert="true" update="true" delete="false" foreach="row">
+      <body><![CDATA[
+   V_COUNT NUMBER;		--OBTG:NUMBER--
+   
+BEGIN
+    
+    
+   IF AD_isTriggerEnabled()='N' THEN RETURN;
+  END IF; 
+
+	IF (INSERTING OR UPDATING) THEN
+
+		SELECT count(*) INTO V_COUNT FROM siva_physical_invtlines WHERE siva_physical_inventory_id = :NEW.siva_physical_inventory_id AND m_product_id = :NEW.m_product_id
+		AND siva_physical_invtlines_id <> :new.siva_physical_invtlines_id;
+
+		IF (COALESCE(V_COUNT,0)>0 )THEN
+			RAISE_APPLICATION_ERROR(-20000, 'Producto ya registrado en este documento.');
+		END IF;
+		
+	END IF;	
+
+
+  END SIVA_PRODUCT_REPEAT_TRG
+]]></body>
+    </trigger>
+  </database>

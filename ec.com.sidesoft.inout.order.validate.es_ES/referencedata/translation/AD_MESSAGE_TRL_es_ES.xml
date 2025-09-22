@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="564CC0F1BE3647D5A4E236FCCD903EE8" trl="Y">
+    <value column="MsgText" isTrl="Y" original=" you are trying to receive an amount that exceeds the % of variation allowed."> se está intentando recepcionar una cantidad que supera el % de variación permitido.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="5CCDD0D9C2F44A898EB4915470C3E123" trl="Y">
+    <value column="MsgText" isTrl="Y" original="The field 'Percentage of variation' cannot be null if the field 'Variation validate 'is marked. Enter a value between 0 and 100.">El campo '% de variación' no puede ser nulo si el campo 'Valida % variación vs. OC' está marcado. Ingrese un valor entre 0 y 100.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="740CC398274544688330FCE8D16B6808" trl="Y">
+    <value column="MsgText" isTrl="Y" original="You cannot register lines without a purchase order reference.">No se pueden registrar líneas sin referencia de pedido de compra.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="9013E2BBF7244BE6AC8A28ED119189A1" trl="Y">
+    <value column="MsgText" isTrl="Y" original=" for the product ">Producto </value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="93EDEFE10D584CD89C80E32C3E6060C9" trl="N">
+    <value column="MsgText" isTrl="Y" original="There is no '% variation' configured. ">No existe '% de variación' configurado. </value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="A4E7803BAB924DB3852C04E2FAAC30BA" trl="Y">
+    <value column="MsgText" isTrl="Y" original="There is another record with the same organization and null warehouse.">Existe otro registro con la misma organización y almacén nulo.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

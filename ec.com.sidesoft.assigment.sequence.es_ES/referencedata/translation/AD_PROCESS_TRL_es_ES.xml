@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
+  <row id="7563DDB18D9F4B439AA0D5FDA886A426" trl="N">
+    <value column="Name" isTrl="N" original="Load Repeat Sales Invoice ">Load Repeat Sales Invoice </value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="75ECFC6E736A43C2B79E5195FD571401" trl="Y">
+    <value column="Name" isTrl="Y" original="Load invoice (credit notes)">Cargar Facturas (notas de credito)</value>
+    <value column="Description" isTrl="N" original="Facturas notas de credito sin referencia c_invoice">Facturas notas de credito sin referencia c_invoice</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="D97ECA58D9294FE68947D88C2C8103FC" trl="N">
+    <value column="Name" isTrl="N" original="Saeq Asigned Reference">Saeq Asigned Reference</value>
+    <value column="Description" isTrl="N" original="Procesar Facturas Referenciadas">Procesar Facturas Referenciadas</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

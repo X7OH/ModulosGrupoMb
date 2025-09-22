@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SAEQ_LOAD_INVOICE_CREDIT">
+    <function name="SAEQ_LOAD_INVOICE_CREDIT" type="NULL">
+      <parameter name="pinstance_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[TYPE RECORD IS REF CURSOR;
+    Cur_Parameter RECORD;
+    Cur_Invoice RECORD;
+
+-- Logistice
+  v_User_ID VARCHAR2(32) ;
+  v_ResultStr VARCHAR2(2000):='';
+  v_Message VARCHAR2(2000):='';
+  v_Record_ID VARCHAR2(32);
+  V_start_date DATE;
+  V_end_date DATE;
+  V_assign_secuence_id VARCHAR(32);
+
+
+  BEGIN
+    --  Update AD_PInstance
+    DBMS_OUTPUT.PUT_LINE('Updating PInstance - Processing ' || PInstance_ID) ;
+    v_ResultStr:='PInstanceNotFound';
+    AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'Y', NULL, NULL) ;
+  BEGIN --BODY
+       -- Get Parameters
+    v_ResultStr:='ReadingParameters';
+    FOR Cur_Parameter IN
+      (SELECT i.Record_ID, p.ParameterName, p.P_String, p.P_Number, p.P_Date
+      FROM AD_PInstance i
+      LEFT JOIN AD_PInstance_Para p
+        ON i.AD_PInstance_ID=p.AD_PInstance_ID
+      WHERE i.AD_PInstance_ID=PInstance_ID
+      ORDER BY p.SeqNo
+      ) 
+    LOOP
+	V_assign_secuence_id:= Cur_Parameter.Record_ID;
+      IF (Cur_Parameter.ParameterName = 'Ad_User_ID') THEN
+        v_User_ID := Cur_Parameter.P_String; 
+	ELSE
+	v_User_ID := 100 ; 
+      END IF; 
+
+    END LOOP;
+	select begin_date, end_date
+	into V_start_date , V_end_date from saeq_sequence 
+	where saeq_sequence_id = V_assign_secuence_id;
+	
+	--RAISE NO_DATA_FOUND || V_start_date || V_end_date;
+	  --Cargar facturas cliente Notas de credito, sin facturas refridas
+	 FOR Cur_Invoice IN
+	 	select i.ad_client_id, i.DateInvoiced,  i.ad_org_id, i.c_invoice_id, i.em_eei_is_inv_ref,i.grandtotal, bp.c_bpartner_id,
+		dt.name,i.documentno ,i.c_invoice_id,i.ad_client_id , i.ad_org_id, substring(dt.name, 1,6) as caja, substring(dt.name, 8,16) as typedoc,
+		dt.c_doctype_id,
+		(select obpos_applications_id from obpos_applications where value= substring(dt.name,1,6)) as obpos_applications_id	
+		from c_invoice i	
+		left join c_doctype dt on dt.c_doctype_id=i.c_doctype_id	
+		left join c_bpartner bp on bp.c_bpartner_id=i.c_bpartner_id	
+		where i.issotrx='Y' 
+		--and i.c_invoice_id = '7F850D324C6F9DCE66296670F109443A' --comnetar
+		and dt.name ilike '%NOTA DE CRÉDITO%' 
+		and i.issotrx='Y'
+		and em_eei_is_inv_ref = 'N'
+		and i.created BETWEEN V_start_date and V_end_date -- params function
+		order by dt.name,i.created asc
+		
+	 LOOP   
+			 IF EXISTS (SELECT 1 FROM saeq_invoice_credit WHERE documentno = Cur_Invoice.documentno and saeq_sequence_id = V_assign_secuence_id ) THEN
+			   -- No haga nada con este registro, ya existe en la  linea
+			  else 
+			  -- Continuar
+					  --Cargar lineas Factura cliente Notas de Credito
+				INSERT INTO public.saeq_invoice_credit(
+					saeq_invoice_credit_id, ad_client_id, ad_org_id, isactive, created, 
+					createdby, updated, updatedby, documentno, saeq_sequence_id, 
+					c_doctype_id, c_bpartner_id, c_invoice_id , date_invoice_credit , obpos_applications_box, grandtotal_invoice
+					, obpos_applications_id )
+				VALUES (get_uuid(), Cur_Invoice.ad_client_id, Cur_Invoice.ad_org_id, 'Y', TO_DATE(NOW() ), 
+					'.', now(), '.', Cur_Invoice.documentno, V_assign_secuence_id, 
+					Cur_Invoice.c_doctype_id, Cur_Invoice.c_bpartner_id, Cur_Invoice.c_invoice_id ,
+					   Cur_Invoice.dateinvoiced, Cur_Invoice.caja, Cur_Invoice.grandtotal 
+					   ,  Cur_Invoice.obpos_applications_id);
+			
+			  END IF;
+		
+
+	 END LOOP;
+	
+ AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 1, '@Success@') ;
+    RETURN;
+
+    
+  END; --BODY
+  EXCEPTION
+  WHEN OTHERS THEN
+    v_ResultStr:= '@ERROR=' || SQLERRM;
+    DBMS_OUTPUT.PUT_LINE(v_ResultStr) ;
+    AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 0, v_ResultStr) ;
+    RETURN;
+END SAEQ_LOAD_INVOICE_CREDIT
+]]></body>
+    </function>
+  </database>

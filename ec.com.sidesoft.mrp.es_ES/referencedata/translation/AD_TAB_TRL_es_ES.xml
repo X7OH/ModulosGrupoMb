@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TAB" version="">
+  <row id="569A2528FC51473E8711BD57329368A8" trl="N">
+    <value column="Name" isTrl="Y" original="Header">Cabecera</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create a planning method.">Crea un método de planificación.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Create a planning method.">Crea un método de planificación.</value>
+  </row>
+  <row id="582A06B394EA43C08B3A5CFC119BC708" trl="N">
+    <value column="Name" isTrl="N" original="Header">Cabecera</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="Create and edit a manufacturing plan.">Create and edit a manufacturing plan.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original="Create and edit a manufacturing plan.">Create and edit a manufacturing plan.</value>
+  </row>
+  <row id="6E6F4A3A9E164605923BAFA4EF4F2443" trl="N">
+    <value column="Name" isTrl="Y" original="Header">Previsión de ventas</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create a MRP forecast.">Crea una previsión de ventas.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Create a MRP forecast.">Crea una previsión de ventas.</value>
+  </row>
+  <row id="9472702A814A492181FC814A7988A844" trl="N">
+    <value column="Name" isTrl="N" original="Lines">Lineas</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="Add products to be included in your plan.  Each product is shown on its own line.">Add products to be included in your plan.  Each product is shown on its own line.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original="Add products to be included in your plan.  Each product is shown on its own line.">Add products to be included in your plan.  Each product is shown on its own line.</value>
+  </row>
+  <row id="ABEE60E6032B44528A121CFE8AA47FFB" trl="N">
+    <value column="Name" isTrl="Y" original="Header">Planificación de compras</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Create and edit a purchase plan.">Crea y edita un plan de compra.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Create and edit a purchase plan.">Crea y edita un plan de compra.</value>
+  </row>
+  <row id="AD37A3D91C874B5995C822333359F54F" trl="N">
+    <value column="Name" isTrl="Y" original="Purchasing">Compras</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="Define information necessary to purchase this product from a specific vendor.">Define information necessary to purchase this product from a specific vendor.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original="Purchasing tab information is used for products that are planned by the purchasing plan.">Purchasing tab information is used for products that are planned by the purchasing plan.</value>
+  </row>
+  <row id="AEB36FC029E34735ADB39ECC285A094C" trl="N">
+    <value column="Name" isTrl="Y" original="Lines">Líneas</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add products to be included in your plan.  Each product is shown on its own line.">Añade los productos que han de incluirse en su plan. Cada producto se muestra en su propia línea.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add products to be included in your plan.  Each product is shown on its own line.">Añade los productos que han de incluirse en su plan. Cada producto se muestra en su propia línea.</value>
+  </row>
+  <row id="C782CAE0C7DD41CCA53345C6F003F7DB" trl="N">
+    <value column="Name" isTrl="Y" original="Lines">Línea de previsión de ventas</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add products to be included in your MRP forecast.  Each product is added by creating a line.">Añade los productos que van a incluirse en su previsión de ventas. Cada producto se añade creando una línea.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add products to be included in your MRP forecast.  Each product is added by creating a line.">Añade los productos que van a incluirse en su previsión de ventas. Cada producto se añade creando una línea.</value>
+  </row>
+  <row id="D62EE2DACF6F4798959437FE0F157E1A" trl="N">
+    <value column="Name" isTrl="Y" original="Lines">Líneas</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Add transactions to be included in your plan.  Each transaction is shown on its own line.">Añade las transacciones para su plan. Cada transacción aparece en su propia línea.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Add transactions to be included in your plan.  Each transaction is shown on its own line.">Añade las transacciones para su plan. Cada transacción aparece en su propia línea.</value>
+  </row>
+  <row id="D6B8332504B645C0B75AFF2F8142E5B3" trl="N">
+    <value column="Name" isTrl="Y" original="Manufacturing">Producción</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original="Define specific characteristics which allow this product to be used in an organization.">Define specific characteristics which allow this product to be used in an organization.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original="Manufacturing tab is used for products that are planned by the manufacturing plan.">Manufacturing tab is used for products that are planned by the manufacturing plan.</value>
+  </row>
+  <row id="DD6961352108494BBFDB6D06935799FB" trl="N">
+    <value column="Name" isTrl="Y" original="Planner">Planificador</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="Y" original="Define the planner in charge of managing the purchase or production of specific products.">Define el planificador a cargo de gestionar la compra o producción de productos específicos.</value>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="Define the planner in charge of managing the purchase or production of specific products.">Define el planificador a cargo de gestionar la compra o producción de productos específicos.</value>
+  </row>
+</compiereTrl>

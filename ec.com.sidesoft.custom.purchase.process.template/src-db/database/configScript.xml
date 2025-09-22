@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+  <vector>
+    <versionInfo version="3.0.31111"/>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="803553">
+      <oldValue><![CDATA[@DocStatus@='CO'|@DocStatus@='CL' | @UomManagement@='Y']]></oldValue>
+      <newValue><![CDATA[@DocStatus@='CO'|@DocStatus@='CL']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="DEFAULTVALUE" pkRow="1004400027">
+      <oldValue><![CDATA[CO]]></oldValue>
+      <newValue><![CDATA[SCPPR_RQ]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TAB" columnname="FILTERCLAUSE" pkRow="1004400001">
+      <oldValue><![CDATA[M_Requisition.DocStatus = 'CO']]></oldValue>
+      <newValue><![CDATA[M_Requisition.DocStatus IN ( 'CO', 'SCPPR_RQ' , 'CL', 'VO' , 'RE' )]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TAB" columnname="HQLFILTERCLAUSE" pkRow="1004400001">
+      <oldValue><![CDATA[e.documentStatus='CO']]></oldValue>
+      <newValue><![CDATA[e.documentStatus IN ( 'CO', 'SCPPR_RQ' , 'CL', 'VO' , 'RE' )]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="ISDISPLAYED" pkRow="803844">
+      <oldValue><![CDATA[Y]]></oldValue>
+      <newValue><![CDATA[N]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="ISDISPLAYED" pkRow="1004400026">
+      <oldValue><![CDATA[Y]]></oldValue>
+      <newValue><![CDATA[N]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="ISDISPLAYED" pkRow="1004400041">
+      <oldValue><![CDATA[Y]]></oldValue>
+      <newValue><![CDATA[N]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="ISDISPLAYED" pkRow="1004400080">
+      <oldValue><![CDATA[Y]]></oldValue>
+      <newValue><![CDATA[N]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="ISDISPLAYED" pkRow="1004400088">
+      <oldValue><![CDATA[Y]]></oldValue>
+      <newValue><![CDATA[N]]></newValue>
+    </columnDataChange>
+	<columnDataChange tablename="AD_MENU" columnname="ISACTIVE" pkRow="1004400001">
+      <oldValue><![CDATA[Y]]></oldValue>
+      <newValue><![CDATA[N]]></newValue>
+    </columnDataChange>
+  </vector>

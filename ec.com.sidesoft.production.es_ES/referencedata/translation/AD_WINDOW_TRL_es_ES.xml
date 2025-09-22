@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_WINDOW" version="">
+  <row id="0108727346834FFF80BBE96B1C1D1D35" trl="N">
+    <value column="Name" isTrl="Y" original="Work Center">Puesto Trabajo</value>
+    <value column="Description" isTrl="Y" original="Create and add machines to be used in a work center.">Crea y añade las máquinas que se usan en un centro de trabajo.</value>
+    <value column="Help" isTrl="Y" original="Create and add machines to be used in a work center.">Crea y añade las máquinas que se usan en un centro de trabajo.</value>
+  </row>
+  <row id="01EB770BAFF84E738D699E836755E94B" trl="N">
+    <value column="Name" isTrl="Y" original="Maintenance Task">Operación de Mantenimiento</value>
+    <value column="Description" isTrl="Y" original="Define a scheduled maintenance task to be completed during the production process.">Define una tarea de mantenimiento programada que deba completarse durante el proceso de producción.</value>
+    <value column="Help" isTrl="Y" original="Define a scheduled maintenance task to be completed during the production process.">Define una tarea de mantenimiento programada que deba completarse durante el proceso de producción.</value>
+  </row>
+  <row id="0D49D788605449178F19CBB42B5335EA" trl="N">
+    <value column="Name" isTrl="Y" original="Work Effort">Parte de Trabajo</value>
+    <value column="Description" isTrl="Y" original="Edit precisely what has been produced from a selected product order.">Edita con exactitud lo que se ha producido de un determinado pedido de producto.</value>
+    <value column="Help" isTrl="Y" original="Edit precisely what has been produced from a selected product order.">Edita con exactitud lo que se ha producido de un determinado pedido de producto.</value>
+  </row>
+  <row id="21976EDEA3934A61884D0B1B681A3776" trl="N">
+    <value column="Name" isTrl="Y" original="Process Plan">Plan de Producción</value>
+    <value column="Description" isTrl="Y" original="Define the steps and processes to be completed for an intermediate or finished good, taking into account available resources.">Define los pasos y procesos a completar para un bien terminado o en estado intermedio, tomando en cuenta los recursos disponibles.</value>
+    <value column="Help" isTrl="Y" original="Define the steps and processes to be completed for an intermediate or finished good, taking into account available resources.">Define los pasos y procesos a completar para un bien terminado o en estado intermedio, tomando en cuenta los recursos disponibles.</value>
+  </row>
+  <row id="2F1F33922CBF413D978C83F11A66F906" trl="N">
+    <value column="Name" isTrl="N" original="test">test</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="31FF1D1C24F149399F685CD11F4EE653" trl="N">
+    <value column="Name" isTrl="Y" original="Section">Área</value>
+    <value column="Description" isTrl="Y" original="Edit the production area by dividing them into multiple sections.">Edita el área de producción dividiéndola en múltiples secciones.</value>
+    <value column="Help" isTrl="Y" original="Edit the production area by dividing them into multiple sections.">Edita el área de producción dividiéndola en múltiples secciones.</value>
+  </row>
+  <row id="359556B79F7A41069A987D4DDD00EB33" trl="N">
+    <value column="Name" isTrl="Y" original="Production Run">Parte de Fabricación</value>
+    <value column="Description" isTrl="Y" original="Edit precisely what has been produced from a selected product order.">Edita con exactitud lo que se ha producido de un determinado pedido de producto.</value>
+    <value column="Help" isTrl="Y" original="Edit precisely what has been produced from a selected product order.">Edita con exactitud lo que se ha producido de un determinado pedido de producto.</value>
+  </row>
+  <row id="387DCD1EB9F54B8491C749CC1EA2A38A" trl="N">
+    <value column="Name" isTrl="Y" original="Indirect Cost">Costo Indirecto</value>
+    <value column="Description" isTrl="Y" original="Create and edit indirect costs to be used in production.">Crea y edita los costos indirectos correspondientes a la producción.</value>
+    <value column="Help" isTrl="Y" original="Create and edit indirect costs to be used in production.">Crea y edita los costos indirectos correspondientes a la producción.</value>
+  </row>
+  <row id="426444AF6E7940938A27FE7E36CA84A9" trl="N">
+    <value column="Name" isTrl="Y" original="Periodic Quality Control Data">Datos del control de calidad periódico</value>
+    <value column="Description" isTrl="N" original="Create and edit data collection and measurements related to quality control.  This is done at predefined checkpoints for a produced product.">Create and edit data collection and measurements related to quality control.  This is done at predefined checkpoints for a produced product.</value>
+    <value column="Help" isTrl="Y" original="Create and edit data collection and measurements related to quality control.  This is done at predefined checkpoints for a produced product.">Crea y edita colección de datos y de medidas relacionadas con el control de calidad. Esto se hace los checkpoint predefinidos para el producto producido.</value>
+  </row>
+  <row id="4B493627A2A0439A8264647810FECABB" trl="N">
+    <value column="Name" isTrl="Y" original="Machine">Máquina</value>
+    <value column="Description" isTrl="Y" original="Create machines to be used in production.">Crea las máquinas para utilizar en la producción.</value>
+    <value column="Help" isTrl="Y" original="Create machines to be used in production.">Crea las máquinas para utilizar en la producción.</value>
+  </row>
+  <row id="68F051F966EE46ECBB3AC7406C4B0513" trl="N">
+    <value column="Name" isTrl="Y" original="Machine Category">Tipo de Máquina</value>
+    <value column="Description" isTrl="Y" original="Create machine categories based on your desired characteristics.">Crea categorías de máquinas basadas en las características de su preferencia.</value>
+    <value column="Help" isTrl="Y" original="Create machine categories based on your desired characteristics.">Crea categorías de máquinas basadas en las características de su preferencia.</value>
+  </row>
+  <row id="6C0AF024993F4DFC9D997CA39F58BB52" trl="N">
+    <value column="Name" isTrl="Y" original="Quality Control Point">Punto de Control Crítico</value>
+    <value column="Description" isTrl="Y" original="Define quality control check points to be used for testing the product quality at any point in the production process.">Define los checkpoints de control de calidad para testear la calidad de los productos en cualquier momento del proceso de producción.</value>
+    <value column="Help" isTrl="Y" original="Define quality control check points to be used for testing the product quality at any point in the production process.">Define los checkpoints de control de calidad para testear la calidad de los productos en cualquier momento del proceso de producción.</value>
+  </row>
+  <row id="6EDC152D663141FBA7A013A38742CD28" trl="N">
+    <value column="Name" isTrl="Y" original="Manufacturing Cost Center">Centro de Costos</value>
+    <value column="Description" isTrl="Y" original="Create and edit cost centers related to production to sum up charges associated with a specific transaction.">Crea y edita centros de costos relacionados con la producción para calcular los gastos asociados a una transacción específica.</value>
+    <value column="Help" isTrl="Y" original="Create and edit cost centers related to production to sum up charges associated with a specific transaction.">Crea y edita centros de costos relacionados con la producción para calcular los gastos asociados a una transacción específica.</value>
+  </row>
+  <row id="82E1016A33314A76A4790DD95D3C49BA" trl="N">
+    <value column="Name" isTrl="Y" original="Activity">Proceso</value>
+    <value column="Description" isTrl="Y" original="Define activities (processes) to be performed as part of a process plan and their characteristics .">Define las actividades (procesos) que deben ejecutarse como parte del plan de procesos y sus características.</value>
+    <value column="Help" isTrl="Y" original="Define activities (processes) to be performed as part of a process plan and their characteristics .">Define las actividades (procesos) que deben ejecutarse como parte del plan de procesos y sus características.</value>
+  </row>
+  <row id="B997A55D42144D0495AE707E49A593A4" trl="N">
+    <value column="Name" isTrl="Y" original="Quality Control Report">Toma de Datos de PCC</value>
+    <value column="Description" isTrl="Y" original="Create and edit measurements and report findings at predefined checkpoints.  The goal is to ensure output quality during production.">Crea y edita las mediciones e informe los hallazgos en los checkpoints predefinidos. El objetivo es garantizar la calidad de los resultados durante la producción.</value>
+    <value column="Help" isTrl="Y" original="Create and edit measurements and report findings at predefined checkpoints.  The goal is to ensure output quality during production.">Crea y edita las mediciones e informe los hallazgos en los checkpoints predefinidos. El objetivo es garantizar la calidad de los resultados durante la producción.</value>
+  </row>
+  <row id="C00E0698E44F468683AC2ED8A21B03E3" trl="Y">
+    <value column="Name" isTrl="Y" original="Periodic Quality Control">Control periódico</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="C5FAE6AAFF89405ABAB9AA1478A11634" trl="N">
+    <value column="Name" isTrl="Y" original="Internal Consumption">Consumo interno</value>
+    <value column="Description" isTrl="Y" original="Define products which are only to be used inside the enterprise.">Define los productos para uso interno exclusivo de la compañía.</value>
+    <value column="Help" isTrl="Y" original="Define products which are only to be used inside the enterprise.">Define los productos para uso interno exclusivo de la compañía.</value>
+  </row>
+  <row id="C6FF17AB1F6E41499D21CD2F37389F48" trl="N">
+    <value column="Name" isTrl="Y" original="Work Requirement">Orden de Fabricación</value>
+    <value column="Description" isTrl="Y" original="Create and manage an order for a process plan to be executed a certain number of times to satisfy the production requirements.">Crea una orden para ejecutar el plan de proceso seleccionado.</value>
+    <value column="Help" isTrl="Y" original="Create and manage an order for a process plan to be executed a certain number of times to satisfy the production requirements.">Crea una orden para ejecutar el plan de proceso seleccionado.</value>
+  </row>
+  <row id="D0338D07018640069425663FDF174488" trl="N">
+    <value column="Name" isTrl="N" original="Test">Test</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="D41ACC4A805B4445BFBCDAA4974E3666" trl="N">
+    <value column="Name" isTrl="Y" original="Toolset">Utillajes</value>
+    <value column="Description" isTrl="Y" original="Define tools and groups of tools to be used in the production process.">Define las herramientas y grupos de herramientas para utilizar en el proceso de producción.</value>
+    <value column="Help" isTrl="Y" original="Define tools and groups of tools to be used in the production process.">Define las herramientas y grupos de herramientas para utilizar en el proceso de producción.</value>
+  </row>
+  <row id="D648B7980B5143C59A7FC760D3617615" trl="N">
+    <value column="Name" isTrl="Y" original="Maintenance Plan">Mantenimiento Programado</value>
+    <value column="Description" isTrl="Y" original="Add and edit predefined maintenance plans.">Añade y edita planes de mantenimiento predefinidos.</value>
+    <value column="Help" isTrl="Y" original="Add and edit predefined maintenance plans.">Añade y edita planes de mantenimiento predefinidos.</value>
+  </row>
+  <row id="DBF297CD33F248F288358AE71B6E8AD1" trl="N">
+    <value column="Name" isTrl="Y" original="Periodic Quality Control">Control Periódico</value>
+    <value column="Description" isTrl="Y" original="Define checkpoints to be used for quality control of a produced product.">Define los checkpoints para efectuar el control de calidad de un producto terminado.</value>
+    <value column="Help" isTrl="Y" original="Define checkpoints to be used for quality control of a produced product.">Define los checkpoints para efectuar el control de calidad de un producto terminado.</value>
+  </row>
+  <row id="E052C86CC62E42C19CE097A03E178558" trl="N">
+    <value column="Name" isTrl="Y" original="Maintenance Order">Parte de Mantenimiento</value>
+    <value column="Description" isTrl="Y" original="Create and edit the results of a scheduled maintenance order.">Crea y edita los resultados de la orden de mantenimiento programada.</value>
+    <value column="Help" isTrl="Y" original="Create and edit the results of a scheduled maintenance order.">Crea y edita los resultados de la orden de mantenimiento programada.</value>
+  </row>
+  <row id="E2830096CA7E42C79DEBCC2B0C7ED4E4" trl="N">
+    <value column="Name" isTrl="Y" original="Products View for Attributes">Reporte Productos por Atributos</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="FA5A5BC0F50246569B9CED7256356B25" trl="N">
+    <value column="Name" isTrl="Y" original="Work Incidence">Incidencia de Trabajo</value>
+    <value column="Description" isTrl="Y" original="Define types of work incidences that may occur during production.">Define los tipos de incidencias de trabajo que pueden ocurrir durante la producción.</value>
+    <value column="Help" isTrl="Y" original="Define types of work incidences that may occur during production.">Define los tipos de incidencias de trabajo que pueden ocurrir durante la producción.</value>
+  </row>
+</compiereTrl>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="OBUISEL_SELECTOR_FIELD" version="">
+  <row id="00B70A70C5374C9C94165FF433D33CD3" trl="N">
+    <value column="Name" isTrl="N" original="Attribute out">Attribute out</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="07ECF03C66A3498DA1A09D1F5A8CFF39" trl="N">
+    <value column="Name" isTrl="N" original="Quantity Order in draft transactions">Quantity Order in draft transactions</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="6CD84AC3087A4F3DBE949FA230D5ECE3" trl="N">
+    <value column="Name" isTrl="N" original="Product UOM out">Product UOM out</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="7B17B761DE8D43008CE169DB1258D6C0" trl="N">
+    <value column="Name" isTrl="N" original="Product id">Product id</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="87E3F700E82A454F952D8C4E81313F46" trl="N">
+    <value column="Name" isTrl="N" original="Quantity order out">Quantity order out</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="8DA68AC4EDE34CDDB44BF23CE0F4FB16" trl="N">
+    <value column="Name" isTrl="N" original="Order UOM">Order UOM</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="ADC3F31FF41846BDA9CDC77C5A4DD388" trl="N">
+    <value column="Name" isTrl="N" original="On Hand Quantity order">On Hand Quantity order</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="E3D50ACCDBFD448DBC5FA8724044351A" trl="N">
+    <value column="Name" isTrl="N" original="UOM out">UOM out</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

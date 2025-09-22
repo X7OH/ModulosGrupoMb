@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE C_DOCTYPE">
+    <table name="C_DOCTYPE" primaryKey="C_DOCTYPE_KEY">
+      <column name="EM_SIOV_VARIATION_VALIDATE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SIOV_ORDER_REQUIRED" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <check name="EM_SIOV_ORDERREQUIRED_CHECK"><![CDATA[EM_SIOV_ORDER_REQUIRED IN ('Y', 'N')]]></check>
+      <check name="EM_SIOV_VARVALIDATE_CHECK"><![CDATA[EM_SIOV_VARIATION_VALIDATE IN ('Y', 'N')]]></check>
+    </table>
+  </database>

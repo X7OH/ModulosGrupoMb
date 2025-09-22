@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+  <vector>
+    <versionInfo version="3.0.33196"/>
+    <columnDataChange tablename="AD_COLUMN" columnname="ISMANDATORY" pkRow="5396">
+      <oldValue><![CDATA[N]]></oldValue>
+      <newValue><![CDATA[Y]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="ISREADONLY" pkRow="8733940CC5FE495BBA688323054FB715">
+      <oldValue><![CDATA[N]]></oldValue>
+      <newValue><![CDATA[Y]]></newValue>
+    </columnDataChange>
+  </vector>

@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SREPA_PARTNERRETAIL_TRG">
+    <trigger name="SREPA_PARTNERRETAIL_TRG" table="AD_USER" fires="before" insert="true" update="true" delete="false" foreach="row">
+      <body><![CDATA[
+
+
+/*************************************************************************
+* The contents of this file are subject to the Openbravo  Public  License
+* Version  1.0  (the  "License"),  being   the  Mozilla   Public  License
+* Version 1.1  with a permitted attribution clause; you may not  use this
+* file except in compliance with the License. You  may  obtain  a copy of
+* the License at http://www.openbravo.com/legal/license.html
+* Software distributed under the License  is  distributed  on  an "AS IS"
+* basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+* License for the specific  language  governing  rights  and  limitations
+* under the License.
+* The Original Code is Openbravo ERP.
+* The Initial Developer of the Original Code is Openbravo SL
+* All portions are Copyright (C) 2001-2006 Openbravo SL
+* All Rights Reserved.
+* Contributor(s):  ______________________________________.
+************************************************************************/
+v_withholdingsale_id varchar(32);
+v_processed char(1);
+v_emailOLD varchar(1000)        ;
+BEGIN
+    
+  IF AD_isTriggerEnabled()='N' THEN RETURN;
+  END IF;
+
+  
+  IF (INSERTING OR UPDATING) THEN
+
+  SELECT
+  COALESCE((select TRIM(EM_EEI_Email)
+  from c_bpartner 
+  WHERE C_BPartner_id = :NEW.C_BPartner_id),'ND')
+  INTO    v_emailOLD
+  FROM DUAL;
+
+
+	IF (v_emailOLD='ND') THEN
+
+  
+		UPDATE C_BPartner 
+			SET EM_EEI_Eeioice = 'Y',
+			EM_EEI_Email = :NEW.email
+		WHERE C_BPartner_id = :NEW.C_BPartner_id;
+
+	END IF;
+
+  END IF;
+  
+END SREPA_PARTNERRETAIL_TRG
+]]></body>
+    </trigger>
+  </database>

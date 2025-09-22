@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REF_LIST" version="">
+  <row id="26FE9E4A59ED41DCBE894C382D57FA1A" trl="N">
+    <value column="Name" isTrl="Y" original="Waiting for passowrd">Esperando Clave</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="2C81E4C2B33740F285F465E04B64144F" trl="N">
+    <value column="Name" isTrl="Y" original="Generate Key">Generar Clave</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="C671D85505C54663BB11345D98D8C90E" trl="N">
+    <value column="Name" isTrl="Y" original="Key Accepted">Clave Aceptada</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

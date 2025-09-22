@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SCMF_SQRT">
+    <function name="SCMF_SQRT" type="NUMERIC">
+      <parameter name="value_sqtr" type="NUMERIC" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[numero_dias NUMBER:= 0;
+numero_mes NUMBER:=0;
+contar_mes NUMBER:=0;
+mes_actual NUMBER:=0;
+anio_actual NUMBER:=0;
+fecha_actual DATE;
+fecha_finmes DATE;
+
+r NUMBER(10,4);
+t NUMBER(10,4);
+     
+begin
+
+r := value_sqtr;
+t := 0;
+WHILE  (t != r) LOOP
+t := r;
+r := (value_sqtr/r + r)/2;
+END LOOP;
+return to_number(r);
+END SCMF_SQRT
+]]></body>
+    </function>
+  </database>

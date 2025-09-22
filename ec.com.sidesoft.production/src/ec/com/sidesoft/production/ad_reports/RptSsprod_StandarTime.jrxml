@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptSsprod_StandarTime" pageWidth="1423" pageHeight="842" columnWidth="1383" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="2.357947691000002"/>
+	<property name="ireport.x" value="2526"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="DATEFROM" class="java.util.Date"/>
+	<parameter name="DATETO" class="java.util.Date"/>
+	<parameter name="M_PRODUCT_CATEGORY_ID" class="java.lang.String"/>
+	<parameter name="MA_PROCESS_ID" class="java.lang.String"/>
+	<parameter name="MA_COSTCENTER_VERSION_ID" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select 	e.name  as "categoria",
+	SUM(coalesce(cant_ope,0)) as "no_operarios",
+	COALESCE(count(g.name),0)::numeric as "cant_proceso",
+	g.name as "proceso",
+	a.secondaryunit as "unidad",
+	sum(b.movementqty) as "cat_proc_tot",
+	sum(a.ma_costcenteruse) as "tiempo_total",
+	sum(h.estimatedtime) as "tiempo_estandar",
+	d.ad_org_id as "organizationid"
+from m_productionplan a
+left join m_productionline b on a.m_productionplan_id = b.m_productionplan_id
+left join m_product c on b.m_product_id = c.m_product_id
+left join m_production d on a.m_production_id = d.m_production_id
+left join m_product_category e on c.m_product_category_id = e.m_product_category_id
+left join ma_costcenter_version f on a.ma_costcenter_version_id = f.ma_costcenter_version_id
+left join MA_Process g on f.ma_costcenter_id = g.ma_costcenter_id
+left join MA_WRPhase h on a.MA_WRPhase_id = h.MA_WRPhase_id
+left join (
+	select SUM(d.quantity) as cant_ope, a.m_productionplan_id
+	from m_productionplan a
+	left join ma_costcenter_version b on a.ma_costcenter_version_id = b.ma_costcenter_version_id
+	left join ma_costcenter c on b.ma_costcenter_id = c.ma_costcenter_id
+	left join MA_PL_Employee d on a.m_productionplan_id = d.m_productionplan_id
+	WHERE starttime between $P{DATEFROM} AND $P{DATETO}
+	group by a.m_productionplan_id
+)maccv1 on maccv1.m_productionplan_id = a.m_productionplan_id
+WHERE (c.m_product_category_id=$P{M_PRODUCT_CATEGORY_ID} or $P{M_PRODUCT_CATEGORY_ID} is null)
+AND (g.ma_process_id=$P{MA_PROCESS_ID} or $P{MA_PROCESS_ID} is null)
+and b.productiontype = '+'
+and a.starttime between $P{DATEFROM} AND $P{DATETO}
+group by e.name, g.name, a.secondaryunit ,d.ad_org_id, a.ma_costcenter_version_id
+order by 1]]>
+	</queryString>
+	<field name="categoria" class="java.lang.String"/>
+	<field name="no_operarios" class="java.math.BigDecimal"/>
+	<field name="cant_proceso" class="java.math.BigDecimal"/>
+	<field name="proceso" class="java.lang.String"/>
+	<field name="unidad" class="java.lang.String"/>
+	<field name="cat_proc_tot" class="java.math.BigDecimal"/>
+	<field name="tiempo_total" class="java.math.BigDecimal"/>
+	<field name="tiempo_estandar" class="java.math.BigDecimal"/>
+	<field name="organizationid" class="java.lang.String"/>
+	<variable name="v_hrs_op" class="java.lang.Double">
+		<variableExpression><![CDATA[Double.valueOf(String.valueOf($F{no_operarios}.multiply($F{tiempo_total})))> Double.valueOf("0")? Double.valueOf($F{cat_proc_tot}.toString())/Double.valueOf(String.valueOf($F{no_operarios}.multiply($F{tiempo_total}))):Double.valueOf("0")]]></variableExpression>
+	</variable>
+	<variable name="v_tm_cant_std" class="java.lang.Double">
+		<variableExpression><![CDATA[($F{tiempo_estandar}.doubleValue()!=Double.valueOf("0") && $F{cat_proc_tot}.doubleValue()!=Double.valueOf("0"))? ($F{tiempo_estandar}.doubleValue()/$F{cat_proc_tot}.doubleValue()): Double.valueOf("0")
+]]></variableExpression>
+	</variable>
+	<variable name="v_tmp_desv" class="java.lang.Double">
+		<variableExpression><![CDATA[($V{v_tm_cant_std} - $F{tiempo_total}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="v_eficiencia" class="java.lang.Double">
+		<variableExpression><![CDATA[($V{v_tm_cant_std} * $F{tiempo_total}.doubleValue()) * 100]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="87" splitType="Stretch">
+			<staticText>
+				<reportElement x="211" y="27" width="964" height="31"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Eficiencia por tiempo estándar]]></text>
+			</staticText>
+			<image scaleImage="RetainShape" hAlign="Right" vAlign="Top" isUsingCache="true">
+				<reportElement key="image-1" x="1175" y="0" width="100" height="79"/>
+				<imageExpression class="java.awt.Image"><![CDATA[org.openbravo.erpCommon.utility.Utility.showImageLogo("yourcompanylegal", $F{organizationid})]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="211" height="33"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Categoria del Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="211" y="0" width="64" height="33"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cant. uso proceso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="275" y="0" width="207" height="33"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Proceso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="482" y="0" width="100" height="33"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Und.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="582" y="0" width="100" height="33"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cant. procesados Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="682" y="0" width="100" height="33"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nro. Operarios Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="782" y="0" width="100" height="33"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tiempo Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="882" y="0" width="100" height="33"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[kg/(hrs*op)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="982" y="0" width="100" height="33"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tiempo estándar x UND]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1082" y="0" width="100" height="33"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tiempo estándar por cant. Procesada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1182" y="0" width="100" height="33"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tiempo desviación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1282" y="0" width="100" height="33"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[% Eficiencia]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="211" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{categoria}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="211" y="0" width="64" height="20"/>
+				<box rightPadding="5">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{cant_proceso}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="275" y="0" width="207" height="20"/>
+				<box leftPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{proceso}!=null?  "     "+$F{proceso}:""]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="482" y="0" width="100" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{unidad}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="582" y="0" width="100" height="20"/>
+				<box rightPadding="4">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{cat_proc_tot}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="682" y="0" width="100" height="20"/>
+				<box rightPadding="4">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{no_operarios}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="782" y="0" width="100" height="20"/>
+				<box rightPadding="4">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{tiempo_total}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="982" y="0" width="100" height="20"/>
+				<box rightPadding="4">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{tiempo_estandar}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="882" y="0" width="100" height="20"/>
+				<box rightPadding="4">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{v_hrs_op}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="1082" y="0" width="100" height="20"/>
+				<box rightPadding="4">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{v_tm_cant_std}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement stretchType="RelativeToBandHeight" x="1182" y="0" width="100" height="20"/>
+				<box rightPadding="4">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{v_tmp_desv}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1282" y="0" width="100" height="20"/>
+				<box rightPadding="4">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{v_eficiencia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

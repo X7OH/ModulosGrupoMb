@@ -1,0 +1,232 @@
+<?xml version="1.0"?>
+  <database name="TABLE SSRS_RESUPPLYPOSLINE">
+    <table name="SSRS_RESUPPLYPOSLINE" primaryKey="SSRS_RESUPPLYPOSLINE_KEY">
+      <column name="SSRS_RESUPPLYPOSLINE_ID" primaryKey="true" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_CLIENT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_ORG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISACTIVE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="SSRS_RESUPPLY_POS_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="M_PRODUCT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="QTY" primaryKey="false" required="true" type="DECIMAL" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="PRICELIST" primaryKey="false" required="false" type="DECIMAL" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="LINENETAMT" primaryKey="false" required="false" type="DECIMAL" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_BPARTNER_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_UOM_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="M_PRODUCT_UOM_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="QUANTITYORDER" primaryKey="false" required="true" type="DECIMAL" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="M_ATTRIBUTESETINSTANCE_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="REQSTATUS" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default><![CDATA[O]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="ORDEREDQTY" primaryKey="false" required="true" type="DECIMAL" autoIncrement="false">
+        <default><![CDATA[0]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="DESCRIPTION" primaryKey="false" required="false" type="VARCHAR" size="255" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="CHANGESTATUS" primaryKey="false" required="false" type="CHAR" size="1" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="INTERNALNOTES" primaryKey="false" required="false" type="VARCHAR" size="255" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="SUPPLIERNOTES" primaryKey="false" required="false" type="VARCHAR" size="255" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="DATEPLANNED" primaryKey="false" required="false" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="NEEDBYDATE" primaryKey="false" required="false" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="LOCKEDBY" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="LOCKQTY" primaryKey="false" required="false" type="DECIMAL" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="LOCKPRICE" primaryKey="false" required="false" type="DECIMAL" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="LOCKDATE" primaryKey="false" required="false" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="LOCKCAUSE" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="LINE" primaryKey="false" required="true" type="DECIMAL" size="10,0" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="GROSS_UNIT_PRICE" primaryKey="false" required="false" type="DECIMAL" autoIncrement="false">
+        <default><![CDATA[0]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="GROSS_AMT" primaryKey="false" required="false" type="DECIMAL" autoIncrement="false">
+        <default><![CDATA[0]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="VALUE" primaryKey="false" required="true" type="VARCHAR" size="40" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="LOCKQTYCONVERSION" primaryKey="false" required="false" type="DECIMAL" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_AUM" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="SECQTYUOM" primaryKey="false" required="false" type="DECIMAL" size="12,5" autoIncrement="false">
+        <default><![CDATA[0]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="QTY_DISPATCHED" primaryKey="false" required="false" type="DECIMAL" size="12,5" autoIncrement="false">
+        <default><![CDATA[0]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="SECQTY_DISPATCHED" primaryKey="false" required="false" type="DECIMAL" size="12,5" autoIncrement="false">
+        <default><![CDATA[0]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="STATUS_FOR_LINE" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default><![CDATA[ND]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="M_PRODUCT_CATEGORY_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="LASTCOUNTED" primaryKey="false" required="false" type="DECIMAL" size="10,2" autoIncrement="false">
+        <default><![CDATA[0]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="AVRGQTY" primaryKey="false" required="false" type="DECIMAL" size="10,2" autoIncrement="false">
+        <default><![CDATA[0]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="QTYRESULT" primaryKey="false" required="false" type="DECIMAL" size="10,2" autoIncrement="false">
+        <default><![CDATA[0]]></default>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="C_UOM" name="SSRS_RESUPPLYLINE_AOM">
+        <reference local="C_AUM" foreign="C_UOM_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_PRODUCT_CATEGORY" name="SSRS_RESUPPLYPOSLINE_CATEGORY">
+        <reference local="M_PRODUCT_CATEGORY_ID" foreign="M_PRODUCT_CATEGORY_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_CLIENT" name="SSRS_RESUPPLYPOSLINE_CLIENT">
+        <reference local="AD_CLIENT_ID" foreign="AD_CLIENT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_ATTRIBUTESETINSTANCE" name="SSRS_RESUPPLYPOSLINE_INSTANCE">
+        <reference local="M_ATTRIBUTESETINSTANCE_ID" foreign="M_ATTRIBUTESETINSTANCE_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_ORG" name="SSRS_RESUPPLYPOSLINE_ORG">
+        <reference local="AD_ORG_ID" foreign="AD_ORG_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_BPARTNER" name="SSRS_RESUPPLYPOSLINE_PARTNER">
+        <reference local="C_BPARTNER_ID" foreign="C_BPARTNER_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_PRODUCT" name="SSRS_RESUPPLYPOSLINE_PRODUCT">
+        <reference local="M_PRODUCT_ID" foreign="M_PRODUCT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_PRODUCT_UOM" name="SSRS_RESUPPLYPOSLINE_PRODUOM">
+        <reference local="M_PRODUCT_UOM_ID" foreign="M_PRODUCT_UOM_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="SSRS_RESUPPLY_POS" name="SSRS_RESUPPLYPOSLINE_RESUPPLY">
+        <reference local="SSRS_RESUPPLY_POS_ID" foreign="SSRS_RESUPPLY_POS_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_UOM" name="SSRS_RESUPPLYPOSLINE_UOM">
+        <reference local="C_UOM_ID" foreign="C_UOM_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_USER" name="SSRS_RESUPPLYPOSLINE_USER">
+        <reference local="LOCKEDBY" foreign="AD_USER_ID"/>
+      </foreign-key>
+      <index name="SSRS_POSLINE_BPARTNER_IDX" unique="false">
+        <index-column name="C_BPARTNER_ID"/>
+      </index>
+      <index name="SSRS_POSLINE_PRODUCT_IDX" unique="false">
+        <index-column name="M_PRODUCT_ID"/>
+      </index>
+      <index name="SSRS_RESUPPLY_POS_IDX" unique="false">
+        <index-column name="SSRS_RESUPPLY_POS_ID"/>
+      </index>
+      <unique name="SSRS_RESUPPLYPOSLINE_PRODUCTU">
+        <unique-column name="M_PRODUCT_ID"/>
+        <unique-column name="SSRS_RESUPPLY_POS_ID"/>
+      </unique>
+      <check name="SSRS_RESUPPLYPOSLINE_ISACTIVE"><![CDATA[ISACTIVE IN ('Y', 'N')]]></check>
+    </table>
+  </database>

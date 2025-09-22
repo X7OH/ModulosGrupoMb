@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ 
+<SqlClass name="SsipyJustoLogData" package="ec.com.sidesoft.integration.pedidosya.ad_process">
+	<SqlMethod name="insert" type="preparedStatement" return="rowCount">
+		<Sql>
+			<![CDATA[
+				INSERT INTO public.ssipy_justologs(
+				ssipy_justologs_id, ad_client_id, ad_org_id, created,
+				createdby, updated, updatedby, jsonlog,
+				responselog, logstatus, isactive)
+				VALUES (
+				?, 0, 0, now(), 
+				100, now(), 100, ?,
+				?, 'P', 'Y');
+			]]>
+		</Sql>
+		<Parameter name="id"/>
+		<Parameter name="jsonRequest"/>
+		<Parameter name="jsonResponse"/>
+	</SqlMethod>
+	
+	<SqlMethod name="ok" type="preparedStatement" return="rowCount">
+		<Sql>
+			<![CDATA[
+				UPDATE ssipy_justologs SET responselog = ?, logstatus = 'O', updated = NOW()
+				WHERE ssipy_justologs_id = ?
+			]]>
+		</Sql>
+		<Parameter name="jsonResponse"/>
+		<Parameter name="id"/>
+	</SqlMethod>
+	
+	<SqlMethod name="error" type="preparedStatement" return="rowCount">
+		<Sql>
+			<![CDATA[
+				UPDATE ssipy_justologs SET responselog = ?, logstatus = 'E', updated = NOW()
+				WHERE ssipy_justologs_id = ?
+			]]>
+		</Sql>
+		<Parameter name="error"/>
+		<Parameter name="id"/>
+	</SqlMethod>
+</SqlClass>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
+  <row id="164D2FFC9D184D7DA75085943AB657A5" trl="N">
+    <value column="Name" isTrl="Y" original="Siva_Generate_Code">Generar Código</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="84B09809785C401AB66ACB127ED5D279" trl="N">
+    <value column="Name" isTrl="N" original="siva_doc_register">siva_doc_register</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="C2D00205D53E4D2290EB232FE78F3667" trl="N">
+    <value column="Name" isTrl="Y" original="Siva_Process">Procesar</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

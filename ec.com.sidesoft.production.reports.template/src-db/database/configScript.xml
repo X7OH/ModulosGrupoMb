@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+  <vector>
+    <versionInfo version="3.0.31111"/>
+    <columnDataChange tablename="AD_TAB" columnname="AD_PROCESS_ID" pkRow="319">
+      <oldValue/>
+      <newValue><![CDATA[B4534C6B11B247CBB98B239C9CEA4648]]></newValue>
+    </columnDataChange>
+  </vector>

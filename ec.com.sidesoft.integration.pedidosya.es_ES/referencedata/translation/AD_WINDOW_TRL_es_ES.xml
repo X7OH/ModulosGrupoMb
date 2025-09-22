@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_WINDOW" version="">
+  <row id="6F7D68EAD4504B1E94E48AC649F61D66" trl="Y">
+    <value column="Name" isTrl="Y" original="Justo Logs">Logs Justo</value>
+    <value column="Description" isTrl="Y" original="Justo Logs">Logs Justo</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="AF7346A60DF14C8EBCD9627804FAF79F" trl="Y">
+    <value column="Name" isTrl="Y" original="Justo Config">Configuracion Justo</value>
+    <value column="Description" isTrl="N" original="">Configuracion Justo</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

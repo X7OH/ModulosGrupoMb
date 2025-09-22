@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_FIELDGROUP" version="">
+  <row id="EB27F6DBF52840EC8F664D470EA5B807" trl="N">
+    <value column="Name" isTrl="N" original="PDV Configuration">PDV Configuration</value>
+  </row>
+</compiereTrl>

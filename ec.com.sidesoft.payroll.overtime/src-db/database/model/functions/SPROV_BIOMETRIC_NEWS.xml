@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SPROV_BIOMETRIC_NEWS">
+    <function name="SPROV_BIOMETRIC_NEWS" type="NULL">
+      <parameter name="pinstance_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[TYPE RECORD IS REF CURSOR;
+Cur_Parameter RECORD;  
+Cur_detovertime RECORD;
+Cur_detovertime_val RECORD;
+Cur_otempl RECORD;
+Cur_process RECORD;
+
+  v_status VARCHAR(32);   
+  v_ResultStr VARCHAR2(2000):='';
+  v_StatusDocumento_P VARCHAR(60);--OBTG:VARCHAR2--
+  v_Client_ID VARCHAR2(32);
+  v_Org_ID VARCHAR2(32);
+  v_User_ID VARCHAR2(32) ;
+  v_Record_ID  VARCHAR2(32);
+  v_Message VARCHAR2(2000):='';  
+  v_startdate DATE; 
+  v_enddate DATE;
+  v_c_bpartner_id VARCHAR(32); 
+  v_Period_ID VARCHAR2(32);
+  v_count NUMBER;
+  
+BEGIN
+  --  Update AD_PInstance
+  DBMS_OUTPUT.PUT_LINE('Updating PInstance - Processing ' || PInstance_ID) ;
+  v_ResultStr := 'PInstanceNotFound';
+  AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'Y', NULL, NULL) ;
+  
+  BEGIN --BODY
+
+   FOR Cur_Parameter IN
+      (SELECT i.Record_ID,
+      p.ParameterName,
+        p.P_String,
+        p.P_Number,
+        p.P_Date,
+        p.AD_Client_ID,
+        p.AD_Org_ID,
+        p.CreatedBy   
+      FROM AD_PInstance i 
+      LEFT JOIN AD_PInstance_Para p
+           ON i.AD_PInstance_ID = p.AD_PInstance_ID
+      WHERE i.AD_PInstance_ID = PInstance_ID
+      ORDER BY p.SeqNo       
+      )
+    LOOP
+	    IF (Cur_Parameter.ParameterName = 'C_BPartner_ID') THEN
+		v_c_bpartner_id := Cur_Parameter.P_String;      
+		v_Record_ID := Cur_Parameter.Record_ID;	
+		v_Client_ID := Cur_Parameter.AD_Client_ID;
+		v_Org_ID := Cur_Parameter.AD_Org_ID;
+		v_User_ID := Cur_Parameter.CreatedBy;
+	    ELSIF(Cur_Parameter.ParameterName = 'startdate')THEN 
+		v_startdate := Cur_Parameter.P_Date;
+	    ELSIF(Cur_Parameter.ParameterName = 'enddate')THEN 
+		v_enddate := Cur_Parameter.P_Date;
+	    ELSIF(Cur_Parameter.ParameterName = 'c_period_id')THEN 
+		v_Period_ID := Cur_Parameter.P_String;	    
+            ELSE  
+		DBMS_OUTPUT.PUT_LINE('*** Unknown Parameter=' || Cur_Parameter.ParameterName);
+	    END IF;       
+    END LOOP; -- End Get Parameter
+
+    --Valida que todas las lineas de las linea del detalle de horas extras de empleados esten calculadas
+
+ 	For Cur_detovertime_val in (
+		select coalesce(to_char(e.sspr_concept_id),'ND') as sspr_concept_id, coalesce(a.amount,0) as amount, c.name, b.datemovement, b.c_bpartner_id, d.search_key
+		from sprov_newness a
+		left join sprov_employee_overtime b on b.sprov_employee_overtime_id = a.sprov_employee_overtime_id
+		left join c_bpartner c on c.c_bpartner_id = b.c_bpartner_id
+		left join sprbi_maintenance_news d on d.sprbi_maintenance_news_id = a.sprbi_maintenance_news_id
+	        left join sspr_concept e on e.sspr_concept_id = d.sspr_concept_id
+		where b.datemovement between v_startdate and v_enddate 
+		and (b.c_bpartner_id = v_c_bpartner_id or v_c_bpartner_id is null)
+		order by c.name
+	)
+	Loop
+		If((Cur_detovertime_val.amount <= 0 or Cur_detovertime_val.amount is null) and Cur_detovertime_val.sspr_concept_id != 'ND')Then
+			RAISE_APPLICATION_ERROR(-20000, 'Calcule novedades para el empleado ' ||  Cur_detovertime_val.name || ' Novedad: ' || Cur_detovertime_val.search_key);
+		End If;
+	End Loop;
+
+	
+	--Inserta novedades de las lineas del detallle horas extras de empleados en los conceptos
+	 SPROV_CREATE_NEWNEWSS(v_startdate, v_enddate, v_c_bpartner_id, v_Client_ID, v_Org_ID, v_User_ID, v_Period_ID);
+
+	 --Bono de puntualidad y asistencia
+	 SPROV_PUNCTUALITY_BONUS(v_startdate, v_enddate, v_c_bpartner_id, v_Client_ID, v_Org_ID, v_User_ID, v_Period_ID);
+
+	 --Calula horas 25 
+	 SPROV_CALCULATE_HOUR(v_startdate, v_enddate, v_c_bpartner_id, v_Client_ID, v_Org_ID, v_User_ID,v_Period_ID, 'HT');
+
+	 --Calcula horas 50
+	 SPROV_CALCULATE_HOUR(v_startdate, v_enddate, v_c_bpartner_id, v_Client_ID, v_Org_ID, v_User_ID, v_Period_ID, 'HF');
+
+	 --Calcula horas 100
+	 SPROV_CALCULATE_HOUR(v_startdate, v_enddate, v_c_bpartner_id, v_Client_ID, v_Org_ID, v_User_ID, v_Period_ID, 'HO');
+
+	For Cur_process in (
+		select b.sprov_employee_overtime_id, b.processed, b.datemovement, c.name as employee, b.calculate_hours
+		from sprov_employee_overtime b
+		left join c_bpartner c on c.c_bpartner_id = b.c_bpartner_id 
+		where b.datemovement between v_startdate and v_enddate --'01-04-2018' and '31-05-2018' --v_startdate and v_enddate 
+		and (b.c_bpartner_id = v_c_bpartner_id or v_c_bpartner_id is null)
+		order by c.name
+	)
+	Loop
+		If(Cur_process.processed = 'Y')Then
+			RAISE_APPLICATION_ERROR(-20000, 'Registro para el empleado ' || Cur_process.employee || ' en la fecha ' || Cur_process.datemovement || ', ya se proceso anteriormente');
+		End If;
+
+		If(Cur_process.calculate_hours = 'DR')Then
+			RAISE_APPLICATION_ERROR(-20000, 'No se ha calculado horas para el empleado ' || Cur_process.employee || ' en la fecha ' || Cur_process.datemovement);
+		End If;
+		
+		update sprov_employee_overtime
+		set processed = 'Y'
+		where sprov_employee_overtime_id = Cur_process.sprov_employee_overtime_id;
+
+	End Loop;
+   
+    DBMS_OUTPUT.PUT_LINE('Updating PInstance - Finished ' || v_Message) ;
+    AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 1, v_Message) ;
+    RETURN;
+    
+  END; --BODY
+  EXCEPTION
+  WHEN OTHERS THEN
+    v_ResultStr:= '@ERROR=' || SQLERRM;
+    DBMS_OUTPUT.PUT_LINE(v_ResultStr) ;
+    AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 0, v_ResultStr) ;
+    RETURN;
+END SPROV_BIOMETRIC_NEWS
+]]></body>
+    </function>
+  </database>

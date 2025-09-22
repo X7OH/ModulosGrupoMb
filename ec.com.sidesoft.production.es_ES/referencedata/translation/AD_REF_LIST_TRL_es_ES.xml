@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REF_LIST" version="">
+  <row id="8BEB009BCB564DE5B1B7A77CD0439B73" trl="N">
+    <value column="Name" isTrl="Y" original="Without Location">Sin Ubicaión</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

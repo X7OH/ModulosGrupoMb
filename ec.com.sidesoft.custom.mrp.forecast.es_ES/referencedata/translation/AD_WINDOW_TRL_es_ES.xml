@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_WINDOW" version="">
+  <row id="332109C6F56D4F84BE61DC40EF4DBB14" trl="N">
+    <value column="Name" isTrl="Y" original="MRP - Subcategory">MRP - Subcategoría</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="33A135F8A52044E1B819FD0839AB5266" trl="N">
+    <value column="Name" isTrl="N" original="Process Information MRP - Forecast">Información del proceso MRP - Pronóstico</value>
+    <value column="Description" isTrl="N" original="Process Information MRP - Forecast">Información del proceso MRP - Pronósti</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="D64893AB405D4089859151C1838FA76A" trl="N">
+    <value column="Name" isTrl="Y" original="Store Type">Tipo de tienda</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="DE23696A177C4EBCAB4083C38BC745DD" trl="N">
+    <value column="Name" isTrl="Y" original="Configuration - Season Product">Configuración - Producto de temporada</value>
+    <value column="Description" isTrl="Y" original="Configuration - Season Product">Configuración - Producto de temporada</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

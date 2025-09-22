@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REF_LIST" version="">
+  <row id="0944E215307A4AE8AB2C4E7849594B31" trl="N">
+    <value column="Name" isTrl="N" original="SSPOS_payment.cheque">SSPOS_payment.cheque</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="1E58CF2F40CB45479FBCCCEFF27123CA" trl="N">
+    <value column="Name" isTrl="N" original="Cheque">Cheque</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="2CCB07F6FF12431A8774709B6C594B10" trl="N">
+    <value column="Name" isTrl="N" original="SSPOS_payment.card5">SSPOS_payment.card5</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="421506E976E747B98E91580C171E683A" trl="N">
+    <value column="Name" isTrl="N" original="SSPOS_payment.card7">SSPOS_payment.card7</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="57804F30043C4A14B2BEF4CEB631E012" trl="N">
+    <value column="Name" isTrl="N" original="Tarjeta de Credito">Tarjeta de Credito</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="7356A7BB0CEE4B11810746D1C7CDE12E" trl="N">
+    <value column="Name" isTrl="N" original="SSPOS_payment.card9">SSPOS_payment.card9</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="772DB44DE1894A04B5B23317F5DDC168" trl="N">
+    <value column="Name" isTrl="N" original="SSPOS_payment.card1">SSPOS_payment.card1</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="BC5220C46E1340409B3694BEA213A5BB" trl="N">
+    <value column="Name" isTrl="N" original="SSPOS_payment.card4">SSPOS_payment.card4</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="BDCE7C18A18E4A19AB69A74911AF3EA7" trl="N">
+    <value column="Name" isTrl="N" original="Retención">Retención</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="C9882C8F0E274FE8913AD87980BAE649" trl="N">
+    <value column="Name" isTrl="N" original="SSPOS_payment.card3">SSPOS_payment.card3</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="E69FBC35F71A4C3B83931947C615B1D2" trl="N">
+    <value column="Name" isTrl="N" original="SSPOS_payment.card8">SSPOS_payment.card8</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="E8B3E86F06B3472193F9F7BFAAF28AAD" trl="N">
+    <value column="Name" isTrl="N" original="SSPOS_payment.card2">SSPOS_payment.card2</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="EA205AC965A844289256DD9D34FF519B" trl="N">
+    <value column="Name" isTrl="N" original="SSPOS_payment.card6">SSPOS_payment.card6</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="EBEF7955488F4495BBDA1E8D9C087347" trl="N">
+    <value column="Name" isTrl="N" original="SSPOS_payment.card10">SSPOS_payment.card10</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+  <vector>
+    <versionInfo version="3.0.27112"/>
+    <columnDataChange tablename="AD_COLUMN" columnname="ISSESSIONATTR" pkRow="94C40D6E18376001E040007F01001FF3">
+      <oldValue><![CDATA[N]]></oldValue>
+      <newValue><![CDATA[Y]]></newValue>
+    </columnDataChange>
+  </vector>

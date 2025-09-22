@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SCWAM_VALIDATESTORAGE_TRG">
+    <trigger name="SCWAM_VALIDATESTORAGE_TRG" table="M_MOVEMENTLINE" fires="before" insert="true" update="true" delete="false" foreach="row">
+      <body><![CDATA[
+  V_AD_ORG_ID_HEADER VARCHAR2(32);
+  V_ORG_TYPE VARCHAR2(5);
+
+  V_AD_ORG_ID_ORIGIN VARCHAR2(32);
+  V_TRANSIT_ORIGIN CHAR(1); --OBTG:VARCHAR2--
+
+  V_AD_ORG_ID_DESTINY VARCHAR2(32);
+  V_TRANSIT_DESTINY CHAR(1); --OBTG:VARCHAR2--
+   
+BEGIN
+    
+    
+   IF AD_isTriggerEnabled()='N' THEN RETURN;
+  END IF; 
+
+  IF (INSERTING) THEN
+
+    SELECT org.ad_org_id, org.EM_OBRETCO_RetailOrgType
+    INTO V_AD_ORG_ID_HEADER,V_ORG_TYPE
+    FROM m_movement mvm
+    LEFT JOIN ad_org org ON org.ad_org_id = mvm.ad_org_id
+    WHERE mvm.m_movement_id = :NEW.M_Movement_ID;
+
+    -- INICIO SOLO SE VALIDA CUANDO LA ORGANIZACION DE LA CABECERA SEA TIPO TIENDA
+    IF(V_ORG_TYPE = 'S') THEN
+
+      -- ALMACEN-HUECO ORIGEN
+      SELECT mwh.ad_org_id, mwh.em_scwam_istransit 
+      INTO V_AD_ORG_ID_ORIGIN, V_TRANSIT_ORIGIN
+      FROM m_locator mlc
+      LEFT JOIN m_warehouse mwh ON mwh.m_warehouse_id = mlc.m_warehouse_id
+      WHERE mlc.m_locator_id = :NEW.M_Locator_ID;      
+      
+      -- ALMACEN-HUECO DESTINO
+      SELECT mwh.ad_org_id, mwh.em_scwam_istransit 
+      INTO V_AD_ORG_ID_DESTINY, V_TRANSIT_DESTINY
+      FROM m_locator mlc
+      LEFT JOIN m_warehouse mwh ON mwh.m_warehouse_id = mlc.m_warehouse_id
+      WHERE mlc.m_locator_id = :NEW.M_LocatorTo_ID;      
+      
+      -- INICIO ORG CABECERA DIFERENTE ORG ORIGEN
+      IF( V_AD_ORG_ID_HEADER <> V_AD_ORG_ID_ORIGIN) THEN
+
+        -- EL HUECO NO ES DE TIPO TRANSITO
+        IF( V_TRANSIT_ORIGIN <> 'Y') THEN        
+          RAISE_APPLICATION_ERROR(-20000, '@SCWAM_NOT_NOT ALLOWED@');    
+        END IF;   
+
+      END IF;        
+      -- FIN ORG CABECERA DIFERENTE ORG ORIGEN
+
+      -- INICIO ORG CABECERA DIFERENTE ORG DESTINO
+      IF( V_AD_ORG_ID_HEADER <> V_AD_ORG_ID_DESTINY) THEN
+
+        -- EL HUECO NO ES DE TIPO TRANSITO
+        IF( V_TRANSIT_DESTINY <> 'Y') THEN        
+          RAISE_APPLICATION_ERROR(-20000, '@SCWAM_NOT_NOT ALLOWED@');    
+        END IF;  
+
+      END IF;        
+      -- FIN ORG CABECERA DIFERENTE ORG DESTINO
+
+    END IF;
+    -- FIN SOLO SE VALIDA CUANDO LA ORGANIZACION DE LA CABECERA SEA TIPO TIENDA
+    
+  END IF;
+  
+  END SCWAM_VALIDATESTORAGE_TRG
+]]></body>
+    </trigger>
+  </database>

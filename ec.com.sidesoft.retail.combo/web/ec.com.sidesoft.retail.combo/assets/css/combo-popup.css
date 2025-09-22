@@ -1,0 +1,54 @@
+.combo-edit-button {
+  background-color: orange !important;
+  position: fixed !important;
+  top: 113px;
+  left: 0px;
+  z-index: 1000000;
+  width: 96% !important;
+  height: 148px !important;
+  font-size: 32px !important;
+}
+
+.combo-edit-button:hover {
+  opacity: 1 !important;
+  background-color: #fdbb5e !important;
+}
+
+/* No es necesario hasta que se vea si es necesario pintar las lineas de pedido de Combo de colores */
+/* li.selected>button.btnselect-orderline.btnselect-orderline-edit,
+li.selected>button.btnselect-orderline.btnselect-orderline-edit:hover {
+  background-color: #f8941d !important;
+  color: #000;
+}
+
+li.selected>button,
+li.selected>button:hover {
+  background-color: #7da7d9 !important;
+  color: #fff;
+} */
+
+.combo-delete-button {
+  background-color: orange !important;
+  position: fixed !important;
+  top: 72px;
+  left: 10px;
+  color: black !important;
+  z-index: 1000000;
+}
+
+.combo-delete-button:hover {
+  opacity: 1 !important;
+  background-color: #fdbb5e !important;
+}
+
+.tabSetContainer {
+  color: black;
+}
+
+#formCombo {
+  padding: 0px !important;
+}
+
+.combo-family-button-label {
+ font-size: 12px;
+}

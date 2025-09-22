@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="94F07AE97BEC4F60AC1EA719EF2D2C61" trl="N">
+    <value column="Name" isTrl="Y" original="Setup">Configuración</value>
+    <value column="Description" isTrl="Y" original="Setup">Configuración</value>
+  </row>
+  <row id="ADDB9849B81341AC9A770D205AB262E2" trl="N">
+    <value column="Name" isTrl="Y" original="Setup - Template Reports">Configuración - Plantillas de Reportes</value>
+    <value column="Description" isTrl="N" original="">Configuración - Plantillas de Reportes</value>
+  </row>
+</compiereTrl>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REF_LIST" version="">
+  <row id="2A2D9DB6F2B04B6A8EEA3D19762DDB30" trl="N">
+    <value column="Name" isTrl="N" original="Fixed Discount">Descuento Fijo</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="42EF4EF1F57D4FC683611D63310998F8" trl="N">
+    <value column="Name" isTrl="N" original="Percentage">Porcentaje</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="691D7B768D8F4CFA9856545B30553B50" trl="N">
+    <value column="Name" isTrl="N" original="Fixed Price">Precio fijo</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

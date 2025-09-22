@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SBBS_COMPLIANCE_PERCENTAG_TRG">
+    <trigger name="SBBS_COMPLIANCE_PERCENTAG_TRG" table="FACT_ACCT" fires="before" insert="true" update="true" delete="true" foreach="row">
+      <body><![CDATA[
+
+   V_ACCOUNT_ID VARCHAR(32); 	--OBTG:VARCHAR2--
+   V_PERIOD_ID VARCHAR(32); 	--OBTG:VARCHAR2--
+   V_CST_CEN_TYPE VARCHAR(32); 	--OBTG:VARCHAR2--
+   V_USER1_ID VARCHAR(32); 	--OBTG:VARCHAR2--
+   V_COUNT NUMBER;		--OBTG:NUMBER--
+   V_VAL_ACTUAL NUMBER;	--OBTG:NUMBER--
+   V_PORCENTAJE NUMBER;	--OBTG:NUMBER--
+
+  --  Parameter
+  TYPE RECORD IS REF CURSOR;
+    Cur_Stock RECORD;
+            
+BEGIN
+    
+  IF AD_isTriggerEnabled()='N' THEN RETURN;
+  END IF;
+
+
+  
+  IF (INSERTING or UPDATING ) THEN
+                --RAISE_APPLICATION_ERROR(-20000, 'Hola');
+
+	FOR Cur_Stock in 
+		(SELECT  
+			BUL.C_Budgetline_id,--Id_linea de presupuesto
+			BUL.c_elementvalue_id,
+			coalesce(BUL.Amount,0) as Amount,--Importe
+			coalesce(BUL.Actualamt,0) as Actualamt,--Imp.real
+			ELV.accountsign--Credito/debito
+		FROM  C_Budgetline BUL
+			INNER JOIN c_elementvalue ELV on ELV.c_elementvalue_id = BUL.c_elementvalue_id
+		WHERE BUL.c_elementvalue_id = :NEW.account_id
+			AND BUL.c_period_id = :NEW.c_period_id
+			AND BUL.c_costcenter_id = :NEW.c_costcenter_id
+			AND (BUL.user1_id = :NEW.user1_id or (BUL.user1_id is null and :NEW.user1_id is null))
+			)
+	LOOP 
+	
+		IF(Cur_Stock.accountsign = 'D') THEN--Para Debito
+		
+			IF (:NEW.amtacctdr>0) THEN
+			--Suma en el imp.real el amtacctdr
+				V_VAL_ACTUAL:=  Cur_Stock.Actualamt + :NEW.amtacctdr;
+				UPDATE C_Budgetline SET Actualamt=V_VAL_ACTUAL
+				WHERE C_Budgetline_id=Cur_Stock.C_Budgetline_id;
+			ELSE
+			--resta en el imp.real el amtacctcr
+				V_VAL_ACTUAL:=  Cur_Stock.Actualamt - :NEW.amtacctcr;
+				UPDATE C_Budgetline SET Actualamt=V_VAL_ACTUAL
+				WHERE C_Budgetline_id=Cur_Stock.C_Budgetline_id;
+			END IF;
+		END IF;
+
+		IF( Cur_Stock.accountsign = 'C') THEN--Credito
+
+			IF (:NEW.amtacctcr>0) THEN
+			--Suma en el imp.real el amtacctcr
+				V_VAL_ACTUAL:=  Cur_Stock.Actualamt + :NEW.amtacctcr;
+				UPDATE C_Budgetline SET Actualamt=V_VAL_ACTUAL
+				WHERE C_Budgetline_id=Cur_Stock.C_Budgetline_id;
+				
+			ELSE
+			--resta en el imp.real el amtacctdr
+				V_VAL_ACTUAL:=  Cur_Stock.Actualamt - :NEW.amtacctdr;
+				UPDATE C_Budgetline SET Actualamt=V_VAL_ACTUAL
+				WHERE C_Budgetline_id=Cur_Stock.C_Budgetline_id;
+				
+			END IF;
+
+		END IF;
+		IF (Cur_Stock.Amount = 0)THEN
+			V_PORCENTAJE:= 0;
+		ELSE 
+			V_PORCENTAJE:= (V_VAL_ACTUAL/Cur_Stock.Amount)*100;
+		END IF;
+		--Cálculo para porcentaje
+		--Actualiza el campo % cumplimiento de la lineas de presupuesto
+		UPDATE C_Budgetline SET em_sbbs_compliance_percentage=V_PORCENTAJE
+			WHERE C_Budgetline_id=Cur_Stock.C_Budgetline_id;
+				
+	END LOOP;
+	
+  END IF;
+    IF DELETING THEN
+	FOR Cur_Stock in 
+		(SELECT  
+			BUL.C_Budgetline_id,--Id_linea de presupuesto
+			BUL.c_elementvalue_id,
+			coalesce(BUL.Amount,0) as Amount,--Importe
+			coalesce(BUL.Actualamt,0) as Actualamt,--Imp.real
+			ELV.accountsign--Credito/debito
+		FROM  C_Budgetline BUL
+			INNER JOIN c_elementvalue ELV on ELV.c_elementvalue_id = BUL.c_elementvalue_id
+		WHERE BUL.c_elementvalue_id = :OLD.account_id
+			AND BUL.c_period_id = :OLD.c_period_id
+			AND BUL.c_costcenter_id = :OLD.c_costcenter_id
+			AND (BUL.user1_id = :OLD.user1_id or (BUL.user1_id is null and :OLD.user1_id is null))
+			)
+	LOOP 
+	
+		IF(Cur_Stock.accountsign = 'D') THEN--Para Debito
+		
+			IF (:OLD.amtacctdr>0) THEN
+			--Suma en el imp.real el amtacctdr
+				V_VAL_ACTUAL:=  Cur_Stock.Actualamt + :OLD.amtacctdr;
+				UPDATE C_Budgetline SET Actualamt=V_VAL_ACTUAL
+				WHERE C_Budgetline_id=Cur_Stock.C_Budgetline_id;
+			ELSE
+			--resta en el imp.real el amtacctcr
+				V_VAL_ACTUAL:=  Cur_Stock.Actualamt - :OLD.amtacctcr;
+				UPDATE C_Budgetline SET Actualamt=V_VAL_ACTUAL
+				WHERE C_Budgetline_id=Cur_Stock.C_Budgetline_id;
+			END IF;
+		END IF;
+		
+		IF( Cur_Stock.accountsign = 'C') THEN--Credito
+	
+			IF (:OLD.amtacctcr>0) THEN
+			--Suma en el imp.real el amtacctcr
+				V_VAL_ACTUAL:=  Cur_Stock.Actualamt + :OLD.amtacctcr;
+				UPDATE C_Budgetline SET Actualamt=V_VAL_ACTUAL
+				WHERE C_Budgetline_id=Cur_Stock.C_Budgetline_id;
+			ELSE
+			--resta en el imp.real el amtacctdr
+				V_VAL_ACTUAL:=  Cur_Stock.Actualamt - :OLD.amtacctdr;
+				UPDATE C_Budgetline SET Actualamt=V_VAL_ACTUAL
+				WHERE C_Budgetline_id=Cur_Stock.C_Budgetline_id;
+			END IF;
+
+		END IF;
+		--Cálculo para porcentaje
+		IF (Cur_Stock.Amount = 0)THEN
+			V_PORCENTAJE:= 0;
+		ELSE 
+			V_PORCENTAJE:= (V_VAL_ACTUAL/Cur_Stock.Amount)*100;
+		END IF;
+		 --V_PORCENTAJE:= (V_VAL_ACTUAL/Cur_Stock.Amount)*100;
+		--Actualiza el campo % cumplimiento de la lineas de presupuesto
+		UPDATE C_Budgetline SET em_sbbs_compliance_percentage=V_PORCENTAJE
+			WHERE C_Budgetline_id=Cur_Stock.C_Budgetline_id;
+				
+	END LOOP;
+    END IF;
+
+  
+IF DELETING THEN RETURN OLD; ELSE RETURN NEW; 
+
+
+END IF; 
+
+END SBBS_COMPLIANCE_PERCENTAG_TRG
+]]></body>
+    </trigger>
+  </database>

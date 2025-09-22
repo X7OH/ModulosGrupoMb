@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REF_LIST" version="">
+  <row id="330D40D3295B4E5295A909E720E56678" trl="Y">
+    <value column="Name" isTrl="N" original="BUFFALOS">BUFFALOS</value>
+    <value column="Description" isTrl="N" original="BUFFALOS">BUFFALOS</value>
+  </row>
+  <row id="9585CB7A488A4E719C622691040D2B5A" trl="Y">
+    <value column="Name" isTrl="N" original="SOSU">SOSU</value>
+    <value column="Description" isTrl="N" original="SOSU">SOSU</value>
+  </row>
+  <row id="A8D0AD4686D149FBAD979EC3FD016786" trl="N">
+    <value column="Name" isTrl="N" original="PENDIENT">PENDIENT</value>
+    <value column="Description" isTrl="N" original="PENDIENT">PENDIENT</value>
+  </row>
+  <row id="D010795306CE496CA32DF567F2700663" trl="Y">
+    <value column="Name" isTrl="N" original="NO FORK">NO FORK</value>
+    <value column="Description" isTrl="N" original="NO FORK">NO FORK</value>
+  </row>
+  <row id="E385E8771E9A42DCA619F536D670F49A" trl="N">
+    <value column="Name" isTrl="N" original="ERROR">ERROR</value>
+    <value column="Description" isTrl="N" original="ERROR">ERROR</value>
+  </row>
+  <row id="EBC46FF64B03431AA55E3002B1B3CB02" trl="Y">
+    <value column="Name" isTrl="N" original="MAYFLOWER">MAYFLOWER</value>
+    <value column="Description" isTrl="N" original="MAYFLOWER">MAYFLOWER</value>
+  </row>
+  <row id="FD55A79501C94FC8BBBDDEAB1C1727C3" trl="N">
+    <value column="Name" isTrl="N" original="OK">OK</value>
+    <value column="Description" isTrl="N" original="OK">OK</value>
+  </row>
+</compiereTrl>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
+  <row id="B1F4223654F342BE8E9F4CD3F28B30AD" trl="N">
+    <value column="Name" isTrl="Y" original="SmartDelivery Service">Reenviar SmartDelivery</value>
+    <value column="Description" isTrl="Y" original="SmartDelivery Service">Reenviar SmartDelivery</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="DD5AC544371F40AFB6BC5EAB0FF29325" trl="N">
+    <value column="Name" isTrl="Y" original="Motorized Sales Detail">Detalle ventas por motorizados</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

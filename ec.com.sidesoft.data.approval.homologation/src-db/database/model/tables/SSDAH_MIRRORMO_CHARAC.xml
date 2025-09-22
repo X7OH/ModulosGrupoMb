@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+  <database name="TABLE SSDAH_MIRRORMO_CHARAC">
+    <table name="SSDAH_MIRRORMO_CHARAC" primaryKey="SSDAH_MMO_CHARAC_KEY">
+      <column name="SSDAH_MIRRORMO_CHARAC_ID" primaryKey="true" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_CLIENT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_ORG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISACTIVE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="SSDAH_MIRRORMO_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="M_CHARACTERISTIC_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="M_CH_VALUE_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="SSDAH_REFORIGINALID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="AD_CLIENT" name="SSDAH_MMO_CHARAC_AD_CLIENT">
+        <reference local="AD_CLIENT_ID" foreign="AD_CLIENT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_CHARACTERISTIC" name="SSDAH_MMO_CHARAC_CHARAC">
+        <reference local="M_CHARACTERISTIC_ID" foreign="M_CHARACTERISTIC_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_CH_VALUE" name="SSDAH_MMO_CHARAC_CHVALUE">
+        <reference local="M_CH_VALUE_ID" foreign="M_CH_VALUE_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="SSDAH_MIRRORMO" name="SSDAH_MMO_CHARAC_OFFER">
+        <reference local="SSDAH_MIRRORMO_ID" foreign="SSDAH_MIRRORMO_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_ORG" name="SSDAH_MMO_CHARACR_AD_ORG">
+        <reference local="AD_ORG_ID" foreign="AD_ORG_ID"/>
+      </foreign-key>
+      <check name="SSDAH_MMO_CHARAC_ISACTIVE"><![CDATA[ISACTIVE IN ('Y', 'N')]]></check>
+    </table>
+  </database>

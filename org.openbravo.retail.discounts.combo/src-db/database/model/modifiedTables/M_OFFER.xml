@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE M_OFFER">
+    <table name="M_OFFER" primaryKey="M_OFFER_KEY">
+      <column name="EM_OBCOMBO_COMBOFIXPRICE" primaryKey="false" required="false" type="DECIMAL" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_OBCOMBO_ALLOWINCLINEPRICE" primaryKey="false" required="false" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+    </table>
+  </database>

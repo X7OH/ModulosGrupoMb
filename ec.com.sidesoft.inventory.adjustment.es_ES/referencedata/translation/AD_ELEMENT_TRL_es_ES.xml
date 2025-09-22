@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_ELEMENT" version="">
+  <row id="0C0992A0874A42DE9EA7F73A6D79B63E" trl="N">
+    <value column="Name" isTrl="N" original="Siva_Physical_Invtlines_ID">Siva_Physical_Invtlines_ID</value>
+    <value column="PrintName" isTrl="N" original="Siva_Physical_Invtlines_ID">Siva_Physical_Invtlines_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="0C46827AD16D4073B3045EF6F82AC805" trl="N">
+    <value column="Name" isTrl="Y" original="Generate Code">Generar Código</value>
+    <value column="PrintName" isTrl="Y" original="Generate Code">Generar Código</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="4840B02580314E959C85FE802EA4D059" trl="N">
+    <value column="Name" isTrl="N" original="Createcodedate">Createcodedate</value>
+    <value column="PrintName" isTrl="N" original="Createcodedate">Createcodedate</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="6EEF150FB5D44684BE4F914C0A81F875" trl="N">
+    <value column="Name" isTrl="Y" original="Physical Inventory PDV">Inventario Físico PDV</value>
+    <value column="PrintName" isTrl="Y" original="Physical Inventory PDV">Inventario Físico PDV</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="82344851E93643FC80D91DC138626D13" trl="N">
+    <value column="Name" isTrl="Y" original="Name">Nombre</value>
+    <value column="PrintName" isTrl="Y" original="Name">Nombre</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="908015482E6F4FAE9781A66A4B476674" trl="N">
+    <value column="Name" isTrl="Y" original="Authorization Code">Código de autorización</value>
+    <value column="PrintName" isTrl="Y" original="Authorization Code">Código de autorización</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="AE95A11FB3E749D8B2F32320239911D2" trl="N">
+    <value column="Name" isTrl="Y" original="Code Authorization">Código de autorización</value>
+    <value column="PrintName" isTrl="Y" original="Code Authorization">Código de autorización </value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="C6817837468E43A8BEB0BFB00E0AFD5F" trl="N">
+    <value column="Name" isTrl="Y" original="Qty Adjust">Cant. Ajustada</value>
+    <value column="PrintName" isTrl="Y" original="Qty Adjust">Cant. Ajustada</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

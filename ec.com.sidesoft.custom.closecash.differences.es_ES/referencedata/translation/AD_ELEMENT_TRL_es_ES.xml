@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_ELEMENT" version="">
+  <row id="273707E796C14363905B5ADEBC743D09" trl="N">
+    <value column="Name" isTrl="Y" original="Total Value Difference">Valor total diferencia</value>
+    <value column="PrintName" isTrl="Y" original="Total Value Difference">Valor total diferencia</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="66C1B98F12EE45548C91162774522D0D" trl="N">
+    <value column="Name" isTrl="Y" original="Accounting concept">Concepto contable</value>
+    <value column="PrintName" isTrl="Y" original="Accounting concept">Concepto contable</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="9A47A0CF20E642E980F7B5924F6C9A75" trl="N">
+    <value column="Name" isTrl="N" original="POS Terminal">POS Terminal</value>
+    <value column="PrintName" isTrl="N" original="POS Terminal">POS Terminal</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="9ED5F12EA34340D1A4194DA50C842E18" trl="N">
+    <value column="Name" isTrl="Y" original="Account">Cuenta</value>
+    <value column="PrintName" isTrl="Y" original="Account">Cuenta</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="B7D151625D6C41BB8782E5182222E0F0" trl="N">
+    <value column="Name" isTrl="Y" original="Conciliate">Conciliado</value>
+    <value column="PrintName" isTrl="Y" original="Conciliate">Conciliado</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="B89F8729ED694D93BAB0F0693E3553FA" trl="N">
+    <value column="Name" isTrl="N" original="EM_Scccd_Differences">EM_Scccd_Differences</value>
+    <value column="PrintName" isTrl="N" original="EM_Scccd_Differences">EM_Scccd_Differences</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="CCDD0C1466AF4FEDA46EF247DDB53842" trl="N">
+    <value column="Name" isTrl="Y" original="Differences">Diferencias</value>
+    <value column="PrintName" isTrl="Y" original="Differences">Diferencias</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

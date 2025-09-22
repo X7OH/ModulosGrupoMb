@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SESCR_GETLASTCOST">
+    <function name="SESCR_GETLASTCOST" type="VARCHAR">
+      <parameter name="p_product_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[V_Cost NUMBER;
+
+BEGIN
+
+  SELECT mpp.cost 
+  INTO V_Cost
+  FROM m_costing mpp
+  WHERE mpp.m_product_id = p_product_id
+  ORDER BY mpp.created DESC 
+  LIMIT 1;
+
+  return V_Cost;
+END SESCR_GETLASTCOST
+]]></body>
+    </function>
+  </database>

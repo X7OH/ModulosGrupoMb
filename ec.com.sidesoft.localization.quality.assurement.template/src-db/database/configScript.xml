@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+  <vector>
+    <versionInfo version="3.0.31111"/>
+    <columnDataChange tablename="AD_PROCESS" columnname="PROCEDURENAME" pkRow="800120">
+      <oldValue><![CDATA[MA_PC_CASE_CREATE]]></oldValue>
+      <newValue><![CDATA[slqs_pc_case_create]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802339">
+      <oldValue/>
+      <newValue><![CDATA[@EM_Slqs_Status@='AP' | @EM_Slqs_Status@='NA']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802341">
+      <oldValue/>
+      <newValue><![CDATA[@EM_Slqs_Status@='AP' | @EM_Slqs_Status@='NA']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802342">
+      <oldValue/>
+      <newValue><![CDATA[@EM_Slqs_Status@='AP' | @EM_Slqs_Status@='NA']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802343">
+      <oldValue/>
+      <newValue><![CDATA[@EM_Slqs_Status@='AP' | @EM_Slqs_Status@='NA']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802344">
+      <oldValue/>
+      <newValue><![CDATA[@EM_Slqs_Status@='AP' | @EM_Slqs_Status@='NA']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802345">
+      <oldValue/>
+      <newValue><![CDATA[@EM_Slqs_Status@='AP' | @EM_Slqs_Status@='NA']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802346">
+      <oldValue/>
+      <newValue><![CDATA[@EM_Slqs_Status@='AP' | @EM_Slqs_Status@='NA']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802347">
+      <oldValue/>
+      <newValue><![CDATA[@EM_Slqs_Status@='AP' | @EM_Slqs_Status@='NA']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="AD_REFERENCE_VALUE_ID" pkRow="802348">
+      <oldValue><![CDATA[800011]]></oldValue>
+      <newValue><![CDATA[28A5C233A5E947338E5055700CEFD80F]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802348">
+      <oldValue/>
+      <newValue><![CDATA[@EM_Slqs_Status@='AP' | @EM_Slqs_Status@='NA']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="AD_CALLOUT_ID" pkRow="802348">
+      <oldValue><![CDATA[13A9833CA5D84AEBB8CBCBB05BF5DD33]]></oldValue>
+      <newValue><![CDATA[5C6065DAED444EDEB18FA4CA93740F47]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802349">
+      <oldValue/>
+      <newValue><![CDATA[@EM_Slqs_Status@='AP' | @EM_Slqs_Status@='NA']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802350">
+      <oldValue/>
+      <newValue><![CDATA[@EM_Slqs_Status@='AP' | @EM_Slqs_Status@='NA']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802351">
+      <oldValue/>
+      <newValue><![CDATA[@EM_Slqs_Status@='AP' | @EM_Slqs_Status@='NA']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802352">
+      <oldValue/>
+      <newValue><![CDATA[@Slqs_StatusDCQP@='AP' | @Slqs_StatusDCQP@='NA']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802353">
+      <oldValue/>
+      <newValue><![CDATA[@Slqs_StatusDCQP@='AP' | @Slqs_StatusDCQP@='NA']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802354">
+      <oldValue/>
+      <newValue><![CDATA[@Slqs_StatusDCQP@='AP' | @Slqs_StatusDCQP@='NA']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802355">
+      <oldValue/>
+      <newValue><![CDATA[@Slqs_StatusDCQP@='AP' | @Slqs_StatusDCQP@='NA']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802356">
+      <oldValue/>
+      <newValue><![CDATA[@Slqs_StatusDCQP@='AP' | @Slqs_StatusDCQP@='NA']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802357">
+      <oldValue/>
+      <newValue><![CDATA[@Slqs_StatusDCQP@='AP' | @Slqs_StatusDCQP@='NA']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802358">
+      <oldValue/>
+      <newValue><![CDATA[@Slqs_StatusDCQP@='AP' | @Slqs_StatusDCQP@='NA']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802359">
+      <oldValue/>
+      <newValue><![CDATA[@Slqs_StatusDCQP@='AP' | @Slqs_StatusDCQP@='NA']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802360">
+      <oldValue/>
+      <newValue><![CDATA[@Slqs_StatusDCQP@='AP' | @Slqs_StatusDCQP@='NA']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802361">
+      <oldValue/>
+      <newValue><![CDATA[@Slqs_StatusDCQP@='AP' | @Slqs_StatusDCQP@='NA']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802362">
+      <oldValue/>
+      <newValue><![CDATA[@Slqs_StatusDCQP@='AP' | @Slqs_StatusDCQP@='NA']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802363">
+      <oldValue/>
+      <newValue><![CDATA[@Slqs_StatusDCQP@='AP' | @Slqs_StatusDCQP@='NA']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802371">
+      <oldValue/>
+      <newValue><![CDATA[@EM_Slqs_Status@='AP' | @EM_Slqs_Status@='NA']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802374">
+      <oldValue/>
+      <newValue><![CDATA[@EM_Slqs_Status@='AP' | @EM_Slqs_Status@='NA']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="OBUISEL_SELECTOR_FIELD" columnname="HELP" pkRow="EB0A95320BF845DD8146274BE02DABBC">
+      <oldValue><![CDATA[A search key allows for a fast method of finding a particular record. If you leave the search key empty, the system automatically creates a numeric number originating from a document sequence defined in the  "Document Sequence" window. The sequence naming convention follows a rule "DocumentNo_TableName", where TableName is the actual name of the database table (e.g. C_Order).
+
+Usually, company's internal identifiers for various records (products, customers, etc) are stored here.]]></oldValue>
+      <newValue><![CDATA[A search key allows for a fast method of finding a particular record. If you leave the search key empty, the system automatically creates a numeric number originating from a document sequence defined in the  "Document Sequence" window. The sequence naming convention follows a rule "DocumentNo_TableName", where TableName is the actual name of the database table (e.g. C_Order).Usually, company's internal identifiers for various records (products, customers, etc) are stored here.]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="DISPLAYLOGIC" pkRow="802596">
+      <oldValue><![CDATA[(@ATTRIBUTESET@!''&@ATTRSETVALUETYPE@!'F')|(@M_AttributeSetInstance_ID@!''&@M_AttributeSetInstance_ID@!'0')]]></oldValue>
+      <newValue><![CDATA[(@M_AttributeSetInstance_ID@!''&@M_AttributeSetInstance_ID@!'0')]]></newValue>
+    </columnDataChange>
+  </vector>

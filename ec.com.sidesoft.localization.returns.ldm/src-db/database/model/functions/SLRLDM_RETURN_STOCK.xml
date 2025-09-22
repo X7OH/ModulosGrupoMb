@@ -1,0 +1,768 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SLRLDM_RETURN_STOCK">
+    <function name="SLRLDM_RETURN_STOCK" type="NULL">
+      <parameter name="p_pinstance_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[/*************************************************************************
+* The contents of this file are subject to the Openbravo  Public  License
+* Version  1.1  (the  "License"),  being   the  Mozilla   Public  License
+* Version 1.1  with a permitted attribution clause; you may not  use this
+* file except in compliance with the License. You  may  obtain  a copy of
+* the License at http://www.openbravo.com/legal/license.html
+* Software distributed under the License  is  distributed  on  an "AS IS"
+* basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+* License for the specific  language  governing  rights  and  limitations
+* under the License.
+* The Original Code is Openbravo ERP.
+* The Initial Developer of the Original Code is Openbravo SLU
+* All portions are Copyright (C) 2001-2016 Openbravo SLU
+* All Rights Reserved.
+* Contributor(s):  ______________________________________.
+************************************************************************/
+  -- Logistice
+  v_ResultStr VARCHAR2(2000):='';
+  v_Message VARCHAR2(2000):='';
+  v_Result NUMBER:=1; -- 0=failure
+  v_Record_ID VARCHAR2(32);
+  v_AD_User_ID VARCHAR2(32):='0';
+  v_PROCESSED VARCHAR2(60):='N';
+  v_POSTED VARCHAR2(60):='Y';
+  v_is_included NUMBER:=0;
+  v_AD_Org_ID VARCHAR2(32);
+  v_AD_Client_ID VARCHAR2(32);
+  v_Cretaedby VARCHAR2(32);
+  v_date DATE;
+  v_available_period NUMBER:=0; 
+  v_InventoryID VARCHAR2(32);
+  v_InventoryWateID VARCHAR2(32);
+  v_InventoryFinalID VARCHAR2(32);
+  v_NameInventory VARCHAR2(60);
+  v_LocatorID VARCHAR2(32);
+  v_WarehouseID VARCHAR2(32);
+  v_QtyActual NUMBER;
+  v_Line NUMBER;
+  v_LineWate NUMBER;
+  v_CountReg NUMBER;
+  v_countResturnNormal NUMBER;
+  v_countResturnWate NUMBER;
+  v_countLotQty NUMBER;
+  v_Cost NUMBER;
+  v_CountSetup NUMBER;
+  v_ProductQty NUMBER;
+
+  v_CDOCTYPE_ID VARCHAR2(32);
+  v_CDOCTYPE2_ID VARCHAR2(32);
+  v_SequenceID  VARCHAR2(32);
+  v_Sequence2ID  VARCHAR2(32);
+  v_InoutID  VARCHAR2(32);
+  v_Documentno VARCHAR2(60);
+  v_Documentno2 VARCHAR2(60);
+  v_DocumentPrefix VARCHAR2(60);  
+  v_DocumentPrefix2 VARCHAR2(60);
+  v_ProcessID  VARCHAR2(32);
+  v_AttributeInstanceID  VARCHAR2(32);
+  v_InventoryActualID VARCHAR2(32);
+
+  v_DocumentInventory VARCHAR2(60);
+
+  v_IsWate VARCHAR2(1);
+
+  v_CostCenterID VARCHAR2(32);
+
+  v_StorageDetailID  VARCHAR2(32); 
+
+  v_Repeat  VARCHAR2(32); 
+
+  v_ProductQtyTemp NUMBER;
+
+  v_PrefixOrganization VARCHAR2(100); 
+
+  v_seachStorageDetailID VARCHAR2(32); 
+    
+  FINISH_PROCESS BOOLEAN DEFAULT FALSE;
+  --  Parameter
+  TYPE RECORD IS REF CURSOR;
+    Cur_Parameter RECORD;
+    Cur_Lines RECORD;
+    Cur_StorageDetail RECORD;
+    Cur_Inout RECORD;
+    Cur_Lot RECORD;
+    Cur_Lot_Zero RECORD;
+
+
+  BEGIN
+    DBMS_OUTPUT.PUT_LINE('Updating PInstance - Processing ' || p_PInstance_ID) ;
+    v_ResultStr:='PInstanceNotFound';
+    AD_UPDATE_PINSTANCE(p_PInstance_ID, NULL, 'Y', NULL, NULL) ;
+  BEGIN --BODY
+    -- Get Parameters
+    v_ResultStr:='ReadingParameters';
+    FOR Cur_Parameter IN
+      (SELECT i.Record_ID, i.AD_User_ID, p.ParameterName, p.P_String, p.P_Number, p.P_Date
+      FROM AD_PInstance i
+      LEFT JOIN AD_PInstance_Para p
+        ON i.AD_PInstance_ID=p.AD_PInstance_ID
+      WHERE i.AD_PInstance_ID=p_PInstance_ID
+      ORDER BY p.SeqNo
+      )
+    LOOP
+      v_Record_ID:=Cur_Parameter.Record_ID;
+      v_AD_User_ID:=Cur_Parameter.AD_User_ID;
+    END LOOP; -- Get Parameter
+
+       --v_Record_ID:= p_pinstance_id;
+    SELECT COALESCE((SELECT em_slrldm_inventory_id
+	FROM M_INOUT
+	WHERE M_INOUT_ID = v_Record_ID
+	),'ND')
+	INTO v_InventoryActualID
+	FROM DUAL;
+
+    SELECT COALESCE((SELECT C_COSTCENTER_ID
+	FROM M_INOUT 
+	WHERE M_INOUT_ID = v_Record_ID
+	),'ND')
+	INTO v_CostCenterID
+	FROM DUAL;
+
+
+    SELECT COALESCE((SELECT SUBSTR(NAME,1,3) || '-' AS PREFIX
+	FROM M_INOUT MI 
+	JOIN AD_ORG  AO ON AO.AD_ORG_ID = MI.AD_ORG_ID
+	WHERE MI.M_INOUT_ID = v_Record_ID
+	),'ND')
+	INTO v_PrefixOrganization
+	FROM DUAL;
+
+	IF (v_CostCenterID='ND') THEN
+		RAISE_APPLICATION_ERROR(20000, 'Debe seleccionar el centro de costos antes de continuar con el proceso de devolución');
+	END IF;
+
+
+	IF (v_InventoryActualID<>'ND') THEN
+
+		SELECT COALESCE((select em_ssin_documentno from m_inventory where m_inventory_id = v_InventoryActualID),'ND')
+		INTO v_DocumentInventory
+		FROM DUAL;
+		
+		RAISE_APPLICATION_ERROR(20000, 'La devolución actual ya tiene relacionado un inventario con Nro. ' || v_DocumentInventory);
+	END IF;
+    
+	SELECT 	AD_ORG_ID, 	AD_CLIENT_ID, 	CREATED	 
+	   INTO v_AD_Org_ID,	v_AD_Client_ID,	v_Cretaedby 
+	FROM M_INOUT
+	WHERE M_INOUT_ID = v_Record_ID;
+
+	DELETE from SLRLDM_RETURNS_RAWMAT  WHERE  INSTANCEID = v_Record_ID;
+
+	SELECT COALESCE((SELECT count(*)
+	FROM SLRLDM_SETUPDOC
+	WHERE AD_ORG_ID = v_AD_Org_ID),0)
+	INTO v_CountSetup
+	FROM DUAL;
+
+	--RAISE NOTICE '%', ' v_CountSetup: ' || v_CountSetup; 
+
+	IF (v_CountSetup=0) THEN
+		RAISE_APPLICATION_ERROR(20000, 'La organizacion seleccionada no tiene configurado los tipos de documentos para realizar la devolucion.');
+	END IF;
+
+	SELECT C_DOCTYPE_ID, 	C_DOCTYPE2_ID
+	INTO v_CDOCTYPE_ID,	v_CDOCTYPE2_ID  
+	FROM SLRLDM_SETUPDOC
+	WHERE AD_ORG_ID = v_AD_Org_ID;
+
+	v_Line:=0;
+	v_LineWate:=0;	
+
+	SELECT COALESCE((SELECT count(*)
+	FROM M_INOUT
+	WHERE M_INOUT_ID = v_Record_ID
+	AND EM_SLRLDM_ISWASTE = 'N'),0)
+	INTO v_countResturnNormal
+	FROM DUAL;
+
+	SELECT COALESCE((SELECT count(*)
+	FROM M_INOUT
+	WHERE M_INOUT_ID = v_Record_ID
+	AND EM_SLRLDM_ISWASTE = 'Y'),0)
+	INTO v_countResturnWate
+	FROM DUAL;
+
+
+	SELECT COALESCE((SELECT EM_SSRS_M_LOCATORRCP_ID FROM AD_Org WHERE AD_ORG_ID = v_AD_Org_ID) ,'ND')
+	INTO v_LocatorID
+	FROM DUAL;
+		
+    -- =====================================================
+    -- INSERTAR CABECERA INVENTARIO DEVOLUCION NORMAL
+    -- =====================================================
+	IF (v_countResturnNormal>0) THEN
+
+		v_InventoryID:= get_uuid();
+
+		SELECT COALESCE((SELECT AD_SEQUENCE_ID FROM AD_SEQUENCE WHERE  AD_SEQUENCE_ID IN (SELECT DOCNOSEQUENCE_ID FROM C_DOCTYPE WHERE C_DOCTYPE_ID = v_CDOCTYPE_ID
+		)),TO_CHAR('ND'))
+		INTO v_SequenceID;
+
+		IF (v_SequenceID='ND')  THEN
+			RAISE_APPLICATION_ERROR(20000, 'El tipo de documento configurado no tiene una secuencia definida.');
+		END IF;
+		
+		SELECT COALESCE((SELECT TO_CHAR(CURRENTNEXT+1) FROM AD_SEQUENCE WHERE AD_SEQUENCE_ID = v_SequenceID ),'ND')
+		INTO v_Documentno
+		FROM DUAL;
+
+		SELECT COALESCE((SELECT prefix FROM AD_SEQUENCE WHERE AD_SEQUENCE_ID = v_SequenceID ),'ND')
+		INTO v_DocumentPrefix
+		FROM DUAL;        
+	
+		v_NameInventory:= TO_CHAR(now(),'dd/MM/yyyy') || ' - DEVOLVER STOCK';
+		
+
+		SELECT COALESCE((SELECT M_WAREHOUSE_ID FROM M_LOCATOR WHERE M_LOCATOR_ID = v_LocatorID
+		),TO_CHAR('ND'))
+		INTO v_WarehouseID
+		FROM DUAL;
+
+        v_PrefixOrganization:= v_PrefixOrganization || v_DocumentPrefix || v_Documentno;
+        
+		INSERT INTO M_INVENTORY (M_INVENTORY_ID,	AD_ORG_ID,	AD_CLIENT_ID, 		ISACTIVE,	CREATED,	CREATEDBY,	UPDATED,	UPDATEDBY,	NAME,
+					 DESCRIPTION,		M_WAREHOUSE_ID,	MOVEMENTDATE,		POSTED,		PROCESSED,	PROCESSING,	UPDATEQTY,	GENERATELIST,	C_COSTCENTER_ID,
+					 INVENTORY_TYPE,	DOCUMENTNO,	EM_SSIN_DOCTYPE_ID,	EM_SSIN_DOCUMENTNO	)
+				  VALUES(v_InventoryID,		v_AD_Org_ID,	v_AD_Client_ID,		'Y',		now(),	v_Cretaedby,	now(),	v_Cretaedby,	v_NameInventory,
+					 v_NameInventory,	v_WarehouseID, 	now(), 	'N',		'N',		'N',		'N',		'N',		v_CostCenterID,
+                     'N',			v_PrefixOrganization, 	v_CDOCTYPE_ID,		v_PrefixOrganization	
+					 );
+
+
+		SELECT COALESCE((SELECT AD_SEQUENCE_ID FROM AD_SEQUENCE WHERE  AD_SEQUENCE_ID IN (SELECT DOCNOSEQUENCE_ID FROM C_DOCTYPE WHERE C_DOCTYPE_ID = v_CDOCTYPE_ID
+		)),TO_CHAR('ND'))
+		INTO v_SequenceID;		
+
+		--RAISE NO_DATA_FOUND  || v_SequenceID;
+		UPDATE AD_SEQUENCE
+		SET CURRENTNEXT = CURRENTNEXT + 1
+		WHERE AD_SEQUENCE_ID = v_SequenceID;
+
+		v_Message:='@Success@';
+
+	END IF;
+    -- =====================================================
+    -- =====================================================
+
+    -- =====================================================
+    -- INSERTAR CABECERA INVENTARIO DEVOLUCION DESPERDICIO
+    -- =====================================================
+	IF (v_countResturnWate>0) THEN
+
+		v_InventoryWateID:= get_uuid();
+
+		SELECT COALESCE((SELECT AD_SEQUENCE_ID FROM AD_SEQUENCE WHERE  AD_SEQUENCE_ID IN (SELECT DOCNOSEQUENCE_ID FROM C_DOCTYPE WHERE C_DOCTYPE_ID = v_CDOCTYPE2_ID
+		)),TO_CHAR('ND'))
+		INTO v_Sequence2ID;
+
+		IF (v_Sequence2ID='ND')  THEN
+			RAISE_APPLICATION_ERROR(20000, 'El tipo de documento configurado no tiene una secuencia definida.');
+		END IF;
+		
+		SELECT COALESCE((SELECT TO_CHAR(CURRENTNEXT+1) FROM AD_SEQUENCE WHERE AD_SEQUENCE_ID = v_Sequence2ID ),'ND')
+		INTO v_Documentno2
+		FROM DUAL;
+
+		SELECT COALESCE((SELECT prefix FROM AD_SEQUENCE WHERE AD_SEQUENCE_ID = v_Sequence2ID ),'ND')
+		INTO v_DocumentPrefix2
+		FROM DUAL;        
+
+		v_NameInventory:= TO_CHAR(now(),'dd/MM/yyyy') || ' - DEVOLVER STOCK';
+
+		SELECT COALESCE((SELECT M_WAREHOUSE_ID FROM M_LOCATOR WHERE M_LOCATOR_ID = v_LocatorID),TO_CHAR('ND'))
+		INTO v_WarehouseID
+		FROM DUAL;
+
+		v_PrefixOrganization:= v_PrefixOrganization || v_DocumentPrefix2 || v_Documentno2;
+		
+		INSERT INTO M_INVENTORY (M_INVENTORY_ID,	AD_ORG_ID,	AD_CLIENT_ID, 		ISACTIVE,	CREATED,	CREATEDBY,	UPDATED,	UPDATEDBY,	NAME,
+					 DESCRIPTION,		M_WAREHOUSE_ID,	MOVEMENTDATE,		POSTED,		PROCESSED,	PROCESSING,	UPDATEQTY,	GENERATELIST,	C_COSTCENTER_ID,
+					 INVENTORY_TYPE,	DOCUMENTNO,	EM_SSIN_DOCTYPE_ID,	EM_SSIN_DOCUMENTNO)
+				  VALUES(v_InventoryWateID,	v_AD_Org_ID,	v_AD_Client_ID,		'Y',		now(),	v_Cretaedby,	now(),	v_Cretaedby,	v_NameInventory,
+					 v_NameInventory,	v_WarehouseID, 	now(), 	'N',		'N',		'N',		'N',		'N',		v_CostCenterID,
+                     'N',			v_PrefixOrganization, 	v_CDOCTYPE2_ID,		v_PrefixOrganization
+					 );
+
+		SELECT COALESCE((SELECT AD_SEQUENCE_ID FROM AD_SEQUENCE WHERE  AD_SEQUENCE_ID IN (SELECT DOCNOSEQUENCE_ID FROM C_DOCTYPE WHERE C_DOCTYPE_ID = v_CDOCTYPE2_ID
+		)),TO_CHAR('ND'))
+		INTO v_Sequence2ID;
+
+		UPDATE AD_SEQUENCE
+		SET CURRENTNEXT = CURRENTNEXT + 1
+		WHERE AD_SEQUENCE_ID = v_Sequence2ID;
+
+		v_Message:='@Success@';					 
+
+	END IF;
+    -- =====================================================
+    -- =====================================================
+
+	FOR Cur_Inout IN
+	(
+		SELECT 	AD_ORG_ID, 	AD_CLIENT_ID, 	CREATED,	EM_SLRLDM_ISWASTE, M_INOUT_ID
+		FROM M_INOUT
+		WHERE M_INOUT_ID = v_Record_ID
+	)Loop
+
+		v_AD_Org_ID:= Cur_Inout.AD_ORG_ID;
+		v_AD_Client_ID:=Cur_Inout.AD_CLIENT_ID ;
+		v_Cretaedby:= 	Cur_Inout.CREATED;
+		v_IsWate:= Cur_Inout.EM_SLRLDM_ISWASTE ;
+		v_InoutID:= Cur_Inout.M_INOUT_ID;
+
+		IF (v_IsWate='Y') THEN
+			v_InventoryFinalID:=v_InventoryWateID;
+		ELSE
+			v_InventoryFinalID:=v_InventoryID;
+		END IF;
+
+        -- =============================================================================
+        -- SE INSERTA EN LAS LINEAS DEL INVENTARIO - PRINCIPALES
+        -- =============================================================================
+		FOR Cur_Lines IN(
+
+			SELECT 
+			MIL.M_PRODUCT_ID
+			, MIL.M_LOCATOR_ID
+			, SUM(ABS(MIL.MOVEMENTQTY)) AS MOVEMENTQTY
+			, UOM.C_UOM_ID
+			FROM M_INOUTLINE MIL
+			JOIN M_PRODUCT MP ON MP.M_PRODUCT_ID = MIL.M_PRODUCT_ID
+			JOIN C_UOM UOM ON UOM.C_UOM_ID = MP.C_UOM_ID
+			WHERE MP.ISBOM = 'Y' 
+			AND MIL.M_INOUT_ID= v_InoutID
+			GROUP BY MIL.M_PRODUCT_ID, MIL.M_LOCATOR_ID, UOM.C_UOM_ID 
+
+		)LOOP
+
+			SELECT coalesce((SELECT COALESCE(SUM(QtyOnHand), 0)
+			FROM M_STORAGE_DETAIL s
+			WHERE M_Product_ID=Cur_Lines.M_PRODUCT_ID  AND 
+			s.M_LOCATOR_ID = Cur_Lines.M_LOCATOR_ID
+			),0)
+			INTO v_ProductQtyTemp
+			FROM DUAL;
+
+		    SELECT COALESCE((SELECT M_INVENTORYLINE_ID
+			FROM M_INVENTORYLINE 
+			WHERE M_INVENTORY_ID = v_InventoryFinalID
+			AND M_PRODUCT_ID = Cur_Lines.M_PRODUCT_ID),'ND')
+			INTO v_Repeat
+			FROM DUAL;			
+
+			IF (v_IsWate='N') THEN
+
+				v_InventoryFinalID:=v_InventoryID;
+				
+				v_Line :=v_Line +10;
+
+				INSERT INTO M_INVENTORYLINE (M_INVENTORYLINE_ID,	AD_ORG_ID,	AD_CLIENT_ID, 			ISACTIVE,	CREATED,	CREATEDBY,	UPDATED,	UPDATEDBY,
+							     M_INVENTORY_ID,		M_LOCATOR_ID,	M_PRODUCT_ID,			LINE,		QTYBOOK,	QTYCOUNT,	C_UOM_ID,	COST
+							     ,M_PRODUCT_UOM_ID,		QUANTITYORDER,	M_ATTRIBUTESETINSTANCE_ID)
+						      VALUES(GET_UUID(),		v_AD_Org_ID,	v_AD_Client_ID,			'Y',		now(),	v_Cretaedby,	now(),	v_Cretaedby,
+							     v_InventoryFinalID,	v_LocatorID,	Cur_Lines.M_PRODUCT_ID,		v_Line,		ABS(v_ProductQtyTemp),		ABS(Cur_Lines.MOVEMENTQTY -v_ProductQtyTemp),	Cur_Lines.C_UOM_ID, 	v_Cost
+							     ,NULL, NULL,v_AttributeInstanceID);
+
+			ELSE
+				v_InventoryFinalID:=v_InventoryWateID;
+				v_LineWate:=v_LineWate+10;
+
+
+				INSERT INTO M_INVENTORYLINE (M_INVENTORYLINE_ID,	AD_ORG_ID,	AD_CLIENT_ID, 			ISACTIVE,	CREATED,	CREATEDBY,		UPDATED,		UPDATEDBY,
+							     M_INVENTORY_ID,		M_LOCATOR_ID,	M_PRODUCT_ID,			LINE,		QTYBOOK,	QTYCOUNT,		C_UOM_ID,		COST
+							    ,M_PRODUCT_UOM_ID,		QUANTITYORDER,	M_ATTRIBUTESETINSTANCE_ID)
+						      VALUES(GET_UUID(),		v_AD_Org_ID,	v_AD_Client_ID,			'Y',		now(),	v_Cretaedby,		now(),		v_Cretaedby,
+							     v_InventoryFinalID,	v_LocatorID,	Cur_Lines.M_PRODUCT_ID,		v_LineWate,	ABS(v_ProductQtyTemp),		ABS(Cur_Lines.MOVEMENTQTY -v_ProductQtyTemp),	Cur_Lines.C_UOM_ID, 	v_Cost
+							     ,NULL,NULL,v_AttributeInstanceID);							
+
+			END IF;
+
+
+			PERFORM SLRLDM_BOM_RETURNS(Cur_Lines.M_PRODUCT_ID
+						  , NULL
+						  , Cur_Lines.M_LOCATOR_ID
+						  , Cur_Lines.MOVEMENTQTY
+						  , v_InoutID
+						  , v_AD_Org_ID
+						  , v_AD_Client_ID,
+						    v_Cretaedby
+						  );
+
+		END LOOP;
+        -- =============================================================================
+        -- =============================================================================        
+
+		SELECT COALESCE((SELECT COUNT(*)
+		FROM SLRLDM_RETURNS_RAWMAT
+		WHERE INSTANCEID = v_Record_ID),0)
+		INTO v_CountReg
+		FROM DUAL;
+
+        -- =============================================================================
+        -- SE INSERTA EN LAS LINEAS DEL INVENTARIO - DEVOLUCION NORMAL - COMPONENTES
+        -- =============================================================================
+		IF (v_CountReg>0 AND v_IsWate='N') THEN
+
+
+			FOR Cur_StorageDetail IN(
+				SELECT
+				SRR.AD_ORG_ID
+				, SRR.AD_CLIENT_ID
+				, SRR.CREATEDBY
+				, SRR.M_PRODUCT_ID
+				, SRR.M_LOCATOR_ID
+				, SUM(COALESCE(QTYRETURN,0)) AS QTYRETURN
+				, UOM.C_UOM_ID
+				FROM SLRLDM_RETURNS_RAWMAT SRR
+				JOIN M_PRODUCT MP ON SRR.M_PRODUCT_ID = MP.M_PRODUCT_ID
+				JOIN C_UOM UOM ON UOM.C_UOM_ID = MP.C_UOM_ID
+				WHERE INSTANCEID = v_InoutID
+				AND MP.ISBOM = 'N'
+				GROUP BY SRR.AD_ORG_ID
+				, SRR.AD_CLIENT_ID
+				, SRR.CREATEDBY
+				, SRR.M_PRODUCT_ID
+				, SRR.M_LOCATOR_ID
+				, UOM.C_UOM_ID
+			) LOOP
+				v_Line:=v_Line+10;
+
+                SELECT COALESCE(( select count(*)
+					from m_storage_detail msd
+					left join m_locator ml on ml.m_locator_id = msd.m_locator_id
+					left join m_warehouse mw on mw.m_warehouse_id = ml.m_warehouse_id
+					left join m_attributesetinstance mattsi on mattsi.m_attributesetinstance_id = msd.m_attributesetinstance_id
+					join m_product mp on mp.m_product_id = msd.m_product_id
+					where msd.M_PRODUCT_ID = Cur_StorageDetail.M_PRODUCT_ID 
+					and ML.m_locator_id = Cur_StorageDetail.M_LOCATOR_ID
+					and msd.m_attributesetinstance_id IS NOT NULL
+                    and msd.qtyonhand > 0
+                ),0)
+                INTO v_countLotQty
+                FROM DUAL;
+
+                IF( v_countLotQty > 0) THEN
+
+                    -- ===================================================
+                    -- SE BUSCAN LOS LOTES CON qtyonhand SEA MAYOR A 0
+                    -- ===================================================
+                    FOR Cur_Lot IN(
+
+                        select 
+                        mattsi.guaranteedate
+                        , coalesce(msd.qtyonhand,0) AS qty
+                        , msd.m_attributesetinstance_id
+                        from m_storage_detail msd
+                        left join m_locator ml on ml.m_locator_id = msd.m_locator_id
+                        left join m_warehouse mw on mw.m_warehouse_id = ml.m_warehouse_id
+                        left join m_attributesetinstance mattsi on mattsi.m_attributesetinstance_id = msd.m_attributesetinstance_id
+                        join m_product mp on mp.m_product_id = msd.m_product_id
+                        where msd.M_PRODUCT_ID = Cur_StorageDetail.M_PRODUCT_ID 
+                        and ML.m_locator_id = Cur_StorageDetail.M_LOCATOR_ID
+                        and msd.m_attributesetinstance_id IS NOT NULL
+                        and msd.qtyonhand > 0
+                        order by mp.name asc, mattsi.guaranteedate DESC
+
+                    )LOOP
+                        v_ProductQty:=Cur_Lot.qty;
+                        v_AttributeInstanceID:= Cur_Lot.m_attributesetinstance_id;
+                    END LOOP;
+                    -- ===================================================
+                    -- ===================================================                
+
+                ELSE
+
+                    -- ===================================================
+                    -- SE BUSCAN LOS LOTES CON qtyonhand SEA IGUAL A 0
+                    -- ===================================================
+                    FOR Cur_Lot_Zero IN(
+
+                        select 
+                        mattsi.guaranteedate
+                        , coalesce(msd.qtyonhand,0) AS qty
+                        , msd.m_attributesetinstance_id
+                        from m_storage_detail msd
+                        left join m_locator ml on ml.m_locator_id = msd.m_locator_id
+                        left join m_warehouse mw on mw.m_warehouse_id = ml.m_warehouse_id
+                        left join m_attributesetinstance mattsi on mattsi.m_attributesetinstance_id = msd.m_attributesetinstance_id
+                        join m_product mp on mp.m_product_id = msd.m_product_id
+                        where msd.M_PRODUCT_ID = Cur_StorageDetail.M_PRODUCT_ID 
+                        and ML.m_locator_id = Cur_StorageDetail.M_LOCATOR_ID
+                        and msd.m_attributesetinstance_id IS NOT NULL
+                        and msd.qtyonhand = 0
+                        order by mp.name asc, mattsi.guaranteedate DESC
+
+                    )LOOP
+                        v_ProductQty:=Cur_Lot_Zero.qty;
+                        v_AttributeInstanceID:= Cur_Lot_Zero.m_attributesetinstance_id;
+                    END LOOP;
+                    -- ===================================================
+                    -- ===================================================   
+
+                END IF;                                
+
+				IF (v_ProductQty>=0) THEN
+					v_QtyActual:= v_ProductQty + (Cur_StorageDetail.QTYRETURN);
+				ELSE
+					v_QtyActual:= 0;
+				END IF;
+
+				--SELECT * FROM M_INVENTORYLINE WHERE  M_INVENTORYLINE_ID =  'D7A1B6F9CD4B4883A7F0717A7ECE808E'
+				--RAISE NOTICE '%', ' v_InventoryFinalID: ' || v_InventoryFinalID 
+				--|| ' - v_LocatorID' || v_LocatorID
+				--|| ' - v_LocCur_StorageDetail.M_PRODUCT_IDatorID' || Cur_StorageDetail.M_PRODUCT_ID
+				--|| ' - v_Line ' || v_Line
+				--|| ' - v_QtyActual ' || v_QtyActual
+				--|| ' - Cur_StorageDetail.C_UOM_ID ' || Cur_StorageDetail.C_UOM_ID;
+
+				IF (COALESCE(v_AttributeInstanceID,'ND') <> 'ND') THEN
+
+					SELECT coalesce((SELECT COALESCE(SUM(QtyOnHand), 0)
+					FROM M_STORAGE_DETAIL s
+					WHERE M_Product_ID=Cur_StorageDetail.M_PRODUCT_ID  AND 
+					s.M_LOCATOR_ID = Cur_StorageDetail.M_LOCATOR_ID
+					AND S.M_ATTRIBUTESETINSTANCE_ID = v_AttributeInstanceID
+					),0)
+					INTO v_ProductQtyTemp
+					FROM DUAL;
+				
+				ELSE
+
+					FOR Cur_Lot IN(
+
+						select 
+						msd.m_storage_detail_id
+						from m_storage_detail msd
+						left join m_locator ml on ml.m_locator_id = msd.m_locator_id
+						left join m_warehouse mw on mw.m_warehouse_id = ml.m_warehouse_id
+						left join m_attributesetinstance mattsi on mattsi.m_attributesetinstance_id = msd.m_attributesetinstance_id
+						join m_product mp on mp.m_product_id = msd.m_product_id
+						where msd.M_PRODUCT_ID = Cur_StorageDetail.M_PRODUCT_ID 
+						and ML.m_locator_id = Cur_StorageDetail.M_LOCATOR_ID
+						and msd.m_attributesetinstance_id IS NULL
+						order by mp.name asc, mattsi.guaranteedate DESC
+
+					)LOOP
+						v_ProductQty:=Cur_Lot.qty;
+						v_StorageDetailID:= Cur_Lot.m_storage_detail_id;
+
+					END LOOP;				
+
+					SELECT coalesce((SELECT COALESCE(SUM(QtyOnHand), 0)
+					FROM M_STORAGE_DETAIL s
+					WHERE M_Product_ID=Cur_StorageDetail.M_PRODUCT_ID  AND 
+					s.M_LOCATOR_ID = Cur_StorageDetail.M_LOCATOR_ID
+					AND S.M_STORAGE_DETAIL_ID = v_StorageDetailID
+					),0)
+					INTO v_ProductQtyTemp
+					FROM DUAL;					
+
+				END IF;
+
+				SELECT COALESCE((SELECT M_INVENTORYLINE_ID FROM  M_INVENTORYLINE 
+				WHERE M_INVENTORY_ID = v_InventoryFinalID
+				AND M_PRODUCT_ID = Cur_StorageDetail.M_PRODUCT_ID
+				),'ND')
+				INTO v_seachStorageDetailID 
+				FROM DUAL;
+
+				IF (v_seachStorageDetailID='ND') THEN
+
+					INSERT INTO M_INVENTORYLINE (M_INVENTORYLINE_ID,	AD_ORG_ID,	AD_CLIENT_ID, 			ISACTIVE,	CREATED,	CREATEDBY,	UPDATED,			UPDATEDBY,
+								     M_INVENTORY_ID,		M_LOCATOR_ID,	M_PRODUCT_ID,			LINE,		QTYBOOK,	QTYCOUNT,	C_UOM_ID,			COST
+								     ,M_PRODUCT_UOM_ID,		QUANTITYORDER,	M_ATTRIBUTESETINSTANCE_ID)
+							      VALUES(GET_UUID(),		v_AD_Org_ID,	v_AD_Client_ID,			'Y',		now(),	v_Cretaedby,	now(),			v_Cretaedby,
+								     v_InventoryFinalID,	v_LocatorID,	Cur_StorageDetail.M_PRODUCT_ID,	v_Line,		v_ProductQtyTemp,		v_QtyActual,	Cur_StorageDetail.C_UOM_ID, 	v_Cost
+								     ,NULL, 			NULL,		v_AttributeInstanceID);
+				ELSE
+					UPDATE M_INVENTORYLINE 
+					SET  QTYCOUNT= coalesce(QTYCOUNT,0) +coalesce((Cur_StorageDetail.QTYRETURN),0)
+					WHERE M_INVENTORYLINE_ID = v_seachStorageDetailID;
+				
+				END IF;
+							     
+			END LOOP;
+
+		END IF;
+        -- =============================================================================
+        -- =============================================================================
+
+        -- =============================================================================
+        -- SE INSERTA EN LAS LINEAS DEL INVENTARIO - DEVOLUCION DESPERDICIO - COMPONENTES
+        -- =============================================================================
+		IF (v_CountReg>0 AND v_IsWate='Y') THEN
+
+			v_LineWate:=10;	
+			FOR Cur_StorageDetail IN(
+
+				SELECT
+				SRR.AD_ORG_ID
+				, SRR.AD_CLIENT_ID
+				, SRR.CREATEDBY
+				, SRR.M_PRODUCT_ID
+				, SRR.M_LOCATOR_ID
+				, SUM(COALESCE(QTYRETURN,0)) AS QTYRETURN
+				, UOM.C_UOM_ID
+				FROM SLRLDM_RETURNS_RAWMAT SRR
+				JOIN M_PRODUCT MP ON SRR.M_PRODUCT_ID = MP.M_PRODUCT_ID
+				JOIN C_UOM UOM ON UOM.C_UOM_ID = MP.C_UOM_ID
+				WHERE INSTANCEID = v_InoutID
+				AND MP.ISBOM = 'N'
+				GROUP BY SRR.AD_ORG_ID
+				, SRR.AD_CLIENT_ID
+				, SRR.CREATEDBY
+				, SRR.M_PRODUCT_ID
+				, SRR.M_LOCATOR_ID
+				, UOM.C_UOM_ID
+			) LOOP
+
+				v_LineWate:=v_LineWate+10;
+
+				FOR Cur_Lot IN(
+
+					select 
+					mattsi.guaranteedate
+					, coalesce(msd.qtyonhand,0) AS qty
+					, msd.m_attributesetinstance_id
+					from m_storage_detail msd
+					left join m_locator ml on ml.m_locator_id = msd.m_locator_id
+					left join m_warehouse mw on mw.m_warehouse_id = ml.m_warehouse_id
+					left join m_attributesetinstance mattsi on mattsi.m_attributesetinstance_id = msd.m_attributesetinstance_id
+					join m_product mp on mp.m_product_id = msd.m_product_id
+					where msd.M_PRODUCT_ID = Cur_StorageDetail.M_PRODUCT_ID 
+					and ML.m_locator_id = Cur_StorageDetail.M_LOCATOR_ID
+					and msd.m_attributesetinstance_id IS NOT NULL
+					order by mp.name asc, mattsi.guaranteedate DESC
+
+				)LOOP
+					v_ProductQty:=Cur_Lot.qty;
+					v_AttributeInstanceID:= Cur_Lot.m_attributesetinstance_id;
+
+				END LOOP;
+
+				IF (v_ProductQty>=0) THEN
+					v_QtyActual:= v_ProductQty - (Cur_StorageDetail.QTYRETURN);
+				ELSE
+					v_QtyActual:= 0;
+				END IF;
+
+				--RAISE NOTICE '%', ' v_InventoryFinalID: ' || v_InventoryFinalID 
+				--|| ' - v_LocatorID' || v_LocatorID
+				--|| ' - v_LocCur_StorageDetail.M_PRODUCT_IDatorID' || Cur_StorageDetail.M_PRODUCT_ID
+				--|| ' - v_Line ' || v_Line
+				--|| ' - v_QtyActual ' || v_QtyActual
+				--|| ' - Cur_StorageDetail.C_UOM_ID ' || Cur_StorageDetail.C_UOM_ID;
+
+
+				IF (COALESCE(v_AttributeInstanceID,'ND') <> 'ND') THEN
+
+					SELECT coalesce((SELECT COALESCE(SUM(QtyOnHand), 0)
+					FROM M_STORAGE_DETAIL s
+					WHERE M_Product_ID=Cur_StorageDetail.M_PRODUCT_ID  AND 
+					s.M_LOCATOR_ID = Cur_StorageDetail.M_LOCATOR_ID
+					AND S.M_ATTRIBUTESETINSTANCE_ID = v_AttributeInstanceID
+					),0)
+					INTO v_ProductQtyTemp
+					FROM DUAL;
+				
+				ELSE
+
+					FOR Cur_Lot IN(
+
+						select 
+						msd.m_storage_detail_id
+						from m_storage_detail msd
+						left join m_locator ml on ml.m_locator_id = msd.m_locator_id
+						left join m_warehouse mw on mw.m_warehouse_id = ml.m_warehouse_id
+						left join m_attributesetinstance mattsi on mattsi.m_attributesetinstance_id = msd.m_attributesetinstance_id
+						join m_product mp on mp.m_product_id = msd.m_product_id
+						where msd.M_PRODUCT_ID = Cur_StorageDetail.M_PRODUCT_ID 
+						and ML.m_locator_id = Cur_StorageDetail.M_LOCATOR_ID
+						and msd.m_attributesetinstance_id IS NULL
+						order by mp.name asc, mattsi.guaranteedate DESC
+
+					)LOOP
+						v_ProductQty:=Cur_Lot.qty;
+						v_StorageDetailID:= Cur_Lot.m_storage_detail_id;
+
+					END LOOP;				
+
+					SELECT coalesce((SELECT COALESCE(SUM(QtyOnHand), 0)
+					FROM M_STORAGE_DETAIL s
+					WHERE M_Product_ID=Cur_StorageDetail.M_PRODUCT_ID  AND 
+					s.M_LOCATOR_ID = Cur_StorageDetail.M_LOCATOR_ID
+					AND S.M_STORAGE_DETAIL_ID = v_StorageDetailID
+					),0)
+					INTO v_ProductQtyTemp
+					FROM DUAL;					
+
+				END IF;		
+			
+
+				SELECT COALESCE((SELECT M_INVENTORYLINE_ID FROM  M_INVENTORYLINE 
+				WHERE M_INVENTORY_ID = v_InventoryFinalID
+				AND M_PRODUCT_ID = Cur_StorageDetail.M_PRODUCT_ID
+				),'ND')
+				INTO v_seachStorageDetailID 
+				FROM DUAL;
+
+				IF (v_seachStorageDetailID='ND') THEN
+
+
+					INSERT INTO M_INVENTORYLINE (M_INVENTORYLINE_ID,	AD_ORG_ID,	AD_CLIENT_ID, 			ISACTIVE,	CREATED,	CREATEDBY,	UPDATED,			UPDATEDBY,
+								     M_INVENTORY_ID,		M_LOCATOR_ID,	M_PRODUCT_ID,			LINE,		QTYBOOK,	QTYCOUNT,	C_UOM_ID,			COST
+								    ,M_PRODUCT_UOM_ID,		QUANTITYORDER,	M_ATTRIBUTESETINSTANCE_ID)
+							      VALUES(GET_UUID(),		v_AD_Org_ID,	v_AD_Client_ID,			'Y',		now(),	v_Cretaedby,	now(),			v_Cretaedby,
+								     v_InventoryFinalID,	v_LocatorID,	Cur_StorageDetail.M_PRODUCT_ID,	v_LineWate,	v_ProductQtyTemp,		v_ProductQtyTemp,	Cur_StorageDetail.C_UOM_ID, 	v_Cost
+								     ,NULL,			NULL,		v_AttributeInstanceID);	
+
+				ELSE
+					UPDATE M_INVENTORYLINE 
+					SET  QTYCOUNT= v_ProductQtyTemp
+					WHERE M_INVENTORYLINE_ID = v_seachStorageDetailID;
+				
+				END IF;							     
+
+			END LOOP;
+
+		END IF;
+        -- =============================================================================
+        -- =============================================================================
+
+		UPDATE M_INOUT SET em_slrldm_inventory_id = v_InventoryFinalID where M_INOUT_id = v_InoutID;
+
+	END LOOP;
+  
+    --<<FINISH_PROCESS>>
+    IF(p_PInstance_ID IS NOT NULL) THEN
+      --  Update AD_PInstance
+      DBMS_OUTPUT.PUT_LINE('Updating PInstance - Finished ' || v_Message) ;
+      AD_UPDATE_PINSTANCE(p_PInstance_ID, NULL, 'N', v_Result, v_Message) ; --1
+    ELSE
+      DBMS_OUTPUT.PUT_LINE('Finished ' || v_Message) ;
+    END IF;
+    -- Commented by cromero 19102006 COMMIT;
+    RETURN;
+  END; --BODY
+EXCEPTION
+WHEN OTHERS THEN
+  v_ResultStr:= '@ERROR=' || SQLERRM;
+  DBMS_OUTPUT.PUT_LINE(v_ResultStr) ;
+  ROLLBACK;
+  IF(p_PInstance_ID IS NOT NULL) THEN
+    AD_UPDATE_PINSTANCE(p_PInstance_ID, NULL, 'N', 0, v_ResultStr) ;
+  END IF;
+  RAISE_APPLICATION_ERROR(-20100, v_ResultStr) ;
+  RETURN;
+END SLRLDM_RETURN_STOCK
+]]></body>
+    </function>
+  </database>

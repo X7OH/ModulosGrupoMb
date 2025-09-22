@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="6736202C9E424D389795B7C840E60144" trl="N">
+    <value column="MsgText" isTrl="Y" original="Unsupported payment method for the sends to the SmartDelivery">Método de pago no soportado para el envío al SmartDelivery</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="8DB32FA01DF54C1EA58D6F58D2428FEA" trl="N">
+    <value column="MsgText" isTrl="Y" original="Origin of sale not supported for shipping to the SmartDelivery">Origen de venta no soportado para el envío al SmartDelivery</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

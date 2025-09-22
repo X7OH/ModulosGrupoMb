@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+  <database name="TABLE GCNV_GIFTCARD_TRANS">
+    <table name="GCNV_GIFTCARD_TRANS" primaryKey="GCNV_GIFTCARD_TRANS_KEY">
+      <column name="GCNV_GIFTCARD_TRANS_ID" primaryKey="true" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_CLIENT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_ORG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISACTIVE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="GCNV_GIFTCARD_INST_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_ORDER_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_ORDERLINE_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="DATEORDERED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AMOUNT" primaryKey="false" required="false" type="DECIMAL" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="M_PRODUCT_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="QUANTITY" primaryKey="false" required="false" type="DECIMAL" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISCANCELLED" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="FIN_PAYMENT_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="AD_ORG" name="GCNV_GIFTCARD_TRANS_AD_ORG">
+        <reference local="AD_ORG_ID" foreign="AD_ORG_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_CLIENT" name="GCNV_GIFTCARD_TRANS_CLIENT">
+        <reference local="AD_CLIENT_ID" foreign="AD_CLIENT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="GCNV_GIFTCARD_INST" name="GCNV_GIFTCARD_TRANS_GC" onDelete="cascade">
+        <reference local="GCNV_GIFTCARD_INST_ID" foreign="GCNV_GIFTCARD_INST_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_ORDER" name="GCNV_GIFTCARD_TRANS_ORDER">
+        <reference local="C_ORDER_ID" foreign="C_ORDER_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_ORDERLINE" name="GCNV_GIFTCARD_TRANS_ORDERLINE">
+        <reference local="C_ORDERLINE_ID" foreign="C_ORDERLINE_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="FIN_PAYMENT" name="GCNV_GIFTCARD_TRANS_PAYMENT">
+        <reference local="FIN_PAYMENT_ID" foreign="FIN_PAYMENT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_PRODUCT" name="GCNV_GIFTCARD_TRANS_PRODUCT" onDelete="cascade">
+        <reference local="M_PRODUCT_ID" foreign="M_PRODUCT_ID"/>
+      </foreign-key>
+      <index name="GCNV_GFTCRDTRANS_GCNV_GFTCINST" unique="false">
+        <index-column name="GCNV_GIFTCARD_INST_ID"/>
+      </index>
+      <index name="GCNV_GIFTCARD_TRANS_PAYMENT" unique="false">
+        <index-column name="FIN_PAYMENT_ID"/>
+      </index>
+      <check name="GCNV_GIFTCARD_TRANS_CHECK"><![CDATA[ISACTIVE IN ('Y', 'N')]]></check>
+      <check name="GCNV_GIFTCARD_TRN_CANCEL_CHECK"><![CDATA[ISCANCELLED IN ('Y', 'N')]]></check>
+    </table>
+  </database>

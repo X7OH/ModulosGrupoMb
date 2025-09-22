@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE C_ORDER">
+    <table name="C_ORDER" primaryKey="C_ORDER_KEY">
+      <column name="EM_SSCMB_SALES_ORIGIN" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default><![CDATA[ND]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SSCMB_SALEORIGIN" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="SSCMB_SALEORIGIN" name="EM_SSCMB_SALEORIGIN_CORDER">
+        <reference local="EM_SSCMB_SALEORIGIN" foreign="SSCMB_SALEORIGIN_ID"/>
+      </foreign-key>
+    </table>
+  </database>

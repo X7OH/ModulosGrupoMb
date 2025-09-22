@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptM_PartOfWork" pageWidth="650" pageHeight="842" columnWidth="610" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.464100000000005"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="BASE_WEB" class="java.lang.String"/>
+	<parameter name="DOCUMENT_ID" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+
+to_char(mpd.movementdate,'dd/MM/yyyy') as "fecha"
+,mwr.documentno as "orden_fabricacion"
+,msq.name as "fase"
+,to_char(mpp.starttime,'HH24:MI:ss') as "hora_inicio"
+,to_char(mpp.endtime,'HH24:MI:ss') as "hora_fin"
+--,mm.name as "maquina"
+,string_agg(TRIM(mm.name),', ') as "maquina"
+,ROUND(mpp.ma_costcenteruse,8) as "tiempo_proceso"
+,mpp.EM_Ssprod_Env_Conditions as "condicion_ambiental"
+,mp.name as "producto"
+,mas.description as "lote"
+,mpdl.movementqty as "cantidad"
+,upper(uom.uomsymbol) as "unidad_medida"
+,arlt.name as "tipo_produccion"
+,mpdl.Rejectedquantity as "merma"
+,MPD.AD_ORG_ID  AS "ad_org_id"
+from m_production mpd
+left join m_productionplan mpp on mpp.m_production_id = mpd.m_production_id
+left join m_productionline mpdl on mpdl.m_productionplan_id = mpp.m_productionplan_id
+left join m_product mp on mp.m_product_id = mpdl.m_product_id
+left join m_product_category mpc on mpc.m_product_category_id = mp.m_product_category_id
+left join ma_wrphase mwp on mwp.ma_wrphase_id = mpp.ma_wrphase_id
+left join MA_WorkRequirement mwr on mwr.MA_WorkRequirement_id = mwp.MA_WorkRequirement_id
+left join MA_Sequence msq ON msq.MA_Sequence_ID = mwp.MA_Sequence_ID
+left join m_attributesetinstance mas on mas.m_attributesetinstance_id = mpdl.m_attributesetinstance_id
+left join c_uom uom on uom.c_uom_id = mpdl.c_uom_id
+left join  ad_ref_list arl on mpdl.productiontype = arl.value and arl.ad_reference_id  = '800034'
+left join ad_ref_list_trl arlt on arlt.ad_ref_list_id = arl.ad_ref_list_id and arlt.ad_language='es_ES'
+left join ma_pl_machine mpm on mpm.m_productionplan_id = mpp.m_productionplan_id
+left join ma_machine mm on mm.ma_machine_id = mpm.ma_machine_id
+WHERE mpd.m_production_id = $P{DOCUMENT_ID}
+GROUP BY mpd.movementdate,mwr.documentno,mwp.name, mpp.starttime, mpp.endtime,mpp.ma_costcenteruse, mpp.EM_Ssprod_Env_Conditions, mp.name, mas.description,mpdl.movementqty, uom.uomsymbol, arlt.name, mpdl.Rejectedquantity, MPD.AD_ORG_ID,msq.name
+ORDER BY arlt.name]]>
+	</queryString>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="orden_fabricacion" class="java.lang.String"/>
+	<field name="fase" class="java.lang.String"/>
+	<field name="hora_inicio" class="java.lang.String"/>
+	<field name="hora_fin" class="java.lang.String"/>
+	<field name="maquina" class="java.lang.String"/>
+	<field name="tiempo_proceso" class="java.math.BigDecimal"/>
+	<field name="condicion_ambiental" class="java.lang.String"/>
+	<field name="producto" class="java.lang.String"/>
+	<field name="lote" class="java.lang.String"/>
+	<field name="cantidad" class="java.math.BigDecimal"/>
+	<field name="unidad_medida" class="java.lang.String"/>
+	<field name="tipo_produccion" class="java.lang.String"/>
+	<field name="merma" class="java.math.BigDecimal"/>
+	<field name="ad_org_id" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="152" splitType="Stretch">
+			<staticText>
+				<reportElement x="91" y="0" width="366" height="35"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTE DE FABRICACIÓN]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="73" y="55" width="142" height="14"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="55" width="71" height="14"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="69" width="71" height="15"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fase:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="84" width="71" height="14"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora Inicial:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="98" width="71" height="15"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora Final:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="73" y="69" width="142" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fase}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="73" y="84" width="142" height="14"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{hora_inicio}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="73" y="98" width="142" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{hora_fin}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="318" y="55" width="152" height="14"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Orden de fabricación:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="318" y="70" width="152" height="14"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tiempo de proceso:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="318" y="85" width="152" height="15"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Condiciones de Ambiente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="114" width="71" height="25"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Maquina: ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="470" y="55" width="140" height="14"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{orden_fabricacion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="73" y="114" width="539" height="25"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maquina}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="470" y="70" width="140" height="14"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{tiempo_proceso}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="470" y="85" width="140" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{condicion_ambiental}]]></textFieldExpression>
+			</textField>
+			<image scaleImage="RetainShape" hAlign="Left" vAlign="Top" isUsingCache="true">
+				<reportElement key="image-1" x="0" y="0" width="91" height="47"/>
+				<imageExpression class="java.awt.Image"><![CDATA[org.openbravo.erpCommon.utility.Utility.showImageLogo("yourcompanylegal", $F{ad_org_id})]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="271" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="271" y="0" width="124" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lote]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="395" y="0" width="64" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="459" y="0" width="85" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="544" y="0" width="66" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="271" height="20"/>
+				<box leftPadding="4">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{producto}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="271" y="0" width="124" height="20"/>
+				<box leftPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{lote}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="395" y="0" width="64" height="20"/>
+				<box leftPadding="4">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="459" y="0" width="85" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{unidad_medida}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="544" y="0" width="66" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tipo_produccion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="52" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="31" width="610" height="21"/>
+				<subreportParameter name="DOCUMENT_ID">
+					<subreportParameterExpression><![CDATA[$P{DOCUMENT_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BASE_WEB">
+					<subreportParameterExpression><![CDATA[$P{BASE_WEB}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{BASE_WEB}.replace("web","src-loc/design") + "/ec/com/sidesoft/production/ad_reports/RptSsprod_SubMachine.jasper"]]></subreportExpression>
+			</subreport>
+			<textField isBlankWhenNull="true">
+				<reportElement x="45" y="11" width="226" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{merma}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="11" width="45" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Merma:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

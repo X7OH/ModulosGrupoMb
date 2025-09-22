@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="1A6FF9082148422CAAF38157E712ACF8" trl="N">
+    <value column="MsgText" isTrl="N" original="The days of history can not be less than day forecast.">Los días de la historia no pueden ser menores que el pronóstico del día.
+</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="3CF1CF23F9104C3B956811194084C195" trl="N">
+    <value column="MsgText" isTrl="N" original="The number of days can not be zero.">El número de días no puede ser cero.
+</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

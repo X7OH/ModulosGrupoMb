@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+  <database name="VIEW SSPROD_PRODUCT_LOT_V">
+    <view name="SSPROD_PRODUCT_LOT_V"><![CDATA[SELECT get_uuid() AS ssprod_product_lot_v_id, msd.ad_org_id, msd.ad_client_id, msd.created, msd.createdby, msd.updated, msd.updatedby, msd.isactive, mp.m_product_id, msd.m_locator_id, mas.m_attributesetinstance_id, mas.lot, mas.guaranteedate, mas.description, msd.qtyonhand AS stock, ma.isguaranteedate, ma.guaranteedays, msd.m_storage_detail_id, msd.c_uom_id FROM m_storage_detail msd LEFT JOIN m_attributesetinstance mas ON mas.m_attributesetinstance_id = msd.m_attributesetinstance_id LEFT JOIN m_attributeset ma ON ma.m_attributeset_id = mas.m_attributeset_id JOIN m_product mp ON mp.m_product_id = msd.m_product_id WHERE msd.qtyonhand > 0 ORDER BY msd.m_product_id, mas.guaranteedate, msd.qtyonhand]]></view>
+  </database>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+  <vector>
+    <versionInfo version="3.0.33196"/>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="6E43F881D1C441F8BC834B98C1B4DBEB">
+      <oldValue><![CDATA[@Processed@='Y']]></oldValue>
+      <newValue><![CDATA[@Processed@='Y' | (@Sinw_GoodsReceipt_DocBase@ ='MMR' & @Sinw_IsReturn@='N' & @Sinw_Weight_Record_AI@='Y' )]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="75E9ED83A89C4CA28416B0F0220431C4">
+      <oldValue><![CDATA[@Processed@='Y']]></oldValue>
+      <newValue><![CDATA[@Processed@='Y' | (@Sinw_GoodsReceipt_DocBase@ ='MMR' & @Sinw_IsReturn@='N' & @Sinw_Weight_Record_AI@='Y' )]]></newValue>
+    </columnDataChange>
+  </vector>

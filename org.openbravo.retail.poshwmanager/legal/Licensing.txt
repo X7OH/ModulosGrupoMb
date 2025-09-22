@@ -1,0 +1,118 @@
+A) Openbravo Commercial License
+
+This license file applies to the Openbravo module this file is contained in, except as described below.
+
+This product is Copyright 2003-2016 Openbravo S.L.U.
+
+This product is not free software; it is subject to the Openbravo Commercial License (available at http://www.openbravo.com/content/openbravo-commercial-license)
+
+This product is distributed in the hope that it will be useful, but WITHOUT ANY  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A  PARTICULAR PURPOSE. See the Openbravo commercial License
+(http://www.openbravo.com/content/openbravo-commercial-license) for more details.
+
+You should have received a copy of the Openbravo Commercial License along with this product; if not, write to legal@openbravo.com.  You can also find the terms of
+the Openbravo Commercial License here: http://www.openbravo.com/content/openbravo-commercial-license
+
+
+B) Third party code
+
+Some portions of this Openbravo Software are provided by third parties and thus are not available under the Openbravo Commercial License, but are available under other licensing terms a copy of which are in the "legal" folder of this module.
+
+Any provisions in the Openbravo Commercial License which differ from these license agreements with respect to these components, are offered by Openbravo alone and not by any other party. The source code for these components is available from Openbravo, and also may be obtained at the websites indicated in relation to each component.
+
+In this distribution, they are:
+
+# Jetty
+Copyright © 2012 The Eclipse Foundation.
+Files: jetty-continuation-9.2.15.v20160210.jar, jetty-http-9.2.15.v20160210.jar, jetty-io-9.2.15.v20160210.jar, jetty-security-9.2.15.v20160210.jar, jetty-server-9.2.15.v20160210.jar, jetty-servlet-9.2.15.v20160210.jar, jetty-util-9.2.15.v20160210.jar, websocket-servlet-9.2.15.v20160210.jar, websocket-server-9.2.15.v20160210.jar, websocket-common-9.2.15.v20160210.jar, websocket-client-9.2.15.v20160210.jar, websocket-api-9.2.15.v20160210.jar, javax-websocket-server-impl-9.2.15.v20160210.jar, javax-websocket-client-impl-9.2.15.v20160210.jar
+License: Apache License 2.0 and Eclipse Public License 1.0.
+Site: http://eclipse.org/jetty/
+
+# Barcode4j
+Copyright © 2003-2012 The Barcode4J Project.
+Files: barcode4j.jar
+License: Apache License Version 2.0. http://www.apache.org/licenses/LICENSE-2.0
+Site: http://barcode4j.sourceforge.net/index.html
+
+# Jettison
+Copyright 2006 Envoi Solutions LLC.
+Files: jettison-1.3.jar
+License: Apache License Version 2.0. http://www.apache.org/licenses/LICENSE-2.0
+Site: http://jettison.codehaus.org/
+
+# RXTX
+Copyright 1998-2006 Keane Jarvi.
+Files: RXTXcomm.jar, librxtxParallel.so, librxtxSerial.so, librxtxParallel.dll, librxtxSerial.dll, librxtxSerial.jnilib
+License: The RXTX License v 2.1 (LGPL v 2.1 + Linking Over Controlled Interface). See RXTX-LICENSE.txt
+Site: http://users.frii.com/jarvi/rxtx/index.html
+Linux-x86_64 RXTX, Win32 and Win64 binary builds provided as a courtesy of Cloudhopper. Please see http://www.cloudhopper.com/opensource/rxtx/ for more info.
+
+# JACOB (Java-COM bridge)
+Copyright (c) 1999-2004 Sourceforge JACOB Project.
+files: jacob.jar, jacob-1.17M2-x64.dll, jacob-1-17M2-x86.dll
+License: GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
+Site: http://sourceforge.net/projects/jacob-project/
+
+files from Apache commons projects:
+lib/commons-beanutils-1.8.3.jar
+lib/commons-codec-1.10.jar
+lib/commons-collections-3.2.1.jar
+lib/commons-digester-1.8.1.jar
+lib/commons-lang3-3.2.1.jar
+lib/commons-logging-1.1.1.jar
+Site: http://commons.apache.org/
+License: Apache License Version 2.0. http://www.apache.org/licenses/LICENSE-2.0
+
+# Apache PDFBox
+lib/pdfbox-app-1.8.9.jar
+Site: https://pdfbox.apache.org/
+License: Apache License Version 2.0. http://www.apache.org/licenses/LICENSE-2.0
+
+# Jackson
+lib/jackson-annotations-2.3.0.jar
+lib/jackson-core-2.3.0.jar
+lib/jackson-databind-2.3.0.jar
+Site: https://github.com/FasterXML/jackson
+License: Apache License Version 2.0. http://www.apache.org/licenses/LICENSE-2.0
+
+# Jasperreports
+lib/jasperreports-6.0.0.jar
+lib/jasperreports-fonts-6.0.0.jar
+Site: http://community.jaspersoft.com/project/jasperreports-library
+License: LGPL 3. http://sourceforge.net/p/jasperreports/code/ci/jr-4-0-1/tree/jasperreports/license.txt
+
+# Servlet API
+lib/servlet-api-3.1.jar
+License: EPL http://www.eclipse.org/legal/epl-v10.html
+
+# USB api
+lib/usb-api-1.0.2.jar
+Site: http://javax-usb.sourceforge.net/
+License: CPL 1.0. http://opensource.org/licenses/cpl1.0.txt
+
+# Libusb4java
+b/usb4java-1.2.0.jar
+lib/usb4java-javax-1.2.0.jar
+lib/libusb4java-1.2.0-linux-arm.jar
+lib/libusb4java-1.2.0-linux-x86.jar
+lib/libusb4java-1.2.0-linux-x86_64.jar
+lib/libusb4java-1.2.0-osx-x86.jar
+lib/libusb4java-1.2.0-osx-x86_64.jar
+lib/libusb4java-1.2.0-windows-x86.jar
+lib/libusb4java-1.2.0-windows-x86_64.jar
+Site: http://usb4java.org/nativelibs.html
+License: LPGL 3. https://code.openbravo.com/erp/pmods/retail-hw/file/tip/legal/usb4java-1.2.0/LICENSE.md
+
+#itext
+lib/itextpdf-5.5.0.jar
+lib/itext-pdfa-5.5.0.jar
+Site: http://itextpdf.com/AGPL
+License: AGPL V3 license with LGPL Exception (included as iTextpdf_license.txt in this folder)
+
+#poi
+lib/poi-3.10.1.jar
+Site: https://poi.apache.org/legal.html
+License: Apache 2.0 license (included as Apache_poi_license.txt in this folder)
+
+# Websocket
+lib/javax.websocket-api-1.0.jar
+License: CDDL+GPL-1.1 (included as CDDL+GPL-1.1.txt in this folder)

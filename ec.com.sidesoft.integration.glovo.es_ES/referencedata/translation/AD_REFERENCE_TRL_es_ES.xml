@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
+  <row id="15C8C05AB73F461582F3A0EFFF08D9BB" trl="N">
+    <value column="Name" isTrl="N" original="SGLOVO_Paymentmethod">SGLOVO_Paymentmethod</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

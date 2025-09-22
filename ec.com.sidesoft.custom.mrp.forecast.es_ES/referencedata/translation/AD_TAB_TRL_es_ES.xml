@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TAB" version="">
+  <row id="2120E2091FCE422EA6454394C53E0091" trl="N">
+    <value column="Name" isTrl="Y" original="SubCategory">Subcategoría</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="41B5D563D11F4E6B8675031C761EECFA" trl="N">
+    <value column="Name" isTrl="Y" original="Product">Producto</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="427A4CDAADF54045AE7BBDF70DDA8852" trl="N">
+    <value column="Name" isTrl="N" original="Process Information MRP - Forecast">Información del proceso MRP - Pronóstico
+</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="7873D8BEC29740FD9D39FB515ED2C218" trl="N">
+    <value column="Name" isTrl="Y" original="Category">Categoria</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="84253FEA17384D0185184A46352F6892" trl="N">
+    <value column="Name" isTrl="Y" original="Brand Type">Tipo de marca</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="A630ABAA54624B8BA42D18357D89C3CC" trl="N">
+    <value column="Name" isTrl="Y" original="Configuration - Season Product">Configuración - Producto de temporada</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="A67F156A6FF44954A4F531C62143FAD2" trl="N">
+    <value column="Name" isTrl="Y" original="Store Type">Tipo de tienda</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="CBD5FC2AA2E7440F88AD665DB5EF4AD3" trl="N">
+    <value column="Name" isTrl="Y" original="MRP - Subcategory">MRP - Subcategoría</value>
+    <value column="CommitWarning" isTrl="N" original=""/>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Filtername" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

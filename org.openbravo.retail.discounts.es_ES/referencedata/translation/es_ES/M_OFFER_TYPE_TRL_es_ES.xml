@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="M_OFFER_TYPE" version="">
+  <row id="20E4EC27397344309A2185097392D964" trl="N">
+    <value column="Name" isTrl="Y" original="User Defined Percentage">Usuario Definió Porcentaje</value>
+    <value column="Description" isTrl="Y" original="Discretionary discount that allows user to set the percentage to discount. This discount is never automatically applied.">Descuento discrecional que permite al usuario fijar el porcentaje a descontar. Este descuento nunca es aplicado automáticamente</value>
+  </row>
+  <row id="312D41071ED34BA18B748607CA679F44" trl="N">
+    <value column="Name" isTrl="Y" original="Buy X pay Y of different product">Compra X paga Y de producto diferente</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="697A7AB9FD9C4EE0A3E891D3D3CCA0A7" trl="N">
+    <value column="Name" isTrl="Y" original="Fixed Percentage Discount">Porcentaje de Descuento fijo</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="7B49D8CC4E084A75B7CB4D85A6A3A578" trl="N">
+    <value column="Name" isTrl="Y" original="Discretionary Fixed Amount">Importe Discrecional fijo</value>
+    <value column="Description" isTrl="Y" original="Discretionary discount with of a fixed amount over the price. This discount is never automatically applied.">Descuento discrecional con un importe fijo sobre el precio. Este descuento nunca es aplicado automáticamente.</value>
+  </row>
+  <row id="8338556C0FBF45249512DB343FEFD280" trl="N">
+    <value column="Name" isTrl="Y" original="Discretionary Fixed Percentage">Porcentaje Discrecional fijo</value>
+    <value column="Description" isTrl="Y" original="Discretionary discount with of a fixed percentage over the price. This discount is never automatically applied.">Descuento dicrecional con un porcentaje fijo sobre el precio. Este descuento nunca es aplicado automáticamente.</value>
+  </row>
+  <row id="94AEA884F5AD4EABB72322832B9C5172" trl="N">
+    <value column="Name" isTrl="Y" original="Buy X and get Y as gift">Compra X y obtén Y como regalo</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="BE5D42E554644B6AA262CCB097753951" trl="N">
+    <value column="Name" isTrl="Y" original="Pack">Paquete</value>
+    <value column="Description" isTrl="Y" original="Defines a list of products with a fixed price when they are all included in the ticket.">Define una lista de productos con precio fijo cuando todos son incluidos en el ticket.</value>
+  </row>
+  <row id="D1D193305A6443B09B299259493B272A" trl="N">
+    <value column="Name" isTrl="Y" original="User Defined Amount">Usuario Definió Importe</value>
+    <value column="Description" isTrl="Y" original="Discretionary discount that allows user to set the amount to discount. This discount is never automatically applied.">Descuento Discrecional que permite al usuario fijar el importe de descuento. Este descuento nunca es aplicado automáticamente.</value>
+  </row>
+  <row id="E08EE3C23EBA49358A881EF06C139D63" trl="N">
+    <value column="Name" isTrl="Y" original="Buy X pay Y of same product">Compra X paga Y del mismo producto</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

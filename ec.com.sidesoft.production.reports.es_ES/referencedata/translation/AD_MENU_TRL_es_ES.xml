@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="6F8455B93E9E44C6A91C8D33264EF21C" trl="Y">
+    <value column="Name" isTrl="Y" original="Summary LDM Productions by Period 2">Resumen de Producciones LDM por Periodo (CSV)</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="81E1FC3584D1419F878E17E560AA8B35" trl="Y">
+    <value column="Name" isTrl="Y" original="Production, consumption and purchasing report">Reporte de producción, consumos y compras</value>
+    <value column="Description" isTrl="Y" original="Production, consumption and purchasing report">Reporte de producción, consumos y compras</value>
+  </row>
+  <row id="A877B644FF68411BB45C6D972A9B6127" trl="Y">
+    <value column="Name" isTrl="Y" original="Summary LDM Productions by Period">Resumen de Producciones LDM por Periodo</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

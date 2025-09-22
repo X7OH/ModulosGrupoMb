@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SSRBD_BANKDEPOSITSLINES_TRG">
+    <trigger name="SSRBD_BANKDEPOSITSLINES_TRG" table="SSRBD_BANKDEPOSITSLINES" fires="after" insert="true" update="true" delete="true" foreach="row">
+      <body><![CDATA[
+  v_BankDepositID CHARACTER VARYING(32); --OBTG:VARCHAR2--
+  v_docstatus CHARACTER VARYING(10); --OBTG:VARCHAR2--      
+  
+BEGIN
+    
+    IF AD_isTriggerEnabled()='N' THEN RETURN;
+    END IF;
+
+  IF INSERTING THEN
+
+      v_BankDepositID:=:new.ssrbd_bankdeposits_id;
+      SELECT status INTO v_docstatus FROM ssrbd_bankdeposits WHERE ssrbd_bankdeposits_id = v_BankDepositID;
+
+      IF(v_docstatus = 'PR') THEN
+            RAISE_APPLICATION_ERROR(-20000, '@SSRBD_NotInsertLines@');
+      END IF;  
+
+   END IF;
+
+  IF DELETING THEN
+
+      v_BankDepositID:=:old.ssrbd_bankdeposits_id;
+      SELECT status INTO v_docstatus FROM ssrbd_bankdeposits WHERE ssrbd_bankdeposits_id = v_BankDepositID;
+
+      IF(v_docstatus = 'PR') THEN
+            RAISE_APPLICATION_ERROR(-20000, '@SSRBD_NotDeleteLines@');
+      END IF;  
+
+  END IF; 
+ 
+END SSRBD_BANKDEPOSITSLINES_TRG
+]]></body>
+    </trigger>
+  </database>

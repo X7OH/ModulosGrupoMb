@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
+  <row id="503AC0F57EEC4D3B9A0056C870F4DD2C" trl="N">
+    <value column="Name" isTrl="N" original="pkr Tag_Type">pkr Tag_Type</value>
+    <value column="Description" isTrl="N" original="pkr Tag_Type">pkr Tag_Type</value>
+    <value column="Help" isTrl="N" original="list created for Picker WebHook settings">list created for Picker WebHook settings</value>
+  </row>
+  <row id="6CE210DBF5E64F8296F11FB3645DD676" trl="N">
+    <value column="Name" isTrl="N" original="pkr Booking State">pkr Booking State</value>
+    <value column="Description" isTrl="N" original="pkr Booking State">pkr Booking State</value>
+    <value column="Help" isTrl="N" original="Booking State List for Picker integration">Booking State List for Picker integration</value>
+  </row>
+  <row id="E5EB9971255A4DF7A2EE333DE6211CBC" trl="N">
+    <value column="Name" isTrl="N" original="pkr Payment Method">pkr Payment Method</value>
+    <value column="Description" isTrl="N" original="pkr Payment Method">pkr Payment Method</value>
+    <value column="Help" isTrl="N" original="Payment Method Identifier for Picker integration">Payment Method Identifier for Picker integration</value>
+  </row>
+</compiereTrl>

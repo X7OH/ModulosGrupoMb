@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_ELEMENT" version="">
+  <row id="067DCC9E295542EFB2BCEC227C15958E" trl="Y">
+    <value column="Name" isTrl="Y" original="Json Sent">JSON Enviado</value>
+    <value column="PrintName" isTrl="Y" original="Json Sent">JSON Enviado</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="0E96FCCB1AEE47268CDFE86D315B3D65" trl="Y">
+    <value column="Name" isTrl="Y" original="User">Usuario</value>
+    <value column="PrintName" isTrl="Y" original="User">Usuario</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="2F52D55425D3471EA3F21BC42AC9552E" trl="Y">
+    <value column="Name" isTrl="Y" original="Delivery Identifier">Identificador Delivery</value>
+    <value column="PrintName" isTrl="Y" original="Delivery Identifier">Identificador Delivery</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="329AB3843B244E1DA4ADA3EE37E4D7D4" trl="Y">
+    <value column="Name" isTrl="Y" original="Status">Procesado</value>
+    <value column="PrintName" isTrl="Y" original="Status">Procesado</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="44920CCAB6974DBBB63DA3D38BE189D0" trl="Y">
+    <value column="Name" isTrl="Y" original="Delivery Type">Tipo de Delivery</value>
+    <value column="PrintName" isTrl="Y" original="Delivery Type">Tipo de Delivery</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="4C4165393EB343BEBA16242B7A5A341D" trl="Y">
+    <value column="Name" isTrl="Y" original="Business Partner Default">Tercero por Defecto </value>
+    <value column="PrintName" isTrl="Y" original="Business Partner Default">Tercero por Defecto </value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original="Tercero por Defecto ">Tercero por Defecto </value>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="7944F78C182D4492919D9A5D469F1697" trl="Y">
+    <value column="Name" isTrl="Y" original="Description">Descripción</value>
+    <value column="PrintName" isTrl="Y" original="Description">Descripción</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="7952487F76A94E04A8771502F2B01982" trl="Y">
+    <value column="Name" isTrl="Y" original="Taxes">Impuestos</value>
+    <value column="PrintName" isTrl="Y" original="Taxes">Impuestos</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="7984B9512C414A1ABBA24FB48AE1A4BD" trl="Y">
+    <value column="Name" isTrl="Y" original="Config Integration Delivery">Configuración Integración Delivery</value>
+    <value column="PrintName" isTrl="Y" original="Config Integration Delivery">Configuración Integración Delivery</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="84286CA30EAB4E42991F48DDFE662F83" trl="Y">
+    <value column="Name" isTrl="Y" original="Obpos_Applications_ID">POS Terminal</value>
+    <value column="PrintName" isTrl="Y" original="Obpos_Applications_ID">POS Terminal</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="9CBCD578DC0E4974B4628EA4158B0BE6" trl="Y">
+    <value column="Name" isTrl="Y" original="Sswh_Taxpayer_ID">Tipo de Contribuyente</value>
+    <value column="PrintName" isTrl="Y" original="Sswh_Taxpayer_ID">Tipo de Contribuyente</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="A2DDBE79DEC94B3CA01411EDDE35EDFF" trl="Y">
+    <value column="Name" isTrl="Y" original="Default Email">Email por Defecto FE</value>
+    <value column="PrintName" isTrl="Y" original="Default Email">Email por Defecto FE</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="D77D6471C1FE49A6B04F936C67AF9B17" trl="Y">
+    <value column="Name" isTrl="Y" original="Delivery Price">Precio Delivery</value>
+    <value column="PrintName" isTrl="Y" original="Delivery Price">Precio Delivery</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="E85D9A1975474311BB13F08E8799CF4C" trl="Y">
+    <value column="Name" isTrl="Y" original="Delivery Log">Log Integración Delivery</value>
+    <value column="PrintName" isTrl="Y" original="Delivery Log">Log Integración Delivery</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="EFE9D5618BCA4A5AB524125647086024" trl="Y">
+    <value column="Name" isTrl="Y" original="Delivery Product">Producto Recargo a Domicilio</value>
+    <value column="PrintName" isTrl="Y" original="Delivery Product">Producto Recargo a Domicilio</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_WINDOW" version="">
+  <row id="121B04F5F09246D6ADB660BB71833BE3" trl="N">
+    <value column="Name" isTrl="Y" original="Assignment of sales orders to motorcyclists">Asignación pedidos de venta a motociclistas</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="15B74C69DDDF485E97914AA0D269EA2C" trl="Y">
+    <value column="Name" isTrl="Y" original="SmartDelivery Configuration Log">Log Configuración Urbano</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="58EFD8EB0D8B4781AB867656B8372A53" trl="Y">
+    <value column="Name" isTrl="Y" original="SmartDelivery Configuration">Configuración Urbano</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="AABD808296BD42B0A9E87F1F4B37505A" trl="Y">
+    <value column="Name" isTrl="Y" original="Payment methods not allowed Smartdelivery">Metodos de pago no permitidos Urbano</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original="Window where the payment methods of the orders that should not be sent to Smartdelivery are shown.">Window where the payment methods of the orders that should not be sent to Smartdelivery are shown.</value>
+  </row>
+  <row id="AEF91B2257D44FA1A0565AADBD428366" trl="Y">
+    <value column="Name" isTrl="Y" original="Smart Delivery Configuration Log Reception">Log Recepción Urbano</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

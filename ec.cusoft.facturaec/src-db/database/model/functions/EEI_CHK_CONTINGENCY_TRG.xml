@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION EEI_CHK_CONTINGENCY_TRG">
+    <function name="EEI_CHK_CONTINGENCY_TRG" type="VARCHAR">
+      <body><![CDATA[/********************************************************************************** 
+ * Copyright (C) 2009 Openbravo S.L.U. 
+ * Licensed under the Openbravo Commercial License version 1.0 
+ * You may obtain a copy of the License at http://www.openbravo.com/legal/obcl.html 
+ **********************************************************************************
+ * Contributor(s):  ______________________________________.
+ **********************************************************************************/
+BEGIN
+  IF AD_isTriggerEnabled()='N' THEN IF TG_OP = 'DELETE' THEN RETURN OLD; ELSE RETURN NEW; END IF; 
+  END IF;
+  IF (OLD.STATUS = 'CO' OR OLD.STATUS = 'PR')
+  THEN
+    RAISE_APPLICATION_ERROR(-20000, '@EEI_No_Deleted@') ;
+  END IF;
+IF TG_OP = 'DELETE' THEN RETURN OLD; ELSE RETURN NEW; END IF;
+END EEI_CHK_CONTINGENCY_TRG
+]]></body>
+    </function>
+  </database>

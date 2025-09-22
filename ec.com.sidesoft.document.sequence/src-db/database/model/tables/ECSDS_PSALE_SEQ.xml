@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+  <database name="TABLE ECSDS_PSALE_SEQ">
+    <table name="ECSDS_PSALE_SEQ" primaryKey="ECSDS_PSALE_SEQ_KEY">
+      <column name="ECSDS_PSALE_SEQ_ID" primaryKey="true" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_CLIENT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_ORG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISACTIVE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="VALUE" primaryKey="false" required="true" type="NVARCHAR" size="40" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="NAME" primaryKey="false" required="true" type="NVARCHAR" size="255" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ECSDS_COMPRO_TYPE_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="STORE" primaryKey="false" required="false" type="NVARCHAR" size="6" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="SEQUENCE_FROM" primaryKey="false" required="false" type="DECIMAL" size="15,0" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="SEQUENCE_TO" primaryKey="false" required="false" type="DECIMAL" size="15,0" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="IS_GENERATED" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="IS_INVOICE_SEQ" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="OBPOS_APPLICATIONS_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="ECSDS_COMPRO_TYPE" name="ECSDS_PSALE_COMBANTE">
+        <reference local="ECSDS_COMPRO_TYPE_ID" foreign="ECSDS_COMPRO_TYPE_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="OBPOS_APPLICATIONS" name="ECSDS_PSALE_POS_FK">
+        <reference local="OBPOS_APPLICATIONS_ID" foreign="OBPOS_APPLICATIONS_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_CLIENT" name="ECSDS_PSALE_SEQ_AD_CLIENT">
+        <reference local="AD_CLIENT_ID" foreign="AD_CLIENT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_ORG" name="ECSDS_PSALE_SEQ_AD_ORG">
+        <reference local="AD_ORG_ID" foreign="AD_ORG_ID"/>
+      </foreign-key>
+      <unique name="ECSDS_POINTSALE_UN_SK">
+        <unique-column name="VALUE"/>
+      </unique>
+      <check name="ECSDS_POINT_AC_CHK"><![CDATA[ISACTIVE IN ('Y', 'N')]]></check>
+      <check name="ECSDS_POINT_ISINV_CHK"><![CDATA[IS_INVOICE_SEQ IN ('Y', 'N')]]></check>
+    </table>
+  </database>

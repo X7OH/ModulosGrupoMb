@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MODULE" version="">
+  <row id="CF41BE59FEA84A9E9908CAEDFCBE09BB" trl="N">
+    <value column="Description" isTrl="N" original="Payroll Setup Formulary 107">Payroll Setup Formulary 107</value>
+    <value column="Help" isTrl="N" original="This Module was created for ticket 7138 where folders and fields are created in addition to other developments for the standard payroll version and cost center distribution payroll version">This Module was created for ticket 7138 where folders and fields are created in addition to other developments for the standard payroll version and cost center distribution payroll version</value>
+    <value column="License" isTrl="N" original=""/>
+    <value column="Updateinfo" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

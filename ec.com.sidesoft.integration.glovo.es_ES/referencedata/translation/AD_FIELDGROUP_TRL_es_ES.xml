@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_FIELDGROUP" version="">
+  <row id="A48EE33519894806B0369F149E8F2762" trl="Y">
+    <value column="Name" isTrl="Y" original="SGLOVO_GlovoConfig">Configuración Glovo</value>
+  </row>
+</compiereTrl>

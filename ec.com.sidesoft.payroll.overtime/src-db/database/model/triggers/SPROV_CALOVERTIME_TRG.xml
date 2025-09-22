@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SPROV_CALOVERTIME_TRG">
+    <trigger name="SPROV_CALOVERTIME_TRG" table="SPROV_EMPLOYEE_OVERTIME" fires="before" insert="true" update="true" delete="true" foreach="row">
+      <body><![CDATA[
+v_subtype VARCHAR2(60);
+v_sspr_shift_id VARCHAR2(32);
+v_shifttype VARCHAR2(60);
+v_datemovement DATE;
+v_nohours NUMBER;
+v_exit_shift2 DATE;
+v_authorized_time DATE;
+
+BEGIN
+ 
+   IF AD_isTriggerEnabled()='N' THEN RETURN;
+   END IF;	
+
+   IF(UPDATING) THEN
+	If(to_timestamp((to_char(:old.datemovement,'YYYY-MM-DD') || ' ' || to_char(:old.entry_1,'HH24:MI:SS')),'yyyy-mm-dd HH24:MI:SS') !=
+		to_timestamp((to_char(:old.datemovement,'YYYY-MM-DD') || ' ' || to_char(:new.entry_1,'HH24:MI:SS')),'yyyy-mm-dd HH24:MI:SS'))Then
+
+		:new.calculate_hours := 'DR';
+		:new.insert_shift := 'Y';
+	End If;
+	If(to_timestamp((to_char(:old.datemovement,'YYYY-MM-DD') || ' ' || to_char(:old.exit_1,'HH24:MI:SS')),'yyyy-mm-dd HH24:MI:SS') !=
+		to_timestamp((to_char(:old.datemovement,'YYYY-MM-DD') || ' ' || to_char(:new.exit_1,'HH24:MI:SS')),'yyyy-mm-dd HH24:MI:SS'))Then
+
+		:new.calculate_hours := 'DR';
+		:new.insert_shift := 'Y';
+	End If;
+	If(to_timestamp((to_char(:old.datemovement,'YYYY-MM-DD') || ' ' || to_char(:old.entry_2,'HH24:MI:SS')),'yyyy-mm-dd HH24:MI:SS') !=
+		to_timestamp((to_char(:old.datemovement,'YYYY-MM-DD') || ' ' || to_char(:new.entry_2,'HH24:MI:SS')),'yyyy-mm-dd HH24:MI:SS'))Then
+	
+		:new.calculate_hours := 'DR';
+		:new.insert_shift := 'Y';
+	End If;
+	If(to_timestamp((to_char(:old.datemovement,'YYYY-MM-DD') || ' ' || to_char(:old.exit_2,'HH24:MI:SS')),'yyyy-mm-dd HH24:MI:SS') !=
+		to_timestamp((to_char(:old.datemovement,'YYYY-MM-DD') || ' ' || to_char(:new.exit_2,'HH24:MI:SS')),'yyyy-mm-dd HH24:MI:SS'))Then
+	
+		:new.calculate_hours := 'DR';
+		:new.insert_shift := 'Y';
+	End If;
+	If(to_timestamp((to_char(:old.datemovement,'YYYY-MM-DD') || ' ' || to_char(:old.entry_dial_1,'HH24:MI:SS')),'yyyy-mm-dd HH24:MI:SS') !=
+		to_timestamp((to_char(:old.datemovement,'YYYY-MM-DD') || ' ' || to_char(:new.entry_dial_1,'HH24:MI:SS')),'yyyy-mm-dd HH24:MI:SS') or :old.entry_dial_1 is null)Then
+	
+		:new.calculate_hours := 'DR';
+	End If;
+	If(to_timestamp((to_char(:old.datemovement,'YYYY-MM-DD') || ' ' || to_char(:old.chek_out_1,'HH24:MI:SS')),'yyyy-mm-dd HH24:MI:SS') !=
+		to_timestamp((to_char(:old.datemovement,'YYYY-MM-DD') || ' ' || to_char(:new.chek_out_1,'HH24:MI:SS')),'yyyy-mm-dd HH24:MI:SS') or :old.chek_out_1 is null)Then
+	
+		:new.calculate_hours := 'DR';
+	End If;
+	If(to_timestamp((to_char(:old.datemovement,'YYYY-MM-DD') || ' ' || to_char(:old.entry_dial_2,'HH24:MI:SS')),'yyyy-mm-dd HH24:MI:SS') != 
+		to_timestamp((to_char(:old.datemovement,'YYYY-MM-DD') || ' ' || to_char(:new.entry_dial_2,'HH24:MI:SS')),'yyyy-mm-dd HH24:MI:SS') or :old.entry_dial_2 is null)Then
+	
+		:new.calculate_hours := 'DR';
+	End If;
+	If(to_timestamp((to_char(:old.datemovement,'YYYY-MM-DD') || ' ' || to_char(:old.chek_out_2,'HH24:MI:SS')),'yyyy-mm-dd HH24:MI:SS') !=
+		to_timestamp((to_char(:old.datemovement,'YYYY-MM-DD') || ' ' || to_char(:new.chek_out_2,'HH24:MI:SS')),'yyyy-mm-dd HH24:MI:SS') or :old.chek_out_2 is null )Then
+	
+		:new.calculate_hours := 'DR';
+	End If;
+	If(to_timestamp((to_char(:old.datemovement,'YYYY-MM-DD') || ' ' || to_char(:old.authorized_time,'HH24:MI:SS')),'yyyy-mm-dd HH24:MI:SS') !=
+		to_timestamp((to_char(:old.datemovement,'YYYY-MM-DD') || ' ' || to_char(:new.authorized_time,'HH24:MI:SS')),'yyyy-mm-dd HH24:MI:SS') or :old.authorized_time is null)Then
+	
+		:new.calculate_hours := 'DR';
+	End If;
+   END IF;  
+
+   END SPROV_CALOVERTIME_TRG
+]]></body>
+    </trigger>
+  </database>

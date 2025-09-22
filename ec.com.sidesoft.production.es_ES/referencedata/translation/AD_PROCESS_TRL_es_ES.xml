@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
+  <row id="0032B61D2601430092656C8DCCCFEC97" trl="N">
+    <value column="Name" isTrl="Y" original="Daily Work Requirements Report">Órdenes de fabricación del día. </value>
+    <value column="Description" isTrl="Y" original="In this report are showed the work requirements of type ramp. By default only from actual date.">En este informe se muestran las órdenes de fabricación de tipo rampa. Por defecto las del día actual.</value>
+    <value column="Help" isTrl="Y" original="In this report are showed the work requirements of type ramp. By default only from actual date.">En este informe se muestran las órdenes de fabricación de tipo rampa. Por defecto las del día actual.</value>
+  </row>
+  <row id="07B3EB8C8F5B4592A6F149F3D10C0BBB" trl="N">
+    <value column="Name" isTrl="N" original="Production Run Status Report">Production Run Status Report</value>
+    <value column="Description" isTrl="N" original="Production Run Status Report">Production Run Status Report</value>
+    <value column="Help" isTrl="N" original="Production Run Status Report JR">Production Run Status Report JR</value>
+  </row>
+  <row id="0F6A513331B24109A9ADF4215467F219" trl="N">
+    <value column="Name" isTrl="Y" original="Insert Maintenances">Insertar Mantenimientos</value>
+    <value column="Description" isTrl="Y" original="Insert Maintenances">Insertar Mantenimientos</value>
+    <value column="Help" isTrl="Y" original="Insert Maintenances">Insertar Mantenimientos</value>
+  </row>
+  <row id="23F9911ECB6C4BFC8B6BFF193831FE99" trl="N">
+    <value column="Name" isTrl="Y" original="Create Production Costs">Generar costos de producción</value>
+    <value column="Description" isTrl="Y" original="Create Production Costs">Generar costos de producción</value>
+    <value column="Help" isTrl="Y" original="Create Production Costs">Generar costos de producción</value>
+  </row>
+  <row id="354F3252BE3A45B6BD28AEA83FEBECDE" trl="Y">
+    <value column="Name" isTrl="Y" original="Materials List Valued">Lista de materiales valorados</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="3FFD8E911E284D5086E1FD5C0245D72E" trl="N">
+    <value column="Name" isTrl="Y" original="Pending Work Requirement">Fases de OF a realizar </value>
+    <value column="Description" isTrl="Y" original="In this report are all the open work requirement phases and the quantities done and that left to do.">En este informe se presentan las fases de orden de fabricación que están abiertas y las cantidades que están realizadas y faltan por completar.</value>
+    <value column="Help" isTrl="Y" original="In this report are all the open work requirement phases and the quantities done and that left to do.">En este informe se presentan las fases de orden de fabricación que están abiertas y las cantidades que están realizadas y faltan por completar.</value>
+  </row>
+  <row id="4AEB6CDA90484FDA92A4162C3F845E28" trl="N">
+    <value column="Name" isTrl="Y" original="Compliance with the Production Projection">Cumplimiento de la Proyección de Producción</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="51DDDDC3D01E451AA6E5D359297C172E" trl="N">
+    <value column="Name" isTrl="Y" original="Report Used machine capacity">Reporte Capcidad de Máquina Usada</value>
+    <value column="Description" isTrl="Y" original="Report Used machine capacity">Reporte Capcidad de Máquina Usada</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="6F9D412DEDCC415EAD93C049B86515A4" trl="Y">
+    <value column="Name" isTrl="Y" original="Report Production Incident">Reporte de Incidencias de Producción</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="75546F2674C94844B66183B5CB2D8A62" trl="N">
+    <value column="Name" isTrl="Y" original="Product Locations ">Ubicación productos</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="7F22F122F248438D8FA18AE5355DD609" trl="N">
+    <value column="Name" isTrl="Y" original="Report Evolution of costs by product">Reporte Evolución de costos por producto</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="7FB264CB33524B35BFBCE3B0702EC2BB" trl="N">
+    <value column="Name" isTrl="Y" original="Create Standards NewSql">Generar estándares</value>
+    <value column="Description" isTrl="Y" original="Inserts the standard values for the selected Work Requirement Phase and Cost Center version">Inserta los valores estándar para la fase de la orden de fabricación  y  la versión del centro de costos seleccionadas</value>
+    <value column="Help" isTrl="Y" original="With this process the products involved on the selected work requirement phase will be inserted. If the phase is of global use all the used products (P-) will go to the global use tab and if it is of no quantity all the quantities will be zero.&#10;This process also inserts the correspondent machines, salary categories and indirect costs of the selected Cost Center version.&#10;If the Activity of the Work Requirement Phase uses toolsets they are also inserted.&#10;Depending on the configuration of the Cost Center the process will also calculate the Cost Center use.">Mediante este proceso los productos involucrados serán insertados en la fase de la orden  de fabricación seleccionada. Si la fase es de consumo global todos los productos usados (P-) irán a la pestaña de consumo global y si no es de cantidad todas las cantidades serán cero. Este proceso también introduce la correspondiente máquina, catagoría salarial y costes indirectos de la versión del centro de costos seleccionado. Si la actividad de la fase de la orden de fabricación utiliza utillajes también serán insertados. Dependiendo de la configuración de centro de costos el proceso también calculará el uso del centro de costos.</value>
+  </row>
+  <row id="81833750588E44DB9095E0705593EF3A" trl="N">
+    <value column="Name" isTrl="Y" original="Standard Costs Report">Costo estándar </value>
+    <value column="Description" isTrl="Y" original="Manufacturing Standard Cost">Informe de los costos estándar de producción.</value>
+    <value column="Help" isTrl="Y" original="Manufacturing Standard Cost">Informe de los costos estándar de producción.</value>
+  </row>
+  <row id="8D51EC355E2A4BD0BE01CF2E6D993572" trl="N">
+    <value column="Name" isTrl="Y" original="Calculate Standard Costs">Calcular costo estándar</value>
+    <value column="Description" isTrl="Y" original="Calculates the standard cost of manufactured products.">Calcula el costo estándar de los productos fabricados.</value>
+    <value column="Help" isTrl="Y" original="Calculates the standard cost of manufactured products.">Calcula el costo estándar de los productos fabricados.</value>
+  </row>
+  <row id="921F742FFBA744139AB48E98BA294F9B" trl="Y">
+    <value column="Name" isTrl="Y" original="Report Efficiency by standard time">Reporte Eficiencia por tiempo estándar</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="CCF85B6D6DDC4165BC2324FFEE6F400B" trl="N">
+    <value column="Name" isTrl="Y" original="Production Cost Report">Costo de producción</value>
+    <value column="Description" isTrl="Y" original="Production Cost Report">Costo de producción</value>
+    <value column="Help" isTrl="Y" original="Production Cost Report">Costo de producción</value>
+  </row>
+  <row id="CD2D466E88E846AAAAC54357AFBA5A15" trl="Y">
+    <value column="Name" isTrl="Y" original="Report Manufacturing Order Registration by Areas">Reporte órdenes de fabricación por áreas</value>
+    <value column="Description" isTrl="N" original="Report Manufacturing Order Registration by Areas">Report Manufacturing Order Registration by Areas</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="CE81B27EADC74667A59506719E70349A" trl="N">
+    <value column="Name" isTrl="Y" original="Create Standards New">Generar estándares</value>
+    <value column="Description" isTrl="Y" original="Inserts the standard values for the selected Work Requirement Phase and Cost Center version">Proceso que mete los productos del parte de fabricación. Si la fase es de consumo conjunto los mete en la solapa de "consumo global" y si es de cantidad vacía meterá las cantidades a cero.</value>
+    <value column="Help" isTrl="Y" original="With this process the products involved on the selected work requirement phase will be inserted. If the phase is of global use all the used products (P-) will go to the global use tab and if it is of no quantity all the quantities will be zero.&#10;This process also inserts the correspondent machines, salary categories and indirect costs of the selected Cost Center version.&#10;If the Activity of the Work Requirement Phase uses toolsets they are also inserted.&#10;Depending on the configuration of the Cost Center the process will also calculate the Cost Center use.">Mediante este proceso se introducen los productos involucrados en el parte de fabricación. Si la fase seleccionada es de "consumo conjunto" los productos que se gastan se introducen en la solapa de consumo conjunto. Si la fase es de "cantidad vacía" se meterán todas las cantidades a cero.</value>
+  </row>
+  <row id="EA84727F550F43588462FF87BD509EDA" trl="N">
+    <value column="Name" isTrl="Y" original="Report Productive process losses">Reporte Mermas de procesos productivos</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="ED6A2DF505484346BC9CBB14C2DD9BD5" trl="N">
+    <value column="Name" isTrl="N" original="Generic Print Part Of Work">Generic Print Part Of Work</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

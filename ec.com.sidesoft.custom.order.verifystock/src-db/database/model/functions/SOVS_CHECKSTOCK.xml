@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SOVS_CHECKSTOCK">
+    <function name="SOVS_CHECKSTOCK" type="NULL">
+      <parameter name="pinstance_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[TYPE RECORD IS REF CURSOR;
+  Cur_Parameter RECORD;
+  Cur_Function RECORD;
+  Cur_Stock RECORD;
+  Cur_StockUpdate RECORD;
+
+  v_RecordId VARCHAR2(32);
+  v_UserId VARCHAR2(32) ;
+  v_AdOrgId VARCHAR2(32) ;
+  v_AdClientId VARCHAR2(32) ;
+  v_COrderId VARCHAR2(32) ;
+  
+  v_ResultStr VARCHAR2(2000) := '';
+  v_callFunction VARCHAR2(2000) := '';
+
+  v_Type VARCHAR2(10) ;  
+  v_WarehouseID VARCHAR2(32) ;
+  v_Productorigin VARCHAR2(200) := '';
+  v_MLocatorID VARCHAR2(200) := '';
+  v_Qtyordered NUMBER:=0;  
+  v_Differences NUMBER:=0; 
+  v_StockProduct NUMBER:=0; 
+  
+BEGIN
+
+  --  Update AD_PInstance
+  DBMS_OUTPUT.PUT_LINE('Updating PInstance - Processing ' || PInstance_ID) ;
+  v_ResultStr := 'PInstanceNotFound';
+  AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'Y', NULL, NULL) ;
+
+  BEGIN --BODY
+ 
+    -- GET:    
+    FOR Cur_Parameter IN
+      (SELECT i.Record_ID,
+        p.ParameterName,
+        p.P_String,
+        p.P_Number,
+        p.P_Date,
+        p.AD_Client_ID,
+        p.AD_Org_ID,
+        p.CreatedBy        
+      FROM AD_PInstance i
+      LEFT JOIN AD_PInstance_Para p
+           ON i.AD_PInstance_ID = p.AD_PInstance_ID
+      WHERE i.AD_PInstance_ID = pinstance_id
+      ORDER BY p.SeqNo
+      )
+    LOOP
+
+        v_RecordId := Cur_Parameter.Record_ID;
+
+    END LOOP;  
+
+    -- BORRO LA INFORMACION DE LA TABLA sovs_ldm_prod PARA EL PEDIDO DE VENTA
+    DELETE FROM sovs_ldm_temp WHERE c_order_id = v_RecordId;
+    
+    FOR Cur_Function IN
+      ( SELECT col.m_product_id, col.qtyordered, col.m_warehouse_id, (select m_locator_id from m_locator where m_warehouse_id = col.m_warehouse_id)
+        FROM c_order co
+        LEFT JOIN c_orderline col ON col.c_order_id = co.c_order_id
+        WHERE co.c_order_id = v_RecordId
+      )
+    LOOP
+        PERFORM sovs_insert_temp(Cur_Function.m_product_id, null, Cur_Function.m_locator_id, Cur_Function.qtyordered,v_RecordId);
+    END LOOP; 
+
+    SELECT ad_client_id, ad_org_id
+    INTO v_AdClientId,v_AdOrgId
+    FROM c_order
+    WHERE c_order_id = v_RecordId;
+
+    -- BORRO LA INFORMACION DE LA TABLA sovs_ldm_prod PARA EL PEDIDO DE VENTA
+    DELETE FROM sovs_ldm_prod WHERE c_order_id = v_RecordId;
+    
+    --SE BUSCA LOS REGISTROS DE LA TABLA TEMPORAL FILTRANDO POR LA C_ORDER
+    FOR Cur_Stock IN(
+
+                    SELECT SUM(tm.qty_necessary) as "cantidadnecesaria", tm.m_product_id
+                    FROM sovs_ldm_temp tm
+                    WHERE c_order_id = v_RecordId
+                    GROUP BY tm.m_product_id
+                    ORDER BY tm.m_product_id
+
+    )LOOP
+
+      INSERT INTO sovs_ldm_prod(sovs_ldm_prod_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, 
+                                m_product_id, qty_necessary, c_order_id)
+          VALUES (get_uuid(),v_AdClientId,v_AdOrgId,'Y',now(),'100',now(),'100',
+                  Cur_Stock.m_product_id,Cur_Stock.cantidadnecesaria, v_RecordId);
+
+
+      --SE ACTUALIZA LAS LINEAS DE LA DISPONIBILIDAD DEL INVENTARIO 
+      FOR Cur_StockUpdate IN(
+
+                  SELECT m_warehouse_id, m_locator_id
+                  FROM sovs_ldm_temp 
+                  WHERE c_order_id = v_RecordId 
+                  AND m_product_id = Cur_Stock.m_product_id
+                  GROUP BY m_product_id, m_warehouse_id, m_locator_id
+                  ORDER BY m_product_id                  
+
+      )LOOP
+
+          SELECT COALESCE((SELECT COALESCE(SUM(QtyOnHand), 0)
+          FROM M_STORAGE_DETAIL s
+          WHERE M_Product_ID = Cur_Stock.m_product_id 
+          and s.M_Locator_ID = Cur_StockUpdate.m_locator_id),0)
+          INTO v_StockProduct
+          from dual;      
+
+          v_Differences := COALESCE( ( v_StockProduct - Cur_Stock.cantidadnecesaria), 0 );
+
+          UPDATE sovs_ldm_prod
+          SET m_warehouse_id= Cur_StockUpdate.m_warehouse_id , 
+              stock = v_StockProduct, 
+              differences = v_Differences, 
+              m_locator_id = Cur_StockUpdate.m_locator_id     
+          WHERE c_order_id = v_RecordId 
+          AND m_product_id = Cur_Stock.m_product_id;
+
+      END LOOP;  
+      --SE ACTUALIZA LAS LINEAS DE LA DISPONIBILIDAD DEL INVENTARIO
+
+    END LOOP;
+
+    AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 1, '@Success@') ;
+    RETURN;
+    
+  END; --BODY
+  EXCEPTION
+  WHEN OTHERS THEN
+    v_ResultStr:= '@ERROR=' || SQLERRM;
+    DBMS_OUTPUT.PUT_LINE(v_ResultStr) ;
+    AD_UPDATE_PINSTANCE(PInstance_ID, NULL, 'N', 0, v_ResultStr) ;
+    RETURN;
+END SOVS_CHECKSTOCK
+]]></body>
+    </function>
+  </database>

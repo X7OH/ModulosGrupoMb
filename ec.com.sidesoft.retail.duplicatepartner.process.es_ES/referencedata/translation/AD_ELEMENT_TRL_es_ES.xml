@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_ELEMENT" version="">
+  <row id="00243B091E2243BD8DC594ECC2582D74" trl="N">
+    <value column="Name" isTrl="N" original="Saveagain">Saveagain</value>
+    <value column="PrintName" isTrl="N" original="Saveagain">Saveagain</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="21E299F2A13C415FAC188D951A10607E" trl="N">
+    <value column="Name" isTrl="Y" original="Configuration BP Duplicates">Configuración Terceros Duplicados</value>
+    <value column="PrintName" isTrl="Y" original="Configuration BP Duplicates">Configuración Terceros Duplicados</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="3BD3BE326C6547DEB6EA88C3899E2A49" trl="N">
+    <value column="Name" isTrl="N" original="Srdupe_Errors_ID">Srdupe_Errors_ID</value>
+    <value column="PrintName" isTrl="N" original="Srdupe_Errors_ID">Srdupe_Errors_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="4A3C52DF41D5472EA2FCEB5C28F3F6A2" trl="N">
+    <value column="Name" isTrl="N" original="Deleteerror">Deleteerror</value>
+    <value column="PrintName" isTrl="N" original="Deleteerror">Deleteerror</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="59964A5AEB4E46B7BC3052F47369351C" trl="N">
+    <value column="Name" isTrl="N" original="Error_Update">Error_Update</value>
+    <value column="PrintName" isTrl="N" original="Error_Update">Error_Update</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="A04F1F3F5E024461BCC58CB621866FAC" trl="N">
+    <value column="Name" isTrl="N" original="Error">Error</value>
+    <value column="PrintName" isTrl="N" original="Error">Error</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="D43B70394FEB4EFE8A85316FE72BF7FE" trl="N">
+    <value column="Name" isTrl="N" original="Orderstatus">Orderstatus</value>
+    <value column="PrintName" isTrl="N" original="Orderstatus">Orderstatus</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="E66FDCC0BB074B53B071A8F21028C814" trl="N">
+    <value column="Name" isTrl="Y" original="Use Credit">Usa crédito</value>
+    <value column="PrintName" isTrl="Y" original="Use Credit">Usa crédito</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="EC88390D79C746028DC69B75299FA925" trl="N">
+    <value column="Name" isTrl="N" original="Obpos_Errors_ID">Obpos_Errors_ID</value>
+    <value column="PrintName" isTrl="N" original="Obpos_Errors_ID">Obpos_Errors_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="F03AB64507C9434C938075776F725C00" trl="N">
+    <value column="Name" isTrl="N" original="Obpos_Applications_ID">Obpos_Applications_ID</value>
+    <value column="PrintName" isTrl="N" original="Obpos_Applications_ID">Obpos_Applications_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

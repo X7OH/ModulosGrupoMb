@@ -1,0 +1,27 @@
+Hardware Manager
+================
+
+Introduction
+------------
+
+This module includes the binaries for the Hardware Manager. The Hardware Manager
+is meant to be installed in every POS system that has connected POS hardware
+like receipt printers, customer displays, ...
+
+Installation
+------------
+
+The Hardware Manager runs on any computer that runs Java. The recommended
+version is Java 8. And to install it just copy the ''bin'' folder to the POS
+system and execute ''start.sh'' (Linux / Mac OSX) or ''start.bat'' (Windows).
+
+Complete instructions about how to install and configure the Hardware Manager can
+be found in
+http://wiki.openbravo.com/wiki/Retail:Hardware_and_Peripherals_Installation
+
+Sources
+-------
+
+Sources can be obtained installing the module
+org.openbravo.retail.poshwmanager.sources
+The sources changeset id related to these binaries is located in the file bin/rev.id

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SGLOVO_UNIQUE_TRG">
+    <trigger name="SGLOVO_UNIQUE_TRG" table="OBCOMBO_PRODUCT" fires="before" insert="true" update="true" delete="false" foreach="row">
+      <body><![CDATA[
+v_count NUMBER:=0;
+
+BEGIN
+
+    IF AD_isTriggerEnabled()='N' THEN RETURN;
+    END IF;
+
+    SELECT count(*) 
+    INTO v_count 
+    FROM obcombo_product cp 
+    WHERE cp.obcombo_family_id = :new.obcombo_family_id 
+    AND cp.em_sglovo_default='Y'
+    AND cp.obcombo_product_id NOT IN( :new.obcombo_product_id) ;
+
+    IF(INSERTING) THEN
+	    IF (v_count>0) THEN
+	      IF(:new.em_sglovo_default <> 'N') THEN
+		RAISE_APPLICATION_ERROR(-20000, '@Sglovo_Only_One_Glovo@');
+	      END IF;    
+	    END IF;	
+    END IF;
+    	
+    IF(UPDATING) THEN
+	    IF (v_count > 0 ) THEN
+	      IF(:new.em_sglovo_default <> :old.em_sglovo_default) THEN
+		RAISE_APPLICATION_ERROR(-20000, '@Sglovo_Only_One_Glovo@');
+	      END IF;
+	    END IF;
+    END IF;       
+
+END SGLOVO_UNIQUE_TRG
+]]></body>
+    </trigger>
+  </database>

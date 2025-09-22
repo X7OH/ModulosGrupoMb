@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="396576C9C672454EB53C4149856DE171" trl="N">
+    <value column="Name" isTrl="Y" original="Invoice Credit Note">Reporte Nota de Credito</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="DA972980729D477CA46E5A3306A36A3D" trl="N">
+    <value column="Name" isTrl="Y" original="Agreement Report">Reporte Convenios</value>
+    <value column="Description" isTrl="Y" original="Agreement Report">Reporte Convenios</value>
+  </row>
+  <row id="DE97F7537CF8409EB2F4899DBB1F53D5" trl="Y">
+    <value column="Name" isTrl="Y" original="Sales Origin">Origen de Venta</value>
+    <value column="Description" isTrl="Y" original="Sales Origin">Origen de Venta</value>
+  </row>
+</compiereTrl>

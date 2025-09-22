@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="01B813C500CF46D6AD73D3D4151E6937" trl="N">
+    <value column="MsgText" isTrl="Y" original="ORDER No.:">ORDEN No.:</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="17E071D588E144A7846009B9E627F7CC" trl="N">
+    <value column="MsgText" isTrl="Y" original="ORDER OF KITCHEN TO DOMICILIE">ORDEN DE COCINA A DOMICILIO</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="1A9764EBC9554EBBB4DDE4E3F1FFE89B" trl="N">
+    <value column="MsgText" isTrl="Y" original="Date: ">Fecha: </value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="1ECC23ED71474FEFAC9E38049356C468" trl="N">
+    <value column="MsgText" isTrl="N" original="Matriz: ">Matriz: </value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="25214E5138C94385B9C0BFFDD1275EA5" trl="N">
+    <value column="MsgText" isTrl="Y" original="Address selected is a data for default for this Box.  Contact your Administrator.">La dirección seleccionado es un dato por defecto para esta Caja. Póngase en contacto con su Administrador.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="263C0BC7BE544EB2A7FD5834F14FCBF0" trl="N">
+    <value column="MsgText" isTrl="Y" original="You can't to create a new address for a customer that is a default data for this box.  Contact your Administrator.">No puede crear una nueva dirección para un cliente que es un dato predeterminado para esta Caja. Póngase en contacto con su Administrador.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="384B2782202C44E4A67EB3A7429B5EA2" trl="N">
+    <value column="MsgText" isTrl="Y" original="Error Payment Method">Error en Método de Pago</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="43B23FB9CD2642B88E627DC83D386B9F" trl="N">
+    <value column="MsgText" isTrl="Y" original="Error Customer">Error Cliente</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="4AF3BDD8D6404D01ADAFC02BF5C103ED" trl="N">
+    <value column="MsgText" isTrl="N" original="IVA 12%">IVA 12%</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="4C5729F987FF42F38A766F112E87F03A" trl="N">
+    <value column="MsgText" isTrl="N" original="RUC:">RUC:</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="4FD6B02DE47E4BCE9AB7EFD4C0673747" trl="N">
+    <value column="MsgText" isTrl="N" original="SI">SI</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="54CA53E8FF794AC1BB58743E122260C4" trl="N">
+    <value column="MsgText" isTrl="Y" original="This Method payment selected  it can not processed why the customer is of type agreements.">Este método de pago seleccionado no puede procesarse por qué el cliente es de tipo Convenio.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="5C175B24861D400C93480A7F3B9F2BB4" trl="N">
+    <value column="MsgText" isTrl="N" original="MB MAYFLOWER  BUFFALOS S.A">MB MAYFLOWER  BUFFALOS S.A</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="5E015475B0E844F094651A0681A9CE11" trl="N">
+    <value column="MsgText" isTrl="Y" original="Order Description">Descripción Pedido</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="63243516843643B7849F953E2E59F74C" trl="N">
+    <value column="MsgText" isTrl="N" original="&lt;&lt;">&lt;&lt;</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="6B131A2FBB7C40CFB44D082A3F696399" trl="N">
+    <value column="MsgText" isTrl="N" original="&gt;&gt;">&gt;&gt;</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="6CAF06B93DD8485F8970B7AD64A2387D" trl="N">
+    <value column="MsgText" isTrl="N" original="Obligado a llevar contabilidad:">Obligado a llevar contabilidad:</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="6F6D8FF4F7C34633AF3E4604DB803628" trl="N">
+    <value column="MsgText" isTrl="Y" original="Sales Receipt">Recibo de Venta</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="71D34698870640C58F7F588D832DA9C5" trl="N">
+    <value column="MsgText" isTrl="Y" original="Error Address">Error Dirección</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="7898BA390B084110B503C74817E0421B" trl="N">
+    <value column="MsgText" isTrl="N" original="745">745</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="886E932F927947D1ABAE32A47E88A128" trl="N">
+    <value column="MsgText" isTrl="N" original="Subtotal 12%">Subtotal 12%</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="8D4154D73F734ABF87EB62E9A7B77D56" trl="N">
+    <value column="MsgText" isTrl="Y" original="ORDER OF KITCHEN FOR DIRECT SALE">ORDEN DE COCINA PARA VENTA DIRECTA</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="9AD221AAFA3049938AD15A0DD411C5AF" trl="N">
+    <value column="MsgText" isTrl="Y" original="Confirm Receipt">Confirmar Orden</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="C4B3126CAE754B6C93B6A1190A3F8BE5" trl="N">
+    <value column="MsgText" isTrl="N" original="1792003881001">1792003881001</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="CD025C5060E540419C096E1EC7AD894D" trl="N">
+    <value column="MsgText" isTrl="Y" original="You can not change to an agreement because the credit limit is greater than 0.">No se puede cambiar a  convenio porque el límite de crédito es mayor a 0.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="CFA43EAD62D7465EB4A367B9B870C06B" trl="N">
+    <value column="MsgText" isTrl="Y" original="Description">Descripción</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="D7C53B8D5BA14755AC708EF842993154" trl="N">
+    <value column="MsgText" isTrl="N" original="SUCURSAL:">SUCURSAL:</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="D92BF449C67E4D4BBF63F428A6EA54F9" trl="N">
+    <value column="MsgText" isTrl="Y" original="Taken from box:">Tomada desde caja:</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="DA676EAAAA4746D885A4303A4F43A4E5" trl="N">
+    <value column="MsgText" isTrl="Y" original="Customer selected is a data for default for this Box.  Contact your Administrator.">El cliente seleccionado es un dato por defecto para esta Caja. Póngase en contacto con su Administrador.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="DBA19708965A48EE8154EA4A086C1807" trl="N">
+    <value column="MsgText" isTrl="N" original="Contribuyente Especial Res. No.: ">Contribuyente Especial Res. No.: </value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="E10CB444E73D49D7B35A46ECD8A86F46" trl="N">
+    <value column="MsgText" isTrl="Y" original="Invoice Number:">Número de Factura:</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="E6168D7B06B54F13A51A6CBF10C3C89D" trl="N">
+    <value column="MsgText" isTrl="N" original="COMITÉ DEL PUEBLO / LOS EUCALIPTOS E7-49">COMITÉ DEL PUEBLO / LOS EUCALIPTOS E7-49</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="FE40A8F741B74C2C9C0AF52252C2A477" trl="N">
+    <value column="MsgText" isTrl="Y" original="Authorization Number:">Número de Autorización:</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

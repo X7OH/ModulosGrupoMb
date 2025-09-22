@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REF_LIST" version="">
+  <row id="5EE097DECB5A4D6995BD965B7331655B" trl="N">
+    <value column="Name" isTrl="Y" original="Return receipt menu option">Opción de menú de devolución de recibos</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="8DECBB2FD8114DE4BAF8B15028216095" trl="N">
+    <value column="Name" isTrl="Y" original="Web POS Services Overdue Return Days Approval">Aprobación de días atrasados para devolución de servicios</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

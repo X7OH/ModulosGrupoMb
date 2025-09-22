@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_WINDOW" version="">
+  <row id="B1161BABA5FB450CAD28414F192470B3" trl="Y">
+    <value column="Name" isTrl="Y" original="Configuration Integration Delivery">Configuración Integración Delivery</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="B3404BFFF06544E0BC39CE7A198EF9BA" trl="N">
+    <value column="Name" isTrl="Y" original="Logs Integration Delivery">Logs Integración Delivery</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

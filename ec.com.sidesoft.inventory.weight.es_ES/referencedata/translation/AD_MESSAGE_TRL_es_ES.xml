@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="3F4C92353322469FAE399B284F0203FB" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Tare not set on product.">Tara no configurada en el producto.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

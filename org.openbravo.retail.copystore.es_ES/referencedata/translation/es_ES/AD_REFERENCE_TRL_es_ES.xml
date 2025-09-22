@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
+  <row id="3EC78AB0090F402FBF5381AD617B8270" trl="N">
+    <value column="Name" isTrl="N" original="Copy Store Defaults">Valores por defecto para Copiar Tienda</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="4985066218834D0BA2E58CBB6650D9D6" trl="N">
+    <value column="Name" isTrl="N" original="Price List Selector">Selector Lista de Precios</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="534F057B73F140E99F0E599F9064FD33" trl="N">
+    <value column="Name" isTrl="N" original="Country">País</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="5D04DC4201604C648CF0BCE3D31D2286" trl="N">
+    <value column="Name" isTrl="N" original="Summary Organization">Resumen Organización</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="60074A89A04B4190AF6E91D36E8570C7" trl="N">
+    <value column="Name" isTrl="N" original="Currency Selector">Selector Moneda</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="71F023DA1FBD43B7AB9B556FC7349881" trl="N">
+    <value column="Name" isTrl="N" original="Tax Exempt BP">Tercero exento de impuestos</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="8A544C74C19947B0820FA92BA35324B5" trl="N">
+    <value column="Name" isTrl="N" original="Store Selector">Selector Tienda</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="8A7F4264AA704036987805A9BBB128B7" trl="N">
+    <value column="Name" isTrl="N" original="Region">Región</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="B96453544A9945B6A850F86E7A59B820" trl="N">
+    <value column="Name" isTrl="N" original="BP Category ">Categoría tercero</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="E6DE72F5740E409BA2A20EB02CDE6836" trl="N">
+    <value column="Name" isTrl="N" original="Assortment Selector">Selector Lista de productos</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

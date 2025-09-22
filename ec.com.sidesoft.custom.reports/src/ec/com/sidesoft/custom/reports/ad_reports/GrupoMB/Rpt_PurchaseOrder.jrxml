@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportPurchaseOrder" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="10.356813643179322"/>
+	<property name="ireport.x" value="4774"/>
+	<property name="ireport.y" value="2150"/>
+	<parameter name="DOCUMENT_ID" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+ORG.ad_org_id as "organizationid",
+ORG.name AS "organization",
+PRO.name AS "producto",
+INVL.qtyordered AS "catidad",
+coalesce(UOMT.name,UOM.name)AS "unidad",
+INVL.PriceActual AS "precio_unitario",
+INVL.linenetamt AS "precio_total",
+to_char(INV.dateordered, 'dd-MON-yyyy') AS "fecha_orden",
+to_char(INV.datepromised, 'dd-MON-yyyy') AS "fecha_entrega",
+INV.documentno AS "documentno",
+(CASE WHEN INV.deliverynotes IS NULL THEN '' ELSE INV.deliverynotes END) AS "observaciones",
+CASE
+    WHEN INV.docstatus::text = 'CO'::text THEN 'Registrado'::text
+    WHEN INV.docstatus::text = 'CL'::text THEN 'Cerrado'::text
+    ELSE NULL::text
+END AS "estado",
+BPAR.name AS "proveedor",
+BPAR.value AS "proveedor_ruc",
+BPARL.phone AS "proveedor_tel",
+BPAR1.name AS "nombre_factura",
+BPAR1.value AS "ruc_factura",
+(CASE WHEN BPAR.em_eei_email IS NULL THEN '' ELSE BPAR.em_eei_email END) AS "facturar_a",
+(select AD_USER.NAME from AD_USER where AD_USER_ID = INV.createdby) AS "usuario",
+NOW() AS "fechaimpresion"
+FROM c_order INV
+INNER JOIN ad_org ORG ON ORG.ad_org_id = INV.ad_org_id
+INNER JOIN c_orderline INVL ON INVL.c_order_id = INV.c_order_id
+INNER JOIN m_product PRO ON PRO.m_product_id = INVL.m_product_id
+INNER JOIN ad_orginfo ORGI ON INV.ad_org_id = ORGI.ad_org_id
+INNER JOIN c_bpartner BPAR ON BPAR.c_bpartner_id = INV.c_bpartner_id
+INNER JOIN c_bpartner_location BPARL ON BPAR.c_bpartner_id = BPARL.c_bpartner_id
+INNER JOIN c_bpartner BPAR1 ON BPAR1.c_bpartner_id = ORGI.c_bpartner_id
+INNER JOIN C_UOM UOM ON UOM.C_UOM_ID = INVL.C_UOM_ID
+LEFT JOIN C_UOM_trl UOMT ON UOMT.C_UOM_id = UOM.C_UOM_id
+WHERE INV.issotrx = 'N'
+AND UOMT.ad_language = 'es_ES'
+AND (INV.c_order_id = $P{DOCUMENT_ID} OR $P{DOCUMENT_ID} IS NULL)
+ORDER BY INVL.line ASC]]>
+	</queryString>
+	<field name="organizationid" class="java.lang.String"/>
+	<field name="organization" class="java.lang.String"/>
+	<field name="producto" class="java.lang.String"/>
+	<field name="catidad" class="java.math.BigDecimal"/>
+	<field name="unidad" class="java.lang.String"/>
+	<field name="precio_unitario" class="java.math.BigDecimal"/>
+	<field name="precio_total" class="java.math.BigDecimal"/>
+	<field name="fecha_orden" class="java.lang.String"/>
+	<field name="fecha_entrega" class="java.lang.String"/>
+	<field name="documentno" class="java.lang.String"/>
+	<field name="observaciones" class="java.lang.String"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="proveedor" class="java.lang.String"/>
+	<field name="proveedor_ruc" class="java.lang.String"/>
+	<field name="proveedor_tel" class="java.lang.String"/>
+	<field name="nombre_factura" class="java.lang.String"/>
+	<field name="ruc_factura" class="java.lang.String"/>
+	<field name="facturar_a" class="java.lang.String"/>
+	<field name="usuario" class="java.lang.String"/>
+	<field name="fechaimpresion" class="java.sql.Timestamp"/>
+	<group name="organization">
+		<groupExpression><![CDATA[$F{organization}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="CategoryGroup">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band height="53">
+				<staticText>
+					<reportElement x="339" y="37" width="72" height="16"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[UNIDAD]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="273" y="37" width="66" height="16"/>
+					<box leftPadding="0">
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CANT]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="411" y="37" width="71" height="16"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[COSTO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="482" y="37" width="73" height="16"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TOTAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="37" width="273" height="16"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ITEM]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="1" width="78" height="13"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[DETALLE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="16" width="78" height="13"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[FECHA ENTREGA:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="78" y="16" width="146" height="13"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha_entrega}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="154" splitType="Stretch">
+			<image hAlign="Center">
+				<reportElement x="397" y="2" width="158" height="70"/>
+				<imageExpression class="java.awt.Image"><![CDATA[org.openbravo.erpCommon.utility.Utility.showImageLogo("yourcompanylegal", $F{organizationid})]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="1" y="2" width="65" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROVEEDOR:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="15" width="65" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RUC:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="28" width="65" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TELEFONO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="66" y="2" width="331" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{proveedor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="66" y="15" width="331" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{proveedor_ruc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="66" y="28" width="331" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{proveedor_tel}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="397" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="46" width="66" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FACTURAR A:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="66" y="46" width="217" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre_factura}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="43" width="397" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="283" y="46" width="26" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RUC:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="309" y="46" width="88" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ruc_factura}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="59" width="165" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FACTURA ELECTRONICA ENVIAR A:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="165" y="59" width="232" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{facturar_a}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="72" width="124" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA ORDEN DE COMPRA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="85" width="124" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA DE ENTREGA GEN:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="98" width="110" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ORDEN DE COMPRA N°:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="111" width="78" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REALIZADO POR:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="124" width="66" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OBSERVACION:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="137" width="51" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTADO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="124" y="72" width="273" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha_orden}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="124" y="85" width="273" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha_entrega}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="98" width="287" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{documentno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="78" y="111" width="319" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{usuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="66" y="124" width="331" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{observaciones}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="51" y="137" width="346" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="153" width="397" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="414" y="85" width="131" height="13"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[ORDEN DE COMPRA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="414" y="98" width="131" height="13"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["# "+$F{documentno}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="10" splitType="Stretch">
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="482" y="0" width="73" height="10"/>
+				<box topPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{precio_total}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="273" y="0" width="66" height="10"/>
+				<box topPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{catidad}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="273" height="10"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2">
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{producto}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="339" y="0" width="72" height="10"/>
+				<box topPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{unidad}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="411" y="0" width="71" height="10"/>
+				<box topPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{precio_unitario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="345" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="14" width="555" height="11"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSTRUCCIONES Y CONDICIONES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="25" width="555" height="98"/>
+				<textElement textAlignment="Justified">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Las entregas estarán sujetas a revisión y aprobación por su calidad, cantidad, empaque y transporte; según las normas de BPM
+
+El proveedor se compromete a cumplir con los términos y condiciones establecidos.
+La revisión y pago de facturas se hará según políticas de la empresa.
+El pedido se podrá cancelar o rechazar en su totalidad, o en parte, sin obligación legal, en caso de que la entrega no se efectué en las condiciones pactadas.
+Ninguna factura sera pagada si no se ajusta a lo especificado en este pedido.
+Es indispensable para procesar el pago que la factura contenga la Orden de Compra EN ESTADO APROBADO y firmada por el Proveedor.]]></text>
+			</staticText>
+			<line>
+				<reportElement x="97" y="260" width="100" height="1"/>
+			</line>
+			<line>
+				<reportElement x="349" y="260" width="100" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="79" y="263" width="135" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RESPONSABLE BODEGA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="334" y="262" width="135" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROVEEDOR]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

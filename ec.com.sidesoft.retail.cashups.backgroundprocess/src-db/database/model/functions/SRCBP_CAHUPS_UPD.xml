@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION SRCBP_CAHUPS_UPD">
+    <function name="SRCBP_CAHUPS_UPD" type="VARCHAR">
+      <parameter name="p_posterminal_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[v_InoutLineID VARCHAR2(32);
+v_Documentno VARCHAR2(255);
+
+v_CountReg NUMBER; --OBTG:NUMBER--
+
+v_fechaCierreCaja VARCHAR2(10);
+v_TipoDocumento VARCHAR2(32);
+v_TipoDocumentoReverso VARCHAR2(32);
+v_CierreCajaID VARCHAR2(32);
+v_totalNetas NUMBER; --OBTG:NUMBER--
+v_totalBrutas NUMBER; --OBTG:NUMBER--
+v_totalNetasDevolucion NUMBER; --OBTG:NUMBER--
+v_totalBrutasDevolucion NUMBER; --OBTG:NUMBER--
+-- Parameter
+TYPE RECORD IS REF CURSOR;
+Cur_Terminal RECORD;
+Cur_Order RECORD;
+-- Parameter Variables
+begin 
+
+	v_Documentno:='';
+	v_totalNetas :=0;
+	v_totalBrutas  :=0;
+	v_totalNetasDevolucion  :=0;
+	v_totalBrutasDevolucion  :=0;
+	
+	FOR Cur_Terminal IN (
+		select  
+		obpa.obpos_applications_id
+		,obpt.c_doctype_id
+		,obpt.c_doctyperet_id
+		, obpc.obpos_app_cashup_id
+		, to_char(obpc.cashupdate,'dd/MM/yyyy') as cashupdate
+		from  obpos_app_cashup obpc 
+		join obpos_applications obpa on obpc.obpos_applications_id = obpa.obpos_applications_id
+		join obpos_terminaltype obpt on obpt.obpos_terminaltype_id = obpa.obpos_terminaltype_id
+		where  obpc.obpos_app_cashup_id = p_posterminal_id
+	)
+	LOOP
+		v_fechaCierreCaja:= Cur_Terminal.cashupdate;
+		v_TipoDocumento:= Cur_Terminal.c_doctype_id;
+		v_TipoDocumentoReverso:= Cur_Terminal.c_doctyperet_id;
+		v_CierreCajaID:= Cur_Terminal.obpos_applications_id;
+		v_totalNetas :=0;
+		v_totalBrutas  :=0;
+		v_totalNetasDevolucion  :=0;
+		v_totalBrutasDevolucion  :=0;
+		
+			FOR Cur_Terminal IN (
+				select
+				co.documentno
+				, co.em_obpos_applications_id 
+				,docstatus
+				,co.totallines
+				,co.grandtotal
+				,co.c_order_id
+				from c_order co 
+				join c_doctype cd on cd.c_doctype_id = co.c_doctype_id
+				join fin_payment_schedule fps on fps.c_order_id = co.c_order_id
+				join fin_payment_scheduledetail fpsd on fpsd.fin_payment_schedule_order = fps.fin_payment_schedule_id
+				where co.issotrx ='Y' 
+				--and co.c_order_id = '41845C4281934D9C96D1B6504090454E'
+				and docstatus IN ( 'CO','IP')
+				and co.em_obpos_applications_id is not null
+				and fpsd.fin_payment_detail_id is not null
+				and co.em_obpos_applications_id = v_CierreCajaID
+				and to_char(co.dateordered,'dd/MM/yyyy') = v_fechaCierreCaja
+				and co.c_doctype_id = v_TipoDocumento
+				and em_srcbp_isprocess='N'
+			)
+			LOOP
+				v_totalNetas:= v_totalNetas + Cur_Terminal.totallines;
+				v_totalBrutas:= v_totalBrutas + Cur_Terminal.grandtotal;
+				update c_order set em_srcbp_isprocess='Y' where c_order_id = Cur_Terminal.c_order_id;
+
+				
+			END LOOP;
+
+			--raise exception '%', 'v_totalNetas' || v_totalNetas;
+
+			FOR Cur_Terminal IN (
+				select
+				co.documentno
+				, co.em_obpos_applications_id 
+				,docstatus
+				,co.totallines
+				,co.grandtotal
+				,co.c_order_id
+				from c_order co 
+				join c_doctype cd on cd.c_doctype_id = co.c_doctype_id
+				join fin_payment_schedule fps on fps.c_order_id = co.c_order_id
+				join fin_payment_scheduledetail fpsd on fpsd.fin_payment_schedule_order = fps.fin_payment_schedule_id
+				where co.issotrx ='Y' 
+				--and co.c_order_id = '41845C4281934D9C96D1B6504090454E'
+				and co.em_obpos_applications_id is not null
+				and fpsd.fin_payment_detail_id is not null
+				and co.em_obpos_applications_id = v_CierreCajaID
+				and to_char(co.dateordered,'dd/MM/yyyy') = v_fechaCierreCaja
+				and co.c_doctype_id = v_TipoDocumentoReverso
+				and em_srcbp_isprocess='N'
+			)
+			LOOP
+				v_totalNetasDevolucion:= v_totalNetasDevolucion + Cur_Terminal.totallines;
+				v_totalBrutasDevolucion:= v_totalBrutasDevolucion + Cur_Terminal.grandtotal;
+
+				update c_order set em_srcbp_isprocess='Y' where c_order_id = Cur_Terminal.c_order_id;
+			END LOOP;			
+
+			-- Actualizar cierre de caja
+			update obpos_app_cashup 
+			set netsales =netsales + v_totalNetas
+			, grosssales = grosssales + v_totalBrutas
+			, netreturns = netreturns + v_totalNetasDevolucion
+			, grossreturns = grossreturns + v_totalBrutasDevolucion
+			, totalretailtransactions = totalretailtransactions+ (v_totalBrutas - v_totalBrutasDevolucion)
+			where obpos_app_cashup_id = p_posterminal_id;
+		
+	END LOOP;
+	
+	
+RETURN v_Documentno;
+END SRCBP_CAHUPS_UPD
+]]></body>
+    </function>
+  </database>

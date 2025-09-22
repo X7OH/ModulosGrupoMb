@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
+  <row id="22390EBF6FD84A58B93E3D4A1E64FA85" trl="N">
+    <value column="Name" isTrl="Y" original="Block Fields by User">Bloqueo de Campos por Usuario</value>
+    <value column="Description" isTrl="Y" original="Block Fields by User">Bloqueo de Campos por Usuario</value>
+    <value column="Help" isTrl="Y" original="Block Fields by User">Bloqueo de Campos por Usuario</value>
+  </row>
+</compiereTrl>

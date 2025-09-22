@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+  <database name="TABLE SSDAH_MOC_FAMILY_TRL">
+    <table name="SSDAH_MOC_FAMILY_TRL" primaryKey="SSDAH_MOC_FMLYTRL_KEY">
+      <column name="SSDAH_MOC_FAMILY_TRL_ID" primaryKey="true" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="SSDAH_MMO_OC_FAMILY_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_LANGUAGE" primaryKey="false" required="true" type="VARCHAR" size="6" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_CLIENT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_ORG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISACTIVE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="NAME" primaryKey="false" required="true" type="VARCHAR" size="100" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISTRANSLATED" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="SSDAH_REFORIGINALID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="AD_CLIENT" name="SSDAH_MOC_FMLYTRL_CLIENT">
+        <reference local="AD_CLIENT_ID" foreign="AD_CLIENT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_LANGUAGE" name="SSDAH_MOC_FMLYTRL_LANGUAGE">
+        <reference local="AD_LANGUAGE" foreign="AD_LANGUAGE"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_ORG" name="SSDAH_MOC_FMLYTRL_ORG">
+        <reference local="AD_ORG_ID" foreign="AD_ORG_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="SSDAH_MMO_OC_FAMILY" name="SSDAH_MOC_FMLYTRL_PRODUCT" onDelete="cascade">
+        <reference local="SSDAH_MMO_OC_FAMILY_ID" foreign="SSDAH_MMO_OC_FAMILY_ID"/>
+      </foreign-key>
+      <unique name="SSDAH_MOC_FMLYTRL_FAM_LANG_UN">
+        <unique-column name="SSDAH_MMO_OC_FAMILY_ID"/>
+        <unique-column name="AD_LANGUAGE"/>
+      </unique>
+      <check name="SSDAH_MOC_FMLYTRL_ACTIVE_CHK"><![CDATA[ISACTIVE IN ('Y', 'N')]]></check>
+      <check name="SSDAH_MOC_FMLYTRL_TRL_CHK"><![CDATA[ISTRANSLATED IN ('Y', 'N')]]></check>
+    </table>
+  </database>

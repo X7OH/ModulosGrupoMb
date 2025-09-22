@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_ELEMENT" version="">
+  <row id="286E2AB9045A426FA55C05DFFB1B0611" trl="Y">
+    <value column="Name" isTrl="Y" original="Validate variation OC vs RC">Validar variación OC vs RC</value>
+    <value column="PrintName" isTrl="Y" original="Validate variation OC vs RC">Validar variación OC vs RC</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="3368F191751B415C937CDEA78769DDCC" trl="Y">
+    <value column="Name" isTrl="Y" original="Variation validate">Valida % variación vs. OC</value>
+    <value column="PrintName" isTrl="Y" original="Variation validate">Valida % variación vs. OC</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="6094557278FA4D219DF24E658C6CCDB1" trl="N">
+    <value column="Name" isTrl="N" original="Siov_Variation_Percentage_ID">Siov_Variation_Percentage_ID</value>
+    <value column="PrintName" isTrl="N" original="Siov_Variation_Percentage_ID">Siov_Variation_Percentage_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="AAEFF20F53D8438F8E8C5AB49D616FD1" trl="Y">
+    <value column="Name" isTrl="Y" original="Order required">Requiere pedido de compra</value>
+    <value column="PrintName" isTrl="Y" original="Order required">Requiere pedido de compra</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="D4235D0507044D49A2778DCE2DF600ED" trl="Y">
+    <value column="Name" isTrl="Y" original="Percentage of variation">% de variación</value>
+    <value column="PrintName" isTrl="Y" original="Percentage of variation">% de variación</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+  <vector>
+    <versionInfo version="3.0.33196"/>
+    <removeTriggerChange triggerName="SSCMB_INVOICE_ORG_TRG"/>
+    <removeTriggerChange triggerName="SSCMB_ORDER_ORG_TRG"/>
+    <columnDataChange tablename="AD_COLUMN" columnname="AD_CALLOUT_ID" pkRow="2163">
+      <oldValue><![CDATA[D328D86B2E744A53A071047EA0FF5E4E]]></oldValue>
+      <newValue><![CDATA[A26F71D1B5C3408A91AF52DE37E95898]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="AD_CALLOUT_ID" pkRow="3486">
+      <oldValue><![CDATA[D5BB7D2FC23F4D2E9A39E9292055A2FB]]></oldValue>
+      <newValue><![CDATA[6053AD2BC8994601B08812C7D6CD516D]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="AD_CALLOUT_ID" pkRow="3523">
+      <oldValue><![CDATA[4AB185365A514877A227785855B795E3]]></oldValue>
+      <newValue><![CDATA[DA23005D9789418A9712C9E3DE9F8DBE]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="AD_CALLOUT_ID" pkRow="3544">
+      <oldValue/>
+      <newValue><![CDATA[401025F7C6454D63828EDCDD4B529AE8]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="DEFAULTVALUE" pkRow="3550">
+      <oldValue><![CDATA[@#Date@]]></oldValue>
+      <newValue/>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="3622">
+      <oldValue><![CDATA[@WorkEffortValidated@='Y']]></oldValue>
+      <newValue><![CDATA[@WorkEffortValidated@='Y'  | (@SSCMB_ValidateStatus@='N' &  @productiontype@='+')]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="READONLYLOGIC" pkRow="802031">
+      <oldValue><![CDATA[@WorkEffortValidated@='Y']]></oldValue>
+      <newValue><![CDATA[@WorkEffortValidated@='Y'  | (@SSCMB_ValidateStatus@='N' &  @productiontype@='+')]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="DEFAULTVALUE" pkRow="802032">
+      <oldValue><![CDATA[@IsSOTrx@]]></oldValue>
+      <newValue><![CDATA[N]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="DEFAULTVALUE" pkRow="2906429F273745229F7A2452DEF75C3E">
+      <oldValue/>
+      <newValue><![CDATA[0]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="ISMANDATORY" pkRow="38816E45B3B3435BA5A9D7469352D5CE">
+      <oldValue><![CDATA[N]]></oldValue>
+      <newValue><![CDATA[Y]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="ISMANDATORY" pkRow="4BD8E64ECC544BCB8B16B415F285B74D">
+      <oldValue><![CDATA[N]]></oldValue>
+      <newValue><![CDATA[Y]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="DEFAULTVALUE" pkRow="515C192736FD40D9BB479F18511BDB11">
+      <oldValue/>
+      <newValue><![CDATA[@#Date@]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="DEFAULTVALUE" pkRow="88BFF23CE5664105A1EA10AFB8B50FA9">
+      <oldValue/>
+      <newValue><![CDATA[@SQL=select EM_Scmba_Costcenter_ID from ad_org ao where EM_OBRETCO_RetailOrgType='S' and ao.ad_org_id = @AD_ORG_ID@]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="ISMANDATORY" pkRow="88BFF23CE5664105A1EA10AFB8B50FA9">
+      <oldValue><![CDATA[N]]></oldValue>
+      <newValue><![CDATA[Y]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="ISMANDATORY" pkRow="8F5F5A23DC93454480632EACB64034EC">
+      <oldValue><![CDATA[N]]></oldValue>
+      <newValue><![CDATA[Y]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="DEFAULTVALUE" pkRow="9117B351A1334D7A9639B7A27F42D5D2">
+      <oldValue/>
+      <newValue><![CDATA[0]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="HELP" pkRow="93F5667B9B9E46B6B296494FFDF239D4">
+      <oldValue/>
+      <newValue><![CDATA[@EM_Sscmb_Sales_Origin@!'ND']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="DEFAULTVALUE" pkRow="940AA29AE9F34682826C1795513FF547">
+      <oldValue/>
+      <newValue><![CDATA[0]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="DEFAULTVALUE" pkRow="AD01D3550F764A3EB7671D09B3627330">
+      <oldValue/>
+      <newValue><![CDATA[0]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="ISMANDATORY" pkRow="C9AE822116F94B6B9272608ED348FB52">
+      <oldValue><![CDATA[N]]></oldValue>
+      <newValue><![CDATA[Y]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_COLUMN" columnname="DEFAULTVALUE" pkRow="FA53DD99FB59473CBCBC79FD27FCE665">
+      <oldValue/>
+      <newValue><![CDATA[0]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TAB" columnname="HQLWHERECLAUSE" pkRow="186">
+      <oldValue><![CDATA[e.salesTransaction=true AND e.transactionDocument.return= false AND e.transactionDocument.sOSubType NOT LIKE 'OB']]></oldValue>
+      <newValue><![CDATA[e.salesTransaction=true AND e.transactionDocument.return= false AND e.transactionDocument.sOSubType NOT LIKE 'OB'  AND  e.organization.id in (select org.organization.id  from ADRoleOrganization org , ADUserRoles rol where rol.role.id = org.role.id and rol.userContact.id = @user@)]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_TAB" columnname="UIPATTERN" pkRow="321">
+      <oldValue><![CDATA[STD]]></oldValue>
+      <newValue><![CDATA[RO]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="DISPLAYLOGIC" pkRow="1083">
+      <oldValue><![CDATA[@DocStatus@!'VO'&@DocStatus@!'CL'&@DocStatus@!'TMP'&@DocStatus@!'DR']]></oldValue>
+      <newValue><![CDATA[@DocStatus@!'VO'&@DocStatus@!'CL'&@DocStatus@!'TMP' & ((@DocStatus@!'CO' | @EM_Sscmb_Sales_Origin@='ND')| @EM_Sscmb_Sales_Origin@='ND')]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="AD_FIELDGROUP_ID" pkRow="1086">
+      <oldValue><![CDATA[402880E72F1C15A5012F1C7AA98B00E8]]></oldValue>
+      <newValue/>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="SEQNO" pkRow="1086">
+      <oldValue><![CDATA[326]]></oldValue>
+      <newValue><![CDATA[130]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="ISREADONLY" pkRow="2774">
+      <oldValue><![CDATA[N]]></oldValue>
+      <newValue><![CDATA[Y]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="ISREADONLY" pkRow="3331">
+      <oldValue><![CDATA[N]]></oldValue>
+      <newValue><![CDATA[Y]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="ISREADONLY" pkRow="3350">
+      <oldValue><![CDATA[N]]></oldValue>
+      <newValue><![CDATA[Y]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="DISPLAYLOGIC" pkRow="223BDDFAF9C949CCAEFBE000DC404007">
+      <oldValue><![CDATA[@ACCT_DIMENSION_DISPLAY@]]></oldValue>
+      <newValue/>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="DISPLAYLOGIC" pkRow="403DB658F6C74735A7F433F66CCE9825">
+      <oldValue><![CDATA[@ACCT_DIMENSION_DISPLAY@]]></oldValue>
+      <newValue/>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="DISPLAYLOGIC" pkRow="460A14C02B9F46828E48DA3A6E20AD63">
+      <oldValue><![CDATA[@ACCT_DIMENSION_DISPLAY@]]></oldValue>
+      <newValue/>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="NAME" pkRow="51790D82A05D42698ABBC8BCC3EB9F6E">
+      <oldValue><![CDATA[POS Terminal]]></oldValue>
+      <newValue><![CDATA[EM_Obpos_Applications_ID]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="HELP" pkRow="51790D82A05D42698ABBC8BCC3EB9F6E">
+      <oldValue/>
+      <newValue><![CDATA[@EM_Sscmb_Sales_Origin@!'ND']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="DISPLAYLOGIC" pkRow="60A9E4607D214CC487C88AE2F8DCC9CE">
+      <oldValue><![CDATA[@ACCT_DIMENSION_DISPLAY@]]></oldValue>
+      <newValue/>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="DISPLAYLOGIC" pkRow="6E37DC58E1494AFE83EA34789D4EC464">
+      <oldValue><![CDATA[@ACCT_DIMENSION_DISPLAY@ & @Trxtype@!'']]></oldValue>
+      <newValue/>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="ISREADONLY" pkRow="830698140BCD4AC3E040007F01000289">
+      <oldValue><![CDATA[N]]></oldValue>
+      <newValue><![CDATA[Y]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="ISREADONLY" pkRow="830698140BCE4AC3E040007F01000289">
+      <oldValue><![CDATA[N]]></oldValue>
+      <newValue><![CDATA[Y]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="DISPLAYLOGIC" pkRow="BF434490438B4727BA5314892F5BDD7E">
+      <oldValue><![CDATA[@ACCT_DIMENSION_DISPLAY@]]></oldValue>
+      <newValue/>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="NAME" pkRow="D979CE8146234F46A03EFB573F88B745">
+      <oldValue><![CDATA[POS Terminal]]></oldValue>
+      <newValue><![CDATA[EM_Obpos_Applications_ID]]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="HELP" pkRow="D979CE8146234F46A03EFB573F88B745">
+      <oldValue/>
+      <newValue><![CDATA[@EM_Sscmb_Sales_Origin@!'ND']]></newValue>
+    </columnDataChange>
+    <columnDataChange tablename="AD_FIELD" columnname="DISPLAYLOGIC" pkRow="FEC49D4244454EB3B62A2E89B313BC7B">
+      <oldValue><![CDATA[@ACCT_DIMENSION_DISPLAY@]]></oldValue>
+      <newValue/>
+    </columnDataChange>
+  </vector>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="OBUIAPP_PROCESS" version="">
+  <row id="19680F46FC894206B532FECF8FFAA90D" trl="N">
+    <value column="Name" isTrl="N" original="Process Order">Process Order</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

@@ -1,0 +1,45 @@
+/*
+ ************************************************************************************
+ * Copyright (C) 2013 Openbravo S.L.U.
+ * Licensed under the Openbravo Commercial License version 1.0
+ * You may obtain a copy of the License at http://www.openbravo.com/legal/obcl.html
+ * or in the legal folder of this module distribution.
+ ************************************************************************************
+ */
+
+button.combo-family-button,
+li.selected > button.combo-family-button {
+  text-align: left;
+  padding: 4px 20px 4px 20px;
+  min-height: 45px;
+  background-color: #959595;
+}
+
+button.combo-family-button:hover,
+li.selected > button.combo-family-button:hover {
+  background-color: #959595;
+}
+
+li.selected > button.combo-family-button,
+li.selected > button.combo-family-button:hover {
+  padding: 0px 15px 0px 15px;
+  border: 6px solid #F8E859;
+}
+
+button.combo-family-button.completed {
+  background-color: #6BB23E !important;
+}
+
+button.combo-family-button.exceded {
+  background-color: #FF2F2F !important;
+}
+
+.combo-family-button-label {
+  float: left;
+}
+
+.combo-family-button-units,
+.combo-family-button-units:hover {
+  float: right;
+  color: #F8E859;
+}

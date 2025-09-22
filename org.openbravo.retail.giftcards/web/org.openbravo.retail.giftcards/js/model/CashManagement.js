@@ -1,0 +1,19 @@
+/*
+ ************************************************************************************
+ * Copyright (C) 2017 Openbravo S.L.U.
+ * Licensed under the Openbravo Commercial License version 1.0
+ * You may obtain a copy of the License at http://www.openbravo.com/legal/obcl.html
+ * or in the legal folder of this module distribution.
+ ************************************************************************************
+ */
+
+/*global Backbone */
+
+// Add a property to CashManagement model
+OB.Model.CashManagement.addProperties([{
+  name: 'gcnvGiftCardId',
+  column: 'gcnvGiftCardId',
+  primaryKey: false,
+  filter: false,
+  type: 'TEXT'
+}]);

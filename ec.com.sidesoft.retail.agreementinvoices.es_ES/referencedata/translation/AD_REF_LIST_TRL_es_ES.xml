@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REF_LIST" version="">
+  <row id="33743E8D3F694101A85A91428FCF6962" trl="N">
+    <value column="Name" isTrl="Y" original="Agreements">Convenios</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="8A4ACC6D9C014B2198F36E2465744E69" trl="N">
+    <value column="Name" isTrl="N" original="Agreements">Agreements</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

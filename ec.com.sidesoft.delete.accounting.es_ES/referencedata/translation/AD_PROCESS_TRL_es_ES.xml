@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
+  <row id="074AB47AF5884847A6622DB28CFD891F" trl="N">
+    <value column="Name" isTrl="Y" original="Reset Accounting by Dates">Reinicializar cuentas por fechas</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="Y" original="The reset accounting process allows to totally or partially remove the ledger entries of an organization. The ledger entries can be massively re-created again by using the &quot;Accounting Server Process&quot; or the &quot;G/L Posting by DB Tables&quot; process. The manual changes done for the accounting entries description will obviously be lost after running this process">Reinicializar cuentas permite eliminar registros de la contabilidad de una organización. La contabilidad se puede vover a generar mediante la ejecución del proceso 'Proceso contable' o en la ventana 'Proceso contable'. Los cambios manuales realizados en las descripciones de los asientos se perderán después de ejecutar este proceso.</value>
+  </row>
+</compiereTrl>

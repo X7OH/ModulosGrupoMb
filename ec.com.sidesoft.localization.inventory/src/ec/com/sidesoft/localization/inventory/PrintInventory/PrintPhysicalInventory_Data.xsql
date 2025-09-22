@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *************************************************************************
+ * The contents of this file are subject to the Openbravo  Public  License
+ * Version  1.1  (the  "License"),  being   the  Mozilla   Public  License
+ * Version 1.1  with a permitted attribution clause; you may not  use this
+ * file except in compliance with the License. You  may  obtain  a copy of
+ * the License at http://www.openbravo.com/legal/license.html 
+ * Software distributed under the License  is  distributed  on  an "AS IS"
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+ * License for the specific  language  governing  rights  and  limitations
+ * under the License. 
+ * The Original Code is Openbravo ERP. 
+ * The Initial Developer of the Original Code is Openbravo SLU 
+ * All portions are Copyright (C) 2001-2010 Openbravo SLU 
+ * All Rights Reserved. 
+ * Contributor(s):  ______________________________________.
+ ************************************************************************
+-->
+
+
+
+
+
+<SqlClass name="PrintPhysicalInventoryData" package="ec.com.sidesoft.localization.inventory.PrintInventory">
+   <SqlClassComment></SqlClassComment>
+   <SqlMethod name="select" type="preparedStatement" return="multiple">
+      <SqlMethodComment></SqlMethodComment>
+      <Sql>
+      <![CDATA[SELECT
+	a.ad_org_id as organizationid
+	,a.M_Inventory_id
+	,to_char(a.movementdate,'dd-MM-yyyy') as fechamovimiento
+	--a.documentno
+	,a.em_ssin_documentno as documentno_n
+	,d.name as tipodoc
+	--c.upc as codigobarras
+	,c.value as cod_producto
+	,c.name as producto
+	,e.value|| '/' ||e.name as clasecontable
+	,f.name as unidad
+	--coalesce(b.cost,round((g.TransactionCost/g.movementqty),4)) as costolinea,
+	--case when (coalesce(b.cost,round((g.TransactionCost/g.movementqty),4)))<0 then (coalesce(b.cost,round((g.TransactionCost/g.movementqty),4))) * (-1)  else (coalesce(b.cost,round((g.TransactionCost/g.movementqty),4))) end as costolinea_abs,
+	--,g.movementqty as cantidad
+	--,g.TransactionCost as importe
+	--,a.description
+	--,dt.qtyonhand as cant_teorica
+	,b.QtyBook as cant_teorica
+	,b.QtyCount as cant_total
+	,(b.QtyBook-b.QtyCount) as ajuste
+	,b.m_product_id
+	,COALESCE((
+		SELECT cost
+		FROM m_costing COS
+		WHERE  COS.m_product_id = b.m_product_id
+			AND  a.movementdate between COS.datefrom and COS.dateto
+			AND created = (SELECT MAX(created)
+					FROM  m_costing COSTE
+					WHERE  COSTE.m_product_id = b.m_product_id
+						AND  a.movementdate between COSTE.datefrom and COSTE.dateto)
+		),0) as coste From M_Inventory a left join M_InventoryLine b on a.M_Inventory_id = b.M_Inventory_id
+	left join m_product c on b.m_product_id = c.m_product_id
+	left join c_doctype d on a.em_ssin_doctype_id = d.c_doctype_id
+	left join m_product_category e on c.m_product_category_id = e.m_product_category_id
+	left join c_uom f on c.c_uom_id = f.c_uom_id
+	left join m_transaction g on b.M_InventoryLine_id = g.M_InventoryLine_id
+WHERE a.M_Inventory_id = ? 
+AND a.processed='Y'
+ORDER BY a.ad_org_id,a.em_ssin_documentno,e.value|| '/' ||e.name,c.name
+]]>
+        </Sql>
+        <Parameter name="inventoryid"/>
+   </SqlMethod>
+   <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment></SqlMethodComment>
+      <Sql></Sql>
+  </SqlMethod>
+</SqlClass>
+

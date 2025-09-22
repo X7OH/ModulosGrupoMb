@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_TEXTINTERFACES" version="">
+  <row id="01F2419FE14B448B9512902BFA12A4A6" trl="N">
+    <value column="Text" isTrl="N" original="1st Dimension">1st Dimension</value>
+  </row>
+  <row id="03B6193D8793475FAAC1ACD42B3C96B8" trl="N">
+    <value column="Text" isTrl="Y" original="Document Type">Tipo de documento</value>
+  </row>
+  <row id="04BBB1E53C1B413F80B68490ADBAC96F" trl="N">
+    <value column="Text" isTrl="N" original="Days Due">Days Due</value>
+  </row>
+  <row id="06E5D13B032C4520947888CAE8F12DBE" trl="N">
+    <value column="Text" isTrl="N" original="Broker">Broker</value>
+  </row>
+  <row id="083E2E5B7BF84C11B89939DAD60CE0FF" trl="N">
+    <value column="Text" isTrl="N" original="dd/MM/yyyy">dd/MM/yyyy</value>
+  </row>
+  <row id="0C472997DAF94472B103C691F6BBB140" trl="N">
+    <value column="Text" isTrl="N" original="No.Document">No.Document</value>
+  </row>
+  <row id="0CF0D18C5B0D4FA78D77F0DF5C38D02E" trl="N">
+    <value column="Text" isTrl="N" original="TERCERO">TERCERO</value>
+  </row>
+  <row id="0F9D2AE9622E42D8BCE99A23F9611FAB" trl="N">
+    <value column="Text" isTrl="N" original="Online Business">Online Business</value>
+  </row>
+  <row id="105691615F194EB3A546BCE772C5F812" trl="N">
+    <value column="Text" isTrl="N" original="Date Due">Date Due</value>
+  </row>
+  <row id="1113EC15DDDB4C26B19E771A36110C2D" trl="N">
+    <value column="Text" isTrl="N" original="No. Factura">No. Factura</value>
+  </row>
+  <row id="143B1410773B48069813943854D327E8" trl="N">
+    <value column="Text" isTrl="N" original="TERCERO">TERCERO</value>
+  </row>
+  <row id="1BCEE760D756441F8F2C2689DD8ADCCB" trl="N">
+    <value column="Text" isTrl="N" original="Journey">Journey</value>
+  </row>
+  <row id="1CA9DDDB57E24BBD95867B66C43B6C6B" trl="N">
+    <value column="Text" isTrl="N" original="No.Document">No.Document</value>
+  </row>
+  <row id="1D94EB0433324573A44A6B0562E4C1D6" trl="N">
+    <value column="Text" isTrl="N" original="Cost Center">Cost Center</value>
+  </row>
+  <row id="230B90B1A29949F19B71CE38AD08C7CE" trl="N">
+    <value column="Text" isTrl="N" original="Cost Center">Cost Center</value>
+  </row>
+  <row id="26834A984F964635907AE7A7C9B8AA47" trl="N">
+    <value column="Text" isTrl="N" original="Proyecto;">Proyecto;</value>
+  </row>
+  <row id="34C627C40FF24056A592D77BA9B2443C" trl="N">
+    <value column="Text" isTrl="N" original="Payment Pending">Payment Pending</value>
+  </row>
+  <row id="34C7CCB95B264E79AB2E70D7158C1513" trl="N">
+    <value column="Text" isTrl="N" original="Document Type">Document Type</value>
+  </row>
+  <row id="3709BF0686894B26A2FD95FB72364CD5" trl="N">
+    <value column="Text" isTrl="N" original="Unidad de Gestión:">Unidad de Gestión:</value>
+  </row>
+  <row id="390CC3DB84424AF2B2B6C2269A269AED" trl="N">
+    <value column="Text" isTrl="N" original="Days Due">Days Due</value>
+  </row>
+  <row id="3BF667B96890478BACB55CF1DA08B23A" trl="N">
+    <value column="Text" isTrl="N" original="End Date">End Date</value>
+  </row>
+  <row id="3C1292D55F1A4DDF92A82E7B643ED646" trl="N">
+    <value column="Text" isTrl="N" original="Cost Center">Cost Center</value>
+  </row>
+  <row id="3D59F57038FA4DBBB9ECF375098A3911" trl="N">
+    <value column="Text" isTrl="N" original="Purchase Order Vs Purchase Invoice">Purchase Order Vs Purchase Invoice</value>
+  </row>
+  <row id="49E90EC5969D4E5897BB8ADF9C832567" trl="N">
+    <value column="Text" isTrl="N" original="2nd Dimension">2nd Dimension</value>
+  </row>
+  <row id="4ADE2132B6D547738E74F19D7E3F7CA4" trl="N">
+    <value column="Text" isTrl="N" original="Date Order">Date Order</value>
+  </row>
+  <row id="525E12B1C3B247A7B55C8E5AD88B0279" trl="N">
+    <value column="Text" isTrl="N" original="Online Business">Online Business</value>
+  </row>
+  <row id="5412976E8CC74C9D89C2EB135C28F0DB" trl="N">
+    <value column="Text" isTrl="N" original="Document No">Document No</value>
+  </row>
+  <row id="541CCC5E9162433580F8232A905BF3A3" trl="N">
+    <value column="Text" isTrl="Y" original="Payment Method">Método de pago</value>
+  </row>
+  <row id="5CCEB3FFA59C4F5180942E930E539180" trl="N">
+    <value column="Text" isTrl="N" original="Tercero">Tercero</value>
+  </row>
+  <row id="6084D2488123410CBBAB0056E980753A" trl="N">
+    <value column="Text" isTrl="N" original="Date Due">Date Due</value>
+  </row>
+  <row id="60D7F31779824BC2A0B86345B2732B7A" trl="N">
+    <value column="Text" isTrl="N" original="Cost Center">Cost Center</value>
+  </row>
+  <row id="630ABF4AC704454BA9F7FE63BAFDADA5" trl="N">
+    <value column="Text" isTrl="N" original="Date Due">Date Due</value>
+  </row>
+  <row id="68C5C318720742638B48615FB342C3BE" trl="N">
+    <value column="Text" isTrl="N" original="Subtotal">Subtotal</value>
+  </row>
+  <row id="692B366E2FC246439E71005A486071C4" trl="N">
+    <value column="Text" isTrl="N" original="FECHA CONT.">FECHA CONT.</value>
+  </row>
+  <row id="6D33A068A80E4B14ABC75F96789BC992" trl="N">
+    <value column="Text" isTrl="N" original="FECHA">FECHA</value>
+  </row>
+  <row id="77C18F3A06DF414397BD3A23BF0BD2BD" trl="N">
+    <value column="Text" isTrl="N" original="Group Partner">Group Partner</value>
+  </row>
+  <row id="7C608BE0289240F7996453548E011AD3" trl="N">
+    <value column="Text" isTrl="N" original="TOTAL :">TOTAL :</value>
+  </row>
+  <row id="80B100F064BC4A6493002FEF9F164B86" trl="N">
+    <value column="Text" isTrl="N" original="Document Transaction">Document Transaction</value>
+  </row>
+  <row id="8163C3D460364B49BB5E34D425FA240B" trl="N">
+    <value column="Text" isTrl="N" original="Curso:">Curso:</value>
+  </row>
+  <row id="830A45408B2E4E8D81D2803372EF398B" trl="N">
+    <value column="Text" isTrl="N" original="No.Payment">No.Payment</value>
+  </row>
+  <row id="84822DBEEDB04155B3C20536BDB46484" trl="N">
+    <value column="Text" isTrl="N" original="Vat">Vat</value>
+  </row>
+  <row id="865DEF26D1B24BB7B9299A8042109B42" trl="N">
+    <value column="Text" isTrl="N" original="Customer Voyage">Customer Voyage</value>
+  </row>
+  <row id="88D8E5ECB0CD4EF48FE5414C9BA829A4" trl="N">
+    <value column="Text" isTrl="N" original="ESTADO">ESTADO</value>
+  </row>
+  <row id="88ED0FDEE2AE476CACD366F7C53C9DE3" trl="N">
+    <value column="Text" isTrl="N" original="Shipowner">Shipowner</value>
+  </row>
+  <row id="89BEC82E3D504F8CADBD0AF5E21F4299" trl="N">
+    <value column="Text" isTrl="N" original="Details Sales Invoices">Details Sales Invoices</value>
+  </row>
+  <row id="8A60359A22F34BF4A7D654F9548E48BD" trl="N">
+    <value column="Text" isTrl="N" original="Days Due">Days Due</value>
+  </row>
+  <row id="8D8C46E78D5B47DD8ABFEA9EE2BE74C1" trl="N">
+    <value column="Text" isTrl="N" original="No.Payment">No.Payment</value>
+  </row>
+  <row id="8F10F41AE173443C9FB6689FBD3208E1" trl="N">
+    <value column="Text" isTrl="N" original="Resume Sales Invoices">Resume Sales Invoices</value>
+  </row>
+  <row id="91447F15EB2C47A3AE1A90251A2F6366" trl="N">
+    <value column="Text" isTrl="N" original="Cost Center">Cost Center</value>
+  </row>
+  <row id="92A5E5EACA9A4AD599C5EB0BF45F5663" trl="N">
+    <value column="Text" isTrl="N" original="No.Payment">No.Payment</value>
+  </row>
+  <row id="94F9283E73564CB39ED1AE7D8E684488" trl="N">
+    <value column="Text" isTrl="N" original="Document Transaction">Document Transaction</value>
+  </row>
+  <row id="97A6D596BB30498D98CE57902F99B5AF" trl="N">
+    <value column="Text" isTrl="N" original="Resume Sales Invoices">Resume Sales Invoices</value>
+  </row>
+  <row id="9A26B876F0294A8F856F36B70F416247" trl="N">
+    <value column="Text" isTrl="N" original="Days Due">Days Due</value>
+  </row>
+  <row id="9A958C7793D348588D0443BFC9F36B2C" trl="N">
+    <value column="Text" isTrl="N" original="ESTADO">ESTADO</value>
+  </row>
+  <row id="9B50049949994C509CD8DD9E3B643FE6" trl="N">
+    <value column="Text" isTrl="N" original="No.Payment">No.Payment</value>
+  </row>
+  <row id="9DD744C6AE114615818547A82053411F" trl="N">
+    <value column="Text" isTrl="N" original="Customer Voyage">Customer Voyage</value>
+  </row>
+  <row id="9DF7FCBC459F445289CAD1768EE8625A" trl="N">
+    <value column="Text" isTrl="N" original="Date Due">Date Due</value>
+  </row>
+  <row id="9E297397A07648DD98108ED8A2E48922" trl="N">
+    <value column="Text" isTrl="N" original="Provider">Provider</value>
+  </row>
+  <row id="A3356EF46DC54753BEB3050F4315F461" trl="N">
+    <value column="Text" isTrl="N" original="Owner">Owner</value>
+  </row>
+  <row id="A3EDBC0024ED456B815E7BED8B85E79E" trl="N">
+    <value column="Text" isTrl="N" original="SUBTOTAL">SUBTOTAL</value>
+  </row>
+  <row id="A4476B5091AE4BA8ADBD9A6029BD5E0E" trl="N">
+    <value column="Text" isTrl="N" original="Broker">Broker</value>
+  </row>
+  <row id="A94A2354EE8947848F5C02DAB11FE5D6" trl="N">
+    <value column="Text" isTrl="N" original="Recap">Recap</value>
+  </row>
+  <row id="AAD4839606E443D68A02C21E1C102605" trl="N">
+    <value column="Text" isTrl="Y" original="Subtotal">Sub Total</value>
+  </row>
+  <row id="ACBCA988B9C14C6793CA778DECA4EAE7" trl="N">
+    <value column="Text" isTrl="N" original="Reporte Cuadre de Ventas">Reporte Cuadre de Ventas</value>
+  </row>
+  <row id="AE48BC93DE7A4F95AA620AD5F003FA97" trl="N">
+    <value column="Text" isTrl="N" original="Hold Vat">Hold Vat</value>
+  </row>
+  <row id="AEBD4451684145E5ABF3D16F86E148FC" trl="N">
+    <value column="Text" isTrl="N" original="No.DOC.">No.DOC.</value>
+  </row>
+  <row id="AF61B3F84E2B4F3EBF2F47796BB8D9AE" trl="N">
+    <value column="Text" isTrl="N" original="Reporte Cuadre de Compras">Reporte Cuadre de Compras</value>
+  </row>
+  <row id="B076624981F742E2AA03852F3A82569D" trl="N">
+    <value column="Text" isTrl="N" original="Recap">Recap</value>
+  </row>
+  <row id="B1D9E80B85FD45CE8A85BEBFDCEDEE5F" trl="N">
+    <value column="Text" isTrl="N" original="Date Due">Date Due</value>
+  </row>
+  <row id="B476D18E33024FB1BC8D8F03C1CE381D" trl="N">
+    <value column="Text" isTrl="N" original="Fecha Hasta:">Fecha Hasta:</value>
+  </row>
+  <row id="B63058C4536A40A8B043B72EAAD904EB" trl="N">
+    <value column="Text" isTrl="N" original="Details Sales Invoices">Details Sales Invoices</value>
+  </row>
+  <row id="BC417F1733E3418D887E2B27625DB148" trl="N">
+    <value column="Text" isTrl="N" original="IVA">IVA</value>
+  </row>
+  <row id="BC8853D4CF6243CBAF791240703D2C35" trl="N">
+    <value column="Text" isTrl="N" original="No.Document">No.Document</value>
+  </row>
+  <row id="BDDD065A3A704107A5F756AAA919FB8C" trl="N">
+    <value column="Text" isTrl="N" original="Request No.">Request No.</value>
+  </row>
+  <row id="BEECD1EC32D543DFAFE9A33A6689B9C9" trl="N">
+    <value column="Text" isTrl="N" original="TOTAL SIN RET.">TOTAL SIN RET.</value>
+  </row>
+  <row id="C1ECEE930482441493BEFDA05D7B09F1" trl="N">
+    <value column="Text" isTrl="N" original="RUC">RUC</value>
+  </row>
+  <row id="C2C6B41E4C1449E48C0A02E73BF1F009" trl="N">
+    <value column="Text" isTrl="N" original="Invoice Date">Invoice Date</value>
+  </row>
+  <row id="C64418B5A4C84CF9A3FC286DC6D3A8CE" trl="N">
+    <value column="Text" isTrl="N" original="Expected Amount">Expected Amount</value>
+  </row>
+  <row id="C668CFD112524723A95C66C9D4FF98E7" trl="N">
+    <value column="Text" isTrl="N" original="FECHA CONT.">FECHA CONT.</value>
+  </row>
+  <row id="C7F44ED6BC97464AA420EEE66524B32F" trl="N">
+    <value column="Text" isTrl="N" original="No.Document">No.Document</value>
+  </row>
+  <row id="DA5E692E26864F428D0FBE44D76D86E9" trl="N">
+    <value column="Text" isTrl="N" original="Payment Pending">Payment Pending</value>
+  </row>
+  <row id="DC06B6B10AE64A0EB51388D0C70B2FE0" trl="N">
+    <value column="Text" isTrl="N" original="IVA">IVA</value>
+  </row>
+  <row id="DC6FC32254314D58A5FE46D73698AC9C" trl="N">
+    <value column="Text" isTrl="Y" original="Provider">Proveedor</value>
+  </row>
+  <row id="DD3E2BF37F15457BBB7E2C3D0DAF2517" trl="N">
+    <value column="Text" isTrl="N" original="TOTAL :">TOTAL :</value>
+  </row>
+  <row id="DDD48B2CEBDE4874BB3AD81B3614F6B2" trl="N">
+    <value column="Text" isTrl="N" original="Voyage">Voyage</value>
+  </row>
+  <row id="E02097DDF163460A87350C17A978D87A" trl="N">
+    <value column="Text" isTrl="N" original="Document Transaction">Document Transaction</value>
+  </row>
+  <row id="E2255073713D4A9BA657773D542243AF" trl="N">
+    <value column="Text" isTrl="N" original="Group Partner">Group Partner</value>
+  </row>
+  <row id="E46B80569C5D484DADBA1AF43DBEF8A9" trl="N">
+    <value column="Text" isTrl="N" original="No.DOC.">No.DOC.</value>
+  </row>
+  <row id="E4F7C90ACB6D4CD98D05AA973CE4891B" trl="N">
+    <value column="Text" isTrl="N" original="Reporte General de Ventas por Centro de Costo">Reporte General de Ventas por Centro de Costo</value>
+  </row>
+  <row id="E54E349B498C40BC883E967FDA52F8A4" trl="N">
+    <value column="Text" isTrl="N" original="Payment Pending">Payment Pending</value>
+  </row>
+  <row id="E7C8349E55E14A0C8F559E848EE9B1C6" trl="N">
+    <value column="Text" isTrl="N" original="Hold Income">Hold Income</value>
+  </row>
+  <row id="EA48FBA86513408DB100C8BCB5C3753B" trl="N">
+    <value column="Text" isTrl="N" original="Document Transaction">Document Transaction</value>
+  </row>
+  <row id="F32D9367A7AA4F9BB20FD74BFA62787C" trl="N">
+    <value column="Text" isTrl="Y" original="User">Usuario</value>
+  </row>
+  <row id="F78A35E855E34CB1A23AA79E0247F353" trl="N">
+    <value column="Text" isTrl="N" original="RUC">RUC</value>
+  </row>
+  <row id="F826937826DA444EB54B403BDC6257E8" trl="N">
+    <value column="Text" isTrl="N" original="Fecha Desde:">Fecha Desde:</value>
+  </row>
+  <row id="F84E4B46DE654DBE87E4CFF518695D49" trl="N">
+    <value column="Text" isTrl="N" original="FECHA">FECHA</value>
+  </row>
+  <row id="FA20859CA3494535B4D33FA5AD364556" trl="N">
+    <value column="Text" isTrl="N" original="Payment Pending">Payment Pending</value>
+  </row>
+  <row id="FE45231A457340F6A593F7A2FD41EAEF" trl="N">
+    <value column="Text" isTrl="Y" original="End Date">Fecha final</value>
+  </row>
+</compiereTrl>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
+  <row id="16353865E1DD4C28AFDEDA9014CC8EFC" trl="Y">
+    <value column="Name" isTrl="Y" original="SWSOC_DeliveryType">Lista Tipo de Delivery Pag. WEB</value>
+    <value column="Description" isTrl="Y" original="WS Delivery Type">Lista Tipo de Delivery Pag. WEB</value>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="E731AB6335844498B68ECBF6C0D71429" trl="N">
+    <value column="Name" isTrl="N" original="SWSOC_Taxpayer">SWSOC_Taxpayer</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

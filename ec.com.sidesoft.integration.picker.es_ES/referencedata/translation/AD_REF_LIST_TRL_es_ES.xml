@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REF_LIST" version="">
+  <row id="0D9CB7ECE52F4B458C51F86E0F85B3C0" trl="N">
+    <value column="Name" isTrl="N" original="Arrived at Pick Up">Arrived at Pick Up</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="2BD3B7B792A84D348B7515254A64B603" trl="N">
+    <value column="Name" isTrl="N" original="Returning">Returning</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="377FA925A9D34E82AFDBED9533E96347" trl="N">
+    <value column="Name" isTrl="N" original="Way to Deliver">Way to Deliver</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="40FAD05CEEA449708BE05FD28EEBC174" trl="N">
+    <value column="Name" isTrl="N" original="Not Delivered">Not Delivered</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="5219933B28BB4DF59C024350F39E2676" trl="N">
+    <value column="Name" isTrl="N" original="Arrived at Delivery">Arrived at Delivery</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="54C759659A1E4DC9BC9F3F37C444823E" trl="N">
+    <value column="Name" isTrl="N" original="CASH">CASH</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="74619EA9DD4540FAAF5D3D65A9394990" trl="N">
+    <value column="Name" isTrl="N" original="Cancelled by Business">Cancelled by Business</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="84E740EDF6EB4E3BBDDC5788418534BF" trl="N">
+    <value column="Name" isTrl="N" original="Cancelled by Delivery Provider">Cancelled by Delivery Provider</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="88BB8DA41D174D71A2224197E3A34CFF" trl="N">
+    <value column="Name" isTrl="N" original="Cancelled by Admin">Cancelled by Admin</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="96372F4D0EB441B794482F6C54FB10A9" trl="N">
+    <value column="Name" isTrl="N" original="Ready for Pick Up">Ready for Pick Up</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="96AB888E60584E629E2305520BC03A12" trl="N">
+    <value column="Name" isTrl="N" original="DRIVER_ASSIGNED">DRIVER_ASSIGNED</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="96F8EE25721A4903BA23087495AAC5AB" trl="N">
+    <value column="Name" isTrl="N" original="On Hold">On Hold</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="ADCA7542B9374B82BE2EC9A4D455C029" trl="N">
+    <value column="Name" isTrl="N" original="Provider not Found">Provider not Found</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="B03B119728E34880BC64CD8FDC4EE16C" trl="N">
+    <value column="Name" isTrl="N" original="UPDATE_BOOKING_STATUS">UPDATE_BOOKING_STATUS</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="B2DDF5E999F54FA984DA4DA2AD1FD26F" trl="N">
+    <value column="Name" isTrl="N" original="Completed">Completed</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="C73B5E94C46B49E68229C573DD0B480A" trl="N">
+    <value column="Name" isTrl="N" original="CARD">CARD</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="D34EB279C43448C097F98B352F8FE57A" trl="N">
+    <value column="Name" isTrl="N" original="Returned">Returned</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="EA995302F0374636BF1E07DC23F65FEE" trl="N">
+    <value column="Name" isTrl="N" original="Accepted">Accepted</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

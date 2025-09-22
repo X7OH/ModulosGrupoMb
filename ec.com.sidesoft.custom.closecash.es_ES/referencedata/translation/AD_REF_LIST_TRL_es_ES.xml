@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REF_LIST" version="">
+  <row id="20C076B9CE1B452F9C007AE0E3DA0E9E" trl="Y">
+    <value column="Name" isTrl="Y" original="Processed">Procesado</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="32F54EB0E5F845B5AA8A5752BCCDA79C" trl="Y">
+    <value column="Name" isTrl="Y" original="Record">Registrar</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="3F7323044B9344208805C687C7E0B32F" trl="Y">
+    <value column="Name" isTrl="Y" original="Income">Ingresos</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="6FDFD29646354F7AB7B35C159D02FF64" trl="Y">
+    <value column="Name" isTrl="Y" original="Load lines">Cargar Líneas</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="D2829307EDB74487AEBECDBB9EA367A9" trl="Y">
+    <value column="Name" isTrl="Y" original="Expenses">Egresos</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+  <row id="EBFB9BD4ED874F2E9CD9C3D0DF7A8EAE" trl="Y">
+    <value column="Name" isTrl="Y" original="Registered">Registrado</value>
+    <value column="Description" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

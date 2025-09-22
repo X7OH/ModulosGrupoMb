@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_ELEMENT" version="">
+  <row id="1C8156241AD54433B907C1F201061867" trl="N">
+    <value column="Name" isTrl="Y" original="User">Usuario</value>
+    <value column="PrintName" isTrl="Y" original="User">Usuario</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="26C63FC09C714F7D89A42BB62EE15848" trl="N">
+    <value column="Name" isTrl="Y" original="Requires transfer authorization">Requiere autorización del Supervisor</value>
+    <value column="PrintName" isTrl="Y" original="Requires transfer authorization">Requiere autorización del Supervisor</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="6BF0BF9C3F094082A6A5A68A619A93A0" trl="N">
+    <value column="Name" isTrl="Y" original="Generate Code">Generar Código</value>
+    <value column="PrintName" isTrl="Y" original="Generate Code">Generar Código</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="A3B875F1F56F4139B15B6823EB18F34F" trl="N">
+    <value column="Name" isTrl="Y" original="Authorization Code">Código de autorización</value>
+    <value column="PrintName" isTrl="Y" original="Authorization Code">Código de autorización</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="A4D9B4DB65A345088A481CD6880B8278" trl="N">
+    <value column="Name" isTrl="Y" original="Date of code generation">Fecha de generación de código</value>
+    <value column="PrintName" isTrl="Y" original="Date of code generation">Fecha de generación de código</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="D2459F388F5D4EB18A94215A40FA9517" trl="N">
+    <value column="Name" isTrl="Y" original="Code Authorization">Código de autorización</value>
+    <value column="PrintName" isTrl="Y" original="Code Authorization">Código de autorización</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="F8480E7F34AE4F4DB9DA26B0CEEE0212" trl="N">
+    <value column="Name" isTrl="N" original="Supervisor">Supervisor</value>
+    <value column="PrintName" isTrl="N" original="Supervisor">Supervisor</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+  <row id="FC40ACD6F6284C279FF9D27A2DDF8E11" trl="N">
+    <value column="Name" isTrl="N" original="Stat_User_Doc_ID">Stat_User_Doc_ID</value>
+    <value column="PrintName" isTrl="N" original="Stat_User_Doc_ID">Stat_User_Doc_ID</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+    <value column="PO_Description" isTrl="N" original=""/>
+    <value column="PO_Help" isTrl="N" original=""/>
+    <value column="PO_Name" isTrl="N" original=""/>
+    <value column="PO_PrintName" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

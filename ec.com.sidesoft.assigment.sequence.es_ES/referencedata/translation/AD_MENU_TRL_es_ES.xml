@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="E3C8E331F3C847E3AF78BF988A8F503A" trl="Y">
+    <value column="Name" isTrl="Y" original="Assigment Sequence">Asignar Secuencias</value>
+    <value column="Description" isTrl="N" original="Asignar secuencias">Asignar secuencias</value>
+  </row>
+</compiereTrl>

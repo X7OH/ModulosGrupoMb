@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE MRP_SALESFORECAST">
+    <table name="MRP_SALESFORECAST" primaryKey="MRP_SALESFORECAST_KEY">
+      <column name="EM_SCMF_TYPESALESFORECAST" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SCMF_HISTORYMONTH" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SCMF_YEARSNUMBER" primaryKey="false" required="false" type="DECIMAL" size="5,0" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SCMF_HISTORYDAYS" primaryKey="false" required="false" type="DECIMAL" size="5,0" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SCMF_DAYFORECAST" primaryKey="false" required="false" type="VARCHAR" size="5" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SCMF_PROCESSFORECAST" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+    </table>
+  </database>

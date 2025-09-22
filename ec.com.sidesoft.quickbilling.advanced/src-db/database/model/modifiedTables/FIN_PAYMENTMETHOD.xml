@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE FIN_PAYMENTMETHOD">
+    <table name="FIN_PAYMENTMETHOD" primaryKey="FIN_PAYMENT_METHOD_KEY">
+      <column name="EM_SAQB_CALL_CENTER" primaryKey="false" required="false" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="EM_SAQB_TYPE_CALL_CENTER" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <check name="EM_SAQB_CALL_CENTER_CHECK"><![CDATA[EM_SAQB_CALL_CENTER IN ('Y', 'N')]]></check>
+    </table>
+  </database>

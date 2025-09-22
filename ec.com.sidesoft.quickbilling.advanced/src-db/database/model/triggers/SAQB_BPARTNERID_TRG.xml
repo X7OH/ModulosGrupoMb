@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER SAQB_BPARTNERID_TRG">
+    <trigger name="SAQB_BPARTNERID_TRG" table="SAQB_ORDER" fires="before" insert="true" update="true" delete="false" foreach="row">
+      <body><![CDATA[
+    v_partnerid VARCHAR(32); --OBTG:varchar2;
+
+BEGIN
+ 
+  IF AD_isTriggerEnabled()='N' THEN RETURN;
+  END IF;
+ 
+  IF INSERTING OR UPDATING THEN
+  
+	SELECT a.c_bpartner_id INTO v_partnerid FROM c_bpartner a    
+	WHERE taxid = :new.cif_nif;
+
+	IF (v_partnerid IS NULL) THEN
+		:new.c_bpartner_id := NULL;
+		:new.c_bpartner_location_id := NULL;
+		:new.c_bpartner_location_fac_id := NULL;
+	END IF;
+     
+  END IF;
+
+  END SAQB_BPARTNERID_TRG
+]]></body>
+    </trigger>
+  </database>

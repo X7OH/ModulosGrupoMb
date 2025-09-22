@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MESSAGE" version="">
+  <row id="0BBD8406D2C745E299CD5E42A2CA3986" trl="Y">
+    <value column="MsgText" isTrl="N" original="Doctor">Doctor</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="0F5AA5C6ABCC49E58BC175136CF26312" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Descripción">Descripción</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="0FC47DB94AB84F9FA4EFED0A1A96642D" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Usted fue atendido por:">Usted fue atendido por:</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="156A58B4D52242AB81A2A94808580B48" trl="Y">
+    <value column="MsgText" isTrl="Y" original="CI Comprador">CI Comprador</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="162B66E2DF5A482396098A5F2915FA53" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Nombre/Apellido">Nombre/Apellido</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="1A9B88AAD9DC4578BAE92E01F9FF2661" trl="Y">
+    <value column="MsgText" isTrl="Y" original="RUC Invalido">RUC Invalido</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="45C9A3855F694BF8A23AE5D5021B64A7" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Cant.">Cant.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="4AFD5A06EA9E4CC19EEC53973647B65F" trl="Y">
+    <value column="MsgText" isTrl="Y" original="En esta compro ud. ha ahorrado">En esta compra ud. ha ahorrado   $</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="4D4BAC649438481A9B92656FF51CB647" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Pedido No:">Pedido No:</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="62E17CF3AB9648EDA7F16CC5BFEEF0E9" trl="Y">
+    <value column="MsgText" isTrl="N" original="Total">Total</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="68CE919ABCB84378BACBDCFD7BE6D99E" trl="Y">
+    <value column="MsgText" isTrl="Y" original="RUC/CI:">RUC/CI:</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="719EF49F99E54213A4B041DEB62D210E" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Esto equivale a ">Esto equivale a </value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="72B3378B6F274D308AB213A39DC197FF" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Cedula Invalida">Cedula Invalida</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="757021CF9D51464A8D20947B3C432F21" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Ciudad">Ciudad</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="75E3874ABF554C678C9E88A829756DBD" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Tipo de Identificador">Tipo de identificador</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="77ACAFABB5EF4E8D91D025C4DBC7E78C" trl="Y">
+    <value column="MsgText" isTrl="N" original="No Serial Presc.">No Serial Presc.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="7E1F3F8CFEEA4617A3633543394782BA" trl="Y">
+    <value column="MsgText" isTrl="N" original="Subtotal">Subtotal</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="7F9ADB6D4DB34A84885BE98EAB90F152" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Dirección:">Dirección:</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="94EF4F422B7E49B582D74CA89B5C586C" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Cédula o ID Invalidos">Cédula o ID Invalidos</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="99962E39BAC84880BD46AE1F571F6CB7" trl="Y">
+    <value column="MsgText" isTrl="N" original="IVA 12%">IVA 12%</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="9B3746DFB7DF4636B170311DEBC46D52" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Fecha de Presc. (yyyy-MM-dd)">Fecha de Presc. (yyyy-MM-dd)</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="9BC9B10765044999A0396437F7299666" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Cambio">Cambio</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="A2A3ADDA2240439C94897BFB904EC887" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Deducible">Deducible</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="A4D09DCE681C4D8FA5139BABF35CDC6A" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Subtotal 12%">Subtotal 12%</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="A631076A19B3415AA676A5E3292FF8B5" trl="Y">
+    <value column="MsgText" isTrl="Y" original="PVP">PVP</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="B301DFED3B0940079A4062B6CAB8ECC8" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Region">Region</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="BCD1A7193A0842AF85D74E7CAA6F17D3" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Cantidad de productos vendida">Items vendidos</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="BEA795D2E47C476D8E76823E47F72331" trl="Y">
+    <value column="MsgText" isTrl="Y" original="La cedula ya existe.">La cedula ya existe.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="C3D662729E12438BB42965627784E08A" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Subtotal 0%">Subtotal 0%</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="DAEE94B631564E569D5A84CABCFCE418" trl="N">
+    <value column="MsgText" isTrl="Y" original="La cedula o ID no puede estar vacio.">La cedula o ID no puede estar vacio.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="DD69256B17A945FE8BF66FEBEB8127DB" trl="Y">
+    <value column="MsgText" isTrl="Y" original="PVF">PVF</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="DE3D6CAA80EC4B1E8D3F262149FAB202" trl="Y">
+    <value column="MsgText" isTrl="Y" original="de descuento">de descuento</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="EF20911D1A62435F8F32B6B99F963296" trl="Y">
+    <value column="MsgText" isTrl="Y" original="El cliente ya existe.">El cliente ya existe.</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="F1C9A2B54951489F8964E7853F3F91DE" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Fecha Emisión:">Fecha Emisión:</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+  <row id="FC7BD69D026049B8869DAA34F434BCCA" trl="Y">
+    <value column="MsgText" isTrl="Y" original="Cliente:">Cliente:</value>
+    <value column="MsgTip" isTrl="N" original=""/>
+  </row>
+</compiereTrl>

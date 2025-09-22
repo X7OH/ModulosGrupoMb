@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+  <vector>
+    <versionInfo version="3.0.33196"/>
+    <columnDataChange tablename="AD_FIELD" columnname="DISPLAYLOGIC" pkRow="1083">
+      <oldValue><![CDATA[@DocStatus@!'VO'&@DocStatus@!'CL'&@DocStatus@!'TMP']]></oldValue>
+      <newValue><![CDATA[@DocStatus@!'VO'&@DocStatus@!'CL'&@DocStatus@!'TMP'&@DocStatus@!'DR']]></newValue>
+    </columnDataChange>
+  </vector>

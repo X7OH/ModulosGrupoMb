@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
+  <row id="5AD1588C3A99464F8D116DA31F6E5221" trl="Y">
+    <value column="Name" isTrl="N" original="Picker">Picker</value>
+    <value column="Description" isTrl="N" original="Picker">Picker</value>
+  </row>
+  <row id="641576D5EFAD46C3BB28D75B3B1238BA" trl="N">
+    <value column="Name" isTrl="Y" original="Picker Config">Picker Configuracion</value>
+    <value column="Description" isTrl="Y" original="Picker Config">Picker Configuracion</value>
+  </row>
+  <row id="733E6871115C4CD990F6A6E149A35F21" trl="Y">
+    <value column="Name" isTrl="N" original="Picker Webhooks">Picker Webhooks</value>
+    <value column="Description" isTrl="N" original="Picker Webhooks">Picker Webhooks</value>
+  </row>
+  <row id="9BD12877761E40139B69C3FEB9EDCCCD" trl="Y">
+    <value column="Name" isTrl="N" original="Picker Logs">Picker Logs</value>
+    <value column="Description" isTrl="N" original="Picker Logs">Picker Logs</value>
+  </row>
+</compiereTrl>

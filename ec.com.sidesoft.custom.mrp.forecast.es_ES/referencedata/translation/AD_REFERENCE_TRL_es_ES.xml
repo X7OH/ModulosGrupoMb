@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
+  <row id="23263FB3975A4202A3ABE9C650C1E27D" trl="N">
+    <value column="Name" isTrl="N" original="Scmf_StoreType">Scmf_Tipo de Tienda</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="25E5CF7953E5498BAC58F6874A355653" trl="N">
+    <value column="Name" isTrl="N" original="Scmf_Organization">Scmf_Organizacion </value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="31FE4C25592842E9839C0045F623FEAA" trl="N">
+    <value column="Name" isTrl="N" original="Scmf_listTypestore">Scmf_lista tipo almacenamiento</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="4CB85CACE8DB403AB3644351D48BF5F2" trl="N">
+    <value column="Name" isTrl="N" original="Scmf_SubCategory">Scmf_SubCategoria</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="5B8E81A6BFC247DBB7504F1DB477F360" trl="N">
+    <value column="Name" isTrl="N" original="Scmf_AllSelectedOrUnselect">Scmf_Todos los seleccionados o no seleccionados</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="9BC60910F540407AA15929215BBECD39" trl="N">
+    <value column="Name" isTrl="N" original="Scmf_listmonts">Scmf_lista de meses</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="A0FBAB6372344B09B7014E8DCC65B72E" trl="N">
+    <value column="Name" isTrl="N" original="Scmf_high_season">Scmf_Temporada Alta</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+  <row id="F9FA439794D3477D842158E1C35AEB6A" trl="N">
+    <value column="Name" isTrl="N" original="Scmf_listsalesforecast">Scmf_lista de previsión de ventas</value>
+    <value column="Description" isTrl="N" original=""/>
+    <value column="Help" isTrl="N" original=""/>
+  </row>
+</compiereTrl>
