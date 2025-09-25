@@ -39,7 +39,9 @@ import org.openbravo.model.financialmgmt.payment.PaymentTerm;
 import org.openbravo.model.financialmgmt.payment.PaymentTermTrl;
 import org.openbravo.model.financialmgmt.tax.TaxRate;
 import org.openbravo.model.pricing.pricelist.PriceList;
-import org.openbravo.model.pricing.pricelist.ProductPrice;
+import org.openbravo.model.pricing.pricelist.ProductPrice; 
+
+import org.openbravo.model.materialmgmt.cost.Costing;
 
 /**
  *
@@ -495,8 +497,8 @@ public class MasterData extends HttpBaseServlet {
                         && p.getPricingProductPriceList().get(0) != null) {
                     standardPrice = p.getPricingProductPriceList().get(0).getStandardPrice().toString();
                 } else {
-                    if (p.getStandardCost() != null) {
-                        standardPrice = p.getStandardCost().toString();
+                    if (p.getStandardQuantity() != null) {
+                        standardPrice = p.getStandardQuantity().toString();
                     }
                 }
                 
