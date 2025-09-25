@@ -34,6 +34,7 @@ import org.openbravo.retail.config.CashManagementEvents;
 import org.openbravo.retail.config.OBRETCOProductList;
 import org.openbravo.retail.copystore.process.CopyStoreProcess.LogLevel;
 import org.openbravo.retail.copystore.process.CopyStoreProcess.ProcessType;
+import org.openbravo.retail.copystore.process.CopyStoreProcess;
 import org.openbravo.retail.posterminal.OBPOSAppPayment;
 import org.openbravo.retail.posterminal.OBPOSApplications;
 import org.openbravo.retail.posterminal.TerminalType;
@@ -534,8 +535,10 @@ public class DefaultPropertiesHandler {
       @Override
       public void handleProperty(BaseOBObject originalObject, BaseOBObject newObject,
           CopyStoreProcess process) {
-        DocumentType newDoc = process.getDocumentType(((TerminalTypePaymentMethod) originalObject)
-            .getDocumentType());
+        DocumentType newDoc = null;
+//        DocumentType newDoc = process.getDocumentType(((TerminalTypePaymentMethod) originalObject)
+//            .getDocumentType());
+////            .getObposTerminaltype().getDocumentType());
         newObject.set("documentType", newDoc);
       }
     }
