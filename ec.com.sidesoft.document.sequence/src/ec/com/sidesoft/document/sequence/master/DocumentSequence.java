@@ -22,7 +22,7 @@ import org.openbravo.model.common.enterprise.Organization;
 import org.openbravo.model.common.enterprise.OrganizationTree;
 import org.openbravo.retail.posterminal.OBPOSApplications;
 import org.openbravo.retail.posterminal.ProcessHQLQuery;
-import org.openbravo.retail.posterminal.master.Brand;
+import ec.com.sidesoft.document.sequence.master.Brand;
 
 import ec.com.sidesoft.document.sequence.PoinOfSaleSequenceLine;
 import ec.com.sidesoft.document.sequence.PointOfSaleSeq;
