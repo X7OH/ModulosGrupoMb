@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_PROCESS" version="">
-  <row id="5351712B001F4956A6E33999CAF18324" trl="N">
-    <value column="Name" isTrl="Y" original="Reload">Recargas</value>
-    <value column="Description" isTrl="N" original=""/>
-    <value column="Help" isTrl="N" original=""/>
-  </row>
-</compiereTrl>

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_REFERENCE" version="">
-  <row id="7E67C5284F30485B80974A54D9D5E435" trl="N">
-    <value column="Name" isTrl="N" original="Price List Inventory Reports">Reporte de inventario de Lista de precios </value>
-    <value column="Description" isTrl="N" original="Price List">Reporte de inventario de Lista de precios</value>
-    <value column="Help" isTrl="N" original=""/>
-  </row>
-</compiereTrl>

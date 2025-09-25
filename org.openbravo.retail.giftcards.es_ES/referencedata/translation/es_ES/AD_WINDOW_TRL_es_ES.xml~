@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_WINDOW" version="">
-  <row id="059C75147CC74DBCB85D04FEA1AEF24A" trl="N">
-    <value column="Name" isTrl="N" original="Gift card instance">Tarjetas regalo instanciadas</value>
-    <value column="Description" isTrl="N" original="Instances of gift cards">Tarjetas regalo instanciadas</value>
-    <value column="Help" isTrl="N" original="Describes the instances of active gift cards.">Muestra las tarjetas regalo utilizadas</value>
-  </row>
-</compiereTrl>

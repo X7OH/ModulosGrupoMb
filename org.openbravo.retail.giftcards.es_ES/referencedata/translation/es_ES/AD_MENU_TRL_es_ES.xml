@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<compiereTrl baseLanguage="en_US" language="es_ES" table="AD_MENU" version="">
-  <row id="7BBF96D33D744FA4BC6F20A3B3E4ACD8" trl="N">
-    <value column="Name" isTrl="Y" original="Gift card instance">Tarjetas regalo instanciadas</value>
-    <value column="Description" isTrl="Y" original="Instances of gift cards">Tarjetas regalo instanciadas</value>
-  </row>
-</compiereTrl>

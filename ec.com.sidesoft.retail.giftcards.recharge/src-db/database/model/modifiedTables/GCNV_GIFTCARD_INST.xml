@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-  <database name="MODIFIED TABLE GCNV_GIFTCARD_INST">
-    <table name="GCNV_GIFTCARD_INST" primaryKey="GCNV_GIFTCARD_INST_KEY">
-      <column name="EM_SRGRC_RECHARGE" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
-        <default/>
-        <onCreateDefault/>
-      </column>
-    </table>
-  </database>
